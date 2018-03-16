@@ -22,7 +22,15 @@ namespace MVCIntegratie.Controllers
 
       public ActionResult Contact()
       {
-         ViewBag.Message = "Your contact page.";
+         ViewBag.Message = "Contact paginake";
+
+         return View();
+      }
+
+      public ActionResult TestView()
+      {
+         ViewBag.Title = "test";
+         ViewBag.Message = "testestest";
 
          return View();
       }
