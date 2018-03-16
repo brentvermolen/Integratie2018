@@ -26,13 +26,5 @@ namespace MVCIntegratie.Controllers
 
          return View();
       }
-
-      public ActionResult TestView()
-      {
-         ViewBag.Title = "test";
-         ViewBag.Message = "testestest";
-
-         return View();
-      }
    }
 }
