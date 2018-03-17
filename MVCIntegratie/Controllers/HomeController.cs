@@ -13,7 +13,9 @@ namespace MVCIntegratie.Controllers
       public ActionResult Index()
       {
          Integratie2018Context ctx = new Integratie2018Context();
-         List<Bericht> Berichten = ctx.Berichten.ToList();
+         List<Bericht> berichten = ctx.Berichten.ToList();
+
+         berichten.ToString();
 
          return View();
       }
