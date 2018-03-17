@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL;
+using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +12,9 @@ namespace MVCIntegratie.Controllers
    {
       public ActionResult Index()
       {
+         Integratie2018Context ctx = new Integratie2018Context();
+         List<Bericht> Berichten = ctx.Berichten.ToList();
+
          return View();
       }
 
@@ -22,7 +27,7 @@ namespace MVCIntegratie.Controllers
 
       public ActionResult Contact()
       {
-         ViewBag.Message = "Contact paginake";
+         ViewBag.Message = "Your contact page.";
 
          return View();
       }
