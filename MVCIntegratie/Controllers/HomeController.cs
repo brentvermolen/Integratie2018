@@ -1,5 +1,7 @@
-﻿using DAL;
-using Domain;
+﻿using BL;
+using BL.Domain;
+using BL.Domain.BerichtKlassen;
+using BL.Domain.ItemKlassen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,12 @@ namespace MVCIntegratie.Controllers
 {
    public class HomeController : Controller
    {
+      private IBerichtManager mng = new BerichtManager();
+
       public ActionResult Index()
       {
-         Integratie2018Context ctx = new Integratie2018Context();
-         List<Bericht> Berichten = ctx.Berichten.ToList();
+         List<Persoon> personen = mng.GetPersonen().ToList();
+         List<Woord> woorden = mng.GetWoorden().ToList();
 
          return View();
       }
