@@ -7,8 +7,8 @@
     <ProjectGuid>{279C2978-6215-4D50-9741-4D89827EFB93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain</RootNamespace>
-    <AssemblyName>Domain</AssemblyName>
+    <RootNamespace>BL.Domain</RootNamespace>
+    <AssemblyName>BL.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bericht.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="BerichtKlassen\Hashtag.cs" />
+    <Compile Include="BerichtKlassen\Mention.cs" />
+    <Compile Include="ItemKlassen\Persoon.cs" />
+    <Compile Include="BerichtKlassen\Url.cs" />
+    <Compile Include="BerichtKlassen\Woord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
