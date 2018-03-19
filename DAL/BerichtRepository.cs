@@ -134,7 +134,13 @@ namespace DAL
 
       public Bericht ReadBericht(string berichtID)
       {
-         return ctx.Berichten.Find(berichtID);
+         return ctx.Berichten
+            .Include("Hashtags")
+            .Include("Woorden")
+            .Include("Urls")
+            .Include("Mentions")
+            .Include("Politieker")
+            .SingleOrDefault(b => b.ID.Equals(berichtID));
       }
 
       public IEnumerable<Bericht> ReadBerichten()
@@ -184,7 +190,9 @@ namespace DAL
 
       public Persoon ReadPersoon(string naam)
       {
-         return ctx.Personen.Find(naam);
+         return ctx.Personen
+            .Include("Berichten")
+            .FirstOrDefault(p => p.Naam.Equals(naam));
       }
 
       public Url ReadUrl(string url)
