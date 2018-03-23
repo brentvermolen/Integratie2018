@@ -19,6 +19,11 @@ namespace BL
          repo = new BerichtRepository();
       }
 
+      public IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "")
+      {
+         return repo.LeesBerichten(aantal, vanPersoon);
+      }
+
       public Bericht AddBericht(Bericht bericht)
       {
          return repo.CreateBericht(bericht);

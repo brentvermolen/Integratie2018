@@ -44,7 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alert.cs" />
+    <Compile Include="AlertKlassen\AlertResultaat.cs" />
     <Compile Include="Bericht.cs" />
+    <Compile Include="Gebruiker.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
     <Compile Include="BerichtKlassen\Mention.cs" />

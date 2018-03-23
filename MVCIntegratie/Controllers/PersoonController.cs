@@ -8,9 +8,16 @@ using System.Web.Mvc;
 
 namespace MVCIntegratie.Controllers
 {
-   public partial class PolitiekerController : Controller
+   public partial class PersoonController : Controller
    {
       private IBerichtManager mng = new BerichtManager();
+
+      public virtual ActionResult Index()
+      {
+         IEnumerable<Persoon> personen = mng.GetPersonen();
+
+         return View(personen);
+      }
 
       public virtual ActionResult Details(string naam)
       {

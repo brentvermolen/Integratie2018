@@ -40,8 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlertManager.cs" />
     <Compile Include="BerichtManager.cs" />
-    <Compile Include="IBerichtManager.cs" />
+    <Compile Include="GebruikerManager.cs" />
+    <Compile Include="Interfaces\IAlertManager.cs" />
+    <Compile Include="Interfaces\IBerichtManager.cs" />
+    <Compile Include="Interfaces\IGebruikerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

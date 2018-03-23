@@ -2,6 +2,7 @@
 using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -9,147 +10,85 @@ using System.Text;
 
 namespace DAL
 {
-   public class Integratie2018Initializer : DropCreateDatabaseIfModelChanges<Integratie2018Context>
+   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
-         using (StreamReader sr = new StreamReader("C:\\Users\\Brent\\Documents\\School\\KDG\\2017-2018\\IntegratieProject\\PoC\\Temp\\File.json"))
-         {
-            string json = sr.ReadToEnd();
+         context.AddBerichten(100, "Annick De Ridder");
 
-            List<string> jsonItems = GetJsonItems(json);
+         AddGebruikers(context);
 
-            int intTeller = 0;
-
-            foreach (string str in jsonItems)
-            {
-               if (intTeller++ == 100)
-               {
-                  break;
-               }
-
-               Bericht bericht = JsonConvert.DeserializeObject<Bericht>(str);
-
-               //Naam van de politieker verwijderen uit lijst met woorden
-               foreach (string p in bericht.PolitiekerJson)
-               {
-                  if (bericht.WoordenJson.Contains(p.ToLower()))
-                  {
-                     bericht.WoordenJson.Remove(p.ToLower());
-                  }
-               }
-
-               Persoon persoon = context.Personen.Find(string.Join(" ", bericht.PolitiekerJson));
-               if (persoon == null)
-               {
-                  persoon = new Persoon(string.Join(" ", bericht.PolitiekerJson));
-                  bericht.Politieker = persoon;
-                  context.Personen.Add(persoon);
-               }
-               else
-               {
-                  bericht.Politieker = persoon;
-               }
-               bericht.Polariteit = bericht.Sentiment[0];
-               bericht.Objectiviteit = bericht.Sentiment[1];
-
-               bericht.Woorden = new List<Woord>();
-               bericht.Urls = new List<Url>();
-               bericht.Mentions = new List<Mention>();
-               bericht.Hashtags = new List<Hashtag>();
-
-               foreach (string t in bericht.WoordenJson)
-               {
-                  Woord woord = context.Woorden.Find(t);
-                  if (woord == null)
-                  {
-                     woord = new Woord() { Tekst = t };
-                     bericht.Woorden.Add(woord);
-                     context.Woorden.Add(woord);
-                  }
-                  else
-                  {
-                     bericht.Woorden.Add(woord);
-                  }
-               }
-               foreach (string t in bericht.UrlsJson)
-               {
-                  Url url = context.Urls.Find(t);
-                  if (url == null)
-                  {
-                     url = new Url() { Tekst = t };
-                     bericht.Urls.Add(url);
-                     context.Urls.Add(url);
-                  }
-                  else
-                  {
-                     bericht.Urls.Add(url);
-                  }
-               }
-               foreach (string t in bericht.MentionsJson )
-               {
-                  Mention mention = context.Mentions.Find(t);
-                  if (mention == null)
-                  {
-                     mention = new Mention() { Tekst = t };
-                     bericht.Mentions.Add(mention);
-                     context.Mentions.Add(mention);
-                  }
-                  else
-                  {
-                     bericht.Mentions.Add(mention);
-                  }
-               }
-               foreach (string t in bericht.HashtagsJson)
-               {
-                  Hashtag hashtag = context.Hashtags.Find(t);
-                  if (hashtag == null)
-                  {
-                     hashtag = new Hashtag() { Tekst = t };
-                     bericht.Hashtags.Add(hashtag);
-                     context.Hashtags.Add(hashtag);
-                  }
-                  else
-                  {
-                     bericht.Hashtags.Add(hashtag);
-                  }
-               }
-
-               if (context.Berichten.Find(bericht.ID) == null)
-               {
-                  context.Berichten.Add(bericht);
-               }
-            }
-         }
+         AddAlerts(context);
 
          context.SaveChanges();
       }
 
-      public List<string> GetJsonItems(string ExampleJSON)
+      private void AddAlerts(Integratie2018Context context)
       {
-         int BracketCount = -1;
-         List<string> JsonItems = new List<string>();
-         StringBuilder Json = new StringBuilder();
-
-         foreach (char c in ExampleJSON)
+         Alert a1 = new Alert()
          {
-            if (BracketCount == 0 && c == '{')
-            {
-               Json = new StringBuilder();
-            }
+            ID = 0,
+            Verzendwijze = "SMS",
+            Type = "Trending",
+            Veld = "Politieker",
+            VeldWaarde = "Annick De Ridder",
+            Percentage = 0,
+            Gebruiker = context.Gebruikers.Find(0)
+         };
+         context.Alerts.Add(a1);
 
-            if (c == '{')
-               ++BracketCount;
-            else if (c == '}')
-               --BracketCount;
-            Json.Append(c);
+         Alert a2 = new Alert()
+         {
+            ID = 1,
+            Verzendwijze = "Applicatie",
+            Type = "Aantal",
+            Veld = "Politieker",
+            VeldWaarde = "Annick De Ridder",
+            Percentage = 5,
+            Gebruiker = context.Gebruikers.Find(0)
+         };
+         context.Alerts.Add(a2);
 
-            if (BracketCount == 0 && c == '}')
-            {
-               JsonItems.Add(Json.ToString());
-            }
-         }
-         return JsonItems;
+         Alert a3 = new Alert()
+         {
+            ID = 2,
+            Verzendwijze = "E-Mail",
+            Type = "Trending",
+            Veld = "Politieker",
+            VeldWaarde = "Annick De Ridder",
+            Percentage = 0,
+            Gebruiker = context.Gebruikers.Find(1)
+         };
+         context.Alerts.Add(a3);
+
+         Alert a4 = new Alert()
+         {
+            ID = 3,
+            Verzendwijze = "Browser",
+            Type = "Aantal",
+            Veld = "Politieker",
+            VeldWaarde = "Annick De Ridder",
+            Percentage = 5,
+            Gebruiker = context.Gebruikers.Find(1)
+         };
+         context.Alerts.Add(a4);
+      }
+
+      private void AddGebruikers(Integratie2018Context context)
+      {
+         Gebruiker g1 = new Gebruiker()
+         {
+            ID = 0,
+            Naam = "Eddy"
+         };
+         context.Gebruikers.Add(g1);
+
+         Gebruiker g2 = new Gebruiker()
+         {
+            ID = 1,
+            Naam = "Jan"
+         };
+         context.Gebruikers.Add(g2);
       }
    }
 }

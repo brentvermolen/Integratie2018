@@ -25,13 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MVCIntegratie.Controllers
 {
-    public partial class PolitiekerController
+    public partial class PersoonController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public PolitiekerController() { }
+        public PersoonController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected PolitiekerController(Dummy d) { }
+        protected PersoonController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -67,13 +67,13 @@ namespace MVCIntegratie.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public PolitiekerController Actions { get { return MVC.Politieker; } }
+        public PersoonController Actions { get { return MVC.Persoon; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Politieker";
+        public readonly string Name = "Persoon";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Politieker";
+        public const string NameConst = "Persoon";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -81,12 +81,14 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Index = "Index";
             public readonly string Details = "Details";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string Index = "Index";
             public const string Details = "Details";
         }
 
@@ -110,15 +112,28 @@ namespace MVCIntegratie.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Details = "Details";
+                public readonly string Index = "Index";
             }
-            public readonly string Details = "~/Views/Politieker/Details.cshtml";
+            public readonly string Details = "~/Views/Persoon/Details.cshtml";
+            public readonly string Index = "~/Views/Persoon/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_PolitiekerController : MVCIntegratie.Controllers.PolitiekerController
+    public partial class T4MVC_PersoonController : MVCIntegratie.Controllers.PersoonController
     {
-        public T4MVC_PolitiekerController() : base(Dummy.Instance) { }
+        public T4MVC_PersoonController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
 
         [NonAction]
         partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string naam);

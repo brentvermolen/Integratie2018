@@ -20,10 +20,12 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
-                    <li>@Html.ActionLink("Berichten", MVC.Bericht.Index())</li>
-                </ul>
+               <ul class="nav navbar-nav">
+                  <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
+                  <li>@Html.ActionLink("Berichten", MVC.Bericht.Index())</li>
+                  <li>@Html.ActionLink("Personen", MVC.Persoon.Index())</li>
+                  <li>@Html.ActionLink("Alerts", MVC.Alert.Index())</li>
+               </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

@@ -28,10 +28,11 @@ using T4MVC;
 public static partial class MVC
 {
     public static MVCIntegratie.Controllers.AccountController Account = new MVCIntegratie.Controllers.T4MVC_AccountController();
+    public static MVCIntegratie.Controllers.AlertController Alert = new MVCIntegratie.Controllers.T4MVC_AlertController();
     public static MVCIntegratie.Controllers.BerichtController Bericht = new MVCIntegratie.Controllers.T4MVC_BerichtController();
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
     public static MVCIntegratie.Controllers.ManageController Manage = new MVCIntegratie.Controllers.T4MVC_ManageController();
-    public static MVCIntegratie.Controllers.PolitiekerController Politieker = new MVCIntegratie.Controllers.T4MVC_PolitiekerController();
+    public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
