@@ -16,7 +16,11 @@ namespace DAL
       public BerichtRepository()
       {
          ctx = new Integratie2018Context();
-         ctx.Database.Initialize(false);
+      }
+
+      public IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "")
+      {
+         return ctx.AddBerichten(aantal, vanPersoon);
       }
 
       public Bericht CreateBericht(Bericht bericht)
@@ -134,7 +138,13 @@ namespace DAL
 
       public Bericht ReadBericht(string berichtID)
       {
-         return ctx.Berichten.Find(berichtID);
+         return ctx.Berichten
+            .Include("Hashtags")
+            .Include("Woorden")
+            .Include("Urls")
+            .Include("Mentions")
+            .Include("Politieker")
+            .SingleOrDefault(b => b.ID.Equals(berichtID));
       }
 
       public IEnumerable<Bericht> ReadBerichten()
@@ -179,12 +189,15 @@ namespace DAL
 
       public IEnumerable<Persoon> ReadPersonen()
       {
-         return ctx.Personen.Include("Berichten");
+         return ctx.Personen
+            .Include("Berichten");
       }
 
       public Persoon ReadPersoon(string naam)
       {
-         return ctx.Personen.Find(naam);
+         return ctx.Personen
+            .Include("Berichten")
+            .FirstOrDefault(p => p.Naam.Equals(naam));
       }
 
       public Url ReadUrl(string url)
