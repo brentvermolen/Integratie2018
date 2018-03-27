@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace DAL
 {
@@ -58,7 +59,7 @@ namespace DAL
       {
          List<Bericht> berichten = new List<Bericht>();
 
-         using (StreamReader sr = new StreamReader("C:\\Users\\Brent\\Documents\\School\\KDG\\2017-2018\\IntegratieProject\\PoC\\Temp\\File.json"))
+         using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("~/App_Data/File.json")))
          {
             string json = sr.ReadToEnd();
 
