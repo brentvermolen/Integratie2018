@@ -14,7 +14,6 @@ namespace DAL
       public AlertRepository()
       {
          ctx = new Integratie2018Context();
-         ctx.Database.Initialize(false);
       }
 
       public Alert CreateAlert(Alert alert)
