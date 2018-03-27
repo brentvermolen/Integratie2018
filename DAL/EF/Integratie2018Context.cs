@@ -22,8 +22,6 @@ namespace DAL
          {
             Database.Initialize(false);
          }catch(Exception e) { }
-
-         //Blablablabla
       }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
