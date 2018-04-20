@@ -20,7 +20,7 @@ namespace DAL
 
       public IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "")
       {
-         return ctx.AddBerichten(aantal, vanPersoon);
+      return ctx.AddBerichten(aantal, vanPersoon);
       }
 
       public Bericht CreateBericht(Bericht bericht)

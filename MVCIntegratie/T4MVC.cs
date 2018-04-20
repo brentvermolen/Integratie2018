@@ -30,6 +30,7 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.AccountController Account = new MVCIntegratie.Controllers.T4MVC_AccountController();
     public static MVCIntegratie.Controllers.AlertController Alert = new MVCIntegratie.Controllers.T4MVC_AlertController();
     public static MVCIntegratie.Controllers.BerichtController Bericht = new MVCIntegratie.Controllers.T4MVC_BerichtController();
+    public static MVCIntegratie.Controllers.FYIController FYI = new MVCIntegratie.Controllers.T4MVC_FYIController();
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
     public static MVCIntegratie.Controllers.ManageController Manage = new MVCIntegratie.Controllers.T4MVC_ManageController();
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
@@ -161,7 +162,9 @@ namespace Links
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
         public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
-        public static readonly string bootstrap_min_css_map = Url("bootstrap.min.css.map");
+
+        public static readonly string Layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Layout.min.css") ? Url("Layout.min.css") : Url("Layout.css");
+
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
     }
 
@@ -228,6 +231,7 @@ namespace Links
                 public static readonly string bootstrap_reboot_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap-reboot.min.css");
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
+                public static readonly string Layout_css = T4MVCHelpers.ProcessAssetPath("~/Content/Layout.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");
             }
         }
