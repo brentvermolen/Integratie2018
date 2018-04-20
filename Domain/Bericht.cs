@@ -1,9 +1,11 @@
 ﻿using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
+using BL.Domain.JsonConverters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BL.Domain
 {
@@ -26,37 +28,80 @@ namespace BL.Domain
       public string User_ID { get; set; }
       [JsonProperty("date")]
       public DateTime Datum { get; set; }
-      [JsonProperty("geo")]
+      [NotMapped]
+      [JsonProperty("geo", ItemConverterType = typeof(DoubleConvert))]
       public IList<double> Geo { get; set; }
-      public double Longtitude { get; set; }
-      public double Latitude { get; set; }
+
+      [Column("Longtitude")]
+      public double Longitude
+      {
+         get
+         {
+            return Geo[0];
+         }
+         set
+         {
+            Geo[0] = value;
+         }
+      }
+
+      [Column("Latitude")]
+      public double Latitude
+      {
+         get
+         {
+            return Geo[1];
+         }
+         set
+         {
+            Geo[1] = value;
+         }
+      }
       [JsonProperty("retweet")]
       public bool Retweet { get; set; }
       [JsonProperty("source")]
       public string Bron { get; set; }
 
-      [JsonProperty("sentiment")]
+      [JsonProperty("sentiment", ItemConverterType = typeof(DoubleConvert))]
+      [NotMapped]
       public IList<double> Sentiment { get; set; }
-      public double Polariteit { get; set; }
-      public double Objectiviteit { get; set; }
-      [JsonProperty("persons")]
+      [Column("Polariteit")]
+      public double Polariteit
+      {
+         get
+         {
+            return Sentiment[0];
+         }
+         set
+         {
+            Sentiment[0] = value;
+         }
+      }
+      [Column("Objectiviteit")]
+      public double Objectiviteit
+      {
+         get
+         {
+            return Sentiment[1];
+         }
+         set
+         {
+            Sentiment[1] = value;
+         }
+      }
       public ICollection<string> PersonenJson { get; set; }
+      [JsonProperty("persons", ItemConverterType = typeof(PersoonConvert))]
       public ICollection<Persoon> Personen { get; set; }
-      [JsonProperty("words")]
-      public ICollection<string> WoordenJson { get; set; }
+      [JsonProperty("words", ItemConverterType = typeof(WoordenConvert))]
       public ICollection<Woord> Woorden { get; set; }
-      [JsonProperty("urls")]
-      public ICollection<string> UrlsJson { get; set; }
+      [JsonProperty("urls", ItemConverterType = typeof(UrlConvert))]
       public ICollection<Url> Urls { get; set; }
-      public ICollection<string> HashtagsJson { get; set; }
-      [JsonProperty("hashtags")]
+      [JsonProperty("hashtags", ItemConverterType = typeof(HashtagConvert))]
       public ICollection<Hashtag> Hashtags { get; set; }
-      [JsonProperty("mentions")]
-      public ICollection<string> MentionsJson { get; set; }
+      [JsonProperty("mentions", ItemConverterType = typeof(MentionConvert))]
       public ICollection<Mention> Mentions { get; set; }
-      [JsonProperty("themes")]
-      public ICollection<string> ThemesJson { get; set; }
-      public ICollection<Mention> Themes { get; set; }
+      [JsonProperty("themes", ItemConverterType = typeof(ThemaConvert))]
+      public ICollection<Thema> Themes { get; set; }
 
       public override bool Equals(object obj)
       {

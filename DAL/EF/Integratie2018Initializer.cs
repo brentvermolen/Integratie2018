@@ -39,7 +39,7 @@ namespace DAL
                CharSet = "utf-8"
             });
 
-            StringContent content = new StringContent("{\"since\":\"19 April 2018 00:00:00\"}", System.Text.Encoding.UTF8, "application/json");
+            StringContent content = new StringContent("{\"since\":\"1 April 2018 00:00:00\"}", System.Text.Encoding.UTF8, "application/json");
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
             {
                CharSet = "utf-8"
@@ -69,107 +69,17 @@ namespace DAL
       {
          json = "{ \"berichten\": " + json + " }";
          json = json.Replace("\"geo\": false", "\"geo\": [0, 0]");
-
-         BerichtenClass BerichtenJson = JsonConvert.DeserializeObject<BerichtenClass>(json);
-
-         BerichtenJson.ToString();
-
+         BerichtenClass BerichtenJson;
          try
          {
-            foreach (Bericht bericht in BerichtenJson.berichten)
-            {
-               if (context.Berichten.Find(bericht.ID) != null)
-               {
-                  continue;
-               }
+             BerichtenJson = JsonConvert.DeserializeObject<BerichtenClass>(json);
+         }catch(Exception e)
+         {
+            e.ToString();
+            BerichtenJson = null;
+         }
 
-               try
-               {
-                  bericht.Longtitude = bericht.Geo[0];
-                  bericht.Latitude = bericht.Geo[1];
-               }
-               catch (Exception ex)
-               {
-                  bericht.Longtitude = 0;
-                  bericht.Latitude = 0;
-               }
-
-               try
-               {
-                  bericht.Polariteit = bericht.Sentiment[0];
-                  bericht.Objectiviteit = bericht.Sentiment[1];
-               }
-               catch (Exception ex)
-               {
-                  bericht.Polariteit = 0;
-                  bericht.Objectiviteit = 0;
-               }
-
-               foreach (string p in bericht.PersonenJson)
-               {
-                  Persoon persoon = context.Personen.Find(p);
-                  if (persoon == null)
-                  {
-                     persoon = new Persoon();
-                     persoon.Naam = p;
-                     context.Personen.Add(persoon);
-                  }
-                  persoon.Berichten.Add(bericht);
-               }
-
-               /*foreach (string t in bericht.WoordenJson)
-               {
-                  Woord woord = context.Woorden.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (woord == null)
-                  {
-                     woord = new Woord() { Tekst = t };
-                     context.Woorden.Add(woord);
-                  }
-                  bericht.Woorden.Add(woord);
-               }
-
-               foreach (string t in bericht.UrlsJson)
-               {
-                  Url url = context.Urls.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (url == null)
-                  {
-                     url = new Url() { Tekst = t };
-                     context.Urls.Add(url);
-                  }
-                  bericht.Urls.Add(url);
-               }
-
-               foreach (string t in bericht.MentionsJson)
-               {
-                  Mention mention = context.Mentions.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (mention == null)
-                  {
-                     mention = new Mention() { Tekst = t };
-                     context.Mentions.Add(mention);
-                  }
-                  bericht.Mentions.Add(mention);
-               }
-               
-               foreach (string t in bericht.HashtagsJson)
-               {
-                  Hashtag hashtag = context.Hashtags.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (hashtag == null)
-                  {
-                     hashtag = new Hashtag() { Tekst = t };
-                     context.Hashtags.Add(hashtag);
-                  }
-
-                  bericht.Hashtags.Add(hashtag);
-               }*/
-
-               if (context.Berichten.Find(bericht.ID) == null)
-               {
-                  context.Berichten.Add(bericht);
-               }
-
-               bericht.ToString();
-            }
-         }catch(Exception e) { }
+         BerichtenJson.ToString();
 
          context.SaveChanges();
          return BerichtenJson.berichten;

@@ -48,6 +48,9 @@
     <Compile Include="AlertKlassen\AlertResultaat.cs" />
     <Compile Include="Bericht.cs" />
     <Compile Include="BerichtKlassen\Profiel.cs" />
+    <Compile Include="BerichtKlassen\Thema.cs" />
+    <Compile Include="JsonConverters\GeoConvert.cs" />
+    <Compile Include="JsonConverters\HashtagConvert.cs" />
     <Compile Include="Gebruiker.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
@@ -55,6 +58,11 @@
     <Compile Include="ItemKlassen\Persoon.cs" />
     <Compile Include="BerichtKlassen\Url.cs" />
     <Compile Include="BerichtKlassen\Woord.cs" />
+    <Compile Include="JsonConverters\MentionConvert.cs" />
+    <Compile Include="JsonConverters\PersoonConvert.cs" />
+    <Compile Include="JsonConverters\ThemaConvert.cs" />
+    <Compile Include="JsonConverters\UrlConvert.cs" />
+    <Compile Include="JsonConverters\WoordenConvert.cs" />
     <Compile Include="JsonExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
