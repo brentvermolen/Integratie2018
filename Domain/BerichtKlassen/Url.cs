@@ -10,6 +10,7 @@ namespace BL.Domain.BerichtKlassen
    public class Url
    {
       [Key]
+      [MaxLength(500)]
       public string Tekst { get; set; }
 
       public ICollection<Bericht> Berichten { get; set; }

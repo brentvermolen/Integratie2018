@@ -19,11 +19,6 @@ namespace BL
          repo = new BerichtRepository();
       }
 
-      public IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "")
-      {
-         return repo.LeesBerichten(aantal, vanPersoon);
-      }
-
       public Bericht AddBericht(Bericht bericht)
       {
          return repo.CreateBericht(bericht);
@@ -138,9 +133,9 @@ namespace BL
          return repo.ReadPersoon(persoon);
       }
 
-      public Persoon GetPersoonVanBericht(string berichtID)
+      public ICollection<string> GetPersoonVanBericht(string berichtID)
       {
-         return GetBericht(berichtID).Politieker;
+         return GetBericht(berichtID).PersonenJson;
       }
 
       public IEnumerable<Url> GetUrls()

@@ -7,6 +7,8 @@ using BL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace MVCIntegratie.Controllers
@@ -19,13 +21,16 @@ namespace MVCIntegratie.Controllers
 
       public virtual ActionResult Index()
       {
-         List<Bericht> oudeBerichten = berichtMng.GetBerichten().ToList();
-         List<Bericht> nieuweBerichten = berichtMng.LeesBerichten(10, "Annick De Ridder").ToList();
+         List<Bericht> test = berichtMng.GetBerichten().ToList();
 
-         return View(AlertPolitieker(oudeBerichten, nieuweBerichten));
+         JsonExport export = new JsonExport(test);
+
+         //string json = export.GetPolitiekersVanBericht();
+
+         return View(new List<AlertResultaat>());
       }
 
-      private List<AlertResultaat> AlertPolitieker(List<Bericht> oudeData, List<Bericht> nieuweData)
+      /*private List<AlertResultaat> AlertPolitieker(List<Bericht> oudeData, List<Bericht> nieuweData)
       {
          List<PolitiekVergelijker> oud = new List<PolitiekVergelijker>();
          List<PolitiekVergelijker> nieuw = new List<PolitiekVergelijker>();
@@ -129,7 +134,7 @@ namespace MVCIntegratie.Controllers
          }
 
          return teTonen;
-      }
+      }*/
 
       public double BerekenAfwijking(List<int> totalen)
       {

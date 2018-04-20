@@ -1,5 +1,6 @@
 ﻿using BL;
 using BL.Domain;
+using BL.Domain.ItemKlassen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace MVCIntegratie.Controllers
          }
          else
          {
-            berichten = mng.GetBerichten().Where(b => b.Politieker.Naam.Equals(persoon));
+            berichten = mng.GetBerichten().Where(b => b.Personen.Contains(new Persoon() { Naam = persoon }));
          }
 
          return View(berichten);

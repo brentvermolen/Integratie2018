@@ -47,6 +47,7 @@
     <Compile Include="Alert.cs" />
     <Compile Include="AlertKlassen\AlertResultaat.cs" />
     <Compile Include="Bericht.cs" />
+    <Compile Include="BerichtKlassen\Profiel.cs" />
     <Compile Include="Gebruiker.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="ItemKlassen\Persoon.cs" />
     <Compile Include="BerichtKlassen\Url.cs" />
     <Compile Include="BerichtKlassen\Woord.cs" />
+    <Compile Include="JsonExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

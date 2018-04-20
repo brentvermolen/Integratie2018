@@ -11,8 +11,6 @@ namespace BL
 {
    public interface IBerichtManager
    {
-      IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "");
-
       IEnumerable<Bericht> GetBerichten();
       Bericht GetBericht(string id);
       Bericht AddBericht(Bericht bericht);
@@ -20,7 +18,7 @@ namespace BL
 
       IEnumerable<Persoon> GetPersonen();
 
-      Persoon GetPersoonVanBericht(string berichtID);
+      ICollection<string> GetPersoonVanBericht(string berichtID);
 
       void AddPersoon(string berichtID, string persoon);
       void AddPersoon(string berichtID, List<string> persoon);

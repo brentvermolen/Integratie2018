@@ -11,8 +11,6 @@ namespace DAL
 {
    public interface IBerichtRepository
    {
-      IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "");
-
       Bericht CreateBericht(Bericht bericht);
       IEnumerable<Bericht> ReadBerichten();
       Bericht ReadBericht(string berichtID);

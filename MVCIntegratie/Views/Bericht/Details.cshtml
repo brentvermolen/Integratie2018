@@ -11,11 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
        <dt>
-          @Html.DisplayNameFor(model => model.User_ID)
+          @Html.DisplayNameFor(model => model.ID)
        </dt>
 
        <dd>
-          @Html.DisplayFor(model => model.User_ID)
+          @Html.DisplayFor(model => model.ID)
        </dd>
 
        <dt>
@@ -27,11 +27,19 @@
        </dd>
 
        <dt>
-          @Html.DisplayNameFor(model => model.Geo)
+          @Html.DisplayNameFor(model => model.Longtitude)
        </dt>
 
        <dd>
-          @Html.DisplayFor(model => model.Geo)
+          @Html.DisplayFor(model => model.Longtitude)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Latitude)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Latitude)
        </dd>
 
        <dt>
@@ -67,14 +75,14 @@
        </dd>
 
        <dt>
-          @Html.DisplayNameFor(model => model.Politieker)
+          @Html.DisplayNameFor(model => model.Personen)
        </dt>
 
        <dd>
-          @{ 
-             var politieker = Model.Politieker.Naam;
-          }
-          @Html.ActionLink(politieker, MVC.Politieker.Details(politieker))
+          @foreach (var persoon in Model.Personen)
+      {
+       @Html.ActionLink(persoon.Naam, MVC.Persoon.Details(persoon.Naam))<br />
+}
        </dd>
 
        <dt>
@@ -83,7 +91,7 @@
 
        <dd>
           @{
-            var woorden = string.Join(" - ", Model.Woorden);
+         var woorden = string.Join(" - ", Model.Woorden);
           }
           @Html.DisplayFor(model => woorden)
        </dd>
@@ -94,7 +102,7 @@
 
        <dd>
           @{
-            var hastags = string.Join(" - ", Model.Hashtags);
+         var hastags = string.Join(" - ", Model.Hashtags);
           }
           @Html.DisplayFor(model => hastags)
        </dd>
@@ -105,7 +113,7 @@
 
        <dd>
           @{
-            var mentions = string.Join(" - ", Model.Mentions);
+         var mentions = string.Join(" - ", Model.Mentions);
           }
           @Html.DisplayFor(model => mentions)
        </dd>
@@ -115,10 +123,10 @@
        </dt>
 
        <dd>
-          @foreach(var url in Model.Urls)
-          {
-             <a href='@url' target='_blank'>@url</a><br />
-          }
+          @foreach (var url in Model.Urls)
+      {
+       <a href='@url' target='_blank'>@url</a><br />
+}
        </dd>
 
     </dl>
