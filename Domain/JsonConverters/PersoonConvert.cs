@@ -1,5 +1,7 @@
-﻿using BL.Domain.ItemKlassen;
+﻿using BL.Domain.BerichtKlassen;
+using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace BL.Domain.JsonConverters
 {
    public class PersoonConvert : JsonConverter
    {
+      private static List<Persoon> Personen = new List<Persoon>();
+
       public override bool CanConvert(Type objectType)
       {
          return true;
@@ -17,13 +21,19 @@ namespace BL.Domain.JsonConverters
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         Persoon persoon = new Persoon() { Naam = reader.Value.ToString() };
+         Persoon persoon = Personen.FirstOrDefault(p => p.Naam.Equals(reader.Value.ToString()));
+         if (persoon == null)
+         {
+            persoon = new Persoon() { ID = Personen.Count, Naam = reader.Value.ToString() };
+            Personen.Add(persoon);
+         }
          return persoon;
       }
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         throw new NotImplementedException();
+         Persoon persoon = (Persoon)value;
+         writer.WriteValue(persoon.Naam);
       }
    }
 }

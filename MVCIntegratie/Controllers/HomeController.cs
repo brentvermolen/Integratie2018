@@ -4,6 +4,7 @@ using BL.Domain.AlertKlassen;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
 using BL.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,8 @@ namespace MVCIntegratie.Controllers
       public virtual ActionResult Index()
       {
          List<Bericht> test = berichtMng.GetBerichten().ToList();
-
-         JsonExport export = new JsonExport(test);
-
-         //string json = export.GetPolitiekersVanBericht();
+         
+         string json = JsonExport.Lijst(test);
 
          return View(new List<AlertResultaat>());
       }

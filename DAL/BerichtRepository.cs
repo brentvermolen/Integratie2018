@@ -212,7 +212,7 @@ namespace DAL
 
       public Woord ReadWoord(string woord)
       {
-         return ctx.Woorden.Find(woord);
+         return ctx.Woorden.FirstOrDefault(w => w.Tekst.Equals(woord));
       }
 
       public IEnumerable<Woord> ReadWoorden()

@@ -1,5 +1,6 @@
 ﻿using BL.Domain.BerichtKlassen;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace BL.Domain.JsonConverters
 {
    public class ThemaConvert : JsonConverter
    {
+      private static List<Thema> Themas = new List<Thema>();
+
       public override bool CanConvert(Type objectType)
       {
          return true;
@@ -17,13 +20,18 @@ namespace BL.Domain.JsonConverters
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         Thema thema = new Thema() { Tekst = reader.Value.ToString() };
+         Thema thema = Themas.FirstOrDefault(u => u.Tekst.Equals(reader.Value.ToString()));
+         if (thema == null)
+         {
+            thema = new Thema() { ID = Themas.Count, Tekst = reader.Value.ToString() };
+            Themas.Add(thema);
+         }
          return thema;
       }
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         throw new NotImplementedException();
+         JObject jo = new JObject();
       }
    }
 }

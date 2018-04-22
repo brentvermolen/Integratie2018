@@ -66,7 +66,7 @@ namespace BL
          Url u = repo.ReadUrl(url);
          if (u == null)
          {
-            u = new Url() { Tekst = url };
+            u = new Url() { ID = repo.ReadUrls().Count(), Tekst = url };
             repo.CreateUrl(u);
          }
          repo.CreateBerichtUrl(berichtID, u);
@@ -77,7 +77,7 @@ namespace BL
          Woord w = repo.ReadWoord(woord);
          if (w == null)
          {
-            w = new Woord() { Tekst = woord };
+            w = new Woord() { ID = repo.ReadWoorden().Count(), Tekst = woord };
             repo.CreateWoord(w);
          }
          repo.CreateBerichtWoord(berichtID, w);
@@ -133,9 +133,9 @@ namespace BL
          return repo.ReadPersoon(persoon);
       }
 
-      public ICollection<string> GetPersoonVanBericht(string berichtID)
+      public ICollection<Persoon> GetPersoonVanBericht(string berichtID)
       {
-         return GetBericht(berichtID).PersonenJson;
+         return GetBericht(berichtID).Personen;
       }
 
       public IEnumerable<Url> GetUrls()

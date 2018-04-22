@@ -1,5 +1,6 @@
 ﻿using BL.Domain.BerichtKlassen;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace BL.Domain
 {
    public class HashtagConvert : JsonConverter
    {
+      private static List<Hashtag> Hashtags = new List<Hashtag>();
+
       public override bool CanConvert(Type objectType)
       {
          return true;
@@ -17,22 +20,19 @@ namespace BL.Domain
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         try
+         Hashtag hashtag = Hashtags.FirstOrDefault(h => h.Tekst.Equals(reader.Value.ToString()));
+         if (hashtag == null)
          {
-            Hashtag h = new Hashtag() { Tekst = reader.Value.ToString() };
-            return h;
+            hashtag = new Hashtag() { ID = Hashtags.Count, Tekst = reader.Value.ToString() };
+            Hashtags.Add(hashtag);
          }
-         catch (Exception ex)
-         {
-            ex.ToString();
-         }
-
-         throw new NotImplementedException();
+         return hashtag;
       }
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         throw new NotImplementedException();
+         Hashtag hashtag = (Hashtag)value;
+         writer.WriteValue(hashtag.Tekst);
       }
    }
 }

@@ -18,7 +18,7 @@ namespace BL
 
       IEnumerable<Persoon> GetPersonen();
 
-      ICollection<string> GetPersoonVanBericht(string berichtID);
+      ICollection<Persoon> GetPersoonVanBericht(string berichtID);
 
       void AddPersoon(string berichtID, string persoon);
       void AddPersoon(string berichtID, List<string> persoon);

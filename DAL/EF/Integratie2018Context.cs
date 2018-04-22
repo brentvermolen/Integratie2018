@@ -51,6 +51,7 @@ namespace DAL
       public DbSet<Url> Urls { get; set; } 
       public DbSet<Mention> Mentions { get; set; }
       public DbSet<Hashtag> Hashtags { get; set; }
+      public DbSet<Thema> Themas { get; set; }
 
       public DbSet<Persoon> Personen { get; set; }
 

@@ -17,6 +17,10 @@ namespace BL.Domain
          Urls = new List<Url>();
          Mentions = new List<Mention>();
          Hashtags = new List<Hashtag>();
+         Themas = new List<Thema>();
+         Personen = new List<Persoon>();
+         Geo = new double[2];
+         Sentiment = new double[2];
       }
 
       [Key]
@@ -24,16 +28,15 @@ namespace BL.Domain
       public string ID { get; set; }
       [JsonProperty("profile")]
       public Profiel Profiel { get; set; }
-      [JsonProperty("user_id")]
-      public string User_ID { get; set; }
       [JsonProperty("date")]
       public DateTime Datum { get; set; }
       [NotMapped]
+      [JsonIgnore]
       [JsonProperty("geo", ItemConverterType = typeof(DoubleConvert))]
-      public IList<double> Geo { get; set; }
+      public double[] Geo { get; set; }
 
       [Column("Longtitude")]
-      public double Longitude
+      public double Longtitude
       {
          get
          {
@@ -62,15 +65,22 @@ namespace BL.Domain
       [JsonProperty("source")]
       public string Bron { get; set; }
 
+      [JsonIgnore]
       [JsonProperty("sentiment", ItemConverterType = typeof(DoubleConvert))]
       [NotMapped]
-      public IList<double> Sentiment { get; set; }
+      public double[] Sentiment { get; set; }
       [Column("Polariteit")]
       public double Polariteit
       {
          get
          {
-            return Sentiment[0];
+            try
+            { 
+               return Sentiment[0];
+            }catch
+            {
+               return 0;
+            }
          }
          set
          {
@@ -82,26 +92,32 @@ namespace BL.Domain
       {
          get
          {
-            return Sentiment[1];
+            try
+            {
+               return Sentiment[1];
+            }
+            catch
+            {
+               return 0;
+            }
          }
          set
          {
             Sentiment[1] = value;
          }
       }
-      public ICollection<string> PersonenJson { get; set; }
       [JsonProperty("persons", ItemConverterType = typeof(PersoonConvert))]
-      public ICollection<Persoon> Personen { get; set; }
+      public IList<Persoon> Personen { get; set; }
       [JsonProperty("words", ItemConverterType = typeof(WoordenConvert))]
-      public ICollection<Woord> Woorden { get; set; }
+      public IList<Woord> Woorden { get; set; }
       [JsonProperty("urls", ItemConverterType = typeof(UrlConvert))]
-      public ICollection<Url> Urls { get; set; }
+      public IList<Url> Urls { get; set; }
       [JsonProperty("hashtags", ItemConverterType = typeof(HashtagConvert))]
-      public ICollection<Hashtag> Hashtags { get; set; }
+      public IList<Hashtag> Hashtags { get; set; }
       [JsonProperty("mentions", ItemConverterType = typeof(MentionConvert))]
-      public ICollection<Mention> Mentions { get; set; }
+      public IList<Mention> Mentions { get; set; }
       [JsonProperty("themes", ItemConverterType = typeof(ThemaConvert))]
-      public ICollection<Thema> Themes { get; set; }
+      public IList<Thema> Themas { get; set; }
 
       public override bool Equals(object obj)
       {

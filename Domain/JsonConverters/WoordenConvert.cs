@@ -1,5 +1,6 @@
 ﻿using BL.Domain.BerichtKlassen;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace BL.Domain.JsonConverters
 {
    public class WoordenConvert : JsonConverter
    {
+      private static List<Woord> Woorden = new List<Woord>();
+
       public override bool CanConvert(Type objectType)
       {
          return true;
@@ -17,23 +20,20 @@ namespace BL.Domain.JsonConverters
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         try
+         Woord woord = Woorden.Find(w => w.Tekst.Equals(reader.Value.ToString()));
+         if (woord == null)
          {
-         Woord woord = new Woord() { Tekst = reader.Value.ToString() };
+            woord = new Woord() { ID = Woorden.Count, Tekst = reader.Value.ToString() };
+            Woorden.Add(woord);
+         }
+
          return woord;
-
-         }
-         catch (Exception ex)
-         {
-            ex.ToString();
-         }
-
-         throw new NotImplementedException();
       }
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         throw new NotImplementedException();
+         Woord woord = (Woord)value;
+         writer.WriteValue(woord.Tekst);
       }
    }
 }

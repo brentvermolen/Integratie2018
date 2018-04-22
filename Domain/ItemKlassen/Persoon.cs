@@ -12,6 +12,7 @@ namespace BL.Domain.ItemKlassen
       public Persoon() { Berichten = new List<Bericht>(); }
 
       [Key]
+      public int ID { get; set; }
       public string Naam { get; set; }
       
       public ICollection<Bericht> Berichten { get; set; }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
+   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
@@ -39,7 +39,7 @@ namespace DAL
                CharSet = "utf-8"
             });
 
-            StringContent content = new StringContent("{\"since\":\"1 April 2018 00:00:00\"}", System.Text.Encoding.UTF8, "application/json");
+            StringContent content = new StringContent("{\"since\":\"20 April 2017 00:00:00\"}", System.Text.Encoding.UTF8, "application/json");
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
             {
                CharSet = "utf-8"
@@ -81,38 +81,17 @@ namespace DAL
 
          BerichtenJson.ToString();
 
-         context.SaveChanges();
+         context.Berichten.AddRange(BerichtenJson.berichten);
+
+         try
+         {
+            context.SaveChanges();
+         }catch(Exception ex)
+         {
+            ex.ToString();
+         }
          return BerichtenJson.berichten;
       }
-
-
-      /*
-      public List<string> GetJsonItems(string ExampleJSON)
-      {
-         int BracketCount = -1;
-         List<string> JsonItems = new List<string>();
-         StringBuilder Json = new StringBuilder();
-
-         foreach (char c in ExampleJSON)
-         {
-            if (BracketCount == -1 && c == '{')
-            {
-               Json = new StringBuilder();
-            }
-
-            if (c == '{')
-               ++BracketCount;
-            else if (c == '}')
-               --BracketCount;
-            Json.Append(c);
-
-            if (BracketCount == -1 && c == '}')
-            {
-               JsonItems.Add(Json.ToString());
-            }
-         }
-         return JsonItems;
-      }*/
 
       private void AddAlerts(Integratie2018Context context)
       {

@@ -1,5 +1,6 @@
 ﻿using BL.Domain.BerichtKlassen;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace BL.Domain.JsonConverters
 {
    public class UrlConvert : JsonConverter
    {
+      private static List<Url> Urls = new List<Url>();
+
       public override bool CanConvert(Type objectType)
       {
          return true;
@@ -17,23 +20,19 @@ namespace BL.Domain.JsonConverters
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         try
+         Url url = Urls.FirstOrDefault(u => u.Tekst.Equals(reader.Value.ToString()));
+         if (url == null)
          {
-         Url url = new Url() { Tekst = reader.Value.ToString() };
+            url = new Url() { ID = Urls.Count, Tekst = reader.Value.ToString() };
+            Urls.Add(url);
+         }
          return url;
-
-         }
-         catch (Exception ex)
-         {
-            ex.ToString();
-         }
-
-         throw new NotImplementedException();
       }
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         throw new NotImplementedException();
+         Url url = (Url)value;
+         writer.WriteValue(url.Tekst);
       }
    }
 }

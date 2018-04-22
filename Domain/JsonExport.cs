@@ -1,4 +1,5 @@
-﻿using BL.Domain.ItemKlassen;
+﻿using BL.Domain.BerichtKlassen;
+using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,27 +10,20 @@ using System.Threading.Tasks;
 namespace BL.Domain
 {
    public class JsonExport
-   {
-      public List<Bericht> Berichten { get; set; }
-
-      public JsonExport(List<Bericht> Berichten)
-      {
-         this.Berichten = Berichten;
-      }
-      
-      public string GetPolitiekersVanBericht()
+   {      
+      public static string GetPolitiekersVanBerichten(List<Bericht> berichten)
       {
          string json = "[";
 
-         foreach(Bericht bericht in Berichten)
+         foreach(Bericht bericht in berichten)
          {
             foreach(Persoon persoon in bericht.Personen)
             {
                json += " { ";
                json += GetJsonString("id", bericht.ID.ToString()) + ",";
                json += GetJsonString("date", bericht.Datum.ToShortDateString()) + ",";
-               json += GetJsonString("persoon", persoon.Naam) + ",";
-               json += GetJsonString("retweet", bericht.Retweet.ToString());
+               json += GetJsonString("bron", bericht.Bron.ToString()) + ",";
+               json += GetJsonString("politieker", persoon.Naam);
                json += " },";
             }
          }
@@ -42,7 +36,12 @@ namespace BL.Domain
          return json;
       }
 
-      private string GetJsonString(string titel, string item)
+      public static string Lijst(List<Bericht> berichten)
+      {
+         return JsonConvert.SerializeObject(berichten);
+      }
+
+      private static string GetJsonString(string titel, string item)
       {
          return "\"" + titel + "\":" + "\"" + item + "\"";
       }

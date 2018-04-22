@@ -1,5 +1,6 @@
 ﻿using BL.Domain.BerichtKlassen;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace BL.Domain.JsonConverters
 {
    public class MentionConvert : JsonConverter
    {
+      private static List<Mention> Mentions = new List<Mention>();
+
       public override bool CanConvert(Type objectType)
       {
          return true;
@@ -17,23 +20,19 @@ namespace BL.Domain.JsonConverters
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         try
+         Mention mention = Mentions.FirstOrDefault(m => m.Tekst.Equals(reader.Value.ToString()));
+         if (mention == null)
          {
-         Mention mention = new Mention() { Tekst = reader.Value.ToString() };
+            mention = new Mention() { ID = Mentions.Count, Tekst = reader.Value.ToString() };
+            Mentions.Add(mention);
+         }
          return mention;
-
-         }
-         catch (Exception ex)
-         {
-            ex.ToString();
-         }
-
-         throw new NotImplementedException();
       }
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         throw new NotImplementedException();
+         Mention mention = (Mention)value;
+         writer.WriteValue(mention.Tekst);
       }
    }
 }
