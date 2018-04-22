@@ -24,7 +24,7 @@ namespace MVCIntegratie.Controllers
       {
          List<Bericht> test = berichtMng.GetBerichten().ToList();
          
-         string json = JsonExport.Lijst(test);
+         //string json = JsonExport.Lijst(test);
 
          return View(new List<AlertResultaat>());
       }

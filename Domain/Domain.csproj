@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,10 +57,11 @@
     <Compile Include="ItemKlassen\Persoon.cs" />
     <Compile Include="BerichtKlassen\Url.cs" />
     <Compile Include="BerichtKlassen\Woord.cs" />
-    <Compile Include="JsonConverters\GeoConvert.cs" />
+    <Compile Include="JsonConverters\DoubleConvert.cs" />
     <Compile Include="JsonConverters\HashtagConvert.cs" />
     <Compile Include="JsonConverters\MentionConvert.cs" />
     <Compile Include="JsonConverters\PersoonConvert.cs" />
+    <Compile Include="JsonConverters\ProfielConvert.cs" />
     <Compile Include="JsonConverters\ThemaConvert.cs" />
     <Compile Include="JsonConverters\UrlConvert.cs" />
     <Compile Include="JsonConverters\WoordenConvert.cs" />

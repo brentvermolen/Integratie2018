@@ -26,12 +26,11 @@ namespace BL.Domain
       [Key]
       [JsonProperty("id")]
       public string ID { get; set; }
-      [JsonProperty("profile")]
+      [JsonProperty("profile", ItemConverterType = typeof(ProfielConvert))]
       public Profiel Profiel { get; set; }
       [JsonProperty("date")]
       public DateTime Datum { get; set; }
       [NotMapped]
-      [JsonIgnore]
       [JsonProperty("geo", ItemConverterType = typeof(DoubleConvert))]
       public double[] Geo { get; set; }
 
@@ -64,8 +63,7 @@ namespace BL.Domain
       public bool Retweet { get; set; }
       [JsonProperty("source")]
       public string Bron { get; set; }
-
-      [JsonIgnore]
+      
       [JsonProperty("sentiment", ItemConverterType = typeof(DoubleConvert))]
       [NotMapped]
       public double[] Sentiment { get; set; }

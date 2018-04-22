@@ -38,7 +38,8 @@ namespace BL.Domain
 
       public static string Lijst(List<Bericht> berichten)
       {
-         return JsonConvert.SerializeObject(berichten);
+         string json = JsonConvert.SerializeObject(berichten);
+         return json.Replace("\"geo\":[],", "").Replace("\"sentiment\":[],", "");
       }
 
       private static string GetJsonString(string titel, string item)

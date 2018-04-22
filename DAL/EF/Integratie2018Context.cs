@@ -46,6 +46,8 @@ namespace DAL
          base.OnModelCreating(modelBuilder);
       }
 
+      public DbSet<Synchronize> Sync { get; set; }
+
       public DbSet<Bericht> Berichten { get; set; }
       public DbSet<Woord> Woorden { get; set; }
       public DbSet<Url> Urls { get; set; } 
