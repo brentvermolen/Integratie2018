@@ -17,13 +17,13 @@ namespace DAL
    {
       protected override void Seed(Integratie2018Context context)
       {
-         /*ApiCallAsync(context);
+         ApiCallAsync(context);
 
          AddGebruikers(context);
 
          AddAlerts(context);
 
-         context.SaveChanges();*/
+         context.SaveChanges();
       }
 
       //TODO: Timer zetten, elk uur inladen
