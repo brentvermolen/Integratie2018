@@ -1,0 +1,54 @@
+﻿@using MVCIntegratie.Models
+@model ContactModel
+@{
+    ViewBag.Title = "Contact";
+}
+<link rel="stylesheet" href="~/Content/Layout.css">
+<link rel="stylesheet" href="~/Content/Site.css">
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Contact", "FYI", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {@Html.AntiForgeryToken()
+            <h2>Contact</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Naam, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Naam, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Naam, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Onderwerp, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Onderwerp, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Onderwerp, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Bericht, new { @class = "col-md-2 control-label"})
+                <div class="col-md-10" id="berichtbox">
+                    @Html.TextAreaFor(m => m.Bericht, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Bericht, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Verzend" class="btn btn-success" />
+                </div>
+            </div>
+            }
+        </section>
+    </div>
+
+

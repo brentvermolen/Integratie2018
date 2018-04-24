@@ -12,9 +12,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
+
 namespace MVCIntegratie.Controllers
 {
-   public partial class HomeController : Controller
+    [RequireHttps]
+
+    public partial class HomeController : Controller
+
    {
       private IBerichtManager berichtMng = new BerichtManager();
       private IAlertManager alertMng = new AlertManager();
