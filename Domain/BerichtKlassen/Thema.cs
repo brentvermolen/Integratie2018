@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,13 +7,18 @@ using System.Threading.Tasks;
 
 namespace BL.Domain.BerichtKlassen
 {
-   public class Hashtag
+   public class Thema
    {
       [Key]
       public int ID { get; set; }
       public string Tekst { get; set; }
 
       public List<Bericht> Berichten { get; set; }
+
+      public override string ToString()
+      {
+         return Tekst;
+      }
 
       public override bool Equals(object obj)
       {
@@ -23,19 +27,14 @@ namespace BL.Domain.BerichtKlassen
             return false;
          }
 
-         Hashtag hashtag = (Hashtag)obj;
+         Thema o = (Thema)obj;
 
-         if (hashtag.Tekst.Equals(Tekst))
+         if (o.Tekst.Equals(Tekst))
          {
             return true;
          }
 
          return false;
-      }
-
-      public override string ToString()
-      {
-         return Tekst;
       }
    }
 }

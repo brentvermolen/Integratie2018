@@ -4,9 +4,12 @@ using BL.Domain.AlertKlassen;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
 using BL.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 
@@ -23,13 +26,14 @@ namespace MVCIntegratie.Controllers
 
       public virtual ActionResult Index()
       {
-         List<Bericht> oudeBerichten = berichtMng.GetBerichten().ToList();
-         List<Bericht> nieuweBerichten = berichtMng.LeesBerichten(10, "Annick De Ridder").ToList();
+         List<Bericht> test = berichtMng.GetBerichten().ToList();
+         
+         //string json = JsonExport.Lijst(test);
 
-         return View(AlertPolitieker(oudeBerichten, nieuweBerichten));
+         return View(new List<AlertResultaat>());
       }
 
-      private List<AlertResultaat> AlertPolitieker(List<Bericht> oudeData, List<Bericht> nieuweData)
+      /*private List<AlertResultaat> AlertPolitieker(List<Bericht> oudeData, List<Bericht> nieuweData)
       {
          List<PolitiekVergelijker> oud = new List<PolitiekVergelijker>();
          List<PolitiekVergelijker> nieuw = new List<PolitiekVergelijker>();
@@ -133,7 +137,7 @@ namespace MVCIntegratie.Controllers
          }
 
          return teTonen;
-      }
+      }*/
 
       public double BerekenAfwijking(List<int> totalen)
       {
