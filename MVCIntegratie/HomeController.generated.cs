@@ -95,8 +95,10 @@ namespace MVCIntegratie.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Home_Ingelogd = "Home_Ingelogd";
                 public readonly string Index = "Index";
             }
+            public readonly string Home_Ingelogd = "~/Views/Home/Home_Ingelogd.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
         }
     }

@@ -31,11 +31,67 @@
     transition: width 0.4s ease-in-out;
     margin-top: 15px;
     margin-bottom: 15px;
+    display: inline-block;
 }
 
 #zoekbar:focus {
-    width: 100%;
+    width: 80%;
 }
+
+#newgraph {
+    display: inline-block;
+    float: right;
+    width: 180px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-width: 19%;
+    min-width:130px;
+    background-color: white;
+    border-color: darkgrey;
+    color: darkgray;
+}
+
+@media only screen and (max-width: 687px) {
+    #zoekbar:focus {
+        width:55%;
+    }
+}
+
+#container {
+    min-width: 310px;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto
+}
+
+.highcharts-credits {
+    display:none !important;
+}
+
+.content {
+    position:relative;
+}
+
+.content a {
+    position:absolute;
+    bottom:20px;
+    right:5px;
+    padding:0px;
+}
+
+.wijzigbutton {
+    border-radius:50%;
+    width:20px;
+    height:20px;
+    background-color:white;
+    color:black;
+    border-color:black;
+}
+
+    .wijzigbutton:hover {
+        background-color: #5cb85c;
+    }
+
 
 
 
