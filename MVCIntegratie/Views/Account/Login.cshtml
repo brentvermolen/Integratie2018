@@ -47,21 +47,22 @@
             }
         </section>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
     </div>
-    <p>
-        @Html.ActionLink("Nog geen account? Registreer hier.", "Register")
-    </p>
-    <p>
-        @Html.ActionLink("Wachtwoord vergeten?", "ForgotPassword")
-    </p>
+    <div class="col-md-8">
+        <p>
+            @Html.ActionLink("Nog geen account? Registreer hier.", "Register")
+        </p>
+        <p>
+            @Html.ActionLink("Wachtwoord vergeten?", "ForgotPassword")
+        </p>
+        </div>
 
 
 
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
