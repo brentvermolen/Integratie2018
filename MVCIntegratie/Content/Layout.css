@@ -12,6 +12,32 @@
     width:100%;
 }
 
+#naam {
+    text-align:center;
+}
+
+#invoer .form-control {
+    width: 100%;
+    
+}
+
+#wijzig {
+    margin-right: 5px;
+}
+
+#zoekbar {
+    width: 180px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#zoekbar:focus {
+    width: 100%;
+}
+
+
 
 
 

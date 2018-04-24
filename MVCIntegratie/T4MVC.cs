@@ -125,6 +125,7 @@ namespace Links
         public static readonly string popper_min_js = Url("popper.min.js");
         public static readonly string popper_min_js_map = Url("popper.min.js.map");
         public static readonly string README_md = Url("README.md");
+        public static readonly string ReadOnly_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/ReadOnly.min.js") ? Url("ReadOnly.min.js") : Url("ReadOnly.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
         public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
         public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
@@ -215,6 +216,7 @@ namespace Links
                 public static readonly string popper_utils_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper-utils.min.js"); 
                 public static readonly string popper_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper.js"); 
                 public static readonly string popper_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper.min.js"); 
+                public static readonly string ReadOnly_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/ReadOnly.js"); 
                 public static readonly string respond_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.js"); 
                 public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.matchmedia.addListener.js"); 
                 public static readonly string respond_matchmedia_addListener_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.matchmedia.addListener.min.js"); 
