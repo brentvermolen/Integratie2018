@@ -1,10 +1,8 @@
-﻿@model IEnumerable<BL.Domain.AlertKlassen.AlertResultaat>
-
-@{
+﻿@{
    ViewBag.Title = "Home Page";
 }
 <link rel="stylesheet" href="~/Content/Layout.css">
-<div id="zoekdiv"><input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken.."></div>
+<div id="zoekdiv"><form action="/Home/Zoek" method="post"> <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken.."></form></div>
 
 
 <div class="jumbotron">
@@ -13,23 +11,6 @@
    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div class="row">
-   <table class="table">
-      <tr>
-         <th>AlertID</th>
-         <th>Gebruiker</th>
-         <th>Resultaat</th>
-      </tr>
-      @foreach (var item in Model)
-      {
-      <tr>
-         <td>@Html.DisplayFor(modelItem => item.Alert.ID)</td>
-         <td>@Html.DisplayFor(modelItem => item.Gebruiker.Naam)</td>
-         <td>@Html.DisplayFor(modelItem => item.Resultaat)</td>
-      </tr>
-      }
-   </table>
-</div>
 
 <div class="row">
    <div class="col-md-4">

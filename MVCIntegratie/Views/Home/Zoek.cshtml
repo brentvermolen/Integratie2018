@@ -1,0 +1,27 @@
+﻿@model IList<BL.Domain.ItemKlassen.Persoon>
+
+@{
+    ViewBag.Title = "Zoek";
+}
+
+<h2>Zoek</h2>
+
+<table>
+
+    <tr>
+
+        <th>Naam</th>
+        <th>Aantal Berichten</th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>@Html.ActionLink(item.Naam, MVC.Persoon.Details(item.Naam))</td>
+            <td>@Html.DisplayFor(modelItem => item.Berichten.Count) </td>
+        </tr>
+    }
+
+</table>

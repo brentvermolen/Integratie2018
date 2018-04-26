@@ -128,6 +128,11 @@ namespace BL
          return repo.ReadPersonen();
       }
 
+     /*  public IEnumerable<Thema> GeThemas()
+       {
+           return repo.ReadThemas();
+       }*/
+
       public Persoon GetPersoon(string persoon)
       {
          return repo.ReadPersoon(persoon);

@@ -14,18 +14,18 @@ using System.Threading.Tasks;
 namespace DAL
 {
 
-   public class Integratie2018Initializer  : CreateDatabaseIfNotExists<Integratie2018Context>
+   public class Integratie2018Initializer  : DropCreateDatabaseIfModelChanges<Integratie2018Context>
 
    {
       protected override void Seed(Integratie2018Context context)
       {
-         /*ApiCallAsync(context);
+         ApiCallAsync(context);
 
          AddGebruikers(context);
 
          AddAlerts(context);
 
-         context.SaveChanges();*/
+         context.SaveChanges();
       }
 
       //TODO: Timer zetten, elk uur inladen
