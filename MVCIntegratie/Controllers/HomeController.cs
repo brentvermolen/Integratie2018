@@ -4,6 +4,7 @@ using BL.Domain.AlertKlassen;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
 using BL.Interfaces;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,24 +15,22 @@ namespace MVCIntegratie.Controllers
 {
     [RequireHttps]
     public partial class HomeController : Controller
-   {
-
-
+   { 
       private IBerichtManager berichtMng = new BerichtManager();
       private IAlertManager alertMng = new AlertManager();
       private IGebruikerManager gebruikerMng = new GebruikerManager();
+      private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
-        public virtual ActionResult Home_Ingelogd()
-        {
-            return View();
-        }
-
-        public virtual ActionResult Index()
+      public virtual ActionResult Home_Ingelogd()
       {
-         List<Bericht> oudeBerichten = berichtMng.GetBerichten().ToList();
-         List<Bericht> nieuweBerichten = berichtMng.LeesBerichten(10, "Annick De Ridder").ToList();
+         return View();
+      }
 
-         return View(AlertPolitieker(oudeBerichten, nieuweBerichten));
+      public virtual ActionResult Index()
+      {
+         int count = 0;
+         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 2).ToList();
+         return View(graf);
       }
 
       private List<AlertResultaat> AlertPolitieker(List<Bericht> oudeData, List<Bericht> nieuweData)

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<BL.Domain.AlertKlassen.AlertResultaat>
+﻿@model List<DAL.Grafiek>
 
 @{
-    ViewBag.Title = "Home Page";
+   ViewBag.Title = "Home Page";
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -12,33 +12,330 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="~/Scripts/Chart.js"></script>
+<!--<script src="~/Scripts/Chart.js"></script>-->
 
 
 <div>
-    <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-    <a href="#" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+   <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+   <a href="#" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-6 content">
-            <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-    </div>
+   <div class="row">
+      @foreach (var grafiek in Model)
+      {
+         <div class="col-sm-6 col-md-6">
+            <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+         </div>
+      }
+   </div>
 </div>
+
+<script type="text/javascript">
+   $(document).ready(function () {
+      @foreach(var grafiek in Model)
+      {
+         <text>
+         var elem = document.getElementById('@grafiek.ID');
+         if (elem != null) {
+            Highcharts.chart('@grafiek.ID',
+               {
+                  @if (!(grafiek.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                        type: '@grafiek.Chart.Type'
+                           @if(grafiek.Chart.Type.Equals("pie"))
+                           {
+                        <text>,
+                     plotshadow: @grafiek.Chart.PlotShadow
+                        </text>
+                     }
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@grafiek.Titel'
+                  },
+
+                  @if (grafiek.Subtitel != null)
+                  {
+                     <text>
+                     subtitle:
+                     {
+                        text: '@grafiek.Subtitel'
+                     },
+                     </text>
+                  }
+
+                  @if (grafiek.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@grafiek.Tooltip'
+                  },
+                     </text>
+                  }
+
+                  @if (grafiek.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@grafiek.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  @if (grafiek.xAs.IsUsed == true)
+                  {
+                     <text>
+                  xAxis: {
+                     categories: '@grafiek.xAs.GetCategorieën()'
+                  },
+                  </text>
+                  }
+                  
+
+                  @if (!(grafiek.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @grafiek.Credits
+                  },
+                     </text>
+                  }
+
+                  legend: {
+                     layout: '@grafiek.Legende.Layout',
+                     align: '@grafiek.Legende.Alignment',
+                     verticalAlign: '@grafiek.Legende.VerticalAlign'
+                  },
+
+                  plotOptions: {
+                     @if (grafiek.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                        allowPointSelect: @grafiek.PlotOptions.AllowPointSelect,
+                        cursor: @grafiek.PlotOptions.Cursor,
+                        dataLabels: {
+                           enabled: @grafiek.PlotOptions.DataLabels
+                        }
+                        showInLegend: @grafiek.PlotOptions.ShowInLegend
+                     }
+                     </text>
+                     }
+
+                     series: {
+                        label: {
+                           connectorAllowed: @grafiek.PlotOptions.getBool(grafiek.PlotOptions.SeriesLabelConnector)
+                        },
+                        pointStart: @grafiek.PlotOptions.PointStart
+                     }
+                  },
+
+                  series: [
+                     @for(int i = 0; i < grafiek.Series.Count; i++)
+                     {
+                     var serie = grafiek.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (grafiek.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @serie.ColorByPoint,
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value,
+                              sliced: @data.Sliced,
+                              selected: @data.Selected
+                           }
+                        </text>
+                           if (i != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>]</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                        @if(i != grafiek.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+         };
+         </text>
+      }
+      /*
+      var myElem = document.getElementById('chart3');
+      if (myElem !== null) {
+
+      var myElem = document.getElementById('chart4');
+      if (myElem !== null) {
+         Highcharts.chart('chart4',
+            {
+               title: {
+                  text: 'Solar Employment Growth by Sector, 2010-2016'
+               },
+
+               subtitle: {
+                  text: 'Source: thesolarfoundation.com'
+               },
+
+               yAxis: {
+                  title: {
+                     text: 'Number of Employees'
+                  }
+               },
+               legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'middle'
+               },
+
+               plotOptions: {
+                  series: {
+                     label: {
+                        connectorAllowed: false
+                     },
+                     pointStart: 2010
+                  }
+               },
+
+               series: [
+                  {
+                     name: 'Installation',
+                     data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+                  }, {
+                     name: 'Manufacturing',
+                     data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+                  }, {
+                     name: 'Sales & Distribution',
+                     data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+                  }, {
+                     name: 'Project Development',
+                     data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+                  }, {
+                     name: 'Other',
+                     data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+                  }
+               ]
+
+            });
+      };
+      var myElem = document.getElementById('chart5');
+      if (myElem !== null) {
+         Highcharts.chart('chart5',
+            {
+               chart: {
+                  type: 'column'
+               },
+               title: {
+                  text: 'Column chart with negative values'
+               },
+               xAxis: {
+                  categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+               },
+               credits: {
+                  enabled: false
+               },
+               series: [
+                  {
+                     name: 'John',
+                     data: [5, 3, 4, 7, 2]
+                  }, {
+                     name: 'Jane',
+                     data: [2, -2, -3, 2, 1]
+                  }, {
+                     name: 'Joe',
+                     data: [3, 4, 4, -2, 5]
+                  }
+               ]
+            });
+      };
+      var myElem = document.getElementById('chart6');
+      if (myElem !== null) {
+         Highcharts.chart('chart6',
+            {
+               chart: {
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: false,
+                  type: 'pie'
+               },
+               title: {
+                  text: 'Browser market shares in January, 2018'
+               },
+               tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+               },
+               plotOptions: {
+                  pie: {
+                     allowPointSelect: true,
+                     cursor: 'pointer',
+                     dataLabels: {
+                        enabled: false
+                     },
+                     showInLegend: true
+                  }
+               },
+               series: [
+                  {
+                     name: 'Brands',
+                     colorByPoint: true,
+                     data: [
+                        {
+                           name: 'Chrome',
+                           y: 61.41,
+                           sliced: true,
+                           selected: true
+                        }, {
+                           name: 'Internet Explorer',
+                           y: 11.84
+                        }, {
+                           name: 'Firefox',
+                           y: 10.85
+                        }, {
+                           name: 'Edge',
+                           y: 4.67
+                        }, {
+                           name: 'Safari',
+                           y: 4.18
+                        }, {
+                           name: 'Other',
+                           y: 7.05
+                        }
+                     ]
+                  }
+               ]
+            });
+      };*/
+   });
+
+
+</script>

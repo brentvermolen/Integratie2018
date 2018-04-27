@@ -48,6 +48,14 @@
     <Compile Include="AlertKlassen\AlertResultaat.cs" />
     <Compile Include="Bericht.cs" />
     <Compile Include="Gebruiker.cs" />
+    <Compile Include="Grafiek.cs" />
+    <Compile Include="GrafiekKlassen\As.cs" />
+    <Compile Include="GrafiekKlassen\Categorie.cs" />
+    <Compile Include="GrafiekKlassen\Chart.cs" />
+    <Compile Include="GrafiekKlassen\Data.cs" />
+    <Compile Include="GrafiekKlassen\Legende.cs" />
+    <Compile Include="GrafiekKlassen\PlotOptions.cs" />
+    <Compile Include="GrafiekKlassen\Serie.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
     <Compile Include="BerichtKlassen\Mention.cs" />

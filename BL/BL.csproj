@@ -43,6 +43,7 @@
     <Compile Include="AlertManager.cs" />
     <Compile Include="BerichtManager.cs" />
     <Compile Include="GebruikerManager.cs" />
+    <Compile Include="GrafiekenManager.cs" />
     <Compile Include="Interfaces\IAlertManager.cs" />
     <Compile Include="Interfaces\IBerichtManager.cs" />
     <Compile Include="Interfaces\IGebruikerManager.cs" />
