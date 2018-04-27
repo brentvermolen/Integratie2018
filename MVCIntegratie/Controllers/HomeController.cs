@@ -32,6 +32,7 @@ namespace MVCIntegratie.Controllers
 
         public virtual ActionResult Zoek(string search)
         {
+            
             if (search == null)
             {
                 return View();
@@ -60,7 +61,7 @@ namespace MVCIntegratie.Controllers
                     .ToList());
                 urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
             }
-            personen.Sort();
+            //personen.Sort();
             zoekresultaat.Woorden = woorden;
             zoekresultaat.Hashtags = hashtags;
             zoekresultaat.Mentions = mentions;
