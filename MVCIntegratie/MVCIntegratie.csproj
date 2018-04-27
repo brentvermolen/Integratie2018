@@ -210,6 +210,7 @@
     <Compile Include="Controllers\AlertController.cs" />
     <Compile Include="Controllers\BerichtController.cs" />
     <Compile Include="Controllers\FYIController.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersoonController.cs" />
@@ -283,6 +284,7 @@
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\export-data.js" />
     <Content Include="Scripts\exporting.js" />
+    <Content Include="Scripts\WijzigGrafiekType.js" />
     <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\IngelogdeGebruiker.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
@@ -314,6 +316,7 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
+    <Content Include="Scripts\TypeGeladen.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -367,7 +370,7 @@
     <Content Include="Views\FYI\Contact.cshtml" />
     <Content Include="Views\FYI\FAQ.cshtml" />
     <Content Include="Views\Home\Home_Ingelogd.cshtml" />
-    <Content Include="Views\Graph\NieuweGrafiek.cshtml" />
+    <Content Include="Views\Graph\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

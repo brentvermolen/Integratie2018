@@ -31,10 +31,10 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.AlertController Alert = new MVCIntegratie.Controllers.T4MVC_AlertController();
     public static MVCIntegratie.Controllers.BerichtController Bericht = new MVCIntegratie.Controllers.T4MVC_BerichtController();
     public static MVCIntegratie.Controllers.FYIController FYI = new MVCIntegratie.Controllers.T4MVC_FYIController();
+    public static MVCIntegratie.Controllers.GraphController Graph = new MVCIntegratie.Controllers.T4MVC_GraphController();
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
     public static MVCIntegratie.Controllers.ManageController Manage = new MVCIntegratie.Controllers.T4MVC_ManageController();
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
-    public static T4MVC.GraphController Graph = new T4MVC.GraphController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -143,6 +143,7 @@ namespace Links
             public static readonly string popper_min_js_map = Url("popper.min.js.map");
         }
     
+        public static readonly string wijziggrafiektype_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/wijziggrafiektype.min.js") ? Url("wijziggrafiektype.min.js") : Url("wijziggrafiektype.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -210,6 +211,7 @@ namespace Links
                 public static readonly string respond_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.js"); 
                 public static readonly string respond_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.min.js"); 
                 public static readonly string series_label_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/series-label.js"); 
+                public static readonly string wijziggrafiektype_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/wijziggrafiektype.js"); 
             }
         }
         public static partial class Content 
