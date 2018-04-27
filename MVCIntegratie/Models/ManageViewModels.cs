@@ -10,6 +10,16 @@ namespace MVCIntegratie.Models
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
+        public string Voornaam { get; set; }
+        public string Achternaam { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        [RegularExpression("^([0]?[1-9]|[1][0-2])[./-]([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0-9]{4}|[0-9]{2})$", ErrorMessage = "De geboortedatum moet van het formaat DD/MM/JJJJ zijn.")]
+        public string Geboortedatum { get; set; }
+        [RegularExpression("^[0-9]{4}$", ErrorMessage = "Geef een geldige Postcode in.")]
+        public string Postcode { get; set; }
+        public string Beveiligingsvraag { get; set; }
+        public string Antwoord { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
     }

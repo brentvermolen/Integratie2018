@@ -25,13 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MVCIntegratie.Controllers
 {
-    public partial class HomeController
+    public partial class FYIController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
+        public FYIController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected HomeController(Dummy d) { }
+        protected FYIController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -61,13 +61,13 @@ namespace MVCIntegratie.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController Actions { get { return MVC.Home; } }
+        public FYIController Actions { get { return MVC.FYI; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Home";
+        public readonly string Name = "FYI";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Home";
+        public const string NameConst = "FYI";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -75,15 +75,17 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Home_Ingelogd = "Home_Ingelogd";
-            public readonly string Index = "Index";
+            public readonly string Over = "Over";
+            public readonly string FAQ = "FAQ";
+            public readonly string Contact = "Contact";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Home_Ingelogd = "Home_Ingelogd";
-            public const string Index = "Index";
+            public const string Over = "Over";
+            public const string FAQ = "FAQ";
+            public const string Contact = "Contact";
         }
 
 
@@ -97,38 +99,51 @@ namespace MVCIntegratie.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Home_Ingelogd = "Home_Ingelogd";
-                public readonly string Index = "Index";
+                public readonly string Contact = "Contact";
+                public readonly string FAQ = "FAQ";
+                public readonly string Over = "Over";
             }
-            public readonly string Home_Ingelogd = "~/Views/Home/Home_Ingelogd.cshtml";
-            public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string Contact = "~/Views/FYI/Contact.cshtml";
+            public readonly string FAQ = "~/Views/FYI/FAQ.cshtml";
+            public readonly string Over = "~/Views/FYI/Over.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : MVCIntegratie.Controllers.HomeController
+    public partial class T4MVC_FYIController : MVCIntegratie.Controllers.FYIController
     {
-        public T4MVC_HomeController() : base(Dummy.Instance) { }
+        public T4MVC_FYIController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void Home_IngelogdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void OverOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Home_Ingelogd()
+        public override System.Web.Mvc.ActionResult Over()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Home_Ingelogd, "https");
-            Home_IngelogdOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Over);
+            OverOverride(callInfo);
             return callInfo;
         }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void FAQOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult FAQ()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
-            IndexOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FAQ);
+            FAQOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ContactOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Contact()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
+            ContactOverride(callInfo);
             return callInfo;
         }
 

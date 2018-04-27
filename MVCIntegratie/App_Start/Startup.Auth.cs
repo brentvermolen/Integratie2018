@@ -46,23 +46,23 @@ namespace MVCIntegratie
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseMicrosoftAccountAuthentication(
+                clientId: "2cbf886d-4121-4135-8708-3c7d96d3f487",
+                clientSecret: "dVVG08^*?apmerfXDVM389{");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "zZ7Arf0nsEaYnFJbwa5mRrY3O",
+               consumerSecret: "vNdtt2KRuGDzEONG2RQSyyNdFPWMuWWBor3pkG1IxFrCQwufVB");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "906366716198237",
+               appSecret: "decc4e184695c13ce19b3fe55c941296");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "120550687702-13loghr4r93svq4opokeno18tk49fpnv.apps.googleusercontent.com",
+                ClientSecret = "MRsCbsHa0K--pQpp-IAqRhm2"
+            });
         }
     }
-}
+    }

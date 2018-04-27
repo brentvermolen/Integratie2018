@@ -9,15 +9,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
+
 namespace MVCIntegratie.Controllers
 {
-   public partial class HomeController : Controller
+    [RequireHttps]
+    public partial class HomeController : Controller
    {
+
+
       private IBerichtManager berichtMng = new BerichtManager();
       private IAlertManager alertMng = new AlertManager();
       private IGebruikerManager gebruikerMng = new GebruikerManager();
 
-      public virtual ActionResult Index()
+        public virtual ActionResult Home_Ingelogd()
+        {
+            return View();
+        }
+
+        public virtual ActionResult Index()
       {
          List<Bericht> oudeBerichten = berichtMng.GetBerichten().ToList();
          List<Bericht> nieuweBerichten = berichtMng.LeesBerichten(10, "Annick De Ridder").ToList();
@@ -166,6 +175,7 @@ namespace MVCIntegratie.Controllers
          {
             return Politieker;
          }
+
       }
    }
 }
