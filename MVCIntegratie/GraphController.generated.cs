@@ -25,13 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MVCIntegratie.Controllers
 {
-    public partial class HomeController
+    public partial class GraphController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
+        public GraphController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected HomeController(Dummy d) { }
+        protected GraphController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -59,21 +59,15 @@ namespace MVCIntegratie.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Zoek()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController Actions { get { return MVC.Home; } }
+        public GraphController Actions { get { return MVC.Graph; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Home";
+        public readonly string Name = "Graph";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Home";
+        public const string NameConst = "Graph";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -81,28 +75,16 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Home_Ingelogd = "Home_Ingelogd";
             public readonly string Index = "Index";
-            public readonly string Zoek = "Zoek";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Home_Ingelogd = "Home_Ingelogd";
             public const string Index = "Index";
-            public const string Zoek = "Zoek";
         }
 
 
-        static readonly ActionParamsClass_Zoek s_params_Zoek = new ActionParamsClass_Zoek();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Zoek ZoekParams { get { return s_params_Zoek; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Zoek
-        {
-            public readonly string search = "search";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -113,31 +95,16 @@ namespace MVCIntegratie.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Home_Ingelogd = "Home_Ingelogd";
                 public readonly string Index = "Index";
-                public readonly string Zoek = "Zoek";
             }
-            public readonly string Home_Ingelogd = "~/Views/Home/Home_Ingelogd.cshtml";
-            public readonly string Index = "~/Views/Home/Index.cshtml";
-            public readonly string Zoek = "~/Views/Home/Zoek.cshtml";
+            public readonly string Index = "~/Views/Graph/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : MVCIntegratie.Controllers.HomeController
+    public partial class T4MVC_GraphController : MVCIntegratie.Controllers.GraphController
     {
-        public T4MVC_HomeController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void Home_IngelogdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Home_Ingelogd()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Home_Ingelogd, "https");
-            Home_IngelogdOverride(callInfo);
-            return callInfo;
-        }
+        public T4MVC_GraphController() : base(Dummy.Instance) { }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
@@ -145,20 +112,8 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Index()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ZoekOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Zoek(string search)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
-            ZoekOverride(callInfo, search);
             return callInfo;
         }
 

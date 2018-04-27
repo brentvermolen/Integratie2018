@@ -20,10 +20,17 @@ namespace MVCIntegratie.Controllers
     [RequireHttps]
     public partial class HomeController : Controller
 
-    {
-        private IBerichtManager berichtMng = new BerichtManager();
-        private IAlertManager alertMng = new AlertManager();
-        private IGebruikerManager gebruikerMng = new GebruikerManager();
+   {
+
+
+      private IBerichtManager berichtMng = new BerichtManager();
+      private IAlertManager alertMng = new AlertManager();
+      private IGebruikerManager gebruikerMng = new GebruikerManager();
+
+        public virtual ActionResult Home_Ingelogd()
+        {
+            return View();
+        }
 
         public virtual ActionResult Index()
         {
@@ -60,7 +67,7 @@ namespace MVCIntegratie.Controllers
                     .ToList());
                 urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
             }
-            personen.Sort();
+
             zoekresultaat.Woorden = woorden;
             zoekresultaat.Hashtags = hashtags;
             zoekresultaat.Mentions = mentions;
