@@ -93,6 +93,11 @@ namespace BL
          return repo.ReadBerichten();
       }
 
+      public IEnumerable<Bericht> GetBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
+      {
+         return repo.ReadBerichten(predicate);
+      }
+
       public IEnumerable<Hashtag> GetBerichtHashtags(string berichtID)
       {
          return repo.ReadHashtagsVanBericht(berichtID);

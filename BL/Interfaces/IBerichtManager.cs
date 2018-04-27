@@ -12,6 +12,7 @@ namespace BL
    public interface IBerichtManager
    {
       IEnumerable<Bericht> GetBerichten();
+      IEnumerable<Bericht> GetBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate);
       Bericht GetBericht(string id);
       Bericht AddBericht(Bericht bericht);
       void RemoveBericht(string berichtID);

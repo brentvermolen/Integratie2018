@@ -336,6 +336,7 @@
     <Content Include="Views\Persoon\Details.cshtml" />
     <Content Include="Views\Alert\Index.cshtml" />
     <Content Include="Views\Persoon\Index.cshtml" />
+    <Content Include="Views\Home\Zoek.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

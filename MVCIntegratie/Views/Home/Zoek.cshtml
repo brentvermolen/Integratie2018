@@ -1,0 +1,23 @@
+﻿@model IList<BL.Domain.ItemKlassen.Persoon>
+
+@{
+   ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<table>
+
+   <tr>
+      <td>Naam</td>
+   </tr>
+
+   @foreach (var item in Model)
+   {
+      <tr>
+         <td>@Html.ActionLink(item.Naam, MVC.Persoon.Details(item.Naam))</td>
+      </tr>
+   }
+
+</table>
+

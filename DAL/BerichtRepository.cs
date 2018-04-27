@@ -152,6 +152,11 @@ namespace DAL
             .Include("Personen");
       }
 
+      public IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
+      {
+         return ctx.Berichten.Where(predicate);
+      }
+
       public Hashtag ReadHashtag(string hashtag)
       {
          return ctx.Hashtags.Find(hashtag);

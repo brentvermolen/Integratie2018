@@ -13,6 +13,7 @@ namespace DAL
    {
       Bericht CreateBericht(Bericht bericht);
       IEnumerable<Bericht> ReadBerichten();
+      IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate);
       Bericht ReadBericht(string berichtID);
       void UpdateBericht(Bericht bericht);
       void DeleteBericht(string berichtID);

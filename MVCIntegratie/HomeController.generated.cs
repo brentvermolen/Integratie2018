@@ -59,6 +59,12 @@ namespace MVCIntegratie.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Zoek()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC.Home; } }
@@ -76,15 +82,25 @@ namespace MVCIntegratie.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Zoek = "Zoek";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Zoek = "Zoek";
         }
 
 
+        static readonly ActionParamsClass_Zoek s_params_Zoek = new ActionParamsClass_Zoek();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Zoek ZoekParams { get { return s_params_Zoek; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Zoek
+        {
+            public readonly string search = "search";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -96,8 +112,10 @@ namespace MVCIntegratie.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string View = "View";
             }
             public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string View = "~/Views/Home/View.cshtml";
         }
     }
 
@@ -114,6 +132,18 @@ namespace MVCIntegratie.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ZoekOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Zoek(string search)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
+            ZoekOverride(callInfo, search);
             return callInfo;
         }
 

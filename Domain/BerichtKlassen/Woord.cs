@@ -24,7 +24,18 @@ namespace BL.Domain.BerichtKlassen
       {
          if (obj.GetType() != GetType())
          {
-            return false;
+            if (obj.GetType() == typeof(string))
+            {
+               string woord = (string)obj;
+               if (woord.Equals(Tekst))
+               {
+                  return true;
+               }
+            }
+            else
+            {
+               return false;
+            }
          }
 
          Woord o = (Woord)obj;
