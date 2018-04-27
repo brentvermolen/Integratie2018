@@ -59,6 +59,12 @@ namespace MVCIntegratie.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Zoek()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC.Home; } }
@@ -77,6 +83,7 @@ namespace MVCIntegratie.Controllers
         {
             public readonly string Home_Ingelogd = "Home_Ingelogd";
             public readonly string Index = "Index";
+            public readonly string Zoek = "Zoek";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,9 +91,18 @@ namespace MVCIntegratie.Controllers
         {
             public const string Home_Ingelogd = "Home_Ingelogd";
             public const string Index = "Index";
+            public const string Zoek = "Zoek";
         }
 
 
+        static readonly ActionParamsClass_Zoek s_params_Zoek = new ActionParamsClass_Zoek();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Zoek ZoekParams { get { return s_params_Zoek; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Zoek
+        {
+            public readonly string search = "search";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -99,9 +115,11 @@ namespace MVCIntegratie.Controllers
             {
                 public readonly string Home_Ingelogd = "Home_Ingelogd";
                 public readonly string Index = "Index";
+                public readonly string Zoek = "Zoek";
             }
             public readonly string Home_Ingelogd = "~/Views/Home/Home_Ingelogd.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string Zoek = "~/Views/Home/Zoek.cshtml";
         }
     }
 
@@ -129,6 +147,18 @@ namespace MVCIntegratie.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ZoekOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Zoek(string search)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
+            ZoekOverride(callInfo, search);
             return callInfo;
         }
 

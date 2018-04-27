@@ -18,11 +18,6 @@ namespace DAL
          ctx = new Integratie2018Context();
       }
 
-      public IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "")
-      {
-      return ctx.AddBerichten(aantal, vanPersoon);
-      }
-
       public Bericht CreateBericht(Bericht bericht)
       {
          ctx.Berichten.Add(bericht);
@@ -143,7 +138,7 @@ namespace DAL
             .Include("Woorden")
             .Include("Urls")
             .Include("Mentions")
-            .Include("Politieker")
+            .Include("Personen")
             .SingleOrDefault(b => b.ID.Equals(berichtID));
       }
 
@@ -154,7 +149,7 @@ namespace DAL
             .Include("Woorden")
             .Include("Urls")
             .Include("Mentions")
-            .Include("Politieker");
+            .Include("Personen");
       }
 
       public Hashtag ReadHashtag(string hashtag)
@@ -217,7 +212,7 @@ namespace DAL
 
       public Woord ReadWoord(string woord)
       {
-         return ctx.Woorden.Find(woord);
+         return ctx.Woorden.FirstOrDefault(w => w.Tekst.Equals(woord));
       }
 
       public IEnumerable<Woord> ReadWoorden()

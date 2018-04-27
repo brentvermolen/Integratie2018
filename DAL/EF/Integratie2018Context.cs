@@ -4,9 +4,12 @@ using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -21,7 +24,10 @@ namespace DAL
          try
          {
             Database.Initialize(false);
-         }catch(Exception e) { }
+         }catch(Exception e)
+         {
+            e.ToString();
+         }
       }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -42,172 +48,143 @@ namespace DAL
          base.OnModelCreating(modelBuilder);
       }
 
+      public DbSet<Synchronize> Sync { get; set; }
+
       public DbSet<Bericht> Berichten { get; set; }
       public DbSet<Woord> Woorden { get; set; }
       public DbSet<Url> Urls { get; set; } 
       public DbSet<Mention> Mentions { get; set; }
       public DbSet<Hashtag> Hashtags { get; set; }
+      public DbSet<Thema> Themas { get; set; }
 
       public DbSet<Persoon> Personen { get; set; }
 
       public DbSet<Gebruiker> Gebruikers { get; set; }
 
       public DbSet<Alert> Alerts { get; set; }
-      
+   }
 
-      public IEnumerable<Bericht> AddBerichten(int aantal, string vanPersoon = "")
+   public class Synchronize
+   {
+      [Key]
+      public int ID { get; set; }
+      public DateTime Latest { get; set; }
+      [NotMapped]
+      public Integratie2018Context Context { get; set; }
+
+      public void Start()
       {
-         List<Bericht> berichten = new List<Bericht>();
-
-         using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath("~/App_Data/File.json")))
-         {
-            string json = sr.ReadToEnd();
-
-            List<string> jsonItems = GetJsonItems(json);
-
-            int intTeller = 0;
-
-            foreach (string str in jsonItems)
-            {
-               if (vanPersoon.Equals(""))
-               {
-                  if (intTeller++ == aantal)
-                  {
-                     break;
-                  }
-               }
-
-               Bericht bericht = JsonConvert.DeserializeObject<Bericht>(str);
-
-               if (Berichten.Find(bericht.ID) != null)
-               {
-                  continue;
-               }
-
-               Persoon persoon = Personen.Find(string.Join(" ", bericht.PolitiekerJson));
-               if (persoon == null)
-               {
-                  persoon = new Persoon(string.Join(" ", bericht.PolitiekerJson));
-                  bericht.Politieker = persoon;
-                  Personen.Add(persoon);
-               }
-               else
-               {
-                  bericht.Politieker = persoon;
-               }
-               bericht.Polariteit = bericht.Sentiment[0];
-               bericht.Objectiviteit = bericht.Sentiment[1];
-
-               /*bericht.Woorden = new List<Woord>();
-               bericht.Urls = new List<Url>();
-               bericht.Mentions = new List<Mention>();
-               bericht.Hashtags = new List<Hashtag>();
-
-               foreach (string t in bericht.WoordenJson)
-               {
-                  Woord woord = Woorden.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (woord == null)
-                  {
-                     woord = new Woord() { Tekst = t };
-                     bericht.Woorden.Add(woord);
-                     Woorden.Add(woord);
-                  }
-                  else
-                  {
-                     bericht.Woorden.Add(woord);
-                  }
-               }
-               foreach (string t in bericht.UrlsJson)
-               {
-                  Url url = Urls.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (url == null)
-                  {
-                     url = new Url() { Tekst = t };
-                     bericht.Urls.Add(url);
-                     Urls.Add(url);
-                  }
-                  else
-                  {
-                     bericht.Urls.Add(url);
-                  }
-               }
-               foreach (string t in bericht.MentionsJson)
-               {
-                  Mention mention = Mentions.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (mention == null)
-                  {
-                     mention = new Mention() { Tekst = t };
-                     bericht.Mentions.Add(mention);
-                     Mentions.Add(mention);
-                  }
-                  else
-                  {
-                     bericht.Mentions.Add(mention);
-                  }
-               }
-               foreach (string t in bericht.HashtagsJson)
-               {
-                  Hashtag hashtag = Hashtags.FirstOrDefault(f => f.Tekst.Equals(t));
-                  if (hashtag == null)
-                  {
-                     hashtag = new Hashtag() { Tekst = t };
-                     bericht.Hashtags.Add(hashtag);
-                     Hashtags.Add(hashtag);
-                  }
-                  else
-                  {
-                     bericht.Hashtags.Add(hashtag);
-                  }
-               }*/
-
-               if (Berichten.Find(bericht.ID) == null)
-               {
-                  if (!vanPersoon.Equals(""))
-                  {
-                     if (vanPersoon.Equals(persoon.Naam))
-                     {
-                        if (intTeller++ == aantal)
-                        {
-                           break;
-                        }
-                     }
-                  }
-
-                  berichten.Add(bericht);
-                  Berichten.Add(bericht);
-               }
-            }
-         }
-
-         SaveChanges();
-         return berichten;
+         ApiCallAsync(Context);
       }
 
-      public List<string> GetJsonItems(string ExampleJSON)
+      private string GetMaand(int maand)
       {
-         int BracketCount = -1;
-         List<string> JsonItems = new List<string>();
-         StringBuilder Json = new StringBuilder();
-
-         foreach (char c in ExampleJSON)
+         switch (maand)
          {
-            if (BracketCount == 0 && c == '{')
-            {
-               Json = new StringBuilder();
-            }
-
-            if (c == '{')
-               ++BracketCount;
-            else if (c == '}')
-               --BracketCount;
-            Json.Append(c);
-
-            if (BracketCount == 0 && c == '}')
-            {
-               JsonItems.Add(Json.ToString());
-            }
+            case 1:
+               return "Januari";
+            case 2:
+               return "Februari";
+            case 3:
+               return "Maart";
+            case 4:
+               return "April";
+            case 5:
+               return "Mei";
+            case 6:
+               return "Juni";
+            case 7:
+               return "Juli";
+            case 8:
+               return "Augustus";
+            case 9:
+               return "September";
+            case 10:
+               return "Oktober";
+            case 11:
+               return "November";
+            case 12:
+               return "December";
          }
-         return JsonItems;
+
+         return "";
+      }
+
+      public string GetSince()
+      {
+         return "\"since\":\"" + Latest.Day + " " + GetMaand(Latest.Month) + " " + Latest.Year + " " + Latest.TimeOfDay + "\"";
+      }
+      //TODO: Timer zetten, elk uur inladen
+
+      private static readonly HttpClient client = new HttpClient();
+
+      public async Task ApiCallAsync(Integratie2018Context context)
+      {
+         try
+         {
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            {
+               CharSet = "utf-8"
+            });
+
+            StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
+            Latest = DateTime.Now;
+            context.Entry(this).State = EntityState.Modified;
+            context.SaveChanges();
+
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
+            {
+               CharSet = "utf-8"
+            };
+            content.Headers.Add("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
+
+            HttpResponseMessage response = await client.PostAsync("http://kdg.textgain.com/query", content);
+
+            string responseString = await response.Content.ReadAsStringAsync();
+            responseString.ToString();
+
+            AddBerichten(responseString, context);
+         }
+         catch (Exception e)
+         {
+            e.ToString();
+         }
+      }
+
+      private class BerichtenClass
+      {
+         [JsonProperty("berichten")]
+         public List<Bericht> berichten { get; set; }
+      }
+
+      public IEnumerable<Bericht> AddBerichten(string json, Integratie2018Context context)
+      {
+         json = "{ \"berichten\": " + json + " }";
+         json = json.Replace("\"geo\": false", "\"geo\": [0, 0]");
+         BerichtenClass BerichtenJson;
+         try
+         {
+            BerichtenJson = JsonConvert.DeserializeObject<BerichtenClass>(json);
+         }
+         catch (Exception e)
+         {
+            e.ToString();
+            BerichtenJson = null;
+         }
+
+         BerichtenJson.ToString();
+
+         context.Berichten.AddRange(BerichtenJson.berichten);
+
+         try
+         {
+            context.SaveChanges();
+         }
+         catch (Exception ex)
+         {
+            ex.ToString();
+         }
+         return BerichtenJson.berichten;
       }
    }
 }
