@@ -88,7 +88,7 @@ namespace MVCIntegratie.Models
 
     [Required]
     [Display(Name = "Geboortedatum")]
-    [RegularExpression("^([0]?[1-9]|[1][0-2])[./-]([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0-9]{4}|[0-9]{2})$", ErrorMessage = "De geboortedatum moet van het formaat DD/MM/JJJJ zijn.")]
+    [RegularExpression("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$", ErrorMessage = "De geboortedatum moet van het formaat DD/MM/JJJJ zijn.")]
     public string Geboortedatum { get; set; }
 
     [Required]

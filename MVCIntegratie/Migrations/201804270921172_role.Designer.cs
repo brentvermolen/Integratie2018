@@ -13,7 +13,7 @@ namespace MVCIntegratie.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201804241236238_role"; }
+            get { return "201804270921172_role"; }
         }
         
         string IMigrationMetadata.Source

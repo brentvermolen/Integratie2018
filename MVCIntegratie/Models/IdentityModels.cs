@@ -16,6 +16,18 @@ namespace MVCIntegratie.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Voornaam { get; set; }
+
+        public string Achternaam { get; set; }
+
+        public string Geboortedatum { get; set; }
+
+        public string Postcode { get; set; }
+
+        public string Beveiligingsvraag { get; set; }
+
+        public string Antwoord { get; set; }
     }
 
     public class ApplicationRole:IdentityRole

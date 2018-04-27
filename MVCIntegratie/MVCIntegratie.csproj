@@ -242,9 +242,9 @@
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804241236238_role.cs" />
-    <Compile Include="Migrations\201804241236238_role.Designer.cs">
-      <DependentUpon>201804241236238_role.cs</DependentUpon>
+    <Compile Include="Migrations\201804271131591_role.cs" />
+    <Compile Include="Migrations\201804271131591_role.Designer.cs">
+      <DependentUpon>201804271131591_role.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -413,10 +413,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804241236238_role.resx">
-      <DependentUpon>201804241236238_role.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804271131591_role.resx">
+      <DependentUpon>201804271131591_role.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
