@@ -35,7 +35,7 @@ namespace MVCIntegratie.Controllers
                 return View();
             }
         
-            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.Contains(search)).ToList();
+            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower())).ToList();
 
 
             string[] splitSearch = search.Split(' ');
@@ -46,44 +46,25 @@ namespace MVCIntegratie.Controllers
             // List<Thema> themas = new List<Thema>();
 
             List<Bericht> berichten = new List<Bericht>();
-
+            Bericht zoekresultaat = new Bericht();
             foreach (string wrd in splitSearch)
             {
-                woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.Contains(wrd)).ToList());
-                hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.Contains(wrd)).ToList());
-                mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.Contains(wrd)).ToList());
-                urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.Contains(wrd)).ToList());
+                woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
+                hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
+                mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
+                urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
             }
 
+            zoekresultaat.Woorden = woorden;
+            zoekresultaat.Hashtags = hashtags;
+            zoekresultaat.Mentions = mentions;
+            zoekresultaat.Personen = personen;
+            zoekresultaat.Urls = urls;
             
-            /*
-            foreach (var persoon in personen)
-            {
-                berichten.AddRange(persoon.Berichten);
-            }
-
-            foreach (var woord in woorden)
-            {
-                berichten.AddRange(woord.Berichten);
-            }
-
-            foreach (var hashtag in hashtags)
-            {
-                berichten.AddRange(hashtag.Berichten);
-            }
-
-            foreach (var mention in mentions)
-            {
-               berichten.AddRange(mention.Berichten); 
-            }
-
-            foreach (var url in urls)
-            {
-                berichten.AddRange(url.Berichten);
-            }*/
+           
 
             woorden.ToString();
-            return View(personen);
+            return View(zoekresultaat);
         }
     }
 }
