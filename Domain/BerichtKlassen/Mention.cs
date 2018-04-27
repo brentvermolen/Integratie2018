@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL.Domain.BerichtKlassen
 {
-   public class Mention
+   public class Mention : IComparable<Mention>
    {
       [Key]
       public int ID { get; set; }
@@ -15,7 +15,12 @@ namespace BL.Domain.BerichtKlassen
 
       public ICollection<Bericht> Berichten { get; set; }
 
-      public override string ToString()
+       public int CompareTo(Mention other)
+       {
+           throw new NotImplementedException();
+       }
+
+       public override string ToString()
       {
          return Tekst;
       }
