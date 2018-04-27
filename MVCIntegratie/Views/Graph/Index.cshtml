@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "NieuweGrafiek";
+}
+<link href="~/Content/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/Layout.css">
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="~/Scripts/Chart.js"></script>
+<script src="~/Scripts/TypeGeladen.js"></script>
+<script src="~/Scripts/WijzigGrafiekType.js"></script>
+
+
+<div class="container" id="testt">
+    <div class="col-sm-10 col-md-10" id="typediagram">
+            <select class="form-control" onchange="wijzigtype(this);">
+                <option value="Lijn Diagram">Lijn Diagram</option>
+                <option value="Staaf Diagram">Staaf Diagram</option>
+                <option value="Taart Diagram">Taart Diagram</option>
+            </select>
+        </div>
+
+    <div class="col-sm-10 col-md-10 content">
+        <div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
+
+
+
+
+
+</div>
+

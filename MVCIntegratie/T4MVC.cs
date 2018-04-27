@@ -31,6 +31,7 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.AlertController Alert = new MVCIntegratie.Controllers.T4MVC_AlertController();
     public static MVCIntegratie.Controllers.BerichtController Bericht = new MVCIntegratie.Controllers.T4MVC_BerichtController();
     public static MVCIntegratie.Controllers.FYIController FYI = new MVCIntegratie.Controllers.T4MVC_FYIController();
+    public static MVCIntegratie.Controllers.GraphController Graph = new MVCIntegratie.Controllers.T4MVC_GraphController();
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
     public static MVCIntegratie.Controllers.ManageController Manage = new MVCIntegratie.Controllers.T4MVC_ManageController();
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
@@ -80,6 +81,7 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string Chart_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Chart.min.js") ? Url("Chart.min.js") : Url("Chart.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class esm {
             public const string UrlPath = "~/Scripts/esm";
@@ -95,14 +97,20 @@ namespace Links
             public static readonly string popper_min_js_map = Url("popper.min.js.map");
         }
     
+        public static readonly string export_data_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/export-data.min.js") ? Url("export-data.min.js") : Url("export-data.js");
+        public static readonly string exporting_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/exporting.min.js") ? Url("exporting.min.js") : Url("exporting.js");
+        public static readonly string highcharts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/highcharts.min.js") ? Url("highcharts.min.js") : Url("highcharts.js");
         public static readonly string index_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/index.d.min.js") ? Url("index.d.min.js") : Url("index.d.js");
-        public static readonly string jquery_3_3_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.3.1.intellisense.min.js") ? Url("jquery-3.3.1.intellisense.min.js") : Url("jquery-3.3.1.intellisense.js");
-        public static readonly string jquery_3_3_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.3.1.min.js") ? Url("jquery-3.3.1.min.js") : Url("jquery-3.3.1.js");
-        public static readonly string jquery_3_3_1_min_js = Url("jquery-3.3.1.min.js");
-        public static readonly string jquery_3_3_1_min_map = Url("jquery-3.3.1.min.map");
-        public static readonly string jquery_3_3_1_slim_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.3.1.slim.min.js") ? Url("jquery-3.3.1.slim.min.js") : Url("jquery-3.3.1.slim.js");
-        public static readonly string jquery_3_3_1_slim_min_js = Url("jquery-3.3.1.slim.min.js");
-        public static readonly string jquery_3_3_1_slim_min_map = Url("jquery-3.3.1.slim.min.map");
+
+        public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/IngelogdeGebruiker.min.js") ? Url("IngelogdeGebruiker.min.js") : Url("IngelogdeGebruiker.js");
+        public static readonly string jquery_3_0_0_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0-vsdoc.min.js") ? Url("jquery-3.0.0-vsdoc.min.js") : Url("jquery-3.0.0-vsdoc.js");
+        public static readonly string jquery_3_0_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0.min.js") ? Url("jquery-3.0.0.min.js") : Url("jquery-3.0.0.js");
+        public static readonly string jquery_3_0_0_min_js = Url("jquery-3.0.0.min.js");
+        public static readonly string jquery_3_0_0_min_map = Url("jquery-3.0.0.min.map");
+        public static readonly string jquery_3_0_0_slim_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0.slim.min.js") ? Url("jquery-3.0.0.slim.min.js") : Url("jquery-3.0.0.slim.js");
+        public static readonly string jquery_3_0_0_slim_min_js = Url("jquery-3.0.0.slim.min.js");
+        public static readonly string jquery_3_0_0_slim_min_map = Url("jquery-3.0.0.slim.min.map");
+
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
@@ -123,6 +131,7 @@ namespace Links
         public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
         public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
         public static readonly string respond_min_js = Url("respond.min.js");
+        public static readonly string series_label_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/series-label.min.js") ? Url("series-label.min.js") : Url("series-label.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class umd {
             public const string UrlPath = "~/Scripts/umd";
@@ -138,6 +147,7 @@ namespace Links
             public static readonly string popper_min_js_map = Url("popper.min.js.map");
         }
     
+        public static readonly string wijziggrafiektype_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/wijziggrafiektype.min.js") ? Url("wijziggrafiektype.min.js") : Url("wijziggrafiektype.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -183,11 +193,17 @@ namespace Links
             {
                 public static readonly string bootstrap_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.js"); 
                 public static readonly string bootstrap_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.min.js"); 
-                public static readonly string jquery_3_3_1_intellisense_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.3.1.intellisense.js"); 
-                public static readonly string jquery_3_3_1_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.3.1.js"); 
-                public static readonly string jquery_3_3_1_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.3.1.min.js"); 
-                public static readonly string jquery_3_3_1_slim_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.3.1.slim.js"); 
-                public static readonly string jquery_3_3_1_slim_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.3.1.slim.min.js"); 
+
+                public static readonly string Chart_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Chart.js"); 
+                public static readonly string export_data_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/export-data.js"); 
+                public static readonly string exporting_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/exporting.js"); 
+                public static readonly string highcharts_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/highcharts.js"); 
+                public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/IngelogdeGebruiker.js"); 
+                public static readonly string jquery_3_0_0_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.js"); 
+                public static readonly string jquery_3_0_0_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.min.js"); 
+                public static readonly string jquery_3_0_0_slim_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.slim.js"); 
+                public static readonly string jquery_3_0_0_slim_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.slim.min.js"); 
+
                 public static readonly string jquery_validate_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.js"); 
                 public static readonly string jquery_validate_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.min.js"); 
                 public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.js"); 
@@ -202,6 +218,8 @@ namespace Links
                 public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.matchmedia.addListener.js"); 
                 public static readonly string respond_matchmedia_addListener_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.matchmedia.addListener.min.js"); 
                 public static readonly string respond_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.min.js"); 
+                public static readonly string series_label_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/series-label.js"); 
+                public static readonly string wijziggrafiektype_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/wijziggrafiektype.js"); 
             }
         }
         public static partial class Content 
