@@ -31,13 +31,6 @@ namespace MVCIntegratie.Controllers
         }
 
         public virtual ActionResult Index()
-      {
-         List<Bericht> oudeBerichten = berichtMng.GetBerichten().ToList();
-         List<Bericht> nieuweBerichten = berichtMng.LeesBerichten(10, "Annick De Ridder").ToList();
-
-
-
-        public virtual ActionResult Index()
         {
             return View();
         }
