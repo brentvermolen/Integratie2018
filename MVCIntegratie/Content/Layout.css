@@ -72,26 +72,109 @@
     position:relative;
 }
 
-.content a {
-    position:absolute;
-    bottom:20px;
-    right:5px;
-    padding:0px;
+.content .onclick-menu {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 0px;
 }
 
-.wijzigbutton {
-    border-radius:50%;
-    width:20px;
-    height:20px;
-    background-color:white;
-    color:black;
-    border-color:black;
+.onclick-menu {
+    position: relative;
+    display: inline-block;
+    text-align: center;
 }
 
-    .wijzigbutton:hover {
-        background-color: #5cb85c;
-    }
+.onclick-menu:focus {
+    pointer-events: none;
+}
 
+.onclick-menu:focus .onclick-menu-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+.onclick-menu-content {
+    pointer-events: auto;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+    -moz-transition: visibility 0.5s;
+    -webkit-transition: visibility 0.5s;
+    -o-transition: visibility 0.5s;
+}
+
+.onclick-menu.no-pointer-events {
+    pointer-events: auto !important;
+}
+
+.onclick-menu.no-visibility .onclick-menu-content {
+    visibility: visible !important;
+    display: none;
+}
+
+.onclick-menu.no-visibility:focus .onclick-menu-content {
+    display: block;
+}
+
+.onclick-menu.no-opacity .onclick-menu-content {
+    opacity: 1 !important;
+}
+
+.onclick-menu {
+    padding: 0;
+    margin: 0 0 1em 0;
+    outline: 0;
+}
+
+.onclick-menu:before {
+    padding: 5px 10px;
+    background-color: #5cb85c;
+    border-radius: 50%;
+}
+
+.onclick-menu-content {
+    background-color: #5cb85c;
+    width: auto;
+    margin-top: 19px;
+    margin-left: 0;
+    padding: 10px;
+}
+
+   
+.onclick-menu-content:before {
+    content: "";
+    width: 0;
+    left:5px;
+    height: 0;
+    border-bottom: 10px solid #5cb85c;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+}
+
+.onclick-menu-content li {
+    color: #f2f5e9;
+    list-style-type: none;
+    white-space: nowrap;
+}
+
+   
+.onclick-menu-content button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: inherit;
+    outline: 0;
+    cursor: pointer;
+}
+
+.onclick-menu-content button:hover {
+    color: black;
+}
 
 
 

@@ -75,12 +75,14 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Home_Ingelogd = "Home_Ingelogd";
             public readonly string Index = "Index";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string Home_Ingelogd = "Home_Ingelogd";
             public const string Index = "Index";
         }
 
@@ -107,6 +109,17 @@ namespace MVCIntegratie.Controllers
     public partial class T4MVC_HomeController : MVCIntegratie.Controllers.HomeController
     {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void Home_IngelogdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Home_Ingelogd()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Home_Ingelogd, "https");
+            Home_IngelogdOverride(callInfo);
+            return callInfo;
+        }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);

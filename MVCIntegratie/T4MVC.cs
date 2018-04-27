@@ -34,6 +34,7 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
     public static MVCIntegratie.Controllers.ManageController Manage = new MVCIntegratie.Controllers.T4MVC_ManageController();
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
+    public static T4MVC.GraphController Graph = new T4MVC.GraphController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -100,6 +101,7 @@ namespace Links
         public static readonly string exporting_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/exporting.min.js") ? Url("exporting.min.js") : Url("exporting.js");
         public static readonly string highcharts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/highcharts.min.js") ? Url("highcharts.min.js") : Url("highcharts.js");
         public static readonly string index_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/index.d.min.js") ? Url("index.d.min.js") : Url("index.d.js");
+        public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/IngelogdeGebruiker.min.js") ? Url("IngelogdeGebruiker.min.js") : Url("IngelogdeGebruiker.js");
         public static readonly string jquery_3_0_0_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0-vsdoc.min.js") ? Url("jquery-3.0.0-vsdoc.min.js") : Url("jquery-3.0.0-vsdoc.js");
         public static readonly string jquery_3_0_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0.min.js") ? Url("jquery-3.0.0.min.js") : Url("jquery-3.0.0.js");
         public static readonly string jquery_3_0_0_min_js = Url("jquery-3.0.0.min.js");
@@ -190,6 +192,7 @@ namespace Links
                 public static readonly string export_data_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/export-data.js"); 
                 public static readonly string exporting_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/exporting.js"); 
                 public static readonly string highcharts_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/highcharts.js"); 
+                public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/IngelogdeGebruiker.js"); 
                 public static readonly string jquery_3_0_0_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.js"); 
                 public static readonly string jquery_3_0_0_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.min.js"); 
                 public static readonly string jquery_3_0_0_slim_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.slim.js"); 

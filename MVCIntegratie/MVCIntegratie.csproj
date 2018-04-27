@@ -219,6 +219,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GraphController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -281,6 +284,7 @@
     <Content Include="Scripts\export-data.js" />
     <Content Include="Scripts\exporting.js" />
     <Content Include="Scripts\highcharts.js" />
+    <Content Include="Scripts\IngelogdeGebruiker.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
@@ -363,6 +367,7 @@
     <Content Include="Views\FYI\Contact.cshtml" />
     <Content Include="Views\FYI\FAQ.cshtml" />
     <Content Include="Views\Home\Home_Ingelogd.cshtml" />
+    <Content Include="Views\Graph\NieuweGrafiek.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -390,6 +395,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
