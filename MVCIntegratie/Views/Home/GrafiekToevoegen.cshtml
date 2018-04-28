@@ -1,0 +1,221 @@
+﻿@model BL.Domain.Grafiek
+
+@{
+   ViewBag.Title = "Grafiek Toevoegen";
+}
+
+<h2>Grafiek Toevoegen</h2>
+
+<link href="~/Content/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/Layout.css">
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<div class="container">
+   <div class="row">
+      <div class="col-sm-12 col-md-12">
+         <div id="@Model.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      </div>
+   </div>
+   @for (int i = 0; i < Model.xAs.Categorieën.Count; i++)
+   {
+   <div class="row" @i>
+      <p>CategorieNaam:</p>
+      <input type="text" id="@i" value="@Model.xAs.Categorieën[i].Tekst" onkeyup="wijzigCategorie(this);" />
+   </div>
+   }
+</div>
+
+<script type="text/javascript">
+
+   var elem;
+   var chart;
+   loadGrafiek();
+
+   function wijzigCategorie(element) {
+      //Als leeg --> Verwijderen
+      var id = element.id;
+      chart
+         .xAxis[0]
+         .categories[id] = element.value;
+      chart.redraw();
+   };
+
+   function loadGrafiek() {
+         elem = document.getElementById('@Model.ID');
+         if (elem != null) {
+            chart = Highcharts.chart('@Model.ID',
+               {
+                  @if (!(Model.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                           @if(Model.Chart.Type.Equals("pie"))
+                           {
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @Model.GetBoolString(Model.Chart.PlotShadow),
+                        </text>
+                     }
+/**/
+                        type: '@Model.Chart.Type'
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@Model.Titel'
+                  },
+
+                  @if (Model.Subtitel != null)
+                  {
+                     <text>
+                     subtitle:
+                     {
+                        text: '@Model.Subtitel'
+                     },
+                     </text>
+                  }
+
+                  @if (Model.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@Html.Raw(Model.Tooltip)'
+                  },
+                     </text>
+                  }
+
+                  @if (Model.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@Model.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  @if (Model.xAs.IsUsed == true)
+                  {
+                     <text>
+                  xAxis: {
+                     categories: @Html.Raw(Model.xAs.GetCategorieën())
+                  },
+                  </text>
+                  }
+
+
+                  @if (Model.Chart.Type.Equals("column"))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @Model.GetBoolString(Model.Credits)
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Legende.Layout != null){
+                     <text>
+                  legend: {
+                     layout: '@Model.Legende.Layout',
+                     align: '@Model.Legende.Alignment',
+                     verticalAlign: '@Model.Legende.VerticalAlign'
+                  },
+                  </text>
+                  }
+
+                  @if (Model.PlotOptions.PointStart != 0 || Model.PlotOptions.Cursor != null)
+                  {
+                     <text>
+                  plotOptions: {
+                     @if (Model.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                           allowPointSelect: @Model.GetBoolString(Model.PlotOptions.AllowPointSelect),
+                        cursor: '@Model.PlotOptions.Cursor',
+                        dataLabels: {
+                              enabled: @Model.GetBoolString(Model.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @Model.GetBoolString(Model.PlotOptions.ShowInLegend)
+                     }
+                     </text>
+                     }
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                           {
+                              connectorAllowed: @Model.PlotOptions.getBool(Model.PlotOptions.SeriesLabelConnector)
+                              },
+                        pointStart: @Model.PlotOptions.PointStart
+                           }
+                        </text>
+                     }
+                  },
+                  </text>
+                  }
+
+                  series: [
+                     @for(int i = 0; i < Model.Series.Count; i++)
+                     {
+                     var serie = Model.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (Model.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @Model.GetBoolString(serie.ColorByPoint),
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @Model.GetBoolString(data.Sliced),
+                              selected: @Model.GetBoolString(data.Selected)
+                           }
+                        </text>
+                           if (j != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>] }</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                     @if(i != Model.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+         };
+   };
+</script>

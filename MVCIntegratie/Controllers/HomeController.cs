@@ -1,15 +1,12 @@
 ﻿using BL;
 using BL.Domain;
-using BL.Domain.AlertKlassen;
 using BL.Domain.BerichtKlassen;
+using BL.Domain.GrafiekKlassen;
+using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
 using BL.Interfaces;
-using DAL;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 
@@ -32,6 +29,7 @@ namespace MVCIntegratie.Controllers
       {
          int count = 0;
          List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 3).ToList();
+
          return View(graf);
       }
 
@@ -43,7 +41,7 @@ namespace MVCIntegratie.Controllers
          }
 
          List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.Contains(search)).ToList();
-         
+
          string[] splitSearch = search.Split(' ');
          List<Woord> woorden = new List<Woord>();
          List<Hashtag> hashtags = new List<Hashtag>();
@@ -63,6 +61,28 @@ namespace MVCIntegratie.Controllers
 
          woorden.ToString();
          return View(personen);
+      }
+
+      public virtual ActionResult Toevoegen(string type)
+      {
+         Grafiek graf = new Bar("preview", "PREVIEW", new As() { IsUsed = true, Categorieën = new List<Categorie>() }, new List<Serie>());
+         graf.xAs.Categorieën.Add(new Categorie("Categorie1"));
+         graf.xAs.Categorieën.Add(new Categorie("Categorie2"));
+         graf.xAs.Categorieën.Add(new Categorie("Categorie3"));
+         Serie serie = new Serie()
+         {
+            Naam = "Serie 1"
+         };
+         Data data = new Data(0);
+         Data data2 = new Data(0);
+         Data data3 = new Data(0);
+         serie.Data.Add(data);
+         serie.Data.Add(data2);
+         serie.Data.Add(data3);
+
+         graf.Series.Add(serie);
+
+         return View("GrafiekToevoegen", graf);
       }
    }
 }

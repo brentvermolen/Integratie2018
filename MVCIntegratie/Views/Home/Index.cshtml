@@ -1,4 +1,4 @@
-﻿@model List<DAL.Grafiek>
+﻿@model List<BL.Domain.Grafiek>
 
 @{
    ViewBag.Title = "Home Page";
@@ -17,7 +17,7 @@
 
 <div>
    <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-   <a href="#" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+   <a href="/Home/Toevoegen?type=bar" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
 </div>
 
 <div class="container">

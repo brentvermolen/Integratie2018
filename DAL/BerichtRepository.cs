@@ -154,7 +154,13 @@ namespace DAL
 
       public IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
       {
-         return ctx.Berichten.Where(predicate);
+         return ctx.Berichten
+            .Include("Hashtags")
+            .Include("Woorden")
+            .Include("Urls")
+            .Include("Mentions")
+            .Include("Personen")
+            .Where(predicate);
       }
 
       public Hashtag ReadHashtag(string hashtag)

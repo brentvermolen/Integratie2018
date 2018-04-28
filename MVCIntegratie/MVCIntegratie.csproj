@@ -368,6 +368,7 @@
     <Content Include="Views\FYI\FAQ.cshtml" />
     <Content Include="Views\Home\Home_Ingelogd.cshtml" />
     <Content Include="Views\Graph\NieuweGrafiek.cshtml" />
+    <Content Include="Views\Home\GrafiekToevoegen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

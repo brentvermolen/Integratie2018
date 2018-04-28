@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DAL
+namespace BL.Domain
 {
    public class Grafiek
    {

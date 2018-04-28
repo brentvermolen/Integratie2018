@@ -15,12 +15,10 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class Integratie2018Initializer  : DropCreateDatabaseAlways<Integratie2018Context>
+   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
-         ApiCallAsync(context);
-
          AddGebruikers(context);
 
          AddAlerts(context);
@@ -205,7 +203,7 @@ namespace DAL
          serie1.Data.Add(data6);
 
          Grafiek grafiek3 = new Pie("chart3", "Browser market shares in January, 2018", serie1);
-         
+
          context.Grafieken.Add(grafiek1);
          context.Grafieken.Add(grafiek2);
          context.Grafieken.Add(grafiek3);

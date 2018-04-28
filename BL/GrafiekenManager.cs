@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using BL.Domain;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
