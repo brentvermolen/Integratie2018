@@ -1,6 +1,7 @@
 ﻿using BL.Domain;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
+using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +12,7 @@ using System.Text;
 
 namespace DAL
 {
-   public class Integratie2018Initializer  : DropCreateDatabaseIfModelChanges<Integratie2018Context>
+   public class Integratie2018Initializer  : DropCreateDatabaseAlways<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
@@ -28,28 +29,6 @@ namespace DAL
 
       private void AddGrafieken(Integratie2018Context context)
       {
-         Grafiek grafiek1 = new Grafiek()
-         {
-            ID = "chart1",
-            Titel = "Solar Employment Growth by Sector, 2010-2016",
-            Subtitel = "Source: thesolarfoundation.com",
-            yAs = new As()
-            {
-               Titel = "Number of Employees",
-               IsUsed = true
-            },
-            Legende = new Legende()
-            {
-               Layout = "vertical",
-               Alignment = "right",
-               VerticalAlign = "middle"
-            },
-            PlotOptions = new PlotOptions()
-            {
-               SeriesLabelConnector = false,
-               PointStart = 2010
-            }
-         };
          Serie serie1 = new Serie() { Naam = "Installation" };
          Data data1 = new Data() { Value = 43934 };
          Data data2 = new Data() { Value = 52503 };
@@ -67,25 +46,6 @@ namespace DAL
          serie1.Data.Add(data6);
          serie1.Data.Add(data7);
          serie1.Data.Add(data8);
-
-         data1.Series.Add(serie1);
-         data2.Series.Add(serie1);
-         data3.Series.Add(serie1);
-         data4.Series.Add(serie1);
-         data5.Series.Add(serie1);
-         data6.Series.Add(serie1);
-         data7.Series.Add(serie1);
-         data8.Series.Add(serie1);
-
-         context.Series.Add(serie1);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-         context.Datas.Add(data6);
-         context.Datas.Add(data7);
-         context.Datas.Add(data8);
 
          Serie serie2 = new Serie() { Naam = "Manufacturing" };
          data1 = new Data() { Value = 24916 };
@@ -105,25 +65,6 @@ namespace DAL
          serie2.Data.Add(data7);
          serie2.Data.Add(data8);
 
-         data1.Series.Add(serie2);
-         data2.Series.Add(serie2);
-         data3.Series.Add(serie2);
-         data4.Series.Add(serie2);
-         data5.Series.Add(serie2);
-         data6.Series.Add(serie2);
-         data7.Series.Add(serie2);
-         data8.Series.Add(serie2);
-
-         context.Series.Add(serie2);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-         context.Datas.Add(data6);
-         context.Datas.Add(data7);
-         context.Datas.Add(data8);
-
          Serie serie3 = new Serie() { Naam = "Sales & Distribution" };
          data1 = new Data() { Value = 11744 };
          data2 = new Data() { Value = 17722 };
@@ -141,25 +82,6 @@ namespace DAL
          serie3.Data.Add(data6);
          serie3.Data.Add(data7);
          serie3.Data.Add(data8);
-
-         data1.Series.Add(serie3);
-         data2.Series.Add(serie3);
-         data3.Series.Add(serie3);
-         data4.Series.Add(serie3);
-         data5.Series.Add(serie3);
-         data6.Series.Add(serie3);
-         data7.Series.Add(serie3);
-         data8.Series.Add(serie3);
-
-         context.Series.Add(serie3);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-         context.Datas.Add(data6);
-         context.Datas.Add(data7);
-         context.Datas.Add(data8);
 
          Serie serie4 = new Serie() { Naam = "Project Development" };
          data1 = new Data() { Value = 0 };
@@ -179,25 +101,6 @@ namespace DAL
          serie4.Data.Add(data7);
          serie4.Data.Add(data8);
 
-         data1.Series.Add(serie4);
-         data2.Series.Add(serie4);
-         data3.Series.Add(serie4);
-         data4.Series.Add(serie4);
-         data5.Series.Add(serie4);
-         data6.Series.Add(serie4);
-         data7.Series.Add(serie4);
-         data8.Series.Add(serie4);
-
-         context.Series.Add(serie4);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-         context.Datas.Add(data6);
-         context.Datas.Add(data7);
-         context.Datas.Add(data8);
-
          Serie serie5 = new Serie() { Naam = "Other" };
          data1 = new Data() { Value = 12908 };
          data2 = new Data() { Value = 5948 };
@@ -216,39 +119,17 @@ namespace DAL
          serie5.Data.Add(data7);
          serie5.Data.Add(data8);
 
-         data1.Series.Add(serie5);
-         data2.Series.Add(serie5);
-         data3.Series.Add(serie5);
-         data4.Series.Add(serie5);
-         data5.Series.Add(serie5);
-         data6.Series.Add(serie5);
-         data7.Series.Add(serie5);
-         data8.Series.Add(serie5);
+         List<Serie> series = new List<Serie>();
+         series.Add(serie1);
+         series.Add(serie2);
+         series.Add(serie3);
+         series.Add(serie4);
+         series.Add(serie5);
 
-         serie1.Grafieken.Add(grafiek1);
-         serie2.Grafieken.Add(grafiek1);
-         serie3.Grafieken.Add(grafiek1);
-         serie4.Grafieken.Add(grafiek1);
-         serie5.Grafieken.Add(grafiek1);
+         Grafiek grafiek1 = new Lijn("chart10", "Solar Employment Growth by Sector, 2010-2016", new As()
+         { IsUsed = true, Titel = "Number of Employees" }, series);
 
-         context.Series.Add(serie5);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-         context.Datas.Add(data6);
-         context.Datas.Add(data7);
-         context.Datas.Add(data8);
-
-         Grafiek grafiek2 = new Grafiek()
-         {
-            ID = "chart2",
-            Titel = "Column chart with negative values",
-            Chart = new Chart() { Type = "column" },
-            xAs = new As() { IsUsed = true },
-            Credits = false
-         };
+         As xAs = new As() { IsUsed = true };
 
          Categorie cat1 = new Categorie("Apples");
          Categorie cat2 = new Categorie("Oranges");
@@ -256,17 +137,11 @@ namespace DAL
          Categorie cat4 = new Categorie("Grapes");
          Categorie cat5 = new Categorie("Bananas");
 
-         grafiek2.xAs.Categorieën.Add(cat1);
-         grafiek2.xAs.Categorieën.Add(cat2);
-         grafiek2.xAs.Categorieën.Add(cat3);
-         grafiek2.xAs.Categorieën.Add(cat4);
-         grafiek2.xAs.Categorieën.Add(cat5);
-
-         cat1.Assen.Add(grafiek2.xAs);
-         cat2.Assen.Add(grafiek2.xAs);
-         cat3.Assen.Add(grafiek2.xAs);
-         cat4.Assen.Add(grafiek2.xAs);
-         cat5.Assen.Add(grafiek2.xAs);
+         xAs.Categorieën.Add(cat1);
+         xAs.Categorieën.Add(cat2);
+         xAs.Categorieën.Add(cat3);
+         xAs.Categorieën.Add(cat4);
+         xAs.Categorieën.Add(cat5);
 
          serie1 = new Serie() { Naam = "John" };
          data1 = new Data(5);
@@ -280,19 +155,6 @@ namespace DAL
          serie1.Data.Add(data4);
          serie1.Data.Add(data5);
 
-         data1.Series.Add(serie1);
-         data2.Series.Add(serie1);
-         data3.Series.Add(serie1);
-         data4.Series.Add(serie1);
-         data5.Series.Add(serie1);
-
-         context.Series.Add(serie1);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-
          serie2 = new Serie() { Naam = "Jane" };
          data1 = new Data(2);
          data2 = new Data(-2);
@@ -304,19 +166,6 @@ namespace DAL
          serie2.Data.Add(data3);
          serie2.Data.Add(data4);
          serie2.Data.Add(data5);
-
-         data1.Series.Add(serie2);
-         data2.Series.Add(serie2);
-         data3.Series.Add(serie2);
-         data4.Series.Add(serie2);
-         data5.Series.Add(serie2);
-
-         context.Series.Add(serie2);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
 
          serie3 = new Serie() { Naam = "Joe" };
          data1 = new Data(3);
@@ -330,41 +179,14 @@ namespace DAL
          serie3.Data.Add(data4);
          serie3.Data.Add(data5);
 
-         data1.Series.Add(serie3);
-         data2.Series.Add(serie3);
-         data3.Series.Add(serie3);
-         data4.Series.Add(serie3);
-         data5.Series.Add(serie3);
+         List<Serie> series2 = new List<Serie>();
+         series2.Add(serie1);
+         series2.Add(serie2);
+         series2.Add(serie3);
 
-         serie1.Grafieken.Add(grafiek2);
-         serie2.Grafieken.Add(grafiek2);
-         serie3.Grafieken.Add(grafiek2);
+         Grafiek grafiek2 = new Bar("chart2", "Column chart with negative values",
+            xAs, series2);
 
-         context.Series.Add(serie3);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-
-         Grafiek grafiek3 = new Grafiek()
-         {
-            ID = "chart3",
-            Chart = new Chart()
-            {
-               PlotShadow = false,
-               Type = "pie"
-            },
-            Titel = "Browser market shares in January, 2018",
-            Tooltip = "{series.name}: <b>{point.percentage:.1f}%</b>",
-            PlotOptions = new PlotOptions()
-            {
-               AllowPointSelect = true,
-               Cursor = "pointer",
-               DataLabels = false,
-               ShowInLegend = true
-            }
-         };
          serie1 = new Serie() { Naam = "Brands", ColorByPoint = true };
          data1 = new Data() { Naam = "Chrome", Value = 61.41, Sliced = true, Selected = false };
          data2 = new Data() { Naam = "Internet Explorer", Value = 11.84 };
@@ -379,23 +201,8 @@ namespace DAL
          serie1.Data.Add(data5);
          serie1.Data.Add(data6);
 
-         data1.Series.Add(serie1);
-         data2.Series.Add(serie1);
-         data3.Series.Add(serie1);
-         data4.Series.Add(serie1);
-         data5.Series.Add(serie1);
-         data6.Series.Add(serie1);
-
-         serie1.Grafieken.Add(grafiek3);
-
-         context.Series.Add(serie1);
-         context.Datas.Add(data1);
-         context.Datas.Add(data2);
-         context.Datas.Add(data3);
-         context.Datas.Add(data4);
-         context.Datas.Add(data5);
-         context.Datas.Add(data6);
-
+         Grafiek grafiek3 = new Pie("chart3", "Browser market shares in January, 2018", serie1);
+         
          context.Grafieken.Add(grafiek1);
          context.Grafieken.Add(grafiek2);
          context.Grafieken.Add(grafiek3);

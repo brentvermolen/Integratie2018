@@ -31,7 +31,7 @@ namespace BL.Domain.GrafiekKlassen
          for(int i = 0; i < Categorieën.Count; i++)
          {
             Categorie categorie = Categorieën[i];
-            ret += categorie.ToString();
+            ret += "'" + categorie.ToString() + "'";
 
             if (i != Categorieën.Count - 1)
             {

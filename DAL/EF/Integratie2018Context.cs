@@ -68,6 +68,8 @@ namespace DAL
       public DbSet<Grafiek> Grafieken { get; set; }
       public DbSet<Serie> Series { get; set; }
       public DbSet<Data> Datas { get; set; }
+      public DbSet<As> Assen { get; set; }
+      public DbSet<Categorie> Categorieën { get; set; }
       
 
       public IEnumerable<Bericht> AddBerichten(int aantal, string vanPersoon = "")

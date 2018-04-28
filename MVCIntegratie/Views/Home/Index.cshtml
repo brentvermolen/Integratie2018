@@ -45,13 +45,15 @@
                      <text>
                      chart:
                      {
-                        type: '@grafiek.Chart.Type'
                            @if(grafiek.Chart.Type.Equals("pie"))
                            {
-                        <text>,
-                     plotshadow: @grafiek.Chart.PlotShadow
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @grafiek.GetBoolString(grafiek.Chart.PlotShadow),
                         </text>
-                     }
+                     }  
+                        type: '@grafiek.Chart.Type'
                      },
                      </text>
                   }
@@ -74,7 +76,7 @@
                   {
                      <text>
                   tooltip: {
-                     pointFormat: '@grafiek.Tooltip'
+                     pointFormat: '@Html.Raw(grafiek.Tooltip)'
                   },
                      </text>
                   }
@@ -94,49 +96,64 @@
                   {
                      <text>
                   xAxis: {
-                     categories: '@grafiek.xAs.GetCategorieën()'
+                     categories: @Html.Raw(grafiek.xAs.GetCategorieën())
                   },
                   </text>
                   }
                   
 
-                  @if (!(grafiek.Chart.Type.Equals("normal")))
+                  @if (grafiek.Chart.Type.Equals("column"))
                   {
                      <text>
                   credits: {
-                     enabled: @grafiek.Credits
+                     enabled: @grafiek.GetBoolString(grafiek.Credits)
                   },
                      </text>
                   }
 
+                  @if (grafiek.Legende.Layout != null){
+                     <text>
                   legend: {
                      layout: '@grafiek.Legende.Layout',
                      align: '@grafiek.Legende.Alignment',
                      verticalAlign: '@grafiek.Legende.VerticalAlign'
                   },
+                  </text>
+                  }
 
+                  @if (grafiek.PlotOptions.PointStart != 0 || grafiek.PlotOptions.Cursor != null)
+                  {
+                     <text>
                   plotOptions: {
                      @if (grafiek.Chart.Type.Equals("pie"))
                      {
                         <text>
                      pie: {
-                        allowPointSelect: @grafiek.PlotOptions.AllowPointSelect,
-                        cursor: @grafiek.PlotOptions.Cursor,
+                           allowPointSelect: @grafiek.GetBoolString(grafiek.PlotOptions.AllowPointSelect),
+                        cursor: '@grafiek.PlotOptions.Cursor',
                         dataLabels: {
-                           enabled: @grafiek.PlotOptions.DataLabels
-                        }
-                        showInLegend: @grafiek.PlotOptions.ShowInLegend
+                              enabled: @grafiek.GetBoolString(grafiek.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @grafiek.GetBoolString(grafiek.PlotOptions.ShowInLegend)
                      }
                      </text>
                      }
-
-                     series: {
-                        label: {
-                           connectorAllowed: @grafiek.PlotOptions.getBool(grafiek.PlotOptions.SeriesLabelConnector)
-                        },
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                           {
+                              connectorAllowed: @grafiek.PlotOptions.getBool(grafiek.PlotOptions.SeriesLabelConnector)
+                              },
                         pointStart: @grafiek.PlotOptions.PointStart
+                           }
+                        </text>
                      }
                   },
+                  </text>
+                  }
 
                   series: [
                      @for(int i = 0; i < grafiek.Series.Count; i++)
@@ -148,7 +165,7 @@
                         @if (grafiek.Chart.Type.Equals("pie"))
                         {
                            <text>
-                        colorByPoint: @serie.ColorByPoint,
+                        colorByPoint: @grafiek.GetBoolString(serie.ColorByPoint),
                         data: [
                            </text>
                            for(int j = 0; j < serie.Data.Count; j++)
@@ -157,17 +174,17 @@
                            <text>
                            {
                               name: '@data.Naam',
-                              y: @data.Value,
-                              sliced: @data.Sliced,
-                              selected: @data.Selected
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @grafiek.GetBoolString(data.Sliced),
+                              selected: @grafiek.GetBoolString(data.Selected)
                            }
                         </text>
-                           if (i != serie.Data.Count - 1)
+                           if (j != serie.Data.Count - 1)
                               {
                                  <text> , </text>
                               }
                            }
-                           <text>]</text>
+                           <text>] }</text>
                         }
                         else
                         {
@@ -177,13 +194,12 @@
                            </text>
                         }
 
-                        @if(i != grafiek.Series.Count - 1)
+                     @if(i != grafiek.Series.Count - 1)
                               {
                                  <text>
                                  ,
                                  </text>
                               }
-/**/
                         </text>
                      }
                   ]

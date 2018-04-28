@@ -11,6 +11,8 @@ namespace BL.Domain.GrafiekKlassen
    {
       public static int Count = 0;
 
+      public Categorie() { }
+
       public Categorie(string tekst)
       {
          ID = Count++;
@@ -22,7 +24,7 @@ namespace BL.Domain.GrafiekKlassen
       public int ID { get; set; }
       public string Tekst { get; set; }
 
-      public ICollection<As> Assen { get; set; }
+      public virtual List<As> Assen { get; set; }
 
       public override string ToString()
       {

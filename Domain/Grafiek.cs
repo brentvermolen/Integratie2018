@@ -28,5 +28,15 @@ namespace DAL
       public Legende Legende { get; set; }
       public PlotOptions PlotOptions { get; set; }
       public List<Serie> Series { get; set; }
+
+      public string GetBoolString(bool boolean)
+      {
+         if (boolean)
+         {
+            return "true";
+         }
+
+         return "false";
+      }
    }
 }

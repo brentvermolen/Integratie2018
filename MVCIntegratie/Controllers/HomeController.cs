@@ -29,7 +29,7 @@ namespace MVCIntegratie.Controllers
       public virtual ActionResult Index()
       {
          int count = 0;
-         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 2).ToList();
+         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 3).ToList();
          return View(graf);
       }
 

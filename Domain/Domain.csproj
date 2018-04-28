@@ -56,6 +56,9 @@
     <Compile Include="GrafiekKlassen\Legende.cs" />
     <Compile Include="GrafiekKlassen\PlotOptions.cs" />
     <Compile Include="GrafiekKlassen\Serie.cs" />
+    <Compile Include="GrafiekTypes\Bar.cs" />
+    <Compile Include="GrafiekTypes\Lijn.cs" />
+    <Compile Include="GrafiekTypes\Pie.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
     <Compile Include="BerichtKlassen\Mention.cs" />
