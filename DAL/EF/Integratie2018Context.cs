@@ -79,11 +79,6 @@ namespace DAL
       public DbSet<Data> Datas { get; set; }
       public DbSet<As> Assen { get; set; }
       public DbSet<Categorie> Categorieën { get; set; }
-      
-
-      public IEnumerable<Bericht> AddBerichten(int aantal, string vanPersoon = "")
-      {
-         List<Bericht> berichten = new List<Bericht>();
    }
 
    public class Synchronize
