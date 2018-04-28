@@ -1,4 +1,4 @@
-/**
+    /**
  * @fileoverview This file only declares the public portions of the API.
  * It should not define internal pieces such as utils or modifier details.
  *

@@ -1,4 +1,4 @@
-﻿function wijzigtype(selectie) {
+﻿function wijzigtype(selectie, id) {
     if (selectie.value == "Lijn Diagram") {
         Highcharts.chart('chart',
             {
@@ -152,6 +152,10 @@
                     }
                 ]
             });
+    } else if (selectie.value == "Vergelijking") {
+        var element = document.getElementById(id);
+        element.outerHTML = "";
+        delete element;
     }
 }
 
