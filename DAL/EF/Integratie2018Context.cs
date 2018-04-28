@@ -1,5 +1,6 @@
 ﻿using BL.Domain;
 using BL.Domain.BerichtKlassen;
+using BL.Domain.GrafiekKlassen;
 using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
 using System;
@@ -45,6 +46,16 @@ namespace DAL
             .HasMany(b => b.Hashtags)
             .WithMany(h => h.Berichten);
 
+         modelBuilder.Entity<Grafiek>()
+            .HasMany(g => g.Series)
+            .WithMany(s => s.Grafieken);
+         modelBuilder.Entity<Serie>()
+            .HasMany(s => s.Data)
+            .WithMany(d => d.Series);
+         modelBuilder.Entity<As>()
+            .HasMany(a => a.Categorieën)
+            .WithMany(c => c.Assen);
+
          base.OnModelCreating(modelBuilder);
       }
 
@@ -62,6 +73,17 @@ namespace DAL
       public DbSet<Gebruiker> Gebruikers { get; set; }
 
       public DbSet<Alert> Alerts { get; set; }
+
+      public DbSet<Grafiek> Grafieken { get; set; }
+      public DbSet<Serie> Series { get; set; }
+      public DbSet<Data> Datas { get; set; }
+      public DbSet<As> Assen { get; set; }
+      public DbSet<Categorie> Categorieën { get; set; }
+      
+
+      public IEnumerable<Bericht> AddBerichten(int aantal, string vanPersoon = "")
+      {
+         List<Bericht> berichten = new List<Bericht>();
    }
 
    public class Synchronize

@@ -51,6 +51,17 @@
     <Compile Include="BerichtKlassen\Profiel.cs" />
     <Compile Include="BerichtKlassen\Thema.cs" />
     <Compile Include="Gebruiker.cs" />
+    <Compile Include="Grafiek.cs" />
+    <Compile Include="GrafiekKlassen\As.cs" />
+    <Compile Include="GrafiekKlassen\Categorie.cs" />
+    <Compile Include="GrafiekKlassen\Chart.cs" />
+    <Compile Include="GrafiekKlassen\Data.cs" />
+    <Compile Include="GrafiekKlassen\Legende.cs" />
+    <Compile Include="GrafiekKlassen\PlotOptions.cs" />
+    <Compile Include="GrafiekKlassen\Serie.cs" />
+    <Compile Include="GrafiekTypes\Bar.cs" />
+    <Compile Include="GrafiekTypes\Lijn.cs" />
+    <Compile Include="GrafiekTypes\Pie.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
     <Compile Include="BerichtKlassen\Mention.cs" />
