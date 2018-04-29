@@ -28,6 +28,9 @@
    <div class="row" style="margin-bottom:10px">
       <input type="button" value="Personen Toevoegen" onclick="ShowPopup();" />
    </div>
+   <div id="personen" class="row" style="margin-bottom:10px">
+      
+   </div>
 </div>
 
 <div class="popup" onclick="/*ClosePopup()*/" style="display: none;">
@@ -54,11 +57,7 @@
    loadGrafiek();
 
    function getSentimentPersoon(elem) {
-      var filter = document.getElementById('filter');
-      filter.value = '';
       var id = elem.id;
-      elem.className = elem.className + ' done';
-      elem.style.display = 'none';
 
       $.ajax('/api/NieuweGrafiek/' + id,
       {
@@ -75,8 +74,22 @@
    }
 
    function sentimentToevoegen(persoon, pol, obj) {
-      chart.addSeries({ name: persoon, data: [obj, pol] })
-      chart.redraw();
+      chart.addSeries({ name: persoon, data: [obj, pol] });
+      var div = document.getElementById('personen');
+      div.innerHTML = div.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this);' value='Verwijder " + persoon + "' id='" + persoon + "' />";
+   }
+
+   function verwijderSerieByName(naam, elem) {
+      for (var i = 0; i < chart.series.length; i++) {
+         var c = chart.series[i];
+         if (c.name == elem.id) {
+            chart.series[i].remove();
+            if (elem != null) {
+               elem.remove(elem);
+            }
+            break;
+         }
+      }
    }
 
    function wijzigTitel(nieuweTitel) {
@@ -337,13 +350,11 @@
 
       for (var i = 0; i < btns.length; i++) {
          var btn = btns[i];
-         if (!(btn.className.includes('done'))) {
-            var val = btn.value.toLowerCase();
-            if (val.includes(filter.toLowerCase())) {
-               btn.style.display = 'inline';
-            } else {
-               btn.style.display = 'none';
-            }
+         var val = btn.value.toLowerCase();
+         if (val.includes(filter.toLowerCase())) {
+            btn.style.display = 'inline';
+         } else {
+            btn.style.display = 'none';
          }
       }
    }
@@ -355,6 +366,8 @@
    }
 
    function ClosePopup(event) {
+      filterPersonen("");
+      document.getElementById('filter').value = '';
       var popups = document.getElementsByClassName('popup');
 
       for (var i = 0; i < popups.length; i++) {
