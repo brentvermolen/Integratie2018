@@ -35,13 +35,13 @@
       <div class="popup-header">
          <span class="close" onclick="ClosePopup()">×</span>
          <h2>Personen</h2>
-         <input type="text" onkeyup="filterPersonen(this.value);" value=""/>
+         <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value=""/>
       </div>
       <div class="popup-body">
          <p>
             @foreach (var persoon in Model.Personen)
             {
-               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getSentimentPersoon(this.id); ClosePopup();" value="@persoon.Naam" />
+               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getSentimentPersoon(this); ClosePopup();" value="@persoon.Naam" />
             }
          </p>
       </div>
@@ -53,7 +53,13 @@
    var chart;
    loadGrafiek();
 
-   function getSentimentPersoon(id) {
+   function getSentimentPersoon(elem) {
+      var filter = document.getElementById('filter');
+      filter.value = '';
+      var id = elem.id;
+      elem.className = elem.className + ' done';
+      elem.style.display = 'none';
+
       $.ajax('/api/NieuweGrafiek/' + id,
       {
          type: 'GET',
@@ -331,11 +337,13 @@
 
       for (var i = 0; i < btns.length; i++) {
          var btn = btns[i];
-         var val = btn.value.toLowerCase();
-         if (val.includes(filter.toLowerCase())) {
-            btn.style.display = 'inline';
-         } else {
-            btn.style.display = 'none';
+         if (!(btn.className.includes('done'))) {
+            var val = btn.value.toLowerCase();
+            if (val.includes(filter.toLowerCase())) {
+               btn.style.display = 'inline';
+            } else {
+               btn.style.display = 'none';
+            }
          }
       }
    }
