@@ -4,15 +4,15 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
-using BL.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 
 
 namespace MVCIntegratie.Controllers
 {
-    [RequireHttps]
+   [RequireHttps]
     public partial class HomeController : Controller
    { 
       private IBerichtManager berichtMng = new BerichtManager();
@@ -66,23 +66,13 @@ namespace MVCIntegratie.Controllers
       public virtual ActionResult Toevoegen(string type)
       {
          Grafiek graf = new Bar("preview", "PREVIEW", new As() { IsUsed = true, Categorieën = new List<Categorie>() }, new List<Serie>());
-         graf.xAs.Categorieën.Add(new Categorie("Categorie1"));
-         graf.xAs.Categorieën.Add(new Categorie("Categorie2"));
-         graf.xAs.Categorieën.Add(new Categorie("Categorie3"));
-         Serie serie = new Serie()
-         {
-            Naam = "Serie 1"
-         };
-         Data data = new Data(0);
-         Data data2 = new Data(0);
-         Data data3 = new Data(0);
-         serie.Data.Add(data);
-         serie.Data.Add(data2);
-         serie.Data.Add(data3);
+         graf.xAs.Categorieën.Add(new Categorie("Objectiviteit"));
+         graf.xAs.Categorieën.Add(new Categorie("Polariteit"));
 
-         graf.Series.Add(serie);
+         List<Persoon> personen = berichtMng.GetPersonen().ToList();
+         personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
 
-         return View("GrafiekToevoegen", graf);
+         return View("GrafiekToevoegen", new GrafiekPersonen() { Grafiek = graf, Personen = personen });
       }
    }
 }

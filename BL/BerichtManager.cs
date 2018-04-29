@@ -46,19 +46,14 @@ namespace BL
          repo.CreateBerichtMention(berichtID, m);
       }
 
-      public void AddPersoon(string berichtID, string persoon)
+      public void AddPersoon(string berichtID, int persoonID)
       {
-         Persoon p = GetPersoon(persoon);
+         Persoon p = GetPersoon(persoonID);
          if (p == null)
          {
-            p = new Persoon() { Naam = persoon };
+            p = new Persoon() { ID = persoonID };
             repo.CreatePersoon(p);
          }
-      }
-
-      public void AddPersoon(string berichtID, List<string> persoon)
-      {
-         AddPersoon(berichtID, string.Join(" ", persoon));
       }
 
       public void AddUrl(string berichtID, string url)
@@ -133,9 +128,9 @@ namespace BL
          return repo.ReadPersonen();
       }
 
-      public Persoon GetPersoon(string persoon)
+      public Persoon GetPersoon(int id)
       {
-         return repo.ReadPersoon(persoon);
+         return repo.ReadPersoon(id);
       }
 
       public ICollection<Persoon> GetPersoonVanBericht(string berichtID)

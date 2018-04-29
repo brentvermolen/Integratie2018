@@ -63,7 +63,13 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Zoek()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Toevoegen()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Toevoegen, "https");
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,6 +90,7 @@ namespace MVCIntegratie.Controllers
             public readonly string Home_Ingelogd = "Home_Ingelogd";
             public readonly string Index = "Index";
             public readonly string Zoek = "Zoek";
+            public readonly string Toevoegen = "Toevoegen";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -92,6 +99,7 @@ namespace MVCIntegratie.Controllers
             public const string Home_Ingelogd = "Home_Ingelogd";
             public const string Index = "Index";
             public const string Zoek = "Zoek";
+            public const string Toevoegen = "Toevoegen";
         }
 
 
@@ -103,6 +111,14 @@ namespace MVCIntegratie.Controllers
         {
             public readonly string search = "search";
         }
+        static readonly ActionParamsClass_Toevoegen s_params_Toevoegen = new ActionParamsClass_Toevoegen();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Toevoegen ToevoegenParams { get { return s_params_Toevoegen; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Toevoegen
+        {
+            public readonly string type = "type";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -113,13 +129,13 @@ namespace MVCIntegratie.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string GrafiekToevoegen = "GrafiekToevoegen";
                 public readonly string Home_Ingelogd = "Home_Ingelogd";
                 public readonly string Index = "Index";
-                public readonly string View = "View";
             }
+            public readonly string GrafiekToevoegen = "~/Views/Home/GrafiekToevoegen.cshtml";
             public readonly string Home_Ingelogd = "~/Views/Home/Home_Ingelogd.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
-            public readonly string View = "~/Views/Home/View.cshtml";
         }
     }
 
@@ -156,9 +172,21 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Zoek(string search)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
             ZoekOverride(callInfo, search);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ToevoegenOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string type);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Toevoegen(string type)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Toevoegen, "https");
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "type", type);
+            ToevoegenOverride(callInfo, type);
             return callInfo;
         }
 

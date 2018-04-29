@@ -1,4 +1,4 @@
-﻿@model BL.Domain.Grafiek
+﻿@model BL.Domain.GrafiekKlassen.GrafiekPersonen
 
 @{
    ViewBag.Title = "Grafiek Toevoegen";
@@ -18,23 +18,65 @@
 <div class="container">
    <div class="row">
       <div class="col-sm-12 col-md-12">
-         <div id="@Model.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+         <div id="@Model.Grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       </div>
    </div>
-   @for (int i = 0; i < Model.xAs.Categorieën.Count; i++)
-   {
-   <div class="row" @i>
-      <p>CategorieNaam:</p>
-      <input type="text" id="@i" value="@Model.xAs.Categorieën[i].Tekst" onkeyup="wijzigCategorie(this);" />
+   <div class="row" style="margin-bottom:10px">
+      <p>Titel:</p>
+      <input type="text" onkeyup="wijzigTitel(this.value);" value="@Model.Grafiek.Titel" />
    </div>
-   }
+   <div class="row" style="margin-bottom:10px">
+      <input type="button" value="Personen Toevoegen" onclick="ShowPopup();" />
+   </div>
+</div>
+
+<div class="popup" onclick="/*ClosePopup()*/" style="display: none;">
+   <div class="popup-content">
+      <div class="popup-header">
+         <span class="close" onclick="ClosePopup()">×</span>
+         <h2>Personen</h2>
+         <input type="text" onkeyup="filterPersonen(this.value);" value=""/>
+      </div>
+      <div class="popup-body">
+         <p>
+            @foreach (var persoon in Model.Personen)
+            {
+               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getSentimentPersoon(this.id); ClosePopup();" value="@persoon.Naam" />
+            }
+         </p>
+      </div>
+   </div>
 </div>
 
 <script type="text/javascript">
-
    var elem;
    var chart;
    loadGrafiek();
+
+   function getSentimentPersoon(id) {
+      $.ajax('/api/NieuweGrafiek/' + id,
+      {
+         type: 'GET',
+         dataType: 'json'
+         }).done(function (data) {
+            var persoon = data['Naam'];
+            var pol = data['Polariteit'];
+            var obj = data['Objectiviteit'];
+            sentimentToevoegen(persoon, pol, obj);
+         }).fail(function() {
+            alert('fail');
+         });
+   }
+
+   function sentimentToevoegen(persoon, pol, obj) {
+      chart.addSeries({ name: persoon, data: [obj, pol] })
+      chart.redraw();
+   }
+
+   function wijzigTitel(nieuweTitel) {
+      chart.setTitle({ text: nieuweTitel });
+      chart.redraw();
+   }
 
    function wijzigCategorie(element) {
       //Als leeg --> Verwijderen
@@ -43,109 +85,109 @@
          .xAxis[0]
          .categories[id] = element.value;
       chart.redraw();
-   };
+   }
 
    function loadGrafiek() {
-         elem = document.getElementById('@Model.ID');
+         elem = document.getElementById('@Model.Grafiek.ID');
          if (elem != null) {
-            chart = Highcharts.chart('@Model.ID',
+            chart = Highcharts.chart('@Model.Grafiek.ID',
                {
-                  @if (!(Model.Chart.Type.Equals("normal")))
+                  @if (!(Model.Grafiek.Chart.Type.Equals("normal")))
                   {
                      <text>
                      chart:
                      {
-                           @if(Model.Chart.Type.Equals("pie"))
+                           @if(Model.Grafiek.Chart.Type.Equals("pie"))
                            {
                         <text>
                            plotBackgroundColor: null,
                            plotBorderWidth: null,
-                     plotShadow: @Model.GetBoolString(Model.Chart.PlotShadow),
+                     plotShadow: @Model.Grafiek.GetBoolString(Model.Grafiek.Chart.PlotShadow),
                         </text>
                      }
 /**/
-                        type: '@Model.Chart.Type'
+                        type: '@Model.Grafiek.Chart.Type'
                      },
                      </text>
                   }
 
                   title: {
-                     text: '@Model.Titel'
+                     text: '@Model.Grafiek.Titel'
                   },
 
-                  @if (Model.Subtitel != null)
+                  @if (Model.Grafiek.Subtitel != null)
                   {
                      <text>
                      subtitle:
                      {
-                        text: '@Model.Subtitel'
+                        text: '@Model.Grafiek.Subtitel'
                      },
                      </text>
                   }
 
-                  @if (Model.Chart.Type.Equals("pie"))
+                  @if (Model.Grafiek.Chart.Type.Equals("pie"))
                   {
                      <text>
                   tooltip: {
-                     pointFormat: '@Html.Raw(Model.Tooltip)'
+                     pointFormat: '@Html.Raw(Model.Grafiek.Tooltip)'
                   },
                      </text>
                   }
 
-                  @if (Model.yAs.IsUsed == true)
+                  @if (Model.Grafiek.yAs.IsUsed == true)
                   {
                      <text>
                   yAxis: {
                      title: {
-                        text: '@Model.yAs.Titel'
+                        text: '@Model.Grafiek.yAs.Titel'
                      }
                   },
                   </text>
                   }
 
-                  @if (Model.xAs.IsUsed == true)
+                  @if (Model.Grafiek.xAs.IsUsed == true)
                   {
                      <text>
                   xAxis: {
-                     categories: @Html.Raw(Model.xAs.GetCategorieën())
+                     categories: @Html.Raw(Model.Grafiek.xAs.GetCategorieën())
                   },
                   </text>
                   }
 
 
-                  @if (Model.Chart.Type.Equals("column"))
+                  @if (Model.Grafiek.Chart.Type.Equals("column"))
                   {
                      <text>
                   credits: {
-                     enabled: @Model.GetBoolString(Model.Credits)
+                     enabled: @Model.Grafiek.GetBoolString(Model.Grafiek.Credits)
                   },
                      </text>
                   }
 
-                  @if (Model.Legende.Layout != null){
+                  @if (Model.Grafiek.Legende.Layout != null){
                      <text>
                   legend: {
-                     layout: '@Model.Legende.Layout',
-                     align: '@Model.Legende.Alignment',
-                     verticalAlign: '@Model.Legende.VerticalAlign'
+                     layout: '@Model.Grafiek.Legende.Layout',
+                     align: '@Model.Grafiek.Legende.Alignment',
+                     verticalAlign: '@Model.Grafiek.Legende.VerticalAlign'
                   },
                   </text>
                   }
 
-                  @if (Model.PlotOptions.PointStart != 0 || Model.PlotOptions.Cursor != null)
+                  @if (Model.Grafiek.PlotOptions.PointStart != 0 || Model.Grafiek.PlotOptions.Cursor != null)
                   {
                      <text>
                   plotOptions: {
-                     @if (Model.Chart.Type.Equals("pie"))
+                     @if (Model.Grafiek.Chart.Type.Equals("pie"))
                      {
                         <text>
                      pie: {
-                           allowPointSelect: @Model.GetBoolString(Model.PlotOptions.AllowPointSelect),
-                        cursor: '@Model.PlotOptions.Cursor',
+                           allowPointSelect: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.AllowPointSelect),
+                        cursor: '@Model.Grafiek.PlotOptions.Cursor',
                         dataLabels: {
-                              enabled: @Model.GetBoolString(Model.PlotOptions.DataLabels)
+                              enabled: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.DataLabels)
                         },
-                           showInLegend: @Model.GetBoolString(Model.PlotOptions.ShowInLegend)
+                           showInLegend: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.ShowInLegend)
                      }
                      </text>
                      }
@@ -156,9 +198,9 @@
                         {
                            label:
                            {
-                              connectorAllowed: @Model.PlotOptions.getBool(Model.PlotOptions.SeriesLabelConnector)
+                              connectorAllowed: @Model.Grafiek.PlotOptions.getBool(Model.Grafiek.PlotOptions.SeriesLabelConnector)
                               },
-                        pointStart: @Model.PlotOptions.PointStart
+                        pointStart: @Model.Grafiek.PlotOptions.PointStart
                            }
                         </text>
                      }
@@ -167,16 +209,16 @@
                   }
 
                   series: [
-                     @for(int i = 0; i < Model.Series.Count; i++)
+                     @for(int i = 0; i < Model.Grafiek.Series.Count; i++)
                      {
-                     var serie = Model.Series[i];
+                     var serie = Model.Grafiek.Series[i];
                            <text>
                      {
                         name: '@serie.Naam',
-                        @if (Model.Chart.Type.Equals("pie"))
+                        @if (Model.Grafiek.Chart.Type.Equals("pie"))
                         {
                            <text>
-                        colorByPoint: @Model.GetBoolString(serie.ColorByPoint),
+                        colorByPoint: @Model.Grafiek.GetBoolString(serie.ColorByPoint),
                         data: [
                            </text>
                            for(int j = 0; j < serie.Data.Count; j++)
@@ -186,8 +228,8 @@
                            {
                               name: '@data.Naam',
                               y: @data.Value.ToString().Replace(",", "."),
-                              sliced: @Model.GetBoolString(data.Sliced),
-                              selected: @Model.GetBoolString(data.Selected)
+                              sliced: @Model.Grafiek.GetBoolString(data.Sliced),
+                              selected: @Model.Grafiek.GetBoolString(data.Selected)
                            }
                         </text>
                            if (j != serie.Data.Count - 1)
@@ -205,7 +247,7 @@
                            </text>
                         }
 
-                     @if(i != Model.Series.Count - 1)
+                     @if(i != Model.Grafiek.Series.Count - 1)
                               {
                                  <text>
                                  ,
@@ -218,4 +260,97 @@
                });
          };
    };
+</script>
+
+<style>
+   /*popup
+------------------------------------------------------------------*/
+
+   .popup {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 80px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+   }
+
+   .popup-content {
+      background-color: #fefefe;
+      margin: auto;
+      border: 1px solid #888;
+      width: 60%;
+      max-width: 500px;
+      border-radius: 6px;
+   }
+
+   .popup-header {
+      border-bottom: solid black 1px;
+   }
+
+   .popup-body {
+      margin: 10px;
+      text-align: center;
+   }
+
+   .popup h2 {
+      font-weight: bold;
+      text-align: center;
+      margin: 20px;
+      margin-bottom: 10px;
+   }
+
+   /* The Close Button */
+   .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+   }
+
+      .close:hover,
+      .close:focus {
+         color: #000;
+         text-decoration: none;
+         cursor: pointer;
+      }
+</style>
+
+<script>
+   $('a.popup-button').click(function (event) {
+      event.preventDefault();
+   });
+
+   function filterPersonen(filter) {
+      var btns = document.getElementsByClassName("btnPersoon");
+
+      for (var i = 0; i < btns.length; i++) {
+         var btn = btns[i];
+         var val = btn.value.toLowerCase();
+         if (val.includes(filter.toLowerCase())) {
+            btn.style.display = 'inline';
+         } else {
+            btn.style.display = 'none';
+         }
+      }
+   }
+
+   function ShowPopup() {
+      var popups = document.getElementsByClassName('popup');
+
+      popups[0].style.display = 'block';
+   }
+
+   function ClosePopup(event) {
+      var popups = document.getElementsByClassName('popup');
+
+      for (var i = 0; i < popups.length; i++) {
+         popups[i].style.display = 'none';
+      }
+   }
 </script>

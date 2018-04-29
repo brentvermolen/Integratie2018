@@ -114,9 +114,9 @@ namespace DAL
          ctx.SaveChanges();
       }
 
-      public void DeletePersoon(string persoon)
+      public void DeletePersoon(int id)
       {
-         ctx.Personen.Remove(ReadPersoon(persoon));
+         ctx.Personen.Remove(ReadPersoon(id));
       }
 
       public void DeleteUrl(string url)
@@ -199,11 +199,11 @@ namespace DAL
             .Include("Berichten");
       }
 
-      public Persoon ReadPersoon(string naam)
+      public Persoon ReadPersoon(int id)
       {
          return ctx.Personen
             .Include("Berichten")
-            .FirstOrDefault(p => p.Naam.Equals(naam));
+            .FirstOrDefault(p => p.ID == id);
       }
 
       public Url ReadUrl(string url)

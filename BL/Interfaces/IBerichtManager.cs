@@ -21,9 +21,8 @@ namespace BL
 
       ICollection<Persoon> GetPersoonVanBericht(string berichtID);
 
-      void AddPersoon(string berichtID, string persoon);
-      void AddPersoon(string berichtID, List<string> persoon);
-      Persoon GetPersoon(string persoon);
+      void AddPersoon(string berichtID, int persoonID);
+      Persoon GetPersoon(int id);
 
       IEnumerable<Woord> GetBerichtWoorden(string berichtID);
       IEnumerable<Url> GetBerichtUrls(string berichtID);

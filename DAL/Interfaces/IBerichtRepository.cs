@@ -29,9 +29,9 @@ namespace DAL
       Hashtag CreateBerichtHashtag(string berichtID, Hashtag hashtag);
 
       Persoon CreatePersoon(Persoon persoon);
-      Persoon ReadPersoon(string naam);
+      Persoon ReadPersoon(int id);
       IEnumerable<Persoon> ReadPersonen();
-      void DeletePersoon(string persoon);
+      void DeletePersoon(int id);
 
       Woord CreateWoord(Woord woord);
       IEnumerable<Woord> ReadWoorden();
