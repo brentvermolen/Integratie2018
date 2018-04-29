@@ -17,7 +17,8 @@ namespace MVCIntegratie.Controllers.Api
       private IGebruikerManager gebruikerMng = new GebruikerManager();
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
-      public IHttpActionResult GetNieweGrafiek(string id)
+      [Route("~/api/NieuweGrafiek/SentimentVanPersoon/{id}")]
+      public IHttpActionResult GetSentimentVanPersoon(string id)
       {
          int intID = -1;
          try
@@ -38,6 +39,12 @@ namespace MVCIntegratie.Controllers.Api
          };
 
          return Ok(model);
+      }
+
+      [Route("~/api/NieuweGrafiek/PostGrafiek")]
+      public IHttpActionResult Post([FromBody]string data) /* without 'id' (-> id = 0) */
+      {
+         return Ok();
       }
 
       public class SentimentModel

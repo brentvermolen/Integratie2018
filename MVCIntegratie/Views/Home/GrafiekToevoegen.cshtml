@@ -26,10 +26,16 @@
       <input type="text" onkeyup="wijzigTitel(this.value);" value="@Model.Grafiek.Titel" />
    </div>
    <div class="row" style="margin-bottom:10px">
-      <input type="button" value="Personen Toevoegen" onclick="ShowPopup();" />
+      <p>Personen:</p>
+      <input type="button" value="Toevoegen" onclick="ShowPopup();" />
    </div>
    <div id="personen" class="row" style="margin-bottom:10px">
       
+   </div>
+   <br />
+   <br />
+   <div class="row">
+      <input type="button" onclick="opslaan();" value="Opslaan" />
    </div>
 </div>
 
@@ -56,10 +62,59 @@
    var chart;
    loadGrafiek();
 
+   function opslaan() {
+      var str = JSON.stringify(chart.userOptions);
+      var series = '"series":[';
+
+      for (var i = 0; i < chart.series.length; i++) {
+         var serie = chart.series[i];
+         series += '"name":"' + serie.name + '","data":[';
+         for (var j = 0; j < serie.data.length; j++) {
+            var data = serie.data[j];
+            series += data.y;
+            if (j < serie.data.length - 1) {
+               series += ',';
+            }
+         }
+         series += "]"
+         if (i < chart.series.length - 1) {
+            series += ',';
+         }
+      }
+
+      series += ']';
+
+
+      str = str.replace('"series":[]', series);
+      var json = '"';
+
+      for (var i = 0; i < str.length; i++) {
+         var ch = str.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/NieuweGrafiek/PostGrafiek', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         alert('done');
+      }).fail(function () {
+         alert('fail');
+      });
+   }
+
    function getSentimentPersoon(elem) {
       var id = elem.id;
 
-      $.ajax('/api/NieuweGrafiek/' + id,
+      $.ajax('/api/NieuweGrafiek/SentimentVanPersoon/' + id,
       {
          type: 'GET',
          dataType: 'json'
