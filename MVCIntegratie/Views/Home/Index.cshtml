@@ -1,9 +1,3 @@
-
-﻿@{
-   ViewBag.Title = "Home Page";
-
-}
-
 <link href="~/Content/bootstrap.min.css">
 <link rel="stylesheet" href="~/Content/Layout.css">
 
@@ -16,11 +10,8 @@
 <script src="~/Scripts/Chart.js"></script>
 
 
-
-
-
 <div>
-    <form action="/Home/Zoek" method="post"> <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken.."></form>
+    <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
     <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
 </div>
 

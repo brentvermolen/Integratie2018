@@ -302,6 +302,7 @@
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\export-data.js" />
     <Content Include="Scripts\exporting.js" />
+    <Content Include="Scripts\MaakGrafiek.js" />
     <Content Include="Scripts\WijzigGrafiekType.js" />
     <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\IngelogdeGebruiker.js" />
