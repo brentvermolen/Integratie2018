@@ -176,6 +176,106 @@
     color: black;
 }
 
+#typediagram {
+    padding-top:20px;
+}
+
+.vergelijkopties {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.barchartopties {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.linechartopties {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.piechartopties {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#barchart {
+    display:none;
+}
+#vergelijking {
+    display:none;
+}
+#piechart {
+    display:none;
+}
+
+.linethemaopties {
+    display:none;
+}
+
+.lineevolutieopties {
+    display:none;
+}
+.maakgrafiek {
+    width: 50%;
+}
+
+.lineaantalpol {
+    display: none;
+}
+
+.linestartpol {
+    display : block;
+}
+
+.lineaantalthema {
+    display: none;
+}
+
+.linestartthema {
+    display: block;
+}
+
+#linethemaweken {
+    display: none;
+}
+
+#linepolweken {
+    display:none;
+}
+
+.barthemaopties {
+    display: none;
+}
+
+.baraantalpol {
+    display: none;
+}
+
+.barstartpol {
+    display: block;
+}
+
+.baraantalthema {
+    display: none;
+}
+
+.barstartthema {
+    display: block;
+}
+
+.piepolopties{
+    display:none;
+}
+
+.piethemaopties{
+    display:none;
+}
+
+.kruisingthemaopties {
+    display:none;
+}
 
 
 

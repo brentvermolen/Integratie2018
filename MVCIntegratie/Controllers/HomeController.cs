@@ -4,9 +4,15 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
+using BL.Interfaces;
+using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using System.Net.Http;
+using System.Security.Permissions;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 
@@ -42,37 +48,50 @@ namespace MVCIntegratie.Controllers
 
          List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.Contains(search)).ToList();
 
-         string[] splitSearch = search.Split(' ');
-         List<Woord> woorden = new List<Woord>();
-         List<Hashtag> hashtags = new List<Hashtag>();
-         List<Mention> mentions = new List<Mention>();
-         List<Url> urls = new List<Url>();
-         // List<Thema> themas = new List<Thema>();
+         List<Gebruiker> gebruikers = gebruikerMng.GetGebruikers().ToList();
+         List<AlertResultaat> teTonen = new List<AlertResultaat>();
 
-         List<Bericht> berichten = new List<Bericht>();
+            string[] splitSearch = search.Split(' ');
+            List<Woord> woorden = new List<Woord>();
+            List<Hashtag> hashtags = new List<Hashtag>();
+            List<Mention> mentions = new List<Mention>();
+            List<Url> urls = new List<Url>();
+            // List<Thema> themas = new List<Thema>();
 
-         foreach (string wrd in splitSearch)
-         {
-            woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.Contains(wrd)).ToList());
-            hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.Contains(wrd)).ToList());
-            mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.Contains(wrd)).ToList());
-            urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.Contains(wrd)).ToList());
-         }
+            List<Bericht> berichten = new List<Bericht>();
+            Bericht zoekresultaat = new Bericht();
+            foreach (string wrd in splitSearch)
+            {
+                woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()))
+                    .ToList());
+                hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()))
+                    .ToList());
+                mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()))
+                    .ToList());
+                urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
+            }
 
-         woorden.ToString();
-         return View(personen);
-      }
+            //personen.Sort();
+            zoekresultaat.Woorden = woorden;
+            zoekresultaat.Hashtags = hashtags;
+            zoekresultaat.Mentions = mentions;
+            zoekresultaat.Personen = personen;
+            zoekresultaat.Urls = urls;
+            //Sortering testSortering = new Sortering();
 
-      public virtual ActionResult Toevoegen(string type)
-      {
-         Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieën = new List<Categorie>() }, new List<Serie>());
-         graf.xAs.Categorieën.Add(new Categorie("Objectiviteit"));
-         graf.xAs.Categorieën.Add(new Categorie("Polariteit"));
+            
 
-         List<Persoon> personen = berichtMng.GetPersonen().ToList();
-         personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
+            woorden.ToString();
+            return View(zoekresultaat);
+        }
 
-         return View("GrafiekToevoegen", new GrafiekPersonen() { Grafiek = graf, Personen = personen });
-      }
-   }
+       /* private class Sortering
+        {
+            public ArrayList sortedWoorden { get; set; }
+            public ArrayList sortedPersonen { get; set; }
+            public ArrayList sortedMentions { get; set; }
+            public ArrayList sortedHastags { get; set; }
+            public ArrayList sortedUrls { get; set; }
+        }*/
+    }
 }

@@ -1,23 +1,121 @@
-﻿@model IList<BL.Domain.ItemKlassen.Persoon>
+﻿@using BL.Domain.ItemKlassen
+@model BL.Domain.Bericht
 
 @{
-   ViewBag.Title = "View";
+    ViewBag.Title = "Zoek";
 }
 
-<h2>View</h2>
+<h2>Zoek</h2>
 
 <table>
+    <tr>
+        <th>Personen</th>
+    </tr>
 
-   <tr>
-      <td>Naam</td>
-   </tr>
 
-   @foreach (var item in Model)
-   {
-      <tr>
-         <td>@Html.ActionLink(item.Naam, MVC.Persoon.Details(item.Naam))</td>
-      </tr>
-   }
+    <tr>
+
+        <th>Naam</th>
+        <th>Aantal Berichten</th>
+
+    </tr>
+
+
+    @foreach (var dingskePersoon in Model.Personen)
+    {
+        <tr>
+
+            <td>@Html.ActionLink(dingskePersoon.Naam, MVC.Persoon.Details(dingskePersoon.Naam))</td>
+            <td>@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count) </td>
+        </tr>
+    }
+    <tr>
+        <th>Woorden</th>
+    </tr>
+
+
+    <tr>
+
+        <th>Woord</th>
+        <th>Aantal Berichten</th>
+
+    </tr>
+
+
+    @foreach (var woord in Model.Woorden)
+    {
+        <tr>
+
+            <td>@Html.DisplayFor(ModelItem => woord.Tekst)</td>
+            <td>@Html.DisplayFor(modelItem => woord.Berichten.Count) </td>
+        </tr>
+    }
+
+    <tr>
+        <th>Mentions</th>
+    </tr>
+
+
+    <tr>
+
+        <th>Mention</th>
+        <th>Aantal Berichten</th>
+
+    </tr>
+
+
+    @foreach (var mention in Model.Mentions)
+    {
+        <tr>
+
+            <td>@Html.DisplayFor(ModelItem => mention.Tekst)</td>
+            <td>@Html.DisplayFor(modelItem => mention.Berichten.Count) </td>
+        </tr>
+    }
+    <tr>
+        <th>Hashtags</th>
+    </tr>
+
+
+    <tr>
+
+        <th>Hashtag</th>
+        <th>Aantal Berichten</th>
+
+    </tr>
+
+
+    @foreach (var hashtag in Model.Hashtags)
+    {
+        <tr>
+
+            <td>@Html.DisplayFor(ModelItem => hashtag.Tekst)</td>
+            <td>@Html.DisplayFor(modelItem => hashtag.Berichten.Count) </td>
+        </tr>
+    }
+
+    <tr>
+        <th>Urls</th>
+    </tr>
+
+
+    <tr>
+
+        <th>Url</th>
+        <th>Aantal Berichten</th>
+
+    </tr>
+
+
+    @foreach (var url in Model.Urls)
+    {
+        <tr>
+
+            
+            <td><a href="@url.Tekst"> @url.Tekst</a></td>
+            <td>@Html.DisplayFor(modelItem => url.Berichten.Count) </td>
+        </tr>
+    }
+
 
 </table>
-

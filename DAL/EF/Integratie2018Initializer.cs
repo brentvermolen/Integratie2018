@@ -19,6 +19,8 @@ namespace DAL
    {
       protected override void Seed(Integratie2018Context context)
       {
+         /*ApiCallAsync(context);
+
          AddGebruikers(context);
 
          AddAlerts(context);

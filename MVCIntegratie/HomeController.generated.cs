@@ -132,10 +132,12 @@ namespace MVCIntegratie.Controllers
                 public readonly string GrafiekToevoegen = "GrafiekToevoegen";
                 public readonly string Home_Ingelogd = "Home_Ingelogd";
                 public readonly string Index = "Index";
+                public readonly string Zoek = "Zoek";
             }
             public readonly string GrafiekToevoegen = "~/Views/Home/GrafiekToevoegen.cshtml";
             public readonly string Home_Ingelogd = "~/Views/Home/Home_Ingelogd.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string Zoek = "~/Views/Home/Zoek.cshtml";
         }
     }
 
