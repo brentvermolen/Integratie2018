@@ -1,4 +1,6 @@
+
 ﻿function wijzigtype(selectie, id, vergid, barid, lineid, pieid) {
+
     if (selectie.value == "Lijn Diagram") {
         document.getElementById(id).style.display = "block";
         document.getElementById(lineid).style.display = "block";
@@ -168,11 +170,13 @@
                 ]
             });
     } else if (selectie.value == "Vergelijking") {
+
         document.getElementById(id).style.display = "none";
         document.getElementById(lineid).style.display = "none";
         document.getElementById(vergid).style.display = "block";
         document.getElementById(barid).style.display = "none";
         document.getElementById(pieid).style.display = "none";
+
     }
 }
 

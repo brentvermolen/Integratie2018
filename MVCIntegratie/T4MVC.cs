@@ -35,6 +35,7 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
     public static MVCIntegratie.Controllers.ManageController Manage = new MVCIntegratie.Controllers.T4MVC_ManageController();
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
+    public static T4MVC.SearchController Search = new T4MVC.SearchController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
