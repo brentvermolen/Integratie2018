@@ -71,7 +71,7 @@ namespace DAL
       {
          try
          {
-            /*client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
             {
                CharSet = "utf-8"
             });
@@ -92,7 +92,7 @@ namespace DAL
             string responseString = await response.Content.ReadAsStringAsync();
             responseString.ToString();
 
-            AddBerichten(responseString, context);*/
+            AddBerichten(responseString, context);
          }
          catch (Exception e)
          {
@@ -110,6 +110,8 @@ namespace DAL
       {
          json = "{ \"berichten\": " + json + " }";
          json = json.Replace("\"geo\": false", "\"geo\": [0, 0]");
+         json = json.Replace("\"geo\": [null, null]", "\"geo\": [0, 0]");
+
          BerichtenClass BerichtenJson;
          try
          {

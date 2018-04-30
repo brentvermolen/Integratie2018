@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace BL.Domain.GrafiekKlassen
 {
    public class Chart
    {
+      [JsonProperty("type")]
       public string Type { get; set; }
       public bool PlotShadow { get; set; }
    }

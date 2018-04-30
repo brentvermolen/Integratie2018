@@ -20,5 +20,26 @@ namespace DAL
       {
          return ctx.Grafieken.Include("Series").Include("xAs").Include("yAs");
       }
+
+      public Grafiek CreateGrafiek()
+      {
+         return new Grafiek() { ID = ctx.Grafieken.Max(g => g.ID) + 1 };
+      }
+
+      public void SaveGrafiek(Grafiek grafiek)
+      {
+         ctx.Grafieken.Add(grafiek);
+         ctx.SaveChanges();
+      }
+
+      public int GetSerieID()
+      {
+         return ctx.Series.Max(s => s.ID);
+      }
+
+      public int GetDataID()
+      {
+         return ctx.Datas.Max(d => d.ID);
+      }
    }
 }

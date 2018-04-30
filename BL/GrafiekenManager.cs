@@ -21,5 +21,15 @@ namespace BL
       {
          return repo.ReadGrafieken();
       }
+
+      public Grafiek NewGrafiek()
+      {
+         return repo.CreateGrafiek();
+      }
+
+      public void AddGrafiek(Grafiek grafiek)
+      {
+         repo.SaveGrafiek(grafiek);
+      }
    }
 }

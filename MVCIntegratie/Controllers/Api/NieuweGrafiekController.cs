@@ -1,5 +1,9 @@
 ﻿using BL;
 using BL.Domain;
+using BL.Domain.GrafiekKlassen;
+using BL.Domain.GrafiekTypes;
+using BL.Domain.JsonConverters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +46,66 @@ namespace MVCIntegratie.Controllers.Api
       }
 
       [Route("~/api/NieuweGrafiek/PostGrafiek")]
-      public IHttpActionResult Post([FromBody]string data) /* without 'id' (-> id = 0) */
+      public IHttpActionResult Post([FromBody]string data)
       {
+         GrafiekJson json = JsonConvert.DeserializeObject<GrafiekJson>(data);
+
+         List<Categorie> categories = new List<Categorie>();
+         List<Serie> series = new List<Serie>();
+
+         foreach (string categorie in json.categories)
+         {
+            categories.Add(new Categorie(categorie));
+         }
+         foreach(string serie in json.series)
+         {
+            int intID = -1;
+            try
+            {
+               intID = int.Parse(serie);
+            }
+            catch
+            {
+               return NotFound();
+            }
+            List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
+
+            SentimentModel model = new SentimentModel()
+            {
+               Naam = berichtMng.GetPersoon(intID).Naam,
+               Objectiviteit = berichts.Average(b => b.Objectiviteit),
+               Polariteit = berichts.Average(b => b.Polariteit)
+            };
+
+            Serie s = new Serie()
+            {
+               Naam = model.Naam
+            };
+            Data d1 = new Data(model.Objectiviteit);
+            Data d2 = new Data(model.Polariteit);
+            s.Data.Add(d1); s.Data.Add(d2);
+
+            series.Add(s);
+         }
+
+         Grafiek grafiek = new Bar(
+            grafiekenMng.NewGrafiek().ID,
+            json.title,
+            new As() { Categorieën = categories},
+            series
+            );
+
+         grafiekenMng.AddGrafiek(grafiek);
+
          return Ok();
+      }
+
+      public class GrafiekJson
+      {
+         public string title { get; set; }
+         public List<string> categories { get; set; }
+         public bool credits { get; set; }
+         public List<string> series { get; set; }
       }
 
       public class SentimentModel

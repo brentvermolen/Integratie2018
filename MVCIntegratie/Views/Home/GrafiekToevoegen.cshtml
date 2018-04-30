@@ -60,36 +60,35 @@
 <script type="text/javascript">
    var elem;
    var chart;
+   var personen = [];
    loadGrafiek();
 
    function opslaan() {
-      var str = JSON.stringify(chart.userOptions);
-      var series = '"series":[';
+      var categories = [];
+      for (var i = 0; i < chart.xAxis[0].categories.length; i++) {
+         categories.push(chart.xAxis[0].categories[i]);
+      }
 
-      for (var i = 0; i < chart.series.length; i++) {
-         var serie = chart.series[i];
-         series += '"name":"' + serie.name + '","data":[';
-         for (var j = 0; j < serie.data.length; j++) {
-            var data = serie.data[j];
-            series += data.y;
-            if (j < serie.data.length - 1) {
-               series += ',';
-            }
-         }
-         series += "]"
-         if (i < chart.series.length - 1) {
-            series += ',';
+      class grafClass {
+         constructor(title, categories, credits, series) {
+            this.title = title;
+            this.categories = categories;
+            this.credits = credits;
+            this.series = series;
          }
       }
 
-      series += ']';
+      var graf = new grafClass(chart.title.textStr,
+                                    categories,
+                                    chart.options.credits.enabled,
+                                    personen);
 
-
-      str = str.replace('"series":[]', series);
+      var jsonG = JSON.stringify(graf);
+      
       var json = '"';
 
-      for (var i = 0; i < str.length; i++) {
-         var ch = str.charAt(i);
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
          if (ch == '"') {
             json += "'";
          } else {
@@ -120,6 +119,7 @@
          dataType: 'json'
          }).done(function (data) {
             var persoon = data['Naam'];
+            personen.push(id);
             var pol = data['Polariteit'];
             var obj = data['Objectiviteit'];
             sentimentToevoegen(persoon, pol, obj);
@@ -139,6 +139,7 @@
          var c = chart.series[i];
          if (c.name == elem.id) {
             chart.series[i].remove();
+            personen.splice(i, 1);
             if (elem != null) {
                elem.remove(elem);
             }

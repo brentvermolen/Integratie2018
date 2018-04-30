@@ -20,6 +20,7 @@ namespace BL.Domain.GrafiekKlassen
       }
 
       [Key]
+      public int ID { get; set; }
       public string Naam { get; set; }
       public virtual List<Data> Data { get; set; }
       public bool ColorByPoint { get; set; }
@@ -40,7 +41,7 @@ namespace BL.Domain.GrafiekKlassen
             }
             else
             {
-               ret += data.Value.ToString();
+               ret += data.Value.ToString().Replace(",", ".");
             }
 
             if (i != Data.Count - 1)

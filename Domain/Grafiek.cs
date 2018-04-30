@@ -1,4 +1,6 @@
 ﻿using BL.Domain.GrafiekKlassen;
+using BL.Domain.JsonConverters;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,11 +19,13 @@ namespace BL.Domain
       }
 
       [Key]
-      public string ID { get; set; }
+      public int ID { get; set; }
+      [JsonProperty("chart")]
       public Chart Chart { get; set; }
       public string Titel { get; set; }
       public string Subtitel { get; set; }
       public string Tooltip { get; set; }
+      [JsonProperty("xAxis")]
       public As xAs { get; set; }
       public As yAs { get; set; }
       public bool Credits { get; set; }

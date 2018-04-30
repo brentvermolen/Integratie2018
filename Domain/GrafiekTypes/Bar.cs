@@ -12,7 +12,7 @@ namespace BL.Domain.GrafiekTypes
    {
       public Bar() { }
 
-      public Bar(string ID,
+      public Bar(int ID,
          string Titel,
          As xAsCategorieën,
          List<Serie> Series)

@@ -12,7 +12,7 @@ namespace BL.Domain.GrafiekTypes
    {
       public Lijn() { }
 
-      public Lijn(string ID,
+      public Lijn(int ID,
          string Titel,
          As yAs,
          List<Serie> Series)

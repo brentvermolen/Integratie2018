@@ -20,6 +20,7 @@ namespace BL.Domain.GrafiekKlassen
       }
 
       [Key]
+      public int ID { get; set; }
       public string Naam { get; set; }
       public double Value { get; set; }
       public bool Sliced { get; set; }

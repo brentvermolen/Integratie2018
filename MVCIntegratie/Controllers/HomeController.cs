@@ -28,7 +28,7 @@ namespace MVCIntegratie.Controllers
       public virtual ActionResult Index()
       {
          int count = 0;
-         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 3).ToList();
+         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 10).ToList();
 
          return View(graf);
       }
@@ -65,7 +65,7 @@ namespace MVCIntegratie.Controllers
 
       public virtual ActionResult Toevoegen(string type)
       {
-         Grafiek graf = new Bar("preview", "PREVIEW", new As() { IsUsed = true, Categorieën = new List<Categorie>() }, new List<Serie>());
+         Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieën = new List<Categorie>() }, new List<Serie>());
          graf.xAs.Categorieën.Add(new Categorie("Objectiviteit"));
          graf.xAs.Categorieën.Add(new Categorie("Polariteit"));
 

@@ -12,7 +12,7 @@ namespace BL.Domain.GrafiekTypes
    {
       public Pie() { }
       
-      public Pie(string ID,
+      public Pie(int ID,
          string Titel,
          Serie serie)
       {

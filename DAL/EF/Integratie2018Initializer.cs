@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
+   public class Integratie2018Initializer : DropCreateDatabaseIfModelChanges<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
@@ -127,7 +127,7 @@ namespace DAL
          series.Add(serie4);
          series.Add(serie5);
 
-         Grafiek grafiek1 = new Lijn("chart10", "Solar Employment Growth by Sector, 2010-2016", new As()
+         Grafiek grafiek1 = new Lijn(0, "Solar Employment Growth by Sector, 2010-2016", new As()
          { IsUsed = true, Titel = "Number of Employees" }, series);
 
          As xAs = new As() { IsUsed = true };
@@ -185,7 +185,7 @@ namespace DAL
          series2.Add(serie2);
          series2.Add(serie3);
 
-         Grafiek grafiek2 = new Bar("chart2", "Column chart with negative values",
+         Grafiek grafiek2 = new Bar(1, "Column chart with negative values",
             xAs, series2);
 
          serie1 = new Serie() { Naam = "Brands", ColorByPoint = true };
@@ -202,7 +202,7 @@ namespace DAL
          serie1.Data.Add(data5);
          serie1.Data.Add(data6);
 
-         Grafiek grafiek3 = new Pie("chart3", "Browser market shares in January, 2018", serie1);
+         Grafiek grafiek3 = new Pie(2, "Browser market shares in January, 2018", serie1);
 
          context.Grafieken.Add(grafiek1);
          context.Grafieken.Add(grafiek2);
