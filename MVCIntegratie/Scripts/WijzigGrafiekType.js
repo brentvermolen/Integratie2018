@@ -1,5 +1,12 @@
-﻿function wijzigtype(selectie, id) {
+
+﻿function wijzigtype(selectie, id, vergid, barid, lineid, pieid) {
+
     if (selectie.value == "Lijn Diagram") {
+        document.getElementById(id).style.display = "block";
+        document.getElementById(lineid).style.display = "block";
+        document.getElementById(vergid).style.display = "none";
+        document.getElementById(barid).style.display = "none";
+        document.getElementById(pieid).style.display = "none";
         Highcharts.chart('chart',
             {
                 title: {
@@ -69,6 +76,11 @@
             });
     }
     else if (selectie.value == "Staaf Diagram") {
+        document.getElementById(id).style.display = "block";
+        document.getElementById(lineid).style.display = "none";
+        document.getElementById(vergid).style.display = "none";
+        document.getElementById(barid).style.display = "block";
+        document.getElementById(pieid).style.display = "none";
         Highcharts.chart('chart',
             {
                 chart: {
@@ -98,6 +110,11 @@
             });
     }
     else if (selectie.value == "Taart Diagram") {
+        document.getElementById(id).style.display = "block";
+        document.getElementById(lineid).style.display = "none";
+        document.getElementById(vergid).style.display = "none";
+        document.getElementById(barid).style.display = "none";
+        document.getElementById(pieid).style.display = "block";
         Highcharts.chart('chart',
             {
                 chart: {
@@ -153,9 +170,13 @@
                 ]
             });
     } else if (selectie.value == "Vergelijking") {
-        var element = document.getElementById(id);
-        element.outerHTML = "";
-        delete element;
+
+        document.getElementById(id).style.display = "none";
+        document.getElementById(lineid).style.display = "none";
+        document.getElementById(vergid).style.display = "block";
+        document.getElementById(barid).style.display = "none";
+        document.getElementById(pieid).style.display = "none";
+
     }
 }
 
