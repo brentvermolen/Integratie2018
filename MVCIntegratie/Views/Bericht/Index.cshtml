@@ -12,13 +12,16 @@
 <table class="table">
    <tr>
       <th>
-         @Html.DisplayNameFor(model => model.User_ID)
+         @Html.DisplayNameFor(model => model.ID)
       </th>
       <th>
          @Html.DisplayNameFor(model => model.Datum)
       </th>
       <th>
-         @Html.DisplayNameFor(model => model.Geo)
+         <p>Longitude</p>
+      </th>
+      <th>
+         <p>Latitude</p>
       </th>
       <th>
          @Html.DisplayNameFor(model => model.Retweet)
@@ -33,7 +36,7 @@
          @Html.DisplayNameFor(model => model.Objectiviteit)
       </th>
       <th>
-         @Html.DisplayNameFor(model => model.Politieker)
+         @Html.DisplayNameFor(model => model.Personen)
       </th>
       <th></th>
    </tr>
@@ -41,13 +44,16 @@
 @foreach (var item in Model) {
    <tr>
       <td>
-         @Html.DisplayFor(modelItem => item.User_ID)
+         @Html.DisplayFor(modelItem => item.ID)
       </td>
       <td>
          @Html.DisplayFor(modelItem => item.Datum)
       </td>
       <td>
-         @Html.DisplayFor(modelItem => item.Geo)
+         @Html.DisplayFor(modelItem => item.Longtitude)
+      </td>
+      <td>
+         @Html.DisplayFor(modelItem => item.Latitude)
       </td>
       <td>
          @Html.DisplayFor(modelItem => item.Retweet)
@@ -62,7 +68,11 @@
          @Html.DisplayFor(modelItem => item.Objectiviteit)
       </td>
       <td>
-         @Html.ActionLink(item.Politieker.Naam, MVC.Persoon.Details(item.Politieker.Naam))
+         @foreach (var persoon in item.Personen)
+      {
+         @Html.DisplayFor(modelItem => persoon.Naam)
+         <br />
+   }
       </td>
       <td>
          @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

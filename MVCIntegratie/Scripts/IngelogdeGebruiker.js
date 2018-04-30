@@ -1,6 +1,5 @@
-﻿function verwijder() {
-    var element = document.getElementById("test1");
+﻿function verwijder(id) {
+    var element = document.getElementById(id);
     element.outerHTML = "";
     delete element;
-
 }

@@ -31,10 +31,10 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.AlertController Alert = new MVCIntegratie.Controllers.T4MVC_AlertController();
     public static MVCIntegratie.Controllers.BerichtController Bericht = new MVCIntegratie.Controllers.T4MVC_BerichtController();
     public static MVCIntegratie.Controllers.FYIController FYI = new MVCIntegratie.Controllers.T4MVC_FYIController();
+    public static MVCIntegratie.Controllers.GraphController Graph = new MVCIntegratie.Controllers.T4MVC_GraphController();
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
     public static MVCIntegratie.Controllers.ManageController Manage = new MVCIntegratie.Controllers.T4MVC_ManageController();
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
-    public static T4MVC.GraphController Graph = new T4MVC.GraphController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -114,6 +114,7 @@ namespace Links
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
+        public static readonly string MaakGrafiek_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/MaakGrafiek.min.js") ? Url("MaakGrafiek.min.js") : Url("MaakGrafiek.js");
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
         public static readonly string popper_utils_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/popper-utils.min.js") ? Url("popper-utils.min.js") : Url("popper-utils.js");
         public static readonly string popper_utils_js_map = Url("popper-utils.js.map");
@@ -126,8 +127,11 @@ namespace Links
         public static readonly string README_md = Url("README.md");
         public static readonly string ReadOnly_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/ReadOnly.min.js") ? Url("ReadOnly.min.js") : Url("ReadOnly.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
+        public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
+        public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
         public static readonly string respond_min_js = Url("respond.min.js");
         public static readonly string series_label_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/series-label.min.js") ? Url("series-label.min.js") : Url("series-label.js");
+        public static readonly string TypeGeladen_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/TypeGeladen.min.js") ? Url("TypeGeladen.min.js") : Url("TypeGeladen.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class umd {
             public const string UrlPath = "~/Scripts/umd";
@@ -143,6 +147,7 @@ namespace Links
             public static readonly string popper_min_js_map = Url("popper.min.js.map");
         }
     
+        public static readonly string WijzigGrafiekType_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/WijzigGrafiekType.min.js") ? Url("WijzigGrafiekType.min.js") : Url("WijzigGrafiekType.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -201,6 +206,7 @@ namespace Links
                 public static readonly string jquery_validate_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.min.js"); 
                 public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.js"); 
                 public static readonly string jquery_validate_unobtrusive_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.min.js"); 
+                public static readonly string MaakGrafiek_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/MaakGrafiek.js"); 
                 public static readonly string modernizr_2_6_2_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/modernizr-2.6.2.js"); 
                 public static readonly string popper_utils_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper-utils.js"); 
                 public static readonly string popper_utils_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper-utils.min.js"); 
@@ -208,8 +214,12 @@ namespace Links
                 public static readonly string popper_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper.min.js"); 
                 public static readonly string ReadOnly_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/ReadOnly.js"); 
                 public static readonly string respond_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.js"); 
+                public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.matchmedia.addListener.js"); 
+                public static readonly string respond_matchmedia_addListener_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.matchmedia.addListener.min.js"); 
                 public static readonly string respond_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/respond.min.js"); 
                 public static readonly string series_label_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/series-label.js"); 
+                public static readonly string TypeGeladen_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/TypeGeladen.js"); 
+                public static readonly string WijzigGrafiekType_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/WijzigGrafiekType.js"); 
             }
         }
         public static partial class Content 
