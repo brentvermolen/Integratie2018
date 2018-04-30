@@ -44,7 +44,6 @@ namespace MVCIntegratie.Controllers
             {
                 return View();
             }
-
             List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()))
                 .ToList();
 

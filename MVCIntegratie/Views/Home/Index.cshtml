@@ -15,12 +15,12 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="~/Scripts/Chart.js"></script>
 
-<div id="zoekdiv"><form action="/Home/Zoek" method="post"> <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken.."></form></div>
+
 
 
 
 <div>
-    <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+    <form action="/Home/Zoek" method="post"> <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken.."></form>
     <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
 </div>
 
