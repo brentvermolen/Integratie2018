@@ -4,7 +4,6 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
-using BL.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -49,9 +48,8 @@ namespace MVCIntegratie.Controllers
          List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.Contains(search)).ToList();
 
          List<Gebruiker> gebruikers = gebruikerMng.GetGebruikers().ToList();
-         List<AlertResultaat> teTonen = new List<AlertResultaat>();
 
-            string[] splitSearch = search.Split(' ');
+         string[] splitSearch = search.Split(' ');
             List<Woord> woorden = new List<Woord>();
             List<Hashtag> hashtags = new List<Hashtag>();
             List<Mention> mentions = new List<Mention>();

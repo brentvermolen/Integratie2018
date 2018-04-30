@@ -133,9 +133,9 @@ namespace BL
            return repo.ReadThemas();
        }*/
 
-      public Persoon GetPersoon(string persoon)
+      public Persoon GetPersoon(int persoon)
       {
-         return repo.ReadPersoon(id);
+         return repo.ReadPersoon(persoon);
       }
 
       public ICollection<Persoon> GetPersoonVanBericht(string berichtID)
