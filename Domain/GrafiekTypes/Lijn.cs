@@ -29,8 +29,7 @@ namespace BL.Domain.GrafiekTypes
          };
          PlotOptions = new PlotOptions()
          {
-            SeriesLabelConnector = false,
-            PointStart = 2010
+            SeriesLabelConnector = false
          };
       }
    }

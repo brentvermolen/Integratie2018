@@ -9,7 +9,8 @@ namespace BL.Domain.GrafiekKlassen
    public class PlotOptions
    {
       public bool SeriesLabelConnector { get; set; }
-      public int PointStart { get; set; }
+      public string PointStart { get; set; }
+      public string PointInterval { get; set; }
       public bool AllowPointSelect { get; set; }
       public string Cursor { get; set; }
       public bool DataLabels { get; set; }
