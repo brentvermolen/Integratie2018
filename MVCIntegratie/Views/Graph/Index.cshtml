@@ -184,13 +184,13 @@
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties">
          <!--<label>Aantal politiekers</label>
-         <select class="form-control" onchange="linewijzigaantalpol(this, 'lineaantalpol')">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-         </select>-->
+      <select class="form-control" onchange="linewijzigaantalpol(this, 'lineaantalpol')">
+         <option value="1">1</option>
+         <option value="2">2</option>
+         <option value="3">3</option>
+         <option value="4">4</option>
+         <option value="5">5</option>
+      </select>-->
          <label>Politiekers</label>
          <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line')" />
          <div id="polLine" class="row">
@@ -209,7 +209,7 @@
          </select>
       </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linepolopties">
+      <!--<div class="col-sm-6 col-md-6 linechartopties linepolopties">
          <label>lines</label>
          <select class="form-control lineaantalpol linestartpol">
             <option value="Politieker1">Politieker1</option>
@@ -265,64 +265,50 @@
             <option value="Thema2">Thema2</option>
             <option value="Thema3">Thema3</option>
          </select>
-      </div>
+      </div>-->
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties">
-         <label>y-as</label>
-         <select id="linePolY" class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
-         </select>
+         <label>Y-As</label>
+         <p>Aantal Tweets</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
-         <label>y-as</label>
-         <select class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
-         </select>
+         <label>Y-As</label>
+         <p>Aantal Tweets</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties">
-         <label>x-as</label>
-         <select class="form-control" onchange="linewijzigtijdpol(this, 'linepoldagen', 'linepolweken')" id="polperline">
-            <option value="per dag">per dag</option>
-            <option value="per week">per week</option>
-         </select>
+         <label>X-As</label>
+         <p>Per Week</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
-         <label>x-as</label>
-         <select class="form-control" onchange="linewijzigtijdthema(this, 'linethemadagen', 'linethemaweken')" id="themaperline">
-            <option value="per dag">per dag</option>
-            <option value="per week">per week</option>
-         </select>
+         <label>X-As</label>
+         <p>Per Week</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepoldagen">
-         <label>Hoeveel dagen</label>
-         <input id="aantalDagenPolLine" class="form-control" />
+         <label>Aantal weken</label>
+         <input type="number" id="aantalWekenPolLine" class="form-control" value="5" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemadagen">
-         <label>Hoeveel dagen</label>
+         <label>Aantal dagen</label>
          <input class="form-control" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepolweken">
-         <label>Hoeveel weken</label>
+         <label>Aantal weken</label>
          <input class="form-control" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemaweken">
-         <label>Hoeveel weken</label>
+         <label>Aantal weken</label>
          <input class="form-control" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties lineevolutieopties">
-         <label>x-as</label>
+         <label>X-As</label>
          <select class="form-control">
             <option value="per dag">per dag</option>
             <option value="per week">per week</option>
@@ -475,6 +461,11 @@
 
    function politiekerToevoegen(graph) {
 
+      if (personen.length == 5) {
+         alert('Kan niet meer dan 5 personen toevoegen');
+         return;
+      }
+
       switch (graph) {
          case 'line':
             elemToAdd = document.getElementById('polLine');
@@ -492,18 +483,19 @@
       var naam = elem.value;
       var id = elem.id;
 
-      var data = document.getElementById('linePolY');
-      data = data[data.selectedIndex].label;
+      /*var data = document.getElementById('linePolY');
+      data = data[data.selectedIndex].label;*/
+      data = 'Aantal tweets';
 
-      var dagen = document.getElementById('aantalDagenPolLine').value;
+      var weken = document.getElementById('aantalWekenPolLine').value;
 
-      if (dagen == '') {
-         dagen = 'noLimit';
+      if (weken == '') {
+         weken = 'noLimit';
       }
 
       switch (data) {
          case 'Aantal tweets':
-            $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoon/' + id + '/' + dagen,
+            $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoon/' + id + '/' + weken,
                {
                   type: 'GET',
                   dataType: 'json'
@@ -517,10 +509,14 @@
    }
 
    var nrSeries = 0;
+   var personen = [];
 
    function aantalTweetsToevoegen(data, naam, id) {
       var str = [];
       var d = data["Data"];
+      var dag = data["StartDag"];
+      var maand = data["StartMaand"] - 1;
+      var jaar = data["StartJaart"];
 
       for (var i = 0; i < d.length; i++) {
          str.push(d[i]);
@@ -528,13 +524,16 @@
 
       switch (currentChart) {
          case 'line':
-            lineChart.addSeries({ data: str });
-            lineChart.redraw();
-            /*lineChart.series.push({
-               pointStart: data["Start"],
-               pointInterval: 24 * 3600 * 1000 * 7,
-               data: data["Data"]
-            })*/
+            lineChart.addSeries({ name: naam, data: str });
+            lineChart.series[nrSeries].xAxis.update({
+               type: "datetime"
+            }, false);
+            lineChart.series[nrSeries++].update({
+               pointStart: Date.UTC(jaar, maand, dag),
+               pointInterval: 24 * 3600 * 1000 * 7
+            }, true);
+            personen.push(id);
+            persoonToevoegen(naam, id);
             break;
          case 'bar':
             break;
@@ -543,9 +542,46 @@
       }
    }
 
+   function persoonToevoegen(naam, id) {
+      var div = document.getElementById('polLine');
+      div.innerHTML = div.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.className, this);' value='Verwijder " + naam + "' id='" + naam + "' class='" + id + "' />";
+   }
+
+   function verwijderSerieByName(naam, id, element) {
+      nrSeries--;
+      personen.splice(personen.indexOf(naam), 1);
+
+      var c;
+
+      switch (currentChart) {
+         case 'line':
+            c = lineChart;
+            break;
+         case 'bar':
+            c = barChart;
+            break;
+         case 'pie':
+            c = pieChart;
+            break;
+      }
+
+      for (var i = 0; i < c.series.length; i++) {
+         var serie = c.series[i];
+         if (serie.name == naam) {
+            c.series[i].remove();
+
+            if (element != null) {
+               element.remove();
+            }
+
+            break;
+         }
+      }
+   }
 
 
 
+   
 
 
 
