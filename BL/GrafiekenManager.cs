@@ -31,5 +31,10 @@ namespace BL
       {
          repo.SaveGrafiek(grafiek);
       }
+
+      public void RemoveGrafiek(int ID)
+      {
+         repo.DeleteGrafiek(ID);
+      }
    }
 }

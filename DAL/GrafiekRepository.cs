@@ -32,6 +32,16 @@ namespace DAL
          ctx.SaveChanges();
       }
 
+      public void DeleteGrafiek(int ID)
+      {
+         try
+         {
+            Grafiek grafiek = ReadGrafieken().FirstOrDefault(g => g.ID == ID);
+            ctx.Grafieken.Remove(grafiek);
+            ctx.SaveChanges();
+         }catch(Exception e) { }
+      }
+
       public int GetSerieID()
       {
          return ctx.Series.Max(s => s.ID);

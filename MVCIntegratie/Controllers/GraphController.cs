@@ -23,9 +23,13 @@ namespace MVCIntegratie.Controllers
          List<Persoon> personen = berichtMng.GetPersonen().ToList();
          personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
 
+         List<Categorie> categories = new List<Categorie>();
+         categories.Add(new Categorie("Aantal Tweets"));
+         As xAsBar = new As() { IsUsed = true, Categorieën = categories };
+
          NieuweGrafiekModel types = new NieuweGrafiekModel()
          {
-            Bar = new Bar(0, "preview bar", new As() { IsUsed = true }, new List<Serie>()),
+            Bar = new Bar(0, "preview bar", xAsBar, new List<Serie>()),
             Line = new Lijn(1, "preview lijn", new As(), new List<Serie>()),
             Pie = new Pie(2, "preview pie", new Serie()),
             Personen = personen

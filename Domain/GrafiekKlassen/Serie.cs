@@ -14,7 +14,6 @@ namespace BL.Domain.GrafiekKlassen
 
       public Serie()
       {
-         Naam = "Serie" + Count++;
          Data = new List<Data>();
          Grafieken = new List<Grafiek>();
       }
@@ -37,7 +36,7 @@ namespace BL.Domain.GrafiekKlassen
             Data data = Data[i];
             if (data.Value == 0)
             {
-               ret += "null";
+               ret += "0";
             }
             else
             {

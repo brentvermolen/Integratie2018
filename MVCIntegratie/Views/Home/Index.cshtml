@@ -67,16 +67,6 @@
                      text: '@grafiek.Titel'
                   },
 
-                  @if (grafiek.Subtitel != null)
-                  {
-                     <text>
-                     subtitle:
-                     {
-                        text: '@grafiek.Subtitel'
-                     },
-                     </text>
-                  }
-
                   @if (grafiek.Chart.Type.Equals("pie"))
                   {
                      <text>
@@ -102,6 +92,15 @@
                      <text>
                   xAxis: {
                      categories: @Html.Raw(grafiek.xAs.GetCategorieën())
+                  },
+                  </text>
+                  }
+
+                  @if (grafiek.Chart.Type.Equals("normal"))
+                  {
+                     <text>
+                  xAxis: {
+                     type: 'datetime'
                   },
                   </text>
                   }
@@ -152,7 +151,12 @@
                            {
                               connectorAllowed: @grafiek.PlotOptions.getBool(grafiek.PlotOptions.SeriesLabelConnector)
                               },
-                        pointStart: @grafiek.PlotOptions.PointStart
+                              pointStart: @grafiek.PlotOptions.PointStart
+                              @if (grafiek.Chart.Type.Equals("normal"))
+                              {
+                                 <text>,
+                              pointInterval: 24 * 3600 * 1000 * 7</text>
+                              }
                            }
                         </text>
                      }

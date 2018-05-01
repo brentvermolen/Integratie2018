@@ -70,14 +70,13 @@
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barpolopties">
-         <label>Aantal politiekers</label>
-         <select class="form-control" onchange="barwijzigaantalpol(this, 'baraantalpol')">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-         </select>
+
+         <label>Politiekers</label>
+         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('bar')" />
+         <div id="polBar" class="row">
+
+         </div>
+      </div>
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
@@ -434,7 +433,7 @@
    </div>
    <div class="form-group maakgrafiek">
       <div class="col-md-6">
-         <input type="submit" value="Maak Grafiek" class="btn btn-success" />
+         <input type="submit" value="Maak Grafiek" onclick="grafiekOpslaan()" class="btn btn-success" />
       </div>
    </div>
 
@@ -471,6 +470,7 @@
             elemToAdd = document.getElementById('polLine');
             break;
          case 'bar':
+            elemToAdd = document.getElementById('polBar');
             break;
          case 'pie':
             break;
@@ -487,23 +487,42 @@
       data = data[data.selectedIndex].label;*/
       data = 'Aantal tweets';
 
-      var weken = document.getElementById('aantalWekenPolLine').value;
+      switch (currentChart) {
+         case 'line':
+            var weken = document.getElementById('aantalWekenPolLine').value;
 
-      if (weken == '') {
-         weken = 'noLimit';
-      }
+            if (weken == '') {
+               weken = 'noLimit';
+            }
 
-      switch (data) {
-         case 'Aantal tweets':
-            $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoon/' + id + '/' + weken,
-               {
-                  type: 'GET',
-                  dataType: 'json'
-               }).done(function (data) {
-                  aantalTweetsToevoegen(data, elem.value, elem.id);
-               }).fail(function () {
-                  alert('fail');
-               });
+            switch (data) {
+               case 'Aantal tweets':
+                  $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
+                     {
+                        type: 'GET',
+                        dataType: 'json'
+                     }).done(function (data) {
+                        aantalTweetsToevoegen(data, elem.value, elem.id);
+                     }).fail(function () {
+                        alert('fail');
+                     });
+                  break;
+            }
+            break;
+         case 'bar':
+            switch (data) {
+               case 'Aantal tweets':
+                  $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoon/' + id,
+                     {
+                        type: 'GET',
+                        dataType: 'json'
+                     }).done(function (data) {
+                        aantalTweetsToevoegen(data, elem.value, elem.id);
+                     }).fail(function () {
+                        alert('fail');
+                     });
+                  break;
+            }
             break;
       }
    }
@@ -512,30 +531,39 @@
    var personen = [];
 
    function aantalTweetsToevoegen(data, naam, id) {
-      var str = [];
-      var d = data["Data"];
-      var dag = data["StartDag"];
-      var maand = data["StartMaand"] - 1;
-      var jaar = data["StartJaart"];
-
-      for (var i = 0; i < d.length; i++) {
-         str.push(d[i]);
-      }
-
       switch (currentChart) {
          case 'line':
+            var str = [];
+            var d = data["Data"];
+            var dag = data["StartDag"];
+            var maand = data["StartMaand"] - 1;
+            var jaar = data["StartJaart"];
+
+            for (var i = 0; i < d.length; i++) {
+               str.push(d[i]);
+            }
+
             lineChart.addSeries({ name: naam, data: str });
             lineChart.series[nrSeries].xAxis.update({
                type: "datetime"
             }, false);
-            lineChart.series[nrSeries++].update({
+            lineChart.series[nrSeries].update({
                pointStart: Date.UTC(jaar, maand, dag),
                pointInterval: 24 * 3600 * 1000 * 7
+            }, false);
+            lineChart.series[nrSeries++].yAxis.update({
+               title: { text:  'Aantal Tweets' }
             }, true);
             personen.push(id);
             persoonToevoegen(naam, id);
             break;
          case 'bar':
+            barChart.addSeries({ name: naam, data: [ data ] });
+            barChart.series[nrSeries++].yAxis.update({
+               title: { text: 'Aantal Tweets' }
+            }, true);
+            personen.push(id);
+            persoonToevoegen(naam, id);
             break;
          case 'pie':
             break;
@@ -543,8 +571,7 @@
    }
 
    function persoonToevoegen(naam, id) {
-      var div = document.getElementById('polLine');
-      div.innerHTML = div.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.className, this);' value='Verwijder " + naam + "' id='" + naam + "' class='" + id + "' />";
+      elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.className, this);' value='Verwijder " + naam + "' id='" + naam + "' class='" + id + "' />";
    }
 
    function verwijderSerieByName(naam, id, element) {
@@ -579,7 +606,82 @@
       }
    }
 
+   function grafiekOpslaan() {
+      class LineClass {
+         constructor(title, pointStart, content, series, aantalWeken) {
+            this.title = title;
+            this.pointStart = pointStart;
+            this.type = 'line';
+            this.content = content;
+            this.series = series;
+            this.aantalWeken = aantalWeken;
+         }
+      }
 
+      class BarClass {
+         constructor(title, categories, series) {
+            this.title = title;
+            this.categories = categories;
+            this.series = series;
+            this.type = 'bar';
+         }
+      }
+
+      class PieClass {
+
+      }
+
+      var graf;
+
+      switch (currentChart) {
+         case 'line':
+            graf = new LineClass(lineChart.title.textStr,
+               lineChart.series[0].xAxis.series[0].options.pointStart,
+               'politieker',
+               personen,
+               document.getElementById('aantalWekenPolLine').value);
+            break;
+         case 'bar':
+            var categories = [];
+
+            for (var i = 0; i < barChart.xAxis[0].categories.length; i++) {
+               categories.push(barChart.xAxis[0].categories[i]);
+            }
+
+            graf = new BarClass(barChart.title.textStr,
+               categories,
+               personen)
+            break;
+         case 'pie':
+            break;
+      }
+
+      var jsonG = JSON.stringify(graf);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/NieuweGrafiek/PostGrafiek', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         alert('done');
+      }).fail(function () {
+         alert('fail');
+      });
+   }
 
    
 
@@ -613,16 +715,6 @@
                   title: {
                      text: '@Model.Line.Titel'
                   },
-
-                  @if (Model.Line.Subtitel != null)
-                  {
-                     <text>
-                     subtitle:
-                     {
-                        text: '@Model.Line.Subtitel'
-                     },
-                     </text>
-                  }
 
                   @if (Model.Line.Chart.Type.Equals("pie"))
                   {
@@ -789,16 +881,6 @@
                      text: '@Model.Bar.Titel'
                   },
 
-                  @if (Model.Bar.Subtitel != null)
-                  {
-                     <text>
-                     subtitle:
-                     {
-                        text: '@Model.Bar.Subtitel'
-                     },
-                     </text>
-                  }
-
                   @if (Model.Bar.Chart.Type.Equals("pie"))
                   {
                      <text>
@@ -957,16 +1039,6 @@
                   title: {
                      text: '@Model.Pie.Titel'
                   },
-
-                  @if (Model.Pie.Subtitel != null)
-                  {
-                     <text>
-                     subtitle:
-                     {
-                        text: '@Model.Pie.Subtitel'
-                     },
-                     </text>
-                  }
 
                   @if (Model.Pie.Chart.Type.Equals("pie"))
                   {

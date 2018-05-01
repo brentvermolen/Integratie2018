@@ -18,8 +18,8 @@ namespace MVCIntegratie.Controllers.Api
       private IGebruikerManager gebruikerMng = new GebruikerManager();
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
-      [Route("~/api/NieuweGrafiek/AantalTweetsVanPersoon/{id}/{aantalWeken}")]
-      public IHttpActionResult GetAantalTweetsVanPersoon(string id, string aantalWeken)
+      [Route("~/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/{id}/{aantalWeken}")]
+      public IHttpActionResult GetAantalTweetsVanPersoonPerWeek(string id, string aantalWeken)
       {
          int intID = -1;
          try
@@ -39,6 +39,27 @@ namespace MVCIntegratie.Controllers.Api
             intAantalWeken = 5;
          }
 
+         return Ok(GetAantalBerichtenPerWeekModel(intAantalWeken, intID));
+      }
+
+      [Route("~/api/NieuweGrafiek/AantalTweetsVanPersoon/{id}")]
+      public IHttpActionResult GetAantalTweetsVanPersoon(string id)
+      {
+         int intID = -1;
+         try
+         {
+            intID = int.Parse(id);
+         }
+         catch
+         {
+            return NotFound();
+         }
+
+         return Ok(berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count);
+      }
+
+      private AantalBerichtenPerWeekModel GetAantalBerichtenPerWeekModel(int intAantalWeken, int intID)
+      {
          int dezeWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Today, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
 
          int eersteWeek = dezeWeek - intAantalWeken;
@@ -97,7 +118,7 @@ namespace MVCIntegratie.Controllers.Api
             model.Data.Add(lijst[i].Count);
          }
 
-         return Ok(model);
+         return model;
       }
 
       public class AantalBerichtenPerWeekModel
@@ -141,64 +162,110 @@ namespace MVCIntegratie.Controllers.Api
       [Route("~/api/NieuweGrafiek/PostGrafiek")]
       public IHttpActionResult Post([FromBody]string data)
       {
-         GrafiekJson json = JsonConvert.DeserializeObject<GrafiekJson>(data);
+         GrafJson json = JsonConvert.DeserializeObject<GrafJson>(data);
 
-         List<Categorie> categories = new List<Categorie>();
-         List<Serie> series = new List<Serie>();
-
-         foreach (string categorie in json.categories)
+         switch (json.type)
          {
-            categories.Add(new Categorie(categorie));
+            case "line":
+               LineJson line = JsonConvert.DeserializeObject<LineJson>(data);
+               line.ToString();
+               List<Serie> series = new List<Serie>();
+
+               Grafiek grafiek = new Lijn(grafiekenMng.NewGrafiek().ID,
+                  line.title,
+                  new As() { Titel = "Aantal Tweets", IsUsed = true },
+                  series);
+
+               grafiek.PlotOptions.PointStart = line.pointStart.ToString();
+
+               foreach(string persoon in line.series)
+               {
+                  AantalBerichtenPerWeekModel model = GetAantalBerichtenPerWeekModel(line.aantalWeken, int.Parse(persoon));
+                  Serie serie = new Serie();
+                  serie.Naam = berichtMng.GetPersoon(int.Parse(persoon)).Naam;
+
+                  foreach(int d in model.Data)
+                  {
+                     Data dat = new Data(d);
+                     serie.Data.Add(dat);
+                  }
+
+                  grafiek.Series.Add(serie);
+               }
+
+               grafiekenMng.AddGrafiek(grafiek);
+               break;
+            case "bar":
+               BarJson bar = JsonConvert.DeserializeObject<BarJson>(data);
+               bar.ToString();
+
+               As xAs = new As()
+               {
+                  IsUsed = true
+               };
+
+               As yAs = new As()
+               {
+                  IsUsed = true,
+                  Titel = "Aantal Tweets"
+               };
+
+               List<Categorie> categories = new List<Categorie>();
+
+               foreach(string categorie in bar.categories)
+               {
+                  categories.Add(new Categorie(categorie));
+               }
+
+               xAs.Categorieën = categories;
+
+               List<Serie> series2 = new List<Serie>();
+
+               foreach (string persoon in bar.series)
+               {
+                  int id = int.Parse(persoon);
+                  int aantal = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == id) != null).ToList().Count;
+                  Serie serie = new Serie();
+                  serie.Naam = berichtMng.GetPersoon(id).Naam;
+
+                  serie.Data.Add(new Data(aantal));
+                  series2.Add(serie);
+               }
+
+               Grafiek grafiek2 = new Bar(grafiekenMng.NewGrafiek().ID,
+                  bar.title,
+                  xAs,
+                  series2
+                  );
+               grafiek2.yAs = yAs;
+
+               grafiekenMng.AddGrafiek(grafiek2);
+               break;
          }
-         foreach(string serie in json.series)
-         {
-            int intID = -1;
-            try
-            {
-               intID = int.Parse(serie);
-            }
-            catch
-            {
-               return NotFound();
-            }
-            List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
-
-            SentimentModel model = new SentimentModel()
-            {
-               Naam = berichtMng.GetPersoon(intID).Naam,
-               Objectiviteit = berichts.Average(b => b.Objectiviteit),
-               Polariteit = berichts.Average(b => b.Polariteit)
-            };
-
-            Serie s = new Serie()
-            {
-               Naam = model.Naam
-            };
-            Data d1 = new Data(model.Objectiviteit);
-            Data d2 = new Data(model.Polariteit);
-            s.Data.Add(d1); s.Data.Add(d2);
-
-            series.Add(s);
-         }
-
-         Grafiek grafiek = new Bar(
-            grafiekenMng.NewGrafiek().ID,
-            json.title,
-            new As() { Categorieën = categories},
-            series
-            );
-
-         grafiekenMng.AddGrafiek(grafiek);
+         
 
          return Ok();
       }
 
-      public class GrafiekJson
+      public class GrafJson
+      {
+         public string type { get; set; }
+      }
+
+      public class BarJson
       {
          public string title { get; set; }
          public List<string> categories { get; set; }
-         public bool credits { get; set; }
          public List<string> series { get; set; }
+      }
+
+      public class LineJson
+      {
+         public string title { get; set; }
+         public double pointStart { get; set; }
+         public string content { get; set; }
+         public List<string> series { get; set; }
+         public int aantalWeken { get; set; }
       }
 
       public class SentimentModel
