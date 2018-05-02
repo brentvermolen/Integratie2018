@@ -305,6 +305,29 @@ namespace MVCIntegratie.Controllers.Api
 
                grafiekenMng.AddGrafiek(grafiek2);
                break;
+            case "pie":
+               PieJson pie = JsonConvert.DeserializeObject<PieJson>(data);
+               pie.ToString();
+
+               Serie serie2 = new Serie();
+               serie2.Naam = pie.serieNaam;
+               
+               for(int i = 0; i < pie.series.Count; i++)
+               {
+                  Data data2 = new Data()
+                  {
+                     Naam = pie.series[i],
+                     Value = pie.waarden[i]
+                  };
+                  serie2.Data.Add(data2);
+               }
+
+               Grafiek grafiek3 = new Pie(grafiekenMng.NewGrafiek().ID,
+                  pie.title,
+                  serie2);
+
+               grafiekenMng.AddGrafiek(grafiek3);
+               break;
          }
          
 
@@ -330,6 +353,14 @@ namespace MVCIntegratie.Controllers.Api
          public string content { get; set; }
          public List<string> series { get; set; }
          public int aantalWeken { get; set; }
+      }
+
+      public class PieJson
+      {
+         public string title { get; set; }
+         public string serieNaam { get; set; }
+         public List<string> series { get; set; }
+         public List<double> waarden { get; set; }
       }
 
       public class SentimentModel

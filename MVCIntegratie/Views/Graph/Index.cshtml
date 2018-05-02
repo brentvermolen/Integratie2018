@@ -648,7 +648,13 @@
       }
 
       class PieClass {
-
+         constructor(title, serieNaam, series, waarden) {
+            this.title = title;
+            this.serieNaam = serieNaam;
+            this.series = series;
+            this.waarden = waarden;
+            this.type = 'pie';
+         }
       }
 
       var graf;
@@ -673,6 +679,19 @@
                personen)
             break;
          case 'pie':
+            var series = [];
+            var waarden = [];
+
+            for (var i = 0; i < pieChart.series[0].userOptions.data.length; i++) {
+               var data = pieChart.series[0].userOptions.data[i];
+               series.push(data.name);
+               waarden.push(data.y);
+            }
+
+            graf = new PieClass(pieChart.title.textStr,
+               pieChart.series[0].userOptions.name,
+               series,
+               waarden)
             break;
       }
 

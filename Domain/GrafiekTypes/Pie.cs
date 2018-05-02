@@ -19,6 +19,12 @@ namespace BL.Domain.GrafiekTypes
          this.ID = ID;
          this.Titel = Titel;
          Series = new List<Serie>();
+         if (serie.Data.Count != 0)
+         {
+            serie.Data[0].Selected = true;
+            serie.Data[0].Sliced = true;
+         }
+         serie.ColorByPoint = true;
          Series.Add(serie);
 
          Chart = new Chart()
