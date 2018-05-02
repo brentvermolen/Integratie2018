@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using BL.Domain;
@@ -173,6 +174,11 @@ namespace DAL
          return ctx.Hashtags.Include("Berichten");
       }
 
+      public IEnumerable<Hashtag> ReadHashtags(Expression<Func<Hashtag, bool>> predicate)
+      {
+         return ctx.Hashtags.Include("Berichten").Where(predicate);
+      }
+
       public IEnumerable<Hashtag> ReadHashtagsVanBericht(string berichtID)
       {
          return ctx.Berichten.Include("Hashtags").Single(b => b.ID.Equals(berichtID)).Hashtags;
@@ -188,6 +194,11 @@ namespace DAL
          return ctx.Mentions.Include("Berichten");
       }
 
+      public IEnumerable<Mention> ReadMentions(Expression<Func<Mention, bool>> predicate)
+      {
+         return ctx.Mentions.Include("Berichten").Where(predicate);
+      }
+
       public IEnumerable<Mention> ReadMentionsVanBericht(string berichtID)
       {
          return ctx.Berichten.Include("Mentions").Single(b => b.ID.Equals(berichtID)).Mentions;
@@ -197,6 +208,13 @@ namespace DAL
       {
          return ctx.Personen
             .Include("Berichten");
+      }
+
+      public IEnumerable<Persoon> ReadPersonen(Expression<Func<Persoon, bool>> predicate)
+      {
+         return ctx.Personen
+            .Include("Berichten")
+            .Where(predicate);
       }
 
       public Persoon ReadPersoon(int id)
@@ -216,6 +234,11 @@ namespace DAL
          return ctx.Urls.Include("Berichten");
       }
 
+      public IEnumerable<Url> ReadUrls(Expression<Func<Url, bool>> predicate)
+      {
+         return ctx.Urls.Include("Berichten").Where(predicate);
+      }
+
       public IEnumerable<Url> ReadUrlsVanBericht(string berichtID)
       {
          return ctx.Berichten.Include("Urls").Single(b => b.ID.Equals(berichtID)).Urls;
@@ -229,6 +252,11 @@ namespace DAL
       public IEnumerable<Woord> ReadWoorden()
       {
          return ctx.Woorden.Include("Berichten");
+      }
+
+      public IEnumerable<Woord> ReadWoorden(Expression<Func<Woord, bool>> predicate)
+      {
+         return ctx.Woorden.Include("Berichten").Where(predicate);
       }
 
       public IEnumerable<Woord> ReadWoordenVanBericht(string berichtID)

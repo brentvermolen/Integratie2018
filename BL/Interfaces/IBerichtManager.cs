@@ -18,6 +18,7 @@ namespace BL
       void RemoveBericht(string berichtID);
 
       IEnumerable<Persoon> GetPersonen();
+      IEnumerable<Persoon> GetPersonen(System.Linq.Expressions.Expression<Func<Persoon, bool>> predicate);
 
       ICollection<Persoon> GetPersoonVanBericht(string berichtID);
 
@@ -30,9 +31,13 @@ namespace BL
       IEnumerable<Hashtag> GetBerichtHashtags(string berichtID);
 
       IEnumerable<Woord> GetWoorden();
+      IEnumerable<Woord> GetWoorden(System.Linq.Expressions.Expression<Func<Woord, bool>> predicate);
       IEnumerable<Url> GetUrls();
+      IEnumerable<Url> GetUrls(System.Linq.Expressions.Expression<Func<Url, bool>> predicate);
       IEnumerable<Mention> GetMentions();
+      IEnumerable<Mention> GetMentions(System.Linq.Expressions.Expression<Func<Mention, bool>> predicate);
       IEnumerable<Hashtag> GetHashtags();
+      IEnumerable<Hashtag> GetHashtags(System.Linq.Expressions.Expression<Func<Hashtag, bool>> predicate);
 
       void AddWoord(string berichtID, string woord);
       void AddUrl(string berichtID, string url);

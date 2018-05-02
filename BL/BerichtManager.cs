@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using BL.Domain;
@@ -118,9 +119,19 @@ namespace BL
          return repo.ReadHashtags();
       }
 
+      public IEnumerable<Hashtag> GetHashtags(Expression<Func<Hashtag, bool>> predicate)
+      {
+         return repo.ReadHashtags(predicate);
+      }
+
       public IEnumerable<Mention> GetMentions()
       {
          return repo.ReadMentions();
+      }
+
+      public IEnumerable<Mention> GetMentions(Expression<Func<Mention, bool>> predicate)
+      {
+         return repo.ReadMentions(predicate);
       }
 
       public IEnumerable<Persoon> GetPersonen()
@@ -128,10 +139,15 @@ namespace BL
          return repo.ReadPersonen();
       }
 
-     /*  public IEnumerable<Thema> GeThemas()
-       {
-           return repo.ReadThemas();
-       }*/
+      public IEnumerable<Persoon> GetPersonen(Expression<Func<Persoon, bool>> predicate)
+      {
+         return repo.ReadPersonen(predicate);
+      }
+
+      /*  public IEnumerable<Thema> GeThemas()
+        {
+            return repo.ReadThemas();
+        }*/
 
       public Persoon GetPersoon(int persoon)
       {
@@ -148,9 +164,19 @@ namespace BL
          return repo.ReadUrls();
       }
 
+      public IEnumerable<Url> GetUrls(Expression<Func<Url, bool>> predicate)
+      {
+         return repo.ReadUrls(predicate);
+      }
+
       public IEnumerable<Woord> GetWoorden()
       {
          return repo.ReadWoorden();
+      }
+
+      public IEnumerable<Woord> GetWoorden(Expression<Func<Woord, bool>> predicate)
+      {
+         return repo.ReadWoorden(predicate);
       }
 
       public void RemoveBericht(string berichtID)
