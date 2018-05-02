@@ -71,7 +71,7 @@ namespace DAL
       {
          try
          {
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            /*client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
             {
                CharSet = "utf-8"
             });
@@ -92,7 +92,7 @@ namespace DAL
             string responseString = await response.Content.ReadAsStringAsync();
             responseString.ToString();
 
-            AddBerichten(responseString, context);
+            AddBerichten(responseString, context);*/
          }
          catch (Exception e)
          {

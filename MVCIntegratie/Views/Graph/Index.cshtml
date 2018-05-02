@@ -43,6 +43,12 @@
    </div>
 
 
+
+   <div class="col-sm-12 col-md-12 linechartopties">
+      <label>Grafiek titel: </label>
+      <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value)" />
+   </div>
+
    <div id="vergelijking">
       <div class="col-sm-6 col-md-6 vergelijkopties">
          <select class="form-control">
@@ -76,7 +82,6 @@
          <div id="polBar" class="row">
 
          </div>
-      </div>
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
@@ -166,12 +171,8 @@
          </select>
       </div>
    </div>
-   <div id="linechart">
 
-      <div class="col-sm-12 col-md-12 linechartopties">
-         <label>Grafiek titel: </label>
-         <input type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel('line', this.value)" />
-      </div>
+   <div id="linechart">
 
       <div class="col-sm-12 col-md-12 linechartopties">
          <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties','polperline', 'themaperline');">
@@ -183,13 +184,13 @@
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties">
          <!--<label>Aantal politiekers</label>
-      <select class="form-control" onchange="linewijzigaantalpol(this, 'lineaantalpol')">
-         <option value="1">1</option>
-         <option value="2">2</option>
-         <option value="3">3</option>
-         <option value="4">4</option>
-         <option value="5">5</option>
-      </select>-->
+         <select class="form-control" onchange="linewijzigaantalpol(this, 'lineaantalpol')">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         </select>-->
          <label>Politiekers</label>
          <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line')" />
          <div id="polLine" class="row">
@@ -327,13 +328,14 @@
             <option value="Thema">Thema</option>
          </select>
       </div>
-      <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
+      <div class="col-sm-6 col-md-6 piechartopties ">
          <label>Politieker</label>
-         <select class="form-control">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
+         <!--<select class="form-control">
+         <option value="Politieker1">Politieker1</option>
+         <option value="Politieker2">Politieker2</option>
+         <option value="Politieker3">Politieker3</option>
+      </select>-->
+         <input type="button" value="Kies" class="btnPiePersoon" id="" onclick="politiekerKiezen(this)" />
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
          <label>Thema</label>
@@ -384,14 +386,14 @@
          </select>
       </div>
 
-      <div class="col-sm-6 col-md-6 piechartopties piepolopties">
-         <label>Politieker</label>
-         <select class="form-control">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-      </div>
+      <!--<div class="col-sm-6 col-md-6 piechartopties piepolopties">
+      <label>Politieker</label>
+      <select class="form-control">
+         <option value="Politieker1">Politieker1</option>
+         <option value="Politieker2">Politieker2</option>
+         <option value="Politieker3">Politieker3</option>
+      </select>
+   </div>-->
       <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
          <label>Thema</label>
          <select class="form-control">
@@ -402,7 +404,7 @@
       </div>
       <div class="col-sm-6 col-md-6 piechartopties piepolopties">
          <label>Type</label>
-         <select class="form-control">
+         <select id="piePolOptiesTop" class="form-control">
             <option value="Top5">Top5</option>
             <option value="Top10">Top10</option>
          </select>
@@ -417,7 +419,7 @@
       </div>
       <div class="col-sm-6 col-md-6 piechartopties piepolopties">
          <label>Overzicht van</label>
-         <select class="form-control">
+         <select id="piePolOptiesData" class="form-control">
             <option value="Verhalen">Verhalen</option>
             <option value="Thema's">Thema's</option>
             <option value="Woorden">Woorden</option>
@@ -429,6 +431,9 @@
             <option value="Verhalen">Verhalen</option>
             <option value="Woorden">Woorden</option>
          </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties">
+         <input type="button" value="Toon Preview" onclick="prevPie();" />
       </div>
    </div>
    <div class="form-group maakgrafiek">
@@ -446,14 +451,16 @@
    var currentChart;
    var elemToAdd = 'polLine';
 
-   function wijzigTitel(graph, value) {
-      switch (graph) {
+   function wijzigTitel(value) {
+      switch (currentChart) {
          case 'line':
             lineChart.setTitle({ text: value });
             break;
          case 'bar':
+            barChart.setTitle({ text: value });
             break;
          case 'pie':
+            pieChart.setTitle({ text: value });
             break;
       }
    }
@@ -472,9 +479,18 @@
          case 'bar':
             elemToAdd = document.getElementById('polBar');
             break;
-         case 'pie':
-            break;
       }
+
+      ShowPopup();
+   }
+
+   function politiekerKiezen(elem) {
+
+      /*if (elem.id != '') {
+         while (pieChart.series.length > 0) {
+            pieChart.series[0].remove(true);
+         }
+      }*/
 
       ShowPopup();
    }
@@ -524,6 +540,10 @@
                   break;
             }
             break;
+         case 'pie':
+            var btn = document.getElementsByClassName('btnPiePersoon')[0];
+            btn.id = id;
+            btn.value = naam;
       }
    }
 
@@ -683,7 +703,56 @@
       });
    }
 
-   
+
+   function prevPie() {
+      var id = document.getElementsByClassName('btnPiePersoon')[0].id;
+      var type = document.getElementById("piePolOptiesData").value;
+      var top = document.getElementById("piePolOptiesTop").value;
+
+      $.ajax('/api/NieuweGrafiek/PieDataPersoon/' + id + '/' + type + '/' + top,
+         {
+            type: 'GET',
+            dataType: 'json'
+         }).done(function (data) {
+            dataToevoegenAanPie(data, type, top)
+         }).fail(function () {
+            alert('fail');
+         });
+   }
+
+   function dataToevoegenAanPie(data, type, top) {
+      var titel = data["Persoon"] + " - " + type + " - " + top
+      pieChart.setTitle({ text:  titel});
+      document.getElementById("grafTitel").value = titel;
+
+      var namen = data["Series"];
+      var waarden = data["Waarden"];
+
+      var serieData = [];
+
+      for (var i = 0; i < namen.length; i++) {
+         var naam = namen[i];
+         var waarde = waarden[i];
+         var sliced = false;
+         var selected = false;
+         if (i == 0) {
+            sliced = true;
+            selected = true;
+         }
+         serieData.push({
+            name: naam,
+            y: waarde,
+            sliced: sliced,
+            selected: selected
+         });
+      }
+      pieChart.series[0].remove(true);
+      pieChart.addSeries({
+         name: data["Persoon"],
+         colorByPoint: true,
+         data: serieData
+      });
+   }
 
 
 
@@ -1185,8 +1254,7 @@
          document.getElementById(vergid).style.display = "none";
          document.getElementById(barid).style.display = "none";
          document.getElementById(pieid).style.display = "none";
-
-
+         document.getElementById("grafTitel").value = lineChart.title.textStr;
       }
       else if (selectie.value == "Staaf Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "none";
@@ -1197,8 +1265,7 @@
          document.getElementById(vergid).style.display = "none";
          document.getElementById(barid).style.display = "block";
          document.getElementById(pieid).style.display = "none";
-
-
+         document.getElementById("grafTitel").value = barChart.title.textStr;
       }
       else if (selectie.value == "Taart Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "none";
@@ -1209,8 +1276,7 @@
          document.getElementById(vergid).style.display = "none";
          document.getElementById(barid).style.display = "none";
          document.getElementById(pieid).style.display = "block";
-
-
+         document.getElementById("grafTitel").value = pieChart.title.textStr;
       } else if (selectie.value == "Vergelijking") {
          document.getElementById(id).style.display = "none";
          document.getElementById(lineid).style.display = "none";

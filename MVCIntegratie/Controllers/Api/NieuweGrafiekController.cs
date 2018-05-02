@@ -1,5 +1,6 @@
 ﻿using BL;
 using BL.Domain;
+using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using Newtonsoft.Json;
@@ -157,6 +158,69 @@ namespace MVCIntegratie.Controllers.Api
          };
 
          return Ok(model);
+      }
+
+      [Route("~/api/NieuweGrafiek/PieDataPersoon/{id}/{type}/{top}")]
+      public IHttpActionResult GetPieDataPersoon(string id, string type, string top)
+      {
+         int intTop;
+         try
+         {
+            intTop = int.Parse(top.Replace("Top", ""));
+         }catch(Exception e)
+         {
+            return NotFound();
+         }
+
+         int intID;
+         try
+         {
+            intID = int.Parse(id);
+         }catch(Exception e)
+         {
+            return NotFound();  
+         }
+
+         PieDataPersoonModel model = new PieDataPersoonModel()
+         {
+            Persoon = berichtMng.GetPersoon(intID).Naam,
+            Series = new List<string>(),
+            Waarden = new List<double>()
+         };
+
+         //List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
+         List<Woord> woorden = berichtMng.GetWoorden().Where(w => w.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList();
+
+         switch (type)
+         {
+            case "Verhalen":
+               break;
+            case "Woorden":
+               woorden.Sort((w1, w2) => w2.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count.CompareTo(w1.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count));
+
+               int intTeller = 0;
+               while(model.Series.Count < intTop)
+               {
+                  Woord woord = woorden[intTeller];
+                  if (!model.Persoon.ToLower().Contains(woord.Tekst.ToLower()))
+                  {
+                     model.Series.Add(woord.Tekst);
+                     model.Waarden.Add(woord.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count);
+                  }
+                  intTeller++;
+               }
+               
+               return Ok(model);
+         }
+
+         return NotFound();
+      }
+
+      public class PieDataPersoonModel
+      {
+         public string Persoon { get; set; }
+         public List<string> Series { get; set; }
+         public List<double> Waarden { get; set; }
       }
 
       [Route("~/api/NieuweGrafiek/PostGrafiek")]
