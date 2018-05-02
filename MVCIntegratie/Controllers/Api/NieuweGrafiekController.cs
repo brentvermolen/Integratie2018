@@ -238,6 +238,106 @@ namespace MVCIntegratie.Controllers.Api
                return Ok(model);
             case "Themas":
                return NotFound();
+            case "Gemeente":
+               //var berichten = berichtMng.GetBerichten().GroupBy(b => b.Geo);
+               break;
+            case "Geslacht":
+               var geslacht = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).GroupBy(b => b.Profiel.Geslacht);
+
+               geslacht = geslacht.OrderByDescending(p => p.Count());
+
+               foreach (var group in geslacht)
+               {
+                  if (group.Key.Equals("f"))
+                  {
+                     model.Series.Add("Vrouw");
+                  }
+                  else
+                  {
+                     model.Series.Add("Man");
+                  }
+                  model.Waarden.Add(group.Count());
+               }
+
+               return Ok(model);
+            case "Leeftijd":
+               var leeftijd = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).GroupBy(b => b.Profiel.Leeftijd);
+
+               leeftijd = leeftijd.OrderByDescending(p => p.Count());
+
+               foreach (var group in leeftijd)
+               {
+                  if (group.Key.Equals(""))
+                  {
+                     model.Series.Add("Andere");
+                  }
+                  else
+                  {
+                     model.Series.Add(group.Key);
+                  }
+                  model.Waarden.Add(group.Count());
+               }
+
+               return Ok(model);
+            case "Opleiding":
+               var opleiding = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).GroupBy(b => b.Profiel.Scholing);
+
+               opleiding = opleiding.OrderByDescending(p => p.Count());
+
+               foreach (var group in opleiding)
+               {
+                  if (group.Key.Equals(""))
+                  {
+                     model.Series.Add("Andere");
+                  }
+                  else
+                  {
+                     model.Series.Add(group.Key);
+                  }
+                  model.Waarden.Add(group.Count());
+               }
+
+               return Ok(model);
+            case "Taal":
+               var taal = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).GroupBy(b => b.Profiel.Taal);
+
+               taal = taal.OrderByDescending(p => p.Count());
+
+               foreach (var group in taal)
+               {
+                  if (group.Key.Equals(""))
+                  {
+                     model.Series.Add("Andere");
+                  }
+                  else
+                  {
+                     model.Series.Add(group.Key);
+                  }
+                  model.Waarden.Add(group.Count());
+               }
+
+               return Ok(model);
+            case "Persoonlijkheid":
+               var persoonlijkheid = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).GroupBy(b => b.Profiel.Persoonlijkheid);
+
+               persoonlijkheid = persoonlijkheid.OrderByDescending(p => p.Count());
+
+               foreach (var group in persoonlijkheid)
+               {
+                  if (group.Key.Equals(""))
+                  {
+                     model.Series.Add("Andere");
+                  }
+                  else
+                  {
+                     model.Series.Add(group.Key);
+                  }
+                  model.Waarden.Add(group.Count());
+               }
+               
+               return Ok(model);
+            case "Trend":
+               return NotFound();
          }
 
          return NotFound();

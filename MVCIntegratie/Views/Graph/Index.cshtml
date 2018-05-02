@@ -363,7 +363,7 @@
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
          <label>Kruisen met?</label>
-         <select class="form-control">
+         <select id="pieCrossPolOpties" class="form-control">
             <option value="Gemeente">Gemeente</option>
             <option value="Geslacht">Geslacht</option>
             <option value="Leeftijd">Leeftijd</option>
@@ -499,6 +499,9 @@
       var naam = elem.value;
       var id = elem.id;
 
+      var cat = document.getElementById('barPolY');
+      cat = cat[cat.selectedIndex].label;
+
       switch (currentChart) {
          case 'line':
             var weken = document.getElementById('aantalWekenPolLine').value;
@@ -507,7 +510,7 @@
                weken = 'noLimit';
             }
 
-            switch (data) {
+            switch (cat) {
                case 'Aantal tweets':
                   $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
                      {
@@ -523,10 +526,7 @@
             break;
          case 'bar':
             var type;
-
-            var cat = document.getElementById('barPolY');
-            cat = cat[cat.selectedIndex].label;
-
+            
             switch (cat) {
                case 'Aantal tweets':
                   type = "tweets";
@@ -740,7 +740,17 @@
 
    function prevPie() {
       var id = document.getElementsByClassName('btnPiePersoon')[0].id;
-      var type = document.getElementById("piePolOptiesData").value;
+      var type;
+
+      switch (document.getElementById("typepie").value) {
+         case "Overzicht":
+            type = document.getElementById("piePolOptiesData").value;
+            break;
+         case "Kruising":
+            type = document.getElementById("pieCrossPolOpties").value;
+            break;
+      }
+
       var top = document.getElementById("piePolOptiesTop").value;
 
       $.ajax('/api/NieuweGrafiek/PieDataPersoon/' + id + '/' + type + '/' + top,
@@ -755,8 +765,18 @@
    }
 
    function dataToevoegenAanPie(data, type, top) {
-      var titel = data["Persoon"] + " - " + type + " - " + top
-      pieChart.setTitle({ text:  titel});
+      var titel;
+
+      switch (document.getElementById("typepie").value) {
+         case "Overzicht":
+            titel = data["Persoon"] + " - " + type + " - " + top
+            break;
+         case "Kruising":
+            titel = data["Persoon"] + " - " + type
+            break;
+      }
+
+      pieChart.setTitle({ text: titel });
       document.getElementById("grafTitel").value = titel;
 
       var namen = data["Series"];
@@ -1312,7 +1332,9 @@
          document.getElementById(pieid).style.display = "block";
          document.getElementById("grafTitel").value = pieChart.title.textStr;
       } else if (selectie.value == "Vergelijking") {
-         document.getElementById(id).style.display = "none";
+         document.getElementById('@Model.Line.ID').style.display = "none";
+         document.getElementById('@Model.Bar.ID').style.display = "none";
+         document.getElementById('@Model.Pie.ID').style.display = "none";
          document.getElementById(lineid).style.display = "none";
          document.getElementById(vergid).style.display = "block";
          document.getElementById(barid).style.display = "none";
