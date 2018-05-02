@@ -33,12 +33,6 @@ namespace MVCIntegratie.Controllers
 
       public virtual ActionResult Index()
       {
-         grafiekenMng.RemoveGrafiek(4);
-         grafiekenMng.RemoveGrafiek(5);
-         grafiekenMng.RemoveGrafiek(6);
-         grafiekenMng.RemoveGrafiek(7);
-         grafiekenMng.RemoveGrafiek(8);
-
          int count = 0;
          List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 10).ToList();
 

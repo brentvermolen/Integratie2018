@@ -155,7 +155,7 @@
 
       <div class="col-sm-6 col-md-6 barchartopties barpolopties">
          <label>y-as</label>
-         <select class="form-control">
+         <select id="barPolY" class="form-control">
             <option value="Aantal tweets">Aantal tweets</option>
             <option value="Aantal mentions">Aantal mentions</option>
             <option value="Aantal hashtags">Aantal hashtags</option>
@@ -499,10 +499,6 @@
       var naam = elem.value;
       var id = elem.id;
 
-      /*var data = document.getElementById('linePolY');
-      data = data[data.selectedIndex].label;*/
-      data = 'Aantal tweets';
-
       switch (currentChart) {
          case 'line':
             var weken = document.getElementById('aantalWekenPolLine').value;
@@ -526,19 +522,32 @@
             }
             break;
          case 'bar':
-            switch (data) {
+            var type;
+
+            var cat = document.getElementById('barPolY');
+            cat = cat[cat.selectedIndex].label;
+
+            switch (cat) {
                case 'Aantal tweets':
-                  $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoon/' + id,
-                     {
-                        type: 'GET',
-                        dataType: 'json'
-                     }).done(function (data) {
-                        aantalTweetsToevoegen(data, elem.value, elem.id);
-                     }).fail(function () {
-                        alert('fail');
-                     });
+                  type = "tweets";
+                  break;
+               case 'Aantal mentions':
+                  type = "mentions";
+                  break;
+               case 'Aantal hashtags':
+                  type = "hashtags";
                   break;
             }
+
+            $.ajax('/api/NieuweGrafiek/AantalXVanPersoon/' + type + '/' + id,
+               {
+                  type: 'GET',
+                  dataType: 'json'
+               }).done(function (data) {
+                  aantalTweetsToevoegen(data, elem.value, elem.id, cat);
+               }).fail(function () {
+                  alert('fail');
+               });
             break;
          case 'pie':
             var btn = document.getElementsByClassName('btnPiePersoon')[0];
@@ -550,7 +559,7 @@
    var nrSeries = 0;
    var personen = [];
 
-   function aantalTweetsToevoegen(data, naam, id) {
+   function aantalTweetsToevoegen(data, naam, id, cat) {
       switch (currentChart) {
          case 'line':
             var str = [];
@@ -572,15 +581,21 @@
                pointInterval: 24 * 3600 * 1000 * 7
             }, false);
             lineChart.series[nrSeries++].yAxis.update({
-               title: { text:  'Aantal Tweets' }
+               title: { text:  cat }
             }, true);
             personen.push(id);
             persoonToevoegen(naam, id);
             break;
          case 'bar':
-            barChart.addSeries({ name: naam, data: [ data ] });
+            barChart.addSeries({ name: naam, data: [data] });
+            var categories = barChart.userOptions.xAxis.categories;
+            if (categories.length == 0) {
+               categories.push(cat);
+            } else {
+               categories[0] = cat;
+            }
             barChart.series[nrSeries++].yAxis.update({
-               title: { text: 'Aantal Tweets' }
+               title: { text: cat }
             }, true);
             personen.push(id);
             persoonToevoegen(naam, id);

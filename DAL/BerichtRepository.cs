@@ -134,32 +134,17 @@ namespace DAL
       public Bericht ReadBericht(string berichtID)
       {
          return ctx.Berichten
-            .Include("Hashtags")
-            .Include("Woorden")
-            .Include("Urls")
-            .Include("Mentions")
-            .Include("Personen")
             .SingleOrDefault(b => b.ID.Equals(berichtID));
       }
 
       public IEnumerable<Bericht> ReadBerichten()
       {
-         return ctx.Berichten
-            .Include("Hashtags")
-            .Include("Woorden")
-            .Include("Urls")
-            .Include("Mentions")
-            .Include("Personen");
+         return ctx.Berichten;
       }
 
       public IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
       {
          return ctx.Berichten
-            .Include("Hashtags")
-            .Include("Woorden")
-            .Include("Urls")
-            .Include("Mentions")
-            .Include("Personen")
             .Where(predicate);
       }
 
@@ -170,12 +155,12 @@ namespace DAL
 
       public IEnumerable<Hashtag> ReadHashtags()
       {
-         return ctx.Hashtags.Include("Berichten");
+         return ctx.Hashtags;
       }
 
       public IEnumerable<Hashtag> ReadHashtagsVanBericht(string berichtID)
       {
-         return ctx.Berichten.Include("Hashtags").Single(b => b.ID.Equals(berichtID)).Hashtags;
+         return ctx.Berichten.Single(b => b.ID.Equals(berichtID)).Hashtags;
       }
 
       public Mention ReadMention(string mention)
@@ -185,24 +170,22 @@ namespace DAL
 
       public IEnumerable<Mention> ReadMentions()
       {
-         return ctx.Mentions.Include("Berichten");
+         return ctx.Mentions;
       }
 
       public IEnumerable<Mention> ReadMentionsVanBericht(string berichtID)
       {
-         return ctx.Berichten.Include("Mentions").Single(b => b.ID.Equals(berichtID)).Mentions;
+         return ctx.Berichten.Single(b => b.ID.Equals(berichtID)).Mentions;
       }
 
       public IEnumerable<Persoon> ReadPersonen()
       {
-         return ctx.Personen
-            .Include("Berichten");
+         return ctx.Personen;
       }
 
       public Persoon ReadPersoon(int id)
       {
          return ctx.Personen
-            .Include("Berichten")
             .FirstOrDefault(p => p.ID == id);
       }
 
@@ -213,12 +196,12 @@ namespace DAL
 
       public IEnumerable<Url> ReadUrls()
       {
-         return ctx.Urls.Include("Berichten");
+         return ctx.Urls;
       }
 
       public IEnumerable<Url> ReadUrlsVanBericht(string berichtID)
       {
-         return ctx.Berichten.Include("Urls").Single(b => b.ID.Equals(berichtID)).Urls;
+         return ctx.Berichten.Single(b => b.ID.Equals(berichtID)).Urls;
       }
 
       public Woord ReadWoord(string woord)
@@ -228,12 +211,12 @@ namespace DAL
 
       public IEnumerable<Woord> ReadWoorden()
       {
-         return ctx.Woorden.Include("Berichten");
+         return ctx.Woorden;
       }
 
       public IEnumerable<Woord> ReadWoordenVanBericht(string berichtID)
       {
-         return ctx.Berichten.Include("Woorden").Single(b => b.ID.Equals(berichtID)).Woorden;
+         return ctx.Berichten.Single(b => b.ID.Equals(berichtID)).Woorden;
       }
 
       public void UpdateBericht(Bericht bericht)

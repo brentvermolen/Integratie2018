@@ -43,8 +43,8 @@ namespace MVCIntegratie.Controllers.Api
          return Ok(GetAantalBerichtenPerWeekModel(intAantalWeken, intID));
       }
 
-      [Route("~/api/NieuweGrafiek/AantalTweetsVanPersoon/{id}")]
-      public IHttpActionResult GetAantalTweetsVanPersoon(string id)
+      [Route("~/api/NieuweGrafiek/AantalXVanPersoon/{type}/{id}")]
+      public IHttpActionResult GetAantalXVanPersoon(string type, string id)
       {
          int intID = -1;
          try
@@ -56,7 +56,17 @@ namespace MVCIntegratie.Controllers.Api
             return NotFound();
          }
 
-         return Ok(berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count);
+         switch (type)
+         {
+            case "tweets":
+               return Ok(berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count);
+            case "mentions":
+               return Ok(berichtMng.GetMentions().Where(m => m.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList().Count);
+            case "hashtags":
+               return Ok(berichtMng.GetHashtags().Where(h => h.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList().Count);
+         }
+
+         return NotFound();
       }
 
       private AantalBerichtenPerWeekModel GetAantalBerichtenPerWeekModel(int intAantalWeken, int intID)
@@ -189,16 +199,31 @@ namespace MVCIntegratie.Controllers.Api
          };
 
          //List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
-         List<Woord> woorden = berichtMng.GetWoorden().Where(w => w.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList();
+         int intTeller;
 
          switch (type)
          {
             case "Verhalen":
-               break;
+               List<Url> urls = berichtMng.GetUrls().Where(w => w.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList();
+               urls.Sort((w1, w2) => w2.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count.CompareTo(w1.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count));
+
+               intTeller = 0;
+               while (model.Series.Count < intTop)
+               {
+                  Url url = urls[intTeller];
+
+                  model.Series.Add(url.Tekst);
+                  model.Waarden.Add(url.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count);
+
+                  intTeller++;
+               }
+
+               return Ok(model);
             case "Woorden":
+               List<Woord> woorden = berichtMng.GetWoorden().Where(w => w.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList();
                woorden.Sort((w1, w2) => w2.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count.CompareTo(w1.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count));
 
-               int intTeller = 0;
+               intTeller = 0;
                while(model.Series.Count < intTop)
                {
                   Woord woord = woorden[intTeller];
@@ -211,6 +236,8 @@ namespace MVCIntegratie.Controllers.Api
                }
                
                return Ok(model);
+            case "Themas":
+               return NotFound();
          }
 
          return NotFound();

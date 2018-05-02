@@ -18,7 +18,7 @@ namespace DAL
 
       public IEnumerable<Grafiek> ReadGrafieken()
       {
-         return ctx.Grafieken.Include("Series").Include("xAs").Include("yAs");
+         return ctx.Grafieken;
       }
 
       public Grafiek CreateGrafiek()

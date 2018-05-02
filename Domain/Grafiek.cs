@@ -28,13 +28,13 @@ namespace BL.Domain
       public string Titel { get; set; }
       public string Tooltip { get; set; }
       [JsonProperty("xAxis")]
-      public As xAs { get; set; }
-      public As yAs { get; set; }
+      public virtual As xAs { get; set; }
+      public virtual As yAs { get; set; }
       public bool Credits { get; set; }
       public Legende Legende { get; set; }
       public PlotOptions PlotOptions { get; set; }
 
-      public List<Serie> Series { get; set; }
+      public virtual List<Serie> Series { get; set; }
 
       public string GetBoolString(bool boolean)
       {

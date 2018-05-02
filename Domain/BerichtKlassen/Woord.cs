@@ -13,7 +13,7 @@ namespace BL.Domain.BerichtKlassen
       public int ID { get; set; }
       public string Tekst { get; set; }
       
-      public ICollection<Bericht> Berichten { get; set; }
+      public virtual ICollection<Bericht> Berichten { get; set; }
 
       public override string ToString()
       {
