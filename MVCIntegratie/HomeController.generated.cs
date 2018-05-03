@@ -61,9 +61,9 @@ namespace MVCIntegratie.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Zoek()
+        public virtual System.Web.Mvc.ActionResult Search()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search, "https");
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -83,7 +83,7 @@ namespace MVCIntegratie.Controllers
         {
             public readonly string Home_Ingelogd = "Home_Ingelogd";
             public readonly string Index = "Index";
-            public readonly string Zoek = "Zoek";
+            public readonly string Search = "Search";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -91,15 +91,15 @@ namespace MVCIntegratie.Controllers
         {
             public const string Home_Ingelogd = "Home_Ingelogd";
             public const string Index = "Index";
-            public const string Zoek = "Zoek";
+            public const string Search = "Search";
         }
 
 
-        static readonly ActionParamsClass_Zoek s_params_Zoek = new ActionParamsClass_Zoek();
+        static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Zoek ZoekParams { get { return s_params_Zoek; } }
+        public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Zoek
+        public class ActionParamsClass_Search
         {
             public readonly string search = "search";
         }
@@ -151,14 +151,14 @@ namespace MVCIntegratie.Controllers
         }
 
         [NonAction]
-        partial void ZoekOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Zoek(string search)
+        public override System.Web.Mvc.ActionResult Search(string search)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search, "https");
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
-            ZoekOverride(callInfo, search);
+            SearchOverride(callInfo, search);
             return callInfo;
         }
 

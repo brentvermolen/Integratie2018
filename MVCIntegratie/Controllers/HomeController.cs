@@ -37,59 +37,13 @@ namespace MVCIntegratie.Controllers
             return View();
         }
 
-        public virtual ActionResult Zoek(string search)
+        public virtual ActionResult Search(string search)
         {
-            
-            if (search == null)
-            {
-                return View();
-            }
+         
 
-            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()))
-                .ToList();
-
-
-            string[] splitSearch = search.Split(' ');
-            List<Woord> woorden = new List<Woord>();
-            List<Hashtag> hashtags = new List<Hashtag>();
-            List<Mention> mentions = new List<Mention>();
-            List<Url> urls = new List<Url>();
-            // List<Thema> themas = new List<Thema>();
-
-            List<Bericht> berichten = new List<Bericht>();
-            Bericht zoekresultaat = new Bericht();
-            foreach (string wrd in splitSearch)
-            {
-                woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
-            }
-
-            //personen.Sort();
-            zoekresultaat.Woorden = woorden;
-            zoekresultaat.Hashtags = hashtags;
-            zoekresultaat.Mentions = mentions;
-            zoekresultaat.Personen = personen;
-            zoekresultaat.Urls = urls;
-            //Sortering testSortering = new Sortering();
-
-            
-
-            woorden.ToString();
-            return View(zoekresultaat);
+            return RedirectToAction("Index","Search") ;
         }
 
-       /* private class Sortering
-        {
-            public ArrayList sortedWoorden { get; set; }
-            public ArrayList sortedPersonen { get; set; }
-            public ArrayList sortedMentions { get; set; }
-            public ArrayList sortedHastags { get; set; }
-            public ArrayList sortedUrls { get; set; }
-        }*/
+      
     }
 }
