@@ -4416,21 +4416,21 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
     .navbar-default .navbar-toggle {
-        border-color: #5cb85c;
+        border-color: #dddddd;
     }
 
-    .navbar-default .navbar-toggle:hover,
-    .navbar-default .navbar-toggle:focus {
-        background-color: #5cb85c;
-    }
+        .navbar-default .navbar-toggle:hover,
+        .navbar-default .navbar-toggle:focus {
+            background-color: #dddddd;
+        }
 
-    .navbar-default .navbar-toggle .icon-bar {
-        background-color: #5cb85c;
-    }
+        .navbar-default .navbar-toggle .icon-bar {
+            background-color: #cccccc;
+        }
 
     .navbar-default .navbar-collapse,
     .navbar-default .navbar-form {
-        border-color: #5cb85c;
+        border-color: #e6e6e6;
     }
 
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,

@@ -210,27 +210,16 @@
     display:none;
 }
 
-.linethemaopties {
+.startdisplaynone{
     display:none;
 }
 
-.lineevolutieopties {
-    display:none;
-}
 .maakgrafiek {
     width: 50%;
 }
 
-.lineaantalpol {
-    display: none;
-}
-
 .linestartpol {
     display : block;
-}
-
-.lineaantalthema {
-    display: none;
 }
 
 .linestartthema {
@@ -245,37 +234,14 @@
     display:none;
 }
 
-.barthemaopties {
-    display: none;
-}
-
-.baraantalpol {
-    display: none;
-}
-
 .barstartpol {
     display: block;
-}
-
-.baraantalthema {
-    display: none;
 }
 
 .barstartthema {
     display: block;
 }
 
-.piepolopties{
-    display:none;
-}
-
-.piethemaopties{
-    display:none;
-}
-
-.kruisingthemaopties {
-    display:none;
-}
 
 
 
