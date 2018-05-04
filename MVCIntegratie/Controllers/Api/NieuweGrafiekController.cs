@@ -57,17 +57,33 @@ namespace MVCIntegratie.Controllers.Api
             return NotFound();
          }
 
+         AantalXPerWeekModel model = new AantalXPerWeekModel()
+         {
+            ID = intID,
+            Naam = berichtMng.GetPersoon(intID).Naam
+         };
+
          switch (type)
          {
             case "tweets":
-               return Ok(berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count);
+               model.Data = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count;
+               return Ok(model);
             case "mentions":
-               return Ok(berichtMng.GetMentions().Where(m => m.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList().Count);
+               model.Data = berichtMng.GetMentions().Where(m => m.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList().Count;
+               return Ok(model);
             case "hashtags":
-               return Ok(berichtMng.GetHashtags().Where(h => h.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList().Count);
+               model.Data = berichtMng.GetHashtags().Where(h => h.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null) != null).ToList().Count;
+               return Ok(model);
          }
 
          return NotFound();
+      }
+
+      public class AantalXPerWeekModel
+      {
+         public int ID { get; set; }
+         public string Naam { get; set; }
+         public int Data { get; set; }
       }
 
       private AantalBerichtenPerWeekModel GetAantalBerichtenPerWeekModel(int intAantalWeken, int intID)

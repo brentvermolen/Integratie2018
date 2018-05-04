@@ -330,10 +330,10 @@
       <div class="col-sm-6 col-md-6 piechartopties ">
          <label>Politieker</label>
          <!--<select class="form-control">
-         <option value="Politieker1">Politieker1</option>
-         <option value="Politieker2">Politieker2</option>
-         <option value="Politieker3">Politieker3</option>
-      </select>-->
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>-->
          <input type="button" value="Kies" class="btnPiePersoon" id="" onclick="politiekerKiezen(this)" />
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
@@ -386,13 +386,13 @@
       </div>
 
       <!--<div class="col-sm-6 col-md-6 piechartopties piepolopties">
-      <label>Politieker</label>
-      <select class="form-control">
-         <option value="Politieker1">Politieker1</option>
-         <option value="Politieker2">Politieker2</option>
-         <option value="Politieker3">Politieker3</option>
-      </select>
-   </div>-->
+         <label>Politieker</label>
+         <select class="form-control">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>
+      </div>-->
       <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
          <label>Thema</label>
          <select class="form-control">
@@ -501,34 +501,8 @@
 
       switch (currentChart) {
          case 'line':
-            
             break;
          case 'bar':
-             cat = document.getElementById('barPolY');
-            cat = cat[cat.selectedIndex].label;
-            var type;
-            
-            switch (cat) {
-               case 'Aantal tweets':
-                  type = "tweets";
-                  break;
-               case 'Aantal mentions':
-                  type = "mentions";
-                  break;
-               case 'Aantal hashtags':
-                  type = "hashtags";
-                  break;
-            }
-
-            $.ajax('/api/NieuweGrafiek/AantalXVanPersoon/' + type + '/' + id,
-               {
-                  type: 'GET',
-                  dataType: 'json'
-               }).done(function (data) {
-                  aantalTweetsToevoegen(data, elem.value, id, cat);
-               }).fail(function () {
-                  alert('fail');
-               });
             break;
          case 'pie':
             var btn = document.getElementsByClassName('btnPiePersoon')[0];
@@ -750,7 +724,63 @@
             prevLine(data);
             break;
          case 'bar':
+            prevBar(data);
             break;
+      }
+   }
+
+   function prevBar(){
+      var cat = document.getElementById('barPolY');
+      cat = cat[cat.selectedIndex].label;
+
+      if (barChart.xAxis[0].categories[0] != null) {
+         var currentCat = barChart.xAxis[0].categories[0];
+
+         if (currentCat != cat) {
+            for (var i = 0; i < personen.length; i++) {
+               personen[i].loaded = false;
+            }
+
+            var lengte = barChart.series.length;
+            for (var i = 0; i < lengte; i++) {
+               barChart.series[0].remove();
+            }
+
+            nrSeries = 0;
+         }
+      }
+
+      var type;
+
+      switch (cat) {
+         case 'Aantal tweets':
+            type = "tweets";
+            break;
+         case 'Aantal mentions':
+            type = "mentions";
+            break;
+         case 'Aantal hashtags':
+            type = "hashtags";
+            break;
+      }
+
+      for (let i = 0; i < personen.length; i++) {
+         var id = personen[i].id;
+         var naam = personen[i].naam;
+
+         if (personen[i].loaded == false) {
+            $.ajax('/api/NieuweGrafiek/AantalXVanPersoon/' + type + '/' + id,
+               {
+                  type: 'GET',
+                  dataType: 'json'
+               }).done(function (data) {
+                  aantalTweetsToevoegen(data["Data"], data["Naam"], data["ID"], cat);
+               }).fail(function () {
+                  alert('fail');
+               });
+
+            personen[i].loaded = true;
+         }
       }
    }
 
@@ -1428,62 +1458,62 @@
    </div>
 </div>
 <style>
-      /*popup
+   /*popup
    ------------------------------------------------------------------*/
 
-      .popup {
-         display: none; /* Hidden by default */
-         position: fixed; /* Stay in place */
-         z-index: 1; /* Sit on top */
-         padding-top: 80px; /* Location of the box */
-         left: 0;
-         top: 0;
-         width: 100%; /* Full width */
-         height: 100%; /* Full height */
-         overflow: auto; /* Enable scroll if needed */
-         background-color: rgb(0,0,0); /* Fallback color */
-         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-      }
+   .popup {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 80px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+   }
 
-      .popup-content {
-         background-color: #fefefe;
-         margin: auto;
-         border: 1px solid #888;
-         width: 60%;
-         max-width: 500px;
-         border-radius: 6px;
-      }
+   .popup-content {
+      background-color: #fefefe;
+      margin: auto;
+      border: 1px solid #888;
+      width: 60%;
+      max-width: 500px;
+      border-radius: 6px;
+   }
 
-      .popup-header {
-         border-bottom: solid black 1px;
-      }
+   .popup-header {
+      border-bottom: solid black 1px;
+   }
 
-      .popup-body {
-         margin: 10px;
-         text-align: center;
-      }
+   .popup-body {
+      margin: 10px;
+      text-align: center;
+   }
 
-      .popup h2 {
-         font-weight: bold;
-         text-align: center;
-         margin: 20px;
-         margin-bottom: 10px;
-      }
+   .popup h2 {
+      font-weight: bold;
+      text-align: center;
+      margin: 20px;
+      margin-bottom: 10px;
+   }
 
-      /* The Close Button */
-      .close {
-         color: #aaaaaa;
-         float: right;
-         font-size: 28px;
-         font-weight: bold;
-      }
+   /* The Close Button */
+   .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+   }
 
-         .close:hover,
-         .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-         }
+      .close:hover,
+      .close:focus {
+         color: #000;
+         text-decoration: none;
+         cursor: pointer;
+      }
 </style>
 
 <script>
