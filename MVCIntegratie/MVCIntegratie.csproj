@@ -225,9 +225,13 @@
     <Compile Include="BerichtController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ConfigController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlertController.cs" />
     <Compile Include="Controllers\BerichtController.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\FYIController.cs" />
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -276,6 +280,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Config.css" />
     <Content Include="Content\faq.css" />
     <Content Include="Content\Layout.css" />
     <Content Include="favicon.ico" />
@@ -290,6 +295,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Config.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -305,6 +311,7 @@
     <Content Include="Scripts\export-data.js" />
     <Content Include="Scripts\exporting.js" />
     <Content Include="Scripts\faq.js" />
+    <Content Include="Scripts\GebruikerSelect.js" />
     <Content Include="Scripts\MaakGrafiek.js" />
     <Content Include="Scripts\WijzigGrafiekType.js" />
     <Content Include="Scripts\highcharts.js" />
@@ -396,6 +403,9 @@
     <Content Include="Views\Home\Home_Ingelogd.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
     <Content Include="Views\Home\Zoek.cshtml" />
+    <Content Include="Views\Config\AdminConfig.cshtml" />
+    <Content Include="Views\Config\Gebruikers.cshtml" />
+    <Content Include="Views\Config\Deelplatform.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

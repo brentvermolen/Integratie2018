@@ -30,6 +30,7 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.AccountController Account = new MVCIntegratie.Controllers.T4MVC_AccountController();
     public static MVCIntegratie.Controllers.AlertController Alert = new MVCIntegratie.Controllers.T4MVC_AlertController();
     public static MVCIntegratie.Controllers.BerichtController Bericht = new MVCIntegratie.Controllers.T4MVC_BerichtController();
+    public static MVCIntegratie.Controllers.ConfigController Config = new MVCIntegratie.Controllers.T4MVC_ConfigController();
     public static MVCIntegratie.Controllers.FYIController FYI = new MVCIntegratie.Controllers.T4MVC_FYIController();
     public static MVCIntegratie.Controllers.GraphController Graph = new MVCIntegratie.Controllers.T4MVC_GraphController();
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();
@@ -82,6 +83,7 @@ namespace Links
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string Chart_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Chart.min.js") ? Url("Chart.min.js") : Url("Chart.js");
+        public static readonly string Config_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Config.min.js") ? Url("Config.min.js") : Url("Config.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class esm {
             public const string UrlPath = "~/Scripts/esm";
@@ -99,6 +101,7 @@ namespace Links
     
         public static readonly string export_data_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/export-data.min.js") ? Url("export-data.min.js") : Url("export-data.js");
         public static readonly string exporting_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/exporting.min.js") ? Url("exporting.min.js") : Url("exporting.js");
+        public static readonly string faq_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/faq.min.js") ? Url("faq.min.js") : Url("faq.js");
         public static readonly string highcharts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/highcharts.min.js") ? Url("highcharts.min.js") : Url("highcharts.js");
         public static readonly string index_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/index.d.min.js") ? Url("index.d.min.js") : Url("index.d.js");
         public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/IngelogdeGebruiker.min.js") ? Url("IngelogdeGebruiker.min.js") : Url("IngelogdeGebruiker.js");
@@ -159,6 +162,7 @@ namespace Links
         public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        public static readonly string faq_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/faq.min.css") ? Url("faq.min.css") : Url("faq.css");
         public static readonly string Layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Layout.min.css") ? Url("Layout.min.css") : Url("Layout.css");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
     }
@@ -194,8 +198,10 @@ namespace Links
                 public static readonly string bootstrap_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.js"); 
                 public static readonly string bootstrap_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.min.js"); 
                 public static readonly string Chart_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Chart.js"); 
+                public static readonly string Config_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Config.js"); 
                 public static readonly string export_data_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/export-data.js"); 
                 public static readonly string exporting_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/exporting.js"); 
+                public static readonly string faq_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/faq.js"); 
                 public static readonly string highcharts_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/highcharts.js"); 
                 public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/IngelogdeGebruiker.js"); 
                 public static readonly string jquery_3_0_0_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.js"); 
@@ -230,6 +236,7 @@ namespace Links
                 public static readonly string bootstrap_theme_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap-theme.min.css");
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
+                public static readonly string faq_css = T4MVCHelpers.ProcessAssetPath("~/Content/faq.css");
                 public static readonly string Layout_css = T4MVCHelpers.ProcessAssetPath("~/Content/Layout.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");
             }

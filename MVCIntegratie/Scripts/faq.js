@@ -5,3 +5,4 @@
         previous.removeClass('active'); // previous list-item
         $(e.target).addClass('active'); // activated list-item
     });
+
