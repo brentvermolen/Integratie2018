@@ -4,15 +4,9 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
-using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Net.Http;
-using System.Security.Permissions;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 

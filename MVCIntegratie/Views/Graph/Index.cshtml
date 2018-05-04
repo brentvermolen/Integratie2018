@@ -463,7 +463,7 @@
 
    function politiekerToevoegen(graph) {
 
-      if (personen.length == 5) {
+      if (currentPersonen.length == 5) {
          alert('Kan niet meer dan 5 personen toevoegen');
          return;
       }
@@ -511,8 +511,10 @@
       }
    }
 
-   var nrSeries = 0;
-   var personen = [];
+   var currentSeries = 0;
+   var personenLine = [];
+   var personenBar = [];
+   var currentPersonen = personenLine;
 
    function aantalTweetsToevoegen(data, naam, id, cat) {
       switch (currentChart) {
@@ -528,32 +530,36 @@
             }
 
             lineChart.addSeries({ name: naam, data: str });
-            if (nrSeries == -1) {
-               nrSeries = 0;
+            if (currentSeries == -1) {
+               currentSeries = 0;
             }
-            lineChart.series[nrSeries].xAxis.update({
+            lineChart.series[currentSeries].xAxis.update({
                type: "datetime"
             }, false);
-            lineChart.series[nrSeries].update({
+            lineChart.series[currentSeries].update({
                pointStart: Date.UTC(jaar, maand, dag),
                pointInterval: 24 * 3600 * 1000 * 7
             }, false);
-            lineChart.series[nrSeries].yAxis.update({
+            lineChart.series[currentSeries].yAxis.update({
                title: { text:  cat }
             }, true);
-            nrSeries++;
+            currentSeries++;
             break;
          case 'bar':
             barChart.addSeries({ name: naam, data: [data] });
+            if (currentSeries == -1) {
+               currentSeries = 0;
+            }
             var categories = barChart.userOptions.xAxis.categories;
             if (categories.length == 0) {
                categories.push(cat);
             } else {
                categories[0] = cat;
             }
-            barChart.series[nrSeries++].yAxis.update({
+            barChart.series[currentSeries].yAxis.update({
                title: { text: cat }
             }, true);
+            currentSeries++;
             break;
          case 'pie':
             break;
@@ -562,7 +568,7 @@
 
    function persoonToevoegen(naam, id) {
       elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.className, this);' value='Verwijder " + naam + "' id='" + naam + "' class='" + id + "' />";
-      personen.push(new Persoon(id, naam));
+      currentPersonen.push(new Persoon(id, naam));
    }
 
    class Persoon {
@@ -578,11 +584,11 @@
    }
 
    function verwijderSerieByName(naam, id, element) {
-      nrSeries--;
-      for (var i = 0; i < personen.length; i++) {
-         var persoon = personen[i];
+      currentSeries--;
+      for (var i = 0; i < currentPersonen.length; i++) {
+         var persoon = currentPersonen[i];
          if (persoon.id == id) {
-            personen.splice(i, 1);
+            currentPersonen.splice(i, 1);
             break;
          }
       }
@@ -657,7 +663,7 @@
             graf = new LineClass(lineChart.title.textStr,
                lineChart.series[0].xAxis.series[0].options.pointStart,
                'politieker',
-               personen,
+               currentPersonen,
                document.getElementById('aantalWekenPolLine').value);
             break;
          case 'bar':
@@ -669,7 +675,7 @@
 
             graf = new BarClass(barChart.title.textStr,
                categories,
-               personen)
+               currentPersonen)
             break;
          case 'pie':
             var series = [];
@@ -737,8 +743,8 @@
          var currentCat = barChart.xAxis[0].categories[0];
 
          if (currentCat != cat) {
-            for (var i = 0; i < personen.length; i++) {
-               personen[i].loaded = false;
+            for (var i = 0; i < currentPersonen.length; i++) {
+               currentPersonen[i].loaded = false;
             }
 
             var lengte = barChart.series.length;
@@ -746,7 +752,8 @@
                barChart.series[0].remove();
             }
 
-            nrSeries = 0;
+            currentSeries
+               = 0;
          }
       }
 
@@ -764,11 +771,11 @@
             break;
       }
 
-      for (let i = 0; i < personen.length; i++) {
-         var id = personen[i].id;
-         var naam = personen[i].naam;
+      for (let i = 0; i < currentPersonen.length; i++) {
+         var id = currentPersonen[i].id;
+         var naam = currentPersonen[i].naam;
 
-         if (personen[i].loaded == false) {
+         if (currentPersonen[i].loaded == false) {
             $.ajax('/api/NieuweGrafiek/AantalXVanPersoon/' + type + '/' + id,
                {
                   type: 'GET',
@@ -779,7 +786,7 @@
                   alert('fail');
                });
 
-            personen[i].loaded = true;
+            currentPersonen[i].loaded = true;
          }
       }
    }
@@ -791,8 +798,8 @@
          var huidigeWeken = lineChart.series[0].xData.length;
 
          if (weken != huidigeWeken) {
-            for (var i = 0; i < personen.length; i++) {
-               personen[i].loaded = false;
+            for (var i = 0; i < currentPersonen.length; i++) {
+               currentPersonen[i].loaded = false;
             }
 
             var lengte = lineChart.series.length;
@@ -800,7 +807,7 @@
                lineChart.series[0].remove();
             }
 
-            nrSeries = 0;
+            currentSeries = 0;
          }
       }
 
@@ -813,11 +820,11 @@
 
       switch (cat) {
          case 'Aantal tweets':
-            for (let i = 0; i < personen.length; i++) {
-               var id = personen[i].id;
-               var naam = personen[i].naam;
+            for (let i = 0; i < currentPersonen.length; i++) {
+               var id = currentPersonen[i].id;
+               var naam = currentPersonen[i].naam;
 
-               if (personen[i].loaded == false) {
+               if (currentPersonen[i].loaded == false) {
                   $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
                      {
                         type: 'GET',
@@ -828,7 +835,7 @@
                         alert('fail');
                      });
 
-                  personen[i].loaded = true;
+                  currentPersonen[i].loaded = true;
                }
             }
             break;
@@ -1399,6 +1406,8 @@
       if (selectie.value == "Lijn Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "block";
          currentChart = 'line';
+         currentPersonen = personenLine;
+         currentSeries = personenLine.length;
          document.getElementById('@Model.Bar.ID').style.display = "none";
          document.getElementById('@Model.Pie.ID').style.display = "none";
          document.getElementById(lineid).style.display = "block";
@@ -1411,6 +1420,8 @@
          document.getElementById('@Model.Line.ID').style.display = "none";
          document.getElementById('@Model.Bar.ID').style.display = "block";
          currentChart = 'bar';
+         currentPersonen = personenBar;
+         currentSeries = personenBar.length;
          document.getElementById('@Model.Pie.ID').style.display = "none";
          document.getElementById(lineid).style.display = "none";
          document.getElementById(vergid).style.display = "none";
