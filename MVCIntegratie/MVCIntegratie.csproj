@@ -406,6 +406,7 @@
     <Content Include="Views\Config\AdminConfig.cshtml" />
     <Content Include="Views\Config\Gebruikers.cshtml" />
     <Content Include="Views\Config\Deelplatform.cshtml" />
+    <Content Include="Views\Config\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
