@@ -3,6 +3,7 @@ using BL.Domain;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
+using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -116,8 +117,11 @@ namespace MVCIntegratie.Controllers.Api
          lijst.Sort((m1, m2) => m1.Week.CompareTo(m2.Week));
 
          DateTime vroegste = lijst.Min(l => l.Week);
+
          AantalBerichtenPerWeekModel model = new AantalBerichtenPerWeekModel()
          {
+            ID = intID,
+            Naam = berichtMng.GetPersoon(intID).Naam,
             StartJaart = vroegste.Year,
             StartMaand = vroegste.Month,
             StartDag = vroegste.Day,
@@ -134,6 +138,8 @@ namespace MVCIntegratie.Controllers.Api
 
       public class AantalBerichtenPerWeekModel
       {
+         public int ID { get; set; }
+         public string Naam { get; set; }
          public int StartJaart { get; set; }
          public int StartMaand { get; set; }
          public int StartDag { get; set; }
@@ -369,11 +375,11 @@ namespace MVCIntegratie.Controllers.Api
 
                grafiek.PlotOptions.PointStart = line.pointStart.ToString();
 
-               foreach(string persoon in line.series)
+               foreach(PersoonJson persoon in line.series)
                {
-                  AantalBerichtenPerWeekModel model = GetAantalBerichtenPerWeekModel(line.aantalWeken, int.Parse(persoon));
+                  AantalBerichtenPerWeekModel model = GetAantalBerichtenPerWeekModel(line.aantalWeken, int.Parse(persoon.id));
                   Serie serie = new Serie();
-                  serie.Naam = berichtMng.GetPersoon(int.Parse(persoon)).Naam;
+                  serie.Naam = persoon.naam;
 
                   foreach(int d in model.Data)
                   {
@@ -408,13 +414,13 @@ namespace MVCIntegratie.Controllers.Api
                   categories.Add(new Categorie(categorie));
                }
 
-               xAs.Categorieën = categories;
+               xAs.Categorieen = categories;
 
                List<Serie> series2 = new List<Serie>();
 
-               foreach (string persoon in bar.series)
+               foreach (PersoonJson persoon in bar.series)
                {
-                  int id = int.Parse(persoon);
+                  int id = int.Parse(persoon.id);
                   int aantal = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == id) != null).ToList().Count;
                   Serie serie = new Serie();
                   serie.Naam = berichtMng.GetPersoon(id).Naam;
@@ -443,7 +449,7 @@ namespace MVCIntegratie.Controllers.Api
                {
                   Data data2 = new Data()
                   {
-                     Naam = pie.series[i],
+                     Naam = pie.series[i].naam,
                      Value = pie.waarden[i]
                   };
                   serie2.Data.Add(data2);
@@ -461,6 +467,13 @@ namespace MVCIntegratie.Controllers.Api
          return Ok();
       }
 
+      public class PersoonJson
+      {
+         public string id { get; set; }
+         public string naam { get; set; }
+         public bool loaded { get; set; }
+      }
+
       public class GrafJson
       {
          public string type { get; set; }
@@ -470,7 +483,7 @@ namespace MVCIntegratie.Controllers.Api
       {
          public string title { get; set; }
          public List<string> categories { get; set; }
-         public List<string> series { get; set; }
+         public List<PersoonJson> series { get; set; }
       }
 
       public class LineJson
@@ -478,7 +491,7 @@ namespace MVCIntegratie.Controllers.Api
          public string title { get; set; }
          public double pointStart { get; set; }
          public string content { get; set; }
-         public List<string> series { get; set; }
+         public List<PersoonJson> series { get; set; }
          public int aantalWeken { get; set; }
       }
 
@@ -486,7 +499,7 @@ namespace MVCIntegratie.Controllers.Api
       {
          public string title { get; set; }
          public string serieNaam { get; set; }
-         public List<string> series { get; set; }
+         public List<PersoonJson> series { get; set; }
          public List<double> waarden { get; set; }
       }
 

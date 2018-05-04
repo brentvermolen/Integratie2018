@@ -15,7 +15,7 @@ namespace BL.Domain.GrafiekKlassen
 
       public As()
       {
-         Categorieën = new List<Categorie>();
+         Categorieen = new List<Categorie>();
          IsUsed = false;
          ID = Count++;
       }
@@ -24,18 +24,18 @@ namespace BL.Domain.GrafiekKlassen
       public int ID { get; set; }
       public string Titel { get; set; }
       public bool IsUsed { get; set; }
-      public virtual List<Categorie> Categorieën { get; set; }
+      public virtual List<Categorie> Categorieen { get; set; }
 
-      public string GetCategorieën()
+      public string GetCategorieen()
       {
          string ret = "[";
 
-         for(int i = 0; i < Categorieën.Count; i++)
+         for(int i = 0; i < Categorieen.Count; i++)
          {
-            Categorie categorie = Categorieën[i];
+            Categorie categorie = Categorieen[i];
             ret += "'" + categorie.ToString() + "'";
 
-            if (i != Categorieën.Count - 1)
+            if (i != Categorieen.Count - 1)
             {
                ret += ", ";
             }

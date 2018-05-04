@@ -27,9 +27,9 @@ namespace MVCIntegratie.Controllers
 
          NieuweGrafiekModel types = new NieuweGrafiekModel()
          {
-            Bar = new Bar(0, "preview bar", xAsBar, new List<Serie>()),
-            Line = new Lijn(1, "preview lijn", new As(), new List<Serie>()),
-            Pie = new Pie(2, "preview pie", new Serie()),
+            Bar = new Bar(0, "PREVIEW STAAF", xAsBar, new List<Serie>()),
+            Line = new Lijn(1, "PREVIEW LIJN", new As(), new List<Serie>()),
+            Pie = new Pie(2, "PREVIEW TAART", new Serie()),
             Personen = personen
          };
 

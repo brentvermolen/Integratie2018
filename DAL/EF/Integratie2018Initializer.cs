@@ -138,11 +138,11 @@ namespace DAL
          Categorie cat4 = new Categorie("Grapes");
          Categorie cat5 = new Categorie("Bananas");
 
-         xAs.Categorieën.Add(cat1);
-         xAs.Categorieën.Add(cat2);
-         xAs.Categorieën.Add(cat3);
-         xAs.Categorieën.Add(cat4);
-         xAs.Categorieën.Add(cat5);
+         xAs.Categorieen.Add(cat1);
+         xAs.Categorieen.Add(cat2);
+         xAs.Categorieen.Add(cat3);
+         xAs.Categorieen.Add(cat4);
+         xAs.Categorieen.Add(cat5);
 
          serie1 = new Serie() { Naam = "John" };
          data1 = new Data(5);

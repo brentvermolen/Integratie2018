@@ -44,7 +44,7 @@
 
 
 
-   <div class="col-sm-12 col-md-12 linechartopties">
+   <div class="col-sm-12 col-md-12 row chartopties">
       <label>Grafiek titel: </label>
       <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value)" />
    </div>
@@ -173,7 +173,6 @@
    </div>
 
    <div id="linechart">
-
       <div class="col-sm-12 col-md-12 linechartopties">
          <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties','polperline', 'themaperline');">
             <option value="Politieker">Politieker</option>
@@ -432,16 +431,13 @@
             <option value="Woorden">Woorden</option>
          </select>
       </div>
-      <div class="col-sm-6 col-md-6 piechartopties">
-         <input type="button" value="Toon Preview" onclick="prevPie();" />
-      </div>
    </div>
    <div class="form-group maakgrafiek">
       <div class="col-md-6">
-         <input type="submit" value="Maak Grafiek" onclick="grafiekOpslaan()" class="btn btn-success" />
+         <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" />
+         <input type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" />
       </div>
    </div>
-
 </div>
 
 <script type="text/javascript">
@@ -499,32 +495,17 @@
       var naam = elem.value;
       var id = elem.id;
 
-      var cat = document.getElementById('barPolY');
-      cat = cat[cat.selectedIndex].label;
+      var cat;
+
+      persoonToevoegen(naam, id);
 
       switch (currentChart) {
          case 'line':
-            var weken = document.getElementById('aantalWekenPolLine').value;
-
-            if (weken == '') {
-               weken = 'noLimit';
-            }
-
-            switch (cat) {
-               case 'Aantal tweets':
-                  $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
-                     {
-                        type: 'GET',
-                        dataType: 'json'
-                     }).done(function (data) {
-                        aantalTweetsToevoegen(data, elem.value, elem.id);
-                     }).fail(function () {
-                        alert('fail');
-                     });
-                  break;
-            }
+            
             break;
          case 'bar':
+             cat = document.getElementById('barPolY');
+            cat = cat[cat.selectedIndex].label;
             var type;
             
             switch (cat) {
@@ -544,7 +525,7 @@
                   type: 'GET',
                   dataType: 'json'
                }).done(function (data) {
-                  aantalTweetsToevoegen(data, elem.value, elem.id, cat);
+                  aantalTweetsToevoegen(data, elem.value, id, cat);
                }).fail(function () {
                   alert('fail');
                });
@@ -573,6 +554,9 @@
             }
 
             lineChart.addSeries({ name: naam, data: str });
+            if (nrSeries == -1) {
+               nrSeries = 0;
+            }
             lineChart.series[nrSeries].xAxis.update({
                type: "datetime"
             }, false);
@@ -580,11 +564,10 @@
                pointStart: Date.UTC(jaar, maand, dag),
                pointInterval: 24 * 3600 * 1000 * 7
             }, false);
-            lineChart.series[nrSeries++].yAxis.update({
+            lineChart.series[nrSeries].yAxis.update({
                title: { text:  cat }
             }, true);
-            personen.push(id);
-            persoonToevoegen(naam, id);
+            nrSeries++;
             break;
          case 'bar':
             barChart.addSeries({ name: naam, data: [data] });
@@ -597,8 +580,6 @@
             barChart.series[nrSeries++].yAxis.update({
                title: { text: cat }
             }, true);
-            personen.push(id);
-            persoonToevoegen(naam, id);
             break;
          case 'pie':
             break;
@@ -607,11 +588,34 @@
 
    function persoonToevoegen(naam, id) {
       elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.className, this);' value='Verwijder " + naam + "' id='" + naam + "' class='" + id + "' />";
+      personen.push(new Persoon(id, naam));
+   }
+
+   class Persoon {
+      constructor(id, naam) {
+         this.id = id;
+         this.naam = naam;
+         this.loaded = false;
+      }
+
+      toString() {
+         return id;
+      }
    }
 
    function verwijderSerieByName(naam, id, element) {
       nrSeries--;
-      personen.splice(personen.indexOf(naam), 1);
+      for (var i = 0; i < personen.length; i++) {
+         var persoon = personen[i];
+         if (persoon.id == id) {
+            personen.splice(i, 1);
+            break;
+         }
+      }
+
+      if (element != null) {
+         element.remove(true);
+      }
 
       var c;
 
@@ -737,6 +741,69 @@
       });
    }
 
+   function toonPreview(data) {
+      switch (currentChart) {
+         case 'pie':
+            prevPie(data);
+            break;
+         case 'line':
+            prevLine(data);
+            break;
+         case 'bar':
+            break;
+      }
+   }
+
+   function prevLine() {
+      var weken = parseInt(document.getElementById('aantalWekenPolLine').value);
+
+      if (lineChart.series[0] != null) {
+         var huidigeWeken = lineChart.series[0].xData.length;
+
+         if (weken != huidigeWeken) {
+            for (var i = 0; i < personen.length; i++) {
+               personen[i].loaded = false;
+            }
+
+            var lengte = lineChart.series.length;
+            for (var i = 0; i < lengte; i++) {
+               lineChart.series[0].remove();
+            }
+
+            nrSeries = 0;
+         }
+      }
+
+
+      if (weken == '') {
+         weken = 'noLimit';
+      }
+
+      cat = 'Aantal tweets'
+
+      switch (cat) {
+         case 'Aantal tweets':
+            for (let i = 0; i < personen.length; i++) {
+               var id = personen[i].id;
+               var naam = personen[i].naam;
+
+               if (personen[i].loaded == false) {
+                  $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
+                     {
+                        type: 'GET',
+                        dataType: 'json'
+                     }).done(function (data) {
+                        aantalTweetsToevoegen(data, data["Naam"], data["ID"]);
+                     }).fail(function () {
+                        alert('fail');
+                     });
+
+                  personen[i].loaded = true;
+               }
+            }
+            break;
+      }
+   }
 
    function prevPie() {
       var id = document.getElementsByClassName('btnPiePersoon')[0].id;
@@ -863,7 +930,7 @@
                   {
                      <text>
                   xAxis: {
-                     categories: @Html.Raw(Model.Line.xAs.GetCategorieën())
+                     categories: @Html.Raw(Model.Line.xAs.GetCategorieen())
                   },
                   </text>
                   }
@@ -1028,7 +1095,7 @@
                   {
                      <text>
                   xAxis: {
-                     categories: @Html.Raw(Model.Bar.xAs.GetCategorieën())
+                     categories: @Html.Raw(Model.Bar.xAs.GetCategorieen())
                   },
                   </text>
                   }
@@ -1187,7 +1254,7 @@
                   {
                      <text>
                   xAxis: {
-                     categories: @Html.Raw(Model.Pie.xAs.GetCategorieën())
+                     categories: @Html.Raw(Model.Pie.xAs.GetCategorieen())
                   },
                   </text>
                   }

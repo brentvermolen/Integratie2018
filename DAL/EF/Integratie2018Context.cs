@@ -2,24 +2,15 @@
 using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.ItemKlassen;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace DAL
 {
    public class Integratie2018Context : DbContext
    {
       public static int Count = 0;
+      public static Synchronize sync;
 
       public Integratie2018Context() : base("integratie2018DB")
       {
@@ -27,10 +18,9 @@ namespace DAL
 
          if (Count++ == 0)
          {
-            Synchronize syncDb = Sync.FirstOrDefault(s => s.ID == 0);
-            if (syncDb == null)
+            if (sync == null)
             {
-               Synchronize sync = new Synchronize()
+               sync = new Synchronize()
                {
                   ID = 0,
                   Latest = new DateTime(2018, 1, 1),
@@ -42,7 +32,7 @@ namespace DAL
             }
             else
             {
-               syncDb.Start();
+               sync.Start();
             }
          }
 
@@ -77,7 +67,7 @@ namespace DAL
             .HasMany(s => s.Data)
             .WithMany(d => d.Series);
          modelBuilder.Entity<As>()
-            .HasMany(a => a.Categorieën)
+            .HasMany(a => a.Categorieen)
             .WithMany(c => c.Assen);
 
          base.OnModelCreating(modelBuilder);

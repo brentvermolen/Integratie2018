@@ -71,15 +71,13 @@ namespace DAL
       {
          try
          {
-            /*client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
             {
                CharSet = "utf-8"
             });
 
             StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
             Latest = DateTime.Now;
-            context.Entry(this).State = EntityState.Modified;
-            context.SaveChanges();
 
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
             {
@@ -92,7 +90,7 @@ namespace DAL
             string responseString = await response.Content.ReadAsStringAsync();
             responseString.ToString();
 
-            AddBerichten(responseString, context);*/
+            AddBerichten(responseString, context);
          }
          catch (Exception e)
          {
