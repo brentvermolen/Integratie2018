@@ -25,6 +25,20 @@
     display: inline-block;
 }
 
+
+#zoekbar2 {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+#zoekbar3 {
+    width: 100px;
+    display: inline-block;
+}
+
+
 #zoekbar:focus { width: 80%; }
 
 #newgraph {
@@ -147,7 +161,12 @@
     cursor: pointer;
 }
 
-.onclick-menu-content button:hover { color: black; }
+
+
+.onclick-menu-content button:hover {
+    color: black;
+}
+
 
 #typediagram { padding-top: 20px; }
 
@@ -207,6 +226,7 @@
 
 .piepolopties { display: none; }
 
+
 .piethemaopties { display: none; }
 
 .kruisingthemaopties { display: none; }
@@ -218,3 +238,30 @@
 #tabbar {
     margin-top: 10px;
 }
+
+.onclick-menu-content button:hover { color: black; }
+
+
+#typediagram { margin-top: 30px; }
+
+.navbar-default { background-color: #5cb85c; }
+
+.navbar-default .navbar-collapse { background-color: #5cb85c; }
+
+#btnzoek { margin-left: 15px; }
+
+input[type="date"] {
+    -webkit-appearance: none;
+    color: #95a5a6;
+    width: 100%;
+    text-transform: uppercase;
+    font-family: arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid #ecf0f1;
+    background: #ecf0f1;
+    padding: 5px;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
