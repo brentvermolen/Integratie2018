@@ -25,13 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MVCIntegratie.Controllers
 {
-    public partial class HomeController
+    public partial class SearchController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
+        public SearchController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected HomeController(Dummy d) { }
+        protected SearchController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -61,19 +61,25 @@ namespace MVCIntegratie.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Search()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search, "https");
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController Actions { get { return MVC.Home; } }
+        public SearchController Actions { get { return MVC.Search; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Home";
+        public readonly string Name = "Search";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Home";
+        public const string NameConst = "Search";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -81,7 +87,6 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Home_Ingelogd = "Home_Ingelogd";
             public readonly string Index = "Index";
             public readonly string Search = "Search";
         }
@@ -89,12 +94,19 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Home_Ingelogd = "Home_Ingelogd";
             public const string Index = "Index";
             public const string Search = "Search";
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string search = "search";
+        }
         static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
@@ -113,42 +125,28 @@ namespace MVCIntegratie.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string GrafiekToevoegen = "GrafiekToevoegen";
-                public readonly string Home_Ingelogd = "Home_Ingelogd";
                 public readonly string Index = "Index";
-                public readonly string Zoek = "Zoek";
+                public readonly string Search = "Search";
             }
-            public readonly string GrafiekToevoegen = "~/Views/Home/GrafiekToevoegen.cshtml";
-            public readonly string Home_Ingelogd = "~/Views/Home/Home_Ingelogd.cshtml";
-            public readonly string Index = "~/Views/Home/Index.cshtml";
-            public readonly string Zoek = "~/Views/Home/Zoek.cshtml";
+            public readonly string Index = "~/Views/Search/Index.cshtml";
+            public readonly string Search = "~/Views/Search/Search.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : MVCIntegratie.Controllers.HomeController
+    public partial class T4MVC_SearchController : MVCIntegratie.Controllers.SearchController
     {
-        public T4MVC_HomeController() : base(Dummy.Instance) { }
+        public T4MVC_SearchController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void Home_IngelogdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Home_Ingelogd()
+        public override System.Web.Mvc.ActionResult Index(string search)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Home_Ingelogd, "https");
-            Home_IngelogdOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
-            IndexOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
+            IndexOverride(callInfo, search);
             return callInfo;
         }
 
@@ -158,7 +156,7 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Search(string search)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
             SearchOverride(callInfo, search);
             return callInfo;

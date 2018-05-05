@@ -1,12 +1,15 @@
 ﻿using BL.Domain;
 using BL.Domain.BerichtKlassen;
+
 using BL.Domain.GrafiekKlassen;
+
 using BL.Domain.ItemKlassen;
 using System;
 using System.Data.Entity;
 
 namespace DAL
 {
+
    public class Integratie2018Context : DbContext
    {
       public static int Count = 0;
@@ -45,20 +48,11 @@ namespace DAL
          }
       }
 
-      protected override void OnModelCreating(DbModelBuilder modelBuilder)
-      {
-         modelBuilder.Entity<Bericht>()
-            .HasMany(b => b.Woorden)
-            .WithMany(t => t.Berichten);
-         modelBuilder.Entity<Bericht>()
-            .HasMany(b => b.Urls)
-            .WithMany(u => u.Berichten);
-         modelBuilder.Entity<Bericht>()
-            .HasMany(b => b.Mentions)
-            .WithMany(m => m.Berichten);
-         modelBuilder.Entity<Bericht>()
-            .HasMany(b => b.Hashtags)
-            .WithMany(h => h.Berichten);
+
+        public Integratie2018Context() : base("integratie2018DB")
+        {
+            Database.SetInitializer(new Integratie2018Initializer());
+
 
          modelBuilder.Entity<Grafiek>()
             .HasMany(g => g.Series)
@@ -95,3 +89,4 @@ namespace DAL
       public DbSet<Categorie> Categorieën { get; set; }
    }
 }
+

@@ -44,56 +44,18 @@ namespace MVCIntegratie.Controllers
          if (search == null)
          {
             return View();
-         }
 
-         List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.Contains(search)).ToList();
-
-         List<Gebruiker> gebruikers = gebruikerMng.GetGebruikers().ToList();
-
-         string[] splitSearch = search.Split(' ');
-            List<Woord> woorden = new List<Woord>();
-            List<Hashtag> hashtags = new List<Hashtag>();
-            List<Mention> mentions = new List<Mention>();
-            List<Url> urls = new List<Url>();
-            // List<Thema> themas = new List<Thema>();
-
-            List<Bericht> berichten = new List<Bericht>();
-            Bericht zoekresultaat = new Bericht();
-            foreach (string wrd in splitSearch)
-            {
-                woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
-            }
-
-            //personen.Sort();
-            zoekresultaat.Woorden = woorden;
-            zoekresultaat.Hashtags = hashtags;
-            zoekresultaat.Mentions = mentions;
-            zoekresultaat.Personen = personen;
-            zoekresultaat.Urls = urls;
-            //Sortering testSortering = new Sortering();
-
-            
-
-            woorden.ToString();
-            return View(zoekresultaat);
         }
 
-      /* private class Sortering
-       {
-           public ArrayList sortedWoorden { get; set; }
-           public ArrayList sortedPersonen { get; set; }
-           public ArrayList sortedMentions { get; set; }
-           public ArrayList sortedHastags { get; set; }
-           public ArrayList sortedUrls { get; set; }
-       }*/
+        public virtual ActionResult Search(string search)
+        {
+         
 
-      public virtual ActionResult Toevoegen(string type)
+            return RedirectToAction("Index","Search") ;
+        }
+
+      
+       public virtual ActionResult Toevoegen(string type)
       {
          Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieen = new List<Categorie>() }, new List<Serie>());
          graf.xAs.Categorieen.Add(new Categorie("Objectiviteit"));
@@ -105,4 +67,5 @@ namespace MVCIntegratie.Controllers
          return View("GrafiekToevoegen", new GrafiekPersonen() { Grafiek = graf, Personen = personen });
       }
    }
+
 }

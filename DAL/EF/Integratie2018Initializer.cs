@@ -1,7 +1,9 @@
 ﻿using BL.Domain;
 using BL.Domain.BerichtKlassen;
+
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
+
 using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
 using System;
@@ -15,13 +17,17 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
+
+       
+
    public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
          AddGebruikers(context);
 
-         AddAlerts(context);
+
+            As xAs = new As() { IsUsed = true };
 
          AddGrafieken(context);
 
@@ -280,3 +286,4 @@ namespace DAL
       }
    }
 }
+
