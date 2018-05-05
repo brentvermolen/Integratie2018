@@ -21,5 +21,9 @@ namespace MVCIntegratie.Controllers
         {
             return View();
         }
+        public virtual ActionResult Admin()
+        {
+            return View();
+        }
     }
 }
