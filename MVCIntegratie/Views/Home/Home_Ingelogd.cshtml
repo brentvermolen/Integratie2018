@@ -20,6 +20,21 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-sm-12 col-md-12" id="nodeBox">
+            <div>
+                <div>
+                    <img src="~/Images/nodebox.svg" style="width: 100%; height: auto;"/>
+                </div>
+                <div tabindex="0" class="onclick-menu">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <ul class="onclick-menu-content">
+                        <li><button>Bewerken</button></li>
+                        <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li>
+                        <li><button>Annuleren</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="col-sm-6 col-md-6 content" id="divchart1">
             <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div tabindex="0" class="onclick-menu">
