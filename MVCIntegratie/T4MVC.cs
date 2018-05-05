@@ -84,9 +84,7 @@ namespace Links
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string Chart_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Chart.min.js") ? Url("Chart.min.js") : Url("Chart.js");
-
         public static readonly string Config_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Config.min.js") ? Url("Config.min.js") : Url("Config.js");
-
         public static readonly string datepicker_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/datepicker.min.js") ? Url("datepicker.min.js") : Url("datepicker.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class ECharts {
@@ -120,7 +118,6 @@ namespace Links
             public static readonly string echarts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/echarts.min.js") ? Url("echarts.min.js") : Url("echarts.js");
         }
     
-
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class esm {
             public const string UrlPath = "~/Scripts/esm";
@@ -139,9 +136,11 @@ namespace Links
         public static readonly string export_data_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/export-data.min.js") ? Url("export-data.min.js") : Url("export-data.js");
         public static readonly string exporting_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/exporting.min.js") ? Url("exporting.min.js") : Url("exporting.js");
         public static readonly string faq_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/faq.min.js") ? Url("faq.min.js") : Url("faq.js");
+        public static readonly string GebruikerSelect_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/GebruikerSelect.min.js") ? Url("GebruikerSelect.min.js") : Url("GebruikerSelect.js");
         public static readonly string highcharts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/highcharts.min.js") ? Url("highcharts.min.js") : Url("highcharts.js");
         public static readonly string index_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/index.d.min.js") ? Url("index.d.min.js") : Url("index.d.js");
         public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/IngelogdeGebruiker.min.js") ? Url("IngelogdeGebruiker.min.js") : Url("IngelogdeGebruiker.js");
+        public static readonly string jquery_3_0_0_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0-vsdoc.min.js") ? Url("jquery-3.0.0-vsdoc.min.js") : Url("jquery-3.0.0-vsdoc.js");
         public static readonly string jquery_3_0_0_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0.intellisense.min.js") ? Url("jquery-3.0.0.intellisense.min.js") : Url("jquery-3.0.0.intellisense.js");
         public static readonly string jquery_3_0_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.0.0.min.js") ? Url("jquery-3.0.0.min.js") : Url("jquery-3.0.0.js");
         public static readonly string jquery_3_0_0_min_js = Url("jquery-3.0.0.min.js");
@@ -200,6 +199,7 @@ namespace Links
         public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        public static readonly string Config_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Config.min.css") ? Url("Config.min.css") : Url("Config.css");
         public static readonly string faq_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/faq.min.css") ? Url("faq.min.css") : Url("faq.css");
         public static readonly string Layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Layout.min.css") ? Url("Layout.min.css") : Url("Layout.css");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
@@ -266,14 +266,12 @@ namespace Links
                 public static readonly string bootstrap_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.js"); 
                 public static readonly string bootstrap_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.min.js"); 
                 public static readonly string Chart_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Chart.js"); 
-
                 public static readonly string Config_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Config.js"); 
-
                 public static readonly string datepicker_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/datepicker.js"); 
-
                 public static readonly string export_data_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/export-data.js"); 
                 public static readonly string exporting_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/exporting.js"); 
                 public static readonly string faq_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/faq.js"); 
+                public static readonly string GebruikerSelect_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/GebruikerSelect.js"); 
                 public static readonly string highcharts_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/highcharts.js"); 
                 public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/IngelogdeGebruiker.js"); 
                 public static readonly string jquery_3_0_0_intellisense_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.intellisense.js"); 
@@ -310,6 +308,7 @@ namespace Links
                 public static readonly string bootstrap_theme_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap-theme.min.css");
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
+                public static readonly string Config_css = T4MVCHelpers.ProcessAssetPath("~/Content/Config.css");
                 public static readonly string faq_css = T4MVCHelpers.ProcessAssetPath("~/Content/faq.css");
                 public static readonly string Layout_css = T4MVCHelpers.ProcessAssetPath("~/Content/Layout.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");
