@@ -39,12 +39,12 @@ namespace MVCIntegratie.Controllers
          public DateTime Week { get; set; }
       }
 
-      public virtual ActionResult Zoek(string search)
-      {
-         if (search == null)
-         {
-            return View();
+        public virtual ActionResult Zoek(string search)
+        {
+            
+                return View();
 
+            
         }
 
         public virtual ActionResult Search(string search)

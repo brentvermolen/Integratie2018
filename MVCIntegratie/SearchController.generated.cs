@@ -125,11 +125,11 @@ namespace MVCIntegratie.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _Resultaat = "_Resultaat";
                 public readonly string Index = "Index";
-                public readonly string Search = "Search";
             }
+            public readonly string _Resultaat = "~/Views/Search/_Resultaat.cshtml";
             public readonly string Index = "~/Views/Search/Index.cshtml";
-            public readonly string Search = "~/Views/Search/Search.cshtml";
         }
     }
 

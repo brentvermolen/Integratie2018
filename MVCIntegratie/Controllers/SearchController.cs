@@ -8,7 +8,7 @@ using BL;
 using BL.Domain;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
-using BL.Interfaces;
+
 
 namespace MVCIntegratie.Controllers
 {

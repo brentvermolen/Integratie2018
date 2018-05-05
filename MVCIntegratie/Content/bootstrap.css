@@ -4373,8 +4373,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default {
-    background-color: #5cb85c;
-    border-color: #e7e7e7;
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
 }
 
 .navbar-default .navbar-brand {
@@ -4415,23 +4415,23 @@ textarea.input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
 }
 
-    .navbar-default .navbar-toggle {
-        border-color: #5cb85c;
-    }
+.navbar-default .navbar-toggle {
+  border-color: #dddddd;
+}
 
-    .navbar-default .navbar-toggle:hover,
-    .navbar-default .navbar-toggle:focus {
-        background-color: #5cb85c;
-    }
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #dddddd;
+}
 
-    .navbar-default .navbar-toggle .icon-bar {
-        background-color: #5cb85c;
-    }
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #cccccc;
+}
 
-    .navbar-default .navbar-collapse,
-    .navbar-default .navbar-form {
-        border-color: #5cb85c;
-    }
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #e6e6e6;
+}
 
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
 .navbar-default .navbar-nav > .dropdown > a:focus .caret {
