@@ -25,7 +25,7 @@ else
         {
             <tr>
 
-                <td>@Html.ActionLink(dingskePersoon.Naam, MVC.Persoon.Details(dingskePersoon.Naam))</td>
+                <td>@Html.ActionLink(dingskePersoon.Naam, MVC.Persoon.Details(dingskePersoon.ID))</td>
                 <td>@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count) </td>
             </tr>
         }
