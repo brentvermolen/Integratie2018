@@ -76,12 +76,14 @@ namespace MVCIntegratie.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string ManageAlerts = "ManageAlerts";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string ManageAlerts = "ManageAlerts";
         }
 
 
@@ -96,8 +98,10 @@ namespace MVCIntegratie.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string ManageAlerts = "ManageAlerts";
             }
             public readonly string Index = "~/Views/Alert/Index.cshtml";
+            public readonly string ManageAlerts = "~/Views/Alert/ManageAlerts.cshtml";
         }
     }
 
@@ -114,6 +118,17 @@ namespace MVCIntegratie.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ManageAlertsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ManageAlerts()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageAlerts);
+            ManageAlertsOverride(callInfo);
             return callInfo;
         }
 

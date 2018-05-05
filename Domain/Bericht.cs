@@ -105,17 +105,17 @@ namespace BL.Domain
          }
       }
       [JsonProperty("persons", ItemConverterType = typeof(PersoonConvert))]
-      public IList<Persoon> Personen { get; set; }
+      public virtual IList<Persoon> Personen { get; set; }
       [JsonProperty("words", ItemConverterType = typeof(WoordenConvert))]
-      public IList<Woord> Woorden { get; set; }
+      public virtual IList<Woord> Woorden { get; set; }
       [JsonProperty("urls", ItemConverterType = typeof(UrlConvert))]
-      public IList<Url> Urls { get; set; }
+      public virtual IList<Url> Urls { get; set; }
       [JsonProperty("hashtags", ItemConverterType = typeof(HashtagConvert))]
-      public IList<Hashtag> Hashtags { get; set; }
+      public virtual IList<Hashtag> Hashtags { get; set; }
       [JsonProperty("mentions", ItemConverterType = typeof(MentionConvert))]
-      public IList<Mention> Mentions { get; set; }
+      public virtual IList<Mention> Mentions { get; set; }
       [JsonProperty("themes", ItemConverterType = typeof(ThemaConvert))]
-      public IList<Thema> Themas { get; set; }
+      public virtual IList<Thema> Themas { get; set; }
 
       public override bool Equals(object obj)
       {
