@@ -99,7 +99,7 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Details
         {
-            public readonly string naam = "naam";
+            public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -136,14 +136,14 @@ namespace MVCIntegratie.Controllers
         }
 
         [NonAction]
-        partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string naam);
+        partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Details(string naam)
+        public override System.Web.Mvc.ActionResult Details(int id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "naam", naam);
-            DetailsOverride(callInfo, naam);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            DetailsOverride(callInfo, id);
             return callInfo;
         }
 

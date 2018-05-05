@@ -1,179 +1,108 @@
 ﻿using BL;
 using BL.Domain;
-using BL.Domain.AlertKlassen;
 using BL.Domain.BerichtKlassen;
+using BL.Domain.GrafiekKlassen;
+using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
-using BL.Interfaces;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 
 namespace MVCIntegratie.Controllers
 {
-    [RequireHttps]
-
+   [RequireHttps]
     public partial class HomeController : Controller
-
-   {
+   { 
       private IBerichtManager berichtMng = new BerichtManager();
       private IAlertManager alertMng = new AlertManager();
       private IGebruikerManager gebruikerMng = new GebruikerManager();
+      private GrafiekenManager grafiekenMng = new GrafiekenManager();
+
+      public virtual ActionResult Home_Ingelogd()
+      {
+         return View();
+      }
 
       public virtual ActionResult Index()
       {
-         List<Bericht> test = berichtMng.GetBerichten().ToList();
-         
-         //string json = JsonExport.Lijst(test);
+         int count = 0;
+         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 10).ToList();
 
-         return View(new List<AlertResultaat>());
+         return View(graf);
       }
 
-      /*private List<AlertResultaat> AlertPolitieker(List<Bericht> oudeData, List<Bericht> nieuweData)
+      public class AantalTweetsPerWeek
       {
-         List<PolitiekVergelijker> oud = new List<PolitiekVergelijker>();
-         List<PolitiekVergelijker> nieuw = new List<PolitiekVergelijker>();
+         public int Count { get; set; }
+         public DateTime Week { get; set; }
+      }
 
-         foreach (Bericht berichtOud in oudeData)
+      public virtual ActionResult Zoek(string search)
+      {
+         if (search == null)
          {
-            PolitiekVergelijker pol = new PolitiekVergelijker() { Politieker = berichtOud.Politieker.Naam, Aantal = 1 };
-            if (!oud.Contains(pol))
-            {
-               oud.Add(pol);
-            }
-            else
-            {
-               oud.Find((p) => p.Politieker.Equals(berichtOud.Politieker.Naam)).Aantal++;
-            }
+            return View();
          }
 
-         foreach (Bericht berichtNieuw in nieuweData)
-         {
-            PolitiekVergelijker pol = new PolitiekVergelijker() { Politieker = string.Join(" ", berichtNieuw.Politieker), Aantal = 1 };
-            if (!nieuw.Contains(pol))
-            {
-               nieuw.Add(pol);
-            }
-            else
-            {
-               nieuw.Find((p) => p.Politieker.Equals(string.Join(" ", berichtNieuw.Politieker))).Aantal++;
-            }
-         }
+         List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.Contains(search)).ToList();
 
          List<Gebruiker> gebruikers = gebruikerMng.GetGebruikers().ToList();
-         List<AlertResultaat> teTonen = new List<AlertResultaat>();
 
-         foreach (PolitiekVergelijker politiekVergelijker in nieuw)
-         {
-            if (oud.Contains(politiekVergelijker))
+         string[] splitSearch = search.Split(' ');
+            List<Woord> woorden = new List<Woord>();
+            List<Hashtag> hashtags = new List<Hashtag>();
+            List<Mention> mentions = new List<Mention>();
+            List<Url> urls = new List<Url>();
+            // List<Thema> themas = new List<Thema>();
+
+            List<Bericht> berichten = new List<Bericht>();
+            Bericht zoekresultaat = new Bericht();
+            foreach (string wrd in splitSearch)
             {
-               int oudAantal = oud.Find((p) => p.Politieker.Equals(politiekVergelijker.Politieker)).Aantal;
-               int nieuwAantal = nieuw.Find((p) => p.Politieker.Equals(politiekVergelijker.Politieker)).Aantal;
-               
-               var group = nieuweData.Where(b => b.Politieker.Naam.Equals(politiekVergelijker.Politieker)).GroupBy(b => new DateTime(b.Datum.Year, b.Datum.Month, b.Datum.Day)).ToList();
-               List<int> aantalPerDag = new List<int>();
-               foreach (var item in group)
-               {
-                  aantalPerDag.Add(item.Count());
-               }
-               int gemiddeldeperDag = (int)aantalPerDag.Average();
-
-               double afwijking = BerekenAfwijking(aantalPerDag);
-
-               int percentage = (nieuwAantal - gemiddeldeperDag) / gemiddeldeperDag * 100;
-
-               int verschil = oudAantal - nieuwAantal;
-               foreach (Gebruiker gebruiker in gebruikers)
-               {
-                  List<Alert> alerts = alertMng.GetAlerts().Where(a => a.Gebruiker.ID == gebruiker.ID).ToList();
-                  foreach (Alert alert in alerts)
-                  {
-                     double Zscore = (nieuwAantal - gemiddeldeperDag) / afwijking;
-
-                     if (alert.Type.Equals("Aantal"))
-                     {
-                        if (Zscore > 1)
-                        {
-                           teTonen.Add(new AlertResultaat()
-                           {
-                              Alert = alert,
-                              Gebruiker = gebruiker,
-                              Resultaat = "Trending"
-                           });
-                        }
-                        else
-                        {
-                           if (Zscore < -1)
-                           {
-                              teTonen.Add(new AlertResultaat()
-                              {
-                                 Alert = alert,
-                                 Gebruiker = gebruiker,
-                                 Resultaat = "Niet meer populair"
-                              });
-                           }
-                        }
-                     }
-
-                     if (alert.Type.Equals("Politieker"))
-                     {
-                        if (percentage >= alert.Percentage)
-                        {
-                           teTonen.Add(new AlertResultaat()
-                           {
-                              Alert = alert,
-                              Gebruiker = gebruiker,
-                              Resultaat = percentage.ToString() + "% gestegen"
-                           });
-                        }
-                     }
-                  }
-               }
+                woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()))
+                    .ToList());
+                hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()))
+                    .ToList());
+                mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()))
+                    .ToList());
+                urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
             }
-         }
 
-         return teTonen;
-      }*/
+            //personen.Sort();
+            zoekresultaat.Woorden = woorden;
+            zoekresultaat.Hashtags = hashtags;
+            zoekresultaat.Mentions = mentions;
+            zoekresultaat.Personen = personen;
+            zoekresultaat.Urls = urls;
+            //Sortering testSortering = new Sortering();
 
-      public double BerekenAfwijking(List<int> totalen)
+            
+
+            woorden.ToString();
+            return View(zoekresultaat);
+        }
+
+      /* private class Sortering
+       {
+           public ArrayList sortedWoorden { get; set; }
+           public ArrayList sortedPersonen { get; set; }
+           public ArrayList sortedMentions { get; set; }
+           public ArrayList sortedHastags { get; set; }
+           public ArrayList sortedUrls { get; set; }
+       }*/
+
+      public virtual ActionResult Toevoegen(string type)
       {
-         //Compute the Average      
-         double avg = totalen.Average();
-         //Perform the Sum of (value-avg)_2_2      
-         double sum = totalen.Sum(d => Math.Pow(d - avg, 2));
-         //Put it all together      
-         return Math.Sqrt((sum) / (totalen.Count() - 1));
-      }
+         Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieen = new List<Categorie>() }, new List<Serie>());
+         graf.xAs.Categorieen.Add(new Categorie("Objectiviteit"));
+         graf.xAs.Categorieen.Add(new Categorie("Polariteit"));
 
-      public class PolitiekVergelijker
-      {
-         public string Politieker { get; set; }
-         public int Aantal { get; set; }
+         List<Persoon> personen = berichtMng.GetPersonen().ToList();
+         personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
 
-         public override bool Equals(object obj)
-         {
-            if (obj.GetType() != GetType())
-            {
-               return false;
-            }
-
-            PolitiekVergelijker politiekVergelijker = (PolitiekVergelijker)obj;
-            if (politiekVergelijker.Politieker.Equals(Politieker))
-            {
-               return true;
-            }
-
-            return false;
-         }
-
-         public override string ToString()
-         {
-            return Politieker;
-         }
+         return View("GrafiekToevoegen", new GrafiekPersonen() { Grafiek = graf, Personen = personen });
       }
    }
 }
