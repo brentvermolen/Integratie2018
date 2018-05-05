@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,9 +11,27 @@ namespace BL.Domain.BerichtKlassen
    public class Hashtag
    {
       [Key]
+      public int ID { get; set; }
       public string Tekst { get; set; }
 
-      public ICollection<Bericht> Berichten { get; set; }
+      public virtual ICollection<Bericht> Berichten { get; set; }
+
+      public override bool Equals(object obj)
+      {
+         if (obj.GetType() != GetType())
+         {
+            return false;
+         }
+
+         Hashtag hashtag = (Hashtag)obj;
+
+         if (hashtag.Tekst.Equals(Tekst))
+         {
+            return true;
+         }
+
+         return false;
+      }
 
       public override string ToString()
       {

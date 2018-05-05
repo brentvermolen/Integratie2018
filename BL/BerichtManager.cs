@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using BL.Domain;
@@ -17,11 +18,6 @@ namespace BL
       public BerichtManager()
       {
          repo = new BerichtRepository();
-      }
-
-      public IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "")
-      {
-         return repo.LeesBerichten(aantal, vanPersoon);
       }
 
       public Bericht AddBericht(Bericht bericht)
@@ -51,19 +47,14 @@ namespace BL
          repo.CreateBerichtMention(berichtID, m);
       }
 
-      public void AddPersoon(string berichtID, string persoon)
+      public void AddPersoon(string berichtID, int persoonID)
       {
-         Persoon p = GetPersoon(persoon);
+         Persoon p = GetPersoon(persoonID);
          if (p == null)
          {
-            p = new Persoon() { Naam = persoon };
+            p = new Persoon() { ID = persoonID };
             repo.CreatePersoon(p);
          }
-      }
-
-      public void AddPersoon(string berichtID, List<string> persoon)
-      {
-         AddPersoon(berichtID, string.Join(" ", persoon));
       }
 
       public void AddUrl(string berichtID, string url)
@@ -71,7 +62,7 @@ namespace BL
          Url u = repo.ReadUrl(url);
          if (u == null)
          {
-            u = new Url() { Tekst = url };
+            u = new Url() { ID = repo.ReadUrls().Count(), Tekst = url };
             repo.CreateUrl(u);
          }
          repo.CreateBerichtUrl(berichtID, u);
@@ -82,7 +73,7 @@ namespace BL
          Woord w = repo.ReadWoord(woord);
          if (w == null)
          {
-            w = new Woord() { Tekst = woord };
+            w = new Woord() { ID = repo.ReadWoorden().Count(), Tekst = woord };
             repo.CreateWoord(w);
          }
          repo.CreateBerichtWoord(berichtID, w);
@@ -96,6 +87,11 @@ namespace BL
       public IEnumerable<Bericht> GetBerichten()
       {
          return repo.ReadBerichten();
+      }
+
+      public IEnumerable<Bericht> GetBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
+      {
+         return repo.ReadBerichten(predicate);
       }
 
       public IEnumerable<Hashtag> GetBerichtHashtags(string berichtID)
@@ -123,9 +119,19 @@ namespace BL
          return repo.ReadHashtags();
       }
 
+      public IEnumerable<Hashtag> GetHashtags(Expression<Func<Hashtag, bool>> predicate)
+      {
+         return repo.ReadHashtags(predicate);
+      }
+
       public IEnumerable<Mention> GetMentions()
       {
          return repo.ReadMentions();
+      }
+
+      public IEnumerable<Mention> GetMentions(Expression<Func<Mention, bool>> predicate)
+      {
+         return repo.ReadMentions(predicate);
       }
 
       public IEnumerable<Persoon> GetPersonen()
@@ -133,14 +139,24 @@ namespace BL
          return repo.ReadPersonen();
       }
 
-      public Persoon GetPersoon(string persoon)
+      public IEnumerable<Persoon> GetPersonen(Expression<Func<Persoon, bool>> predicate)
+      {
+         return repo.ReadPersonen(predicate);
+      }
+
+      /*  public IEnumerable<Thema> GeThemas()
+        {
+            return repo.ReadThemas();
+        }*/
+
+      public Persoon GetPersoon(int persoon)
       {
          return repo.ReadPersoon(persoon);
       }
 
-      public Persoon GetPersoonVanBericht(string berichtID)
+      public ICollection<Persoon> GetPersoonVanBericht(string berichtID)
       {
-         return GetBericht(berichtID).Politieker;
+         return GetBericht(berichtID).Personen;
       }
 
       public IEnumerable<Url> GetUrls()
@@ -148,9 +164,19 @@ namespace BL
          return repo.ReadUrls();
       }
 
+      public IEnumerable<Url> GetUrls(Expression<Func<Url, bool>> predicate)
+      {
+         return repo.ReadUrls(predicate);
+      }
+
       public IEnumerable<Woord> GetWoorden()
       {
          return repo.ReadWoorden();
+      }
+
+      public IEnumerable<Woord> GetWoorden(Expression<Func<Woord, bool>> predicate)
+      {
+         return repo.ReadWoorden(predicate);
       }
 
       public void RemoveBericht(string berichtID)

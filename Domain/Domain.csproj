@@ -11,6 +11,7 @@
     <AssemblyName>BL.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,12 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DAL">
+      <HintPath>..\MVCIntegratie\Bin\DAL.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,13 +52,37 @@
     <Compile Include="Alert.cs" />
     <Compile Include="AlertKlassen\AlertResultaat.cs" />
     <Compile Include="Bericht.cs" />
+    <Compile Include="BerichtKlassen\Profiel.cs" />
+    <Compile Include="BerichtKlassen\Thema.cs" />
     <Compile Include="Gebruiker.cs" />
+    <Compile Include="Grafiek.cs" />
+    <Compile Include="GrafiekKlassen\As.cs" />
+    <Compile Include="GrafiekKlassen\Categorie.cs" />
+    <Compile Include="GrafiekKlassen\Chart.cs" />
+    <Compile Include="GrafiekKlassen\Data.cs" />
+    <Compile Include="GrafiekKlassen\NieuweGrafiekModel.cs" />
+    <Compile Include="GrafiekKlassen\GrafiekPersonen.cs" />
+    <Compile Include="GrafiekKlassen\Legende.cs" />
+    <Compile Include="GrafiekKlassen\PlotOptions.cs" />
+    <Compile Include="GrafiekKlassen\Serie.cs" />
+    <Compile Include="GrafiekTypes\Bar.cs" />
+    <Compile Include="GrafiekTypes\Lijn.cs" />
+    <Compile Include="GrafiekTypes\Pie.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
     <Compile Include="BerichtKlassen\Mention.cs" />
     <Compile Include="ItemKlassen\Persoon.cs" />
     <Compile Include="BerichtKlassen\Url.cs" />
     <Compile Include="BerichtKlassen\Woord.cs" />
+    <Compile Include="JsonConverters\DoubleConvert.cs" />
+    <Compile Include="JsonConverters\HashtagConvert.cs" />
+    <Compile Include="JsonConverters\MentionConvert.cs" />
+    <Compile Include="JsonConverters\PersoonConvert.cs" />
+    <Compile Include="JsonConverters\ProfielConvert.cs" />
+    <Compile Include="JsonConverters\ThemaConvert.cs" />
+    <Compile Include="JsonConverters\UrlConvert.cs" />
+    <Compile Include="JsonConverters\WoordenConvert.cs" />
+    <Compile Include="JsonExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

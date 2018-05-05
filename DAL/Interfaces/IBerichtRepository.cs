@@ -11,10 +11,9 @@ namespace DAL
 {
    public interface IBerichtRepository
    {
-      IEnumerable<Bericht> LeesBerichten(int aantal, string vanPersoon = "");
-
       Bericht CreateBericht(Bericht bericht);
       IEnumerable<Bericht> ReadBerichten();
+      IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate);
       Bericht ReadBericht(string berichtID);
       void UpdateBericht(Bericht bericht);
       void DeleteBericht(string berichtID);
@@ -30,27 +29,32 @@ namespace DAL
       Hashtag CreateBerichtHashtag(string berichtID, Hashtag hashtag);
 
       Persoon CreatePersoon(Persoon persoon);
-      Persoon ReadPersoon(string naam);
+      Persoon ReadPersoon(int id);
       IEnumerable<Persoon> ReadPersonen();
-      void DeletePersoon(string persoon);
+      IEnumerable<Persoon> ReadPersonen(System.Linq.Expressions.Expression<Func<Persoon, bool>> predicate);
+      void DeletePersoon(int id);
 
       Woord CreateWoord(Woord woord);
       IEnumerable<Woord> ReadWoorden();
+      IEnumerable<Woord> ReadWoorden(System.Linq.Expressions.Expression<Func<Woord, bool>> predicate);
       Woord ReadWoord(string woord);
       void DeleteWoord(string woord);
 
       Url CreateUrl(Url url);
       IEnumerable<Url> ReadUrls();
+      IEnumerable<Url> ReadUrls(System.Linq.Expressions.Expression<Func<Url, bool>> predicate);
       Url ReadUrl(string url);
       void DeleteUrl(string url);
 
       Mention CreateMention(Mention mention);
       IEnumerable<Mention> ReadMentions();
+      IEnumerable<Mention> ReadMentions(System.Linq.Expressions.Expression<Func<Mention, bool>> predicate);
       Mention ReadMention(string mention);
       void DeleteMention(string mention);
 
       Hashtag CreateHashtag(Hashtag hashtag);
       IEnumerable<Hashtag> ReadHashtags();
+      IEnumerable<Hashtag> ReadHashtags(System.Linq.Expressions.Expression<Func<Hashtag, bool>> predicate);
       Hashtag ReadHashtag(string hashtag);
       void DeleteHashtag(string hashtag);
    }
