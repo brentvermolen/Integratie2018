@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using BL.Domain;
@@ -114,9 +115,9 @@ namespace DAL
          ctx.SaveChanges();
       }
 
-      public void DeletePersoon(string persoon)
+      public void DeletePersoon(int id)
       {
-         ctx.Personen.Remove(ReadPersoon(persoon));
+         ctx.Personen.Remove(ReadPersoon(id));
       }
 
       public void DeleteUrl(string url)
@@ -152,6 +153,17 @@ namespace DAL
             .Include("Personen");
       }
 
+      public IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
+      {
+         return ctx.Berichten
+            .Include("Hashtags")
+            .Include("Woorden")
+            .Include("Urls")
+            .Include("Mentions")
+            .Include("Personen")
+            .Where(predicate);
+      }
+
       public Hashtag ReadHashtag(string hashtag)
       {
          return ctx.Hashtags.Find(hashtag);
@@ -160,6 +172,11 @@ namespace DAL
       public IEnumerable<Hashtag> ReadHashtags()
       {
          return ctx.Hashtags.Include("Berichten");
+      }
+
+      public IEnumerable<Hashtag> ReadHashtags(Expression<Func<Hashtag, bool>> predicate)
+      {
+         return ctx.Hashtags.Include("Berichten").Where(predicate);
       }
 
       public IEnumerable<Hashtag> ReadHashtagsVanBericht(string berichtID)
@@ -177,6 +194,11 @@ namespace DAL
          return ctx.Mentions.Include("Berichten");
       }
 
+      public IEnumerable<Mention> ReadMentions(Expression<Func<Mention, bool>> predicate)
+      {
+         return ctx.Mentions.Include("Berichten").Where(predicate);
+      }
+
       public IEnumerable<Mention> ReadMentionsVanBericht(string berichtID)
       {
          return ctx.Berichten.Include("Mentions").Single(b => b.ID.Equals(berichtID)).Mentions;
@@ -188,11 +210,18 @@ namespace DAL
             .Include("Berichten");
       }
 
-      public Persoon ReadPersoon(string naam)
+      public IEnumerable<Persoon> ReadPersonen(Expression<Func<Persoon, bool>> predicate)
       {
          return ctx.Personen
             .Include("Berichten")
-            .FirstOrDefault(p => p.Naam.Equals(naam));
+            .Where(predicate);
+      }
+
+      public Persoon ReadPersoon(int id)
+      {
+         return ctx.Personen
+            .Include("Berichten")
+            .FirstOrDefault(p => p.ID == id);
       }
 
       public Url ReadUrl(string url)
@@ -203,6 +232,11 @@ namespace DAL
       public IEnumerable<Url> ReadUrls()
       {
          return ctx.Urls.Include("Berichten");
+      }
+
+      public IEnumerable<Url> ReadUrls(Expression<Func<Url, bool>> predicate)
+      {
+         return ctx.Urls.Include("Berichten").Where(predicate);
       }
 
       public IEnumerable<Url> ReadUrlsVanBericht(string berichtID)
@@ -218,6 +252,11 @@ namespace DAL
       public IEnumerable<Woord> ReadWoorden()
       {
          return ctx.Woorden.Include("Berichten");
+      }
+
+      public IEnumerable<Woord> ReadWoorden(Expression<Func<Woord, bool>> predicate)
+      {
+         return ctx.Woorden.Include("Berichten").Where(predicate);
       }
 
       public IEnumerable<Woord> ReadWoordenVanBericht(string berichtID)
