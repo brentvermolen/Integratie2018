@@ -25,6 +25,7 @@
     display: inline-block;
 }
 
+
 #zoekbar2 {
     width: 100%;
     margin-top: 15px;
@@ -36,6 +37,7 @@
     width: 100px;
     display: inline-block;
 }
+
 
 #zoekbar:focus { width: 80%; }
 
@@ -160,13 +162,13 @@
 }
 
 
+
 .onclick-menu-content button:hover {
     color: black;
 }
 
-#typediagram {
-    padding-top:20px;
-}
+
+#typediagram { padding-top: 20px; }
 
 .vergelijkopties {
     margin-top: 30px;
@@ -188,85 +190,54 @@
     margin-bottom: 20px;
 }
 
-#barchart {
-    display:none;
-}
-#vergelijking {
-    display:none;
-}
-#piechart {
-    display:none;
-}
+#barchart { display: none; }
 
-.linethemaopties {
-    display:none;
-}
+#vergelijking { display: none; }
 
-.lineevolutieopties {
-    display:none;
-}
-.maakgrafiek {
-    width: 50%;
-}
+#piechart { display: none; }
 
-.lineaantalpol {
-    display: none;
-}
+.linethemaopties { display: none; }
 
-.linestartpol {
-    display : block;
-}
+.lineevolutieopties { display: none; }
 
-.lineaantalthema {
-    display: none;
-}
+.maakgrafiek { width: 50%; }
 
-.linestartthema {
-    display: block;
-}
+.lineaantalpol { display: none; }
 
-#linethemaweken {
-    display: none;
-}
+.linestartpol { display: block; }
 
-#linepolweken {
-    display:none;
-}
+.lineaantalthema { display: none; }
 
-.barthemaopties {
-    display: none;
-}
+.linestartthema { display: block; }
 
-.baraantalpol {
-    display: none;
-}
+#linethemaweken { display: none; }
 
-.barstartpol {
-    display: block;
-}
+#linepolweken { display: none; }
 
-.baraantalthema {
-    display: none;
-}
+.barthemaopties { display: none; }
 
-.barstartthema {
-    display: block;
-}
+.baraantalpol { display: none; }
 
-.piepolopties{
-    display:none;
-}
+.barstartpol { display: block; }
 
-.piethemaopties{
-    display:none;
-}
+.baraantalthema { display: none; }
 
-.kruisingthemaopties {
-    display:none;
-}
+.barstartthema { display: block; }
+
+.piepolopties { display: none; }
 
 
+.piethemaopties { display: none; }
 
+.kruisingthemaopties { display: none; }
+
+#row1 { margin-top: 10px; }
+
+#dropdown1 { margin-top: 10px; }
+
+#tabbar {
+    margin-top: 10px;
+}
 
 .onclick-menu-content button:hover { color: black; }
 
@@ -293,3 +264,4 @@ input[type="date"] {
     display: inline-block !important;
     visibility: visible !important;
 }
+

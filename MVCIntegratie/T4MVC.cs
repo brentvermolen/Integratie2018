@@ -150,6 +150,7 @@ namespace Links
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
         public static readonly string MaakGrafiek_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/MaakGrafiek.min.js") ? Url("MaakGrafiek.min.js") : Url("MaakGrafiek.js");
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
+        public static readonly string Over_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Over.min.js") ? Url("Over.min.js") : Url("Over.js");
         public static readonly string popper_utils_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/popper-utils.min.js") ? Url("popper-utils.min.js") : Url("popper-utils.js");
         public static readonly string popper_utils_js_map = Url("popper-utils.js.map");
         public static readonly string popper_utils_min_js = Url("popper-utils.min.js");
@@ -274,6 +275,7 @@ namespace Links
                 public static readonly string jquery_validate_unobtrusive_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.min.js"); 
                 public static readonly string MaakGrafiek_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/MaakGrafiek.js"); 
                 public static readonly string modernizr_2_6_2_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/modernizr-2.6.2.js"); 
+                public static readonly string Over_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Over.js"); 
                 public static readonly string popper_utils_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper-utils.js"); 
                 public static readonly string popper_utils_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper-utils.min.js"); 
                 public static readonly string popper_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/popper.js"); 
