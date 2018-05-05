@@ -1,0 +1,433 @@
+﻿@model BL.Domain.GrafiekKlassen.GrafiekPersonen
+
+@{
+   ViewBag.Title = "Grafiek Toevoegen";
+}
+
+<h2>Grafiek Toevoegen</h2>
+
+<link href="~/Content/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/Layout.css">
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<div class="container">
+   <div class="row">
+      <div class="col-sm-12 col-md-12">
+         <div id="@Model.Grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      </div>
+   </div>
+   <div class="row" style="margin-bottom:10px">
+      <p>Titel:</p>
+      <input type="text" onkeyup="wijzigTitel(this.value);" value="@Model.Grafiek.Titel" />
+   </div>
+   <div class="row" style="margin-bottom:10px">
+      <p>Personen:</p>
+      <input type="button" value="Toevoegen" onclick="ShowPopup();" />
+   </div>
+   <div id="personen" class="row" style="margin-bottom:10px">
+      
+   </div>
+   <br />
+   <br />
+   <div class="row">
+      <input type="button" onclick="opslaan();" value="Opslaan" />
+   </div>
+</div>
+
+<div class="popup" onclick="/*ClosePopup()*/" style="display: none;">
+   <div class="popup-content">
+      <div class="popup-header">
+         <span class="close" onclick="ClosePopup()">×</span>
+         <h2>Personen</h2>
+         <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value=""/>
+      </div>
+      <div class="popup-body">
+         <p>
+            @foreach (var persoon in Model.Personen)
+            {
+               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getSentimentPersoon(this); ClosePopup();" value="@persoon.Naam" />
+            }
+         </p>
+      </div>
+   </div>
+</div>
+
+<script type="text/javascript">
+   var elem;
+   var chart;
+   var personen = [];
+   loadGrafiek();
+
+   function opslaan() {
+      var categories = [];
+      for (var i = 0; i < chart.xAxis[0].categories.length; i++) {
+         categories.push(chart.xAxis[0].categories[i]);
+      }
+
+      class grafClass {
+         constructor(title, categories, credits, series) {
+            this.title = title;
+            this.categories = categories;
+            this.credits = credits;
+            this.series = series;
+         }
+      }
+
+      var graf = new grafClass(chart.title.textStr,
+                                    categories,
+                                    chart.options.credits.enabled,
+                                    personen);
+
+      var jsonG = JSON.stringify(graf);
+      
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/NieuweGrafiek/PostGrafiek', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         alert('done');
+      }).fail(function () {
+         alert('fail');
+      });
+   }
+
+   function getSentimentPersoon(elem) {
+      var id = elem.id;
+
+      $.ajax('/api/NieuweGrafiek/SentimentVanPersoon/' + id,
+      {
+         type: 'GET',
+         dataType: 'json'
+         }).done(function (data) {
+            var persoon = data['Naam'];
+            personen.push(id);
+            var pol = data['Polariteit'];
+            var obj = data['Objectiviteit'];
+            sentimentToevoegen(persoon, pol, obj);
+         }).fail(function() {
+            alert('fail');
+         });
+   }
+
+   function sentimentToevoegen(persoon, pol, obj) {
+      chart.addSeries({ name: persoon, data: [obj, pol] });
+      var div = document.getElementById('personen');
+      div.innerHTML = div.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this);' value='Verwijder " + persoon + "' id='" + persoon + "' />";
+   }
+
+   function verwijderSerieByName(naam, elem) {
+      for (var i = 0; i < chart.series.length; i++) {
+         var c = chart.series[i];
+         if (c.name == elem.id) {
+            chart.series[i].remove();
+            personen.splice(i, 1);
+            if (elem != null) {
+               elem.remove(elem);
+            }
+            break;
+         }
+      }
+   }
+
+   function wijzigTitel(nieuweTitel) {
+      chart.setTitle({ text: nieuweTitel });
+      chart.redraw();
+   }
+
+   function wijzigCategorie(element) {
+      //Als leeg --> Verwijderen
+      var id = element.id;
+      chart
+         .xAxis[0]
+         .categories[id] = element.value;
+      chart.redraw();
+   }
+
+   function loadGrafiek() {
+         elem = document.getElementById('@Model.Grafiek.ID');
+         if (elem != null) {
+            chart = Highcharts.chart('@Model.Grafiek.ID',
+               {
+                  @if (!(Model.Grafiek.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                           @if(Model.Grafiek.Chart.Type.Equals("pie"))
+                           {
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @Model.Grafiek.GetBoolString(Model.Grafiek.Chart.PlotShadow),
+                        </text>
+                     }
+/**/
+                        type: '@Model.Grafiek.Chart.Type'
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@Model.Grafiek.Titel'
+                  },
+
+                  @if (Model.Grafiek.Subtitel != null)
+                  {
+                     <text>
+                     subtitle:
+                     {
+                        text: '@Model.Grafiek.Subtitel'
+                     },
+                     </text>
+                  }
+
+                  @if (Model.Grafiek.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@Html.Raw(Model.Grafiek.Tooltip)'
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Grafiek.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@Model.Grafiek.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Grafiek.xAs.IsUsed == true)
+                  {
+                     <text>
+                  xAxis: {
+                     categories: @Html.Raw(Model.Grafiek.xAs.GetCategorieën())
+                  },
+                  </text>
+                  }
+
+
+                  @if (Model.Grafiek.Chart.Type.Equals("column"))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @Model.Grafiek.GetBoolString(Model.Grafiek.Credits)
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Grafiek.Legende.Layout != null){
+                     <text>
+                  legend: {
+                     layout: '@Model.Grafiek.Legende.Layout',
+                     align: '@Model.Grafiek.Legende.Alignment',
+                     verticalAlign: '@Model.Grafiek.Legende.VerticalAlign'
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Grafiek.PlotOptions.PointStart != 0 || Model.Grafiek.PlotOptions.Cursor != null)
+                  {
+                     <text>
+                  plotOptions: {
+                     @if (Model.Grafiek.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                           allowPointSelect: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.AllowPointSelect),
+                        cursor: '@Model.Grafiek.PlotOptions.Cursor',
+                        dataLabels: {
+                              enabled: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.ShowInLegend)
+                     }
+                     </text>
+                     }
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                           {
+                              connectorAllowed: @Model.Grafiek.PlotOptions.getBool(Model.Grafiek.PlotOptions.SeriesLabelConnector)
+                              },
+                        pointStart: @Model.Grafiek.PlotOptions.PointStart
+                           }
+                        </text>
+                     }
+                  },
+                  </text>
+                  }
+
+                  series: [
+                     @for(int i = 0; i < Model.Grafiek.Series.Count; i++)
+                     {
+                     var serie = Model.Grafiek.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (Model.Grafiek.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @Model.Grafiek.GetBoolString(serie.ColorByPoint),
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @Model.Grafiek.GetBoolString(data.Sliced),
+                              selected: @Model.Grafiek.GetBoolString(data.Selected)
+                           }
+                        </text>
+                           if (j != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>] }</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                     @if(i != Model.Grafiek.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+         };
+   };
+</script>
+
+<style>
+   /*popup
+------------------------------------------------------------------*/
+
+   .popup {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 80px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+   }
+
+   .popup-content {
+      background-color: #fefefe;
+      margin: auto;
+      border: 1px solid #888;
+      width: 60%;
+      max-width: 500px;
+      border-radius: 6px;
+   }
+
+   .popup-header {
+      border-bottom: solid black 1px;
+   }
+
+   .popup-body {
+      margin: 10px;
+      text-align: center;
+   }
+
+   .popup h2 {
+      font-weight: bold;
+      text-align: center;
+      margin: 20px;
+      margin-bottom: 10px;
+   }
+
+   /* The Close Button */
+   .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+   }
+
+      .close:hover,
+      .close:focus {
+         color: #000;
+         text-decoration: none;
+         cursor: pointer;
+      }
+</style>
+
+<script>
+   $('a.popup-button').click(function (event) {
+      event.preventDefault();
+   });
+
+   function filterPersonen(filter) {
+      var btns = document.getElementsByClassName("btnPersoon");
+
+      for (var i = 0; i < btns.length; i++) {
+         var btn = btns[i];
+         var val = btn.value.toLowerCase();
+         if (val.includes(filter.toLowerCase())) {
+            btn.style.display = 'inline';
+         } else {
+            btn.style.display = 'none';
+         }
+      }
+   }
+
+   function ShowPopup() {
+      var popups = document.getElementsByClassName('popup');
+
+      popups[0].style.display = 'block';
+   }
+
+   function ClosePopup(event) {
+      filterPersonen("");
+      document.getElementById('filter').value = '';
+      var popups = document.getElementsByClassName('popup');
+
+      for (var i = 0; i < popups.length; i++) {
+         popups[i].style.display = 'none';
+      }
+   }
+</script>

@@ -19,9 +19,9 @@ namespace MVCIntegratie.Controllers
          return View(personen);
       }
 
-      public virtual ActionResult Details(string naam)
+      public virtual ActionResult Details(int id)
       {
-         Persoon persoon = mng.GetPersoon(naam);
+         Persoon persoon = mng.GetPersoon(id);
 
          return View(persoon);
       }
