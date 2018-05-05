@@ -18,8 +18,14 @@ namespace BL.Domain.JsonConverters
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         double d = double.Parse(reader.Value.ToString());
-         return d;
+         try
+         {
+            double d = double.Parse(reader.Value.ToString());
+            return d;
+         }catch(Exception e)
+         {
+            return 0;
+         }
       }
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

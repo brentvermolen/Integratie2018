@@ -1,40 +1,50 @@
 ﻿using BL;
 using BL.Domain;
-using BL.Domain.AlertKlassen;
 using BL.Domain.BerichtKlassen;
+using BL.Domain.GrafiekKlassen;
+using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
-using BL.Interfaces;
-using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Security.Permissions;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 
 namespace MVCIntegratie.Controllers
 {
-    [RequireHttps]
+   [RequireHttps]
     public partial class HomeController : Controller
-
-   {
-
-
+   { 
       private IBerichtManager berichtMng = new BerichtManager();
       private IAlertManager alertMng = new AlertManager();
       private IGebruikerManager gebruikerMng = new GebruikerManager();
+      private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
-        public virtual ActionResult Home_Ingelogd()
-        {
-            return View();
-        }
+      public virtual ActionResult Home_Ingelogd()
+      {
+         return View();
+      }
 
-        public virtual ActionResult Index()
-        {
+      public virtual ActionResult Index()
+      {
+         int count = 0;
+         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 10).ToList();
+
+         return View(graf);
+      }
+
+      public class AantalTweetsPerWeek
+      {
+         public int Count { get; set; }
+         public DateTime Week { get; set; }
+      }
+
+      public virtual ActionResult Zoek(string search)
+      {
+         if (search == null)
+         {
             return View();
+
         }
 
         public virtual ActionResult Search(string search)
@@ -45,5 +55,17 @@ namespace MVCIntegratie.Controllers
         }
 
       
-    }
+       public virtual ActionResult Toevoegen(string type)
+      {
+         Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieen = new List<Categorie>() }, new List<Serie>());
+         graf.xAs.Categorieen.Add(new Categorie("Objectiviteit"));
+         graf.xAs.Categorieen.Add(new Categorie("Polariteit"));
+
+         List<Persoon> personen = berichtMng.GetPersonen().ToList();
+         personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
+
+         return View("GrafiekToevoegen", new GrafiekPersonen() { Grafiek = graf, Personen = personen });
+      }
+   }
+
 }

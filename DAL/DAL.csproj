@@ -56,11 +56,14 @@
     <Compile Include="EF\Integratie2018Context.cs" />
     <Compile Include="EF\Integratie2018Initializer.cs" />
     <Compile Include="GebruikerRepository.cs" />
+    <Compile Include="GrafiekRepository.cs" />
     <Compile Include="Interfaces\IAlertRepository.cs" />
     <Compile Include="Interfaces\IBerichtRepository.cs" />
     <Compile Include="Interfaces\IGebruikerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Synchonize.cs" />
+
+    <Compile Include="Sychronize.cs" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
