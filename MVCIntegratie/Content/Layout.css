@@ -192,6 +192,17 @@
 
 #barchart { display: none; }
 
+
+.startdisplaynone{
+    display:none;
+}
+
+
+
+
+
+
+
 #vergelijking { display: none; }
 
 #piechart { display: none; }
@@ -204,9 +215,16 @@
 
 .lineaantalpol { display: none; }
 
+
 .linestartpol { display: block; }
 
 .lineaantalthema { display: none; }
+
+                                                                                      
+
+
+
+
 
 .linestartthema { display: block; }
 
@@ -238,6 +256,7 @@
 #tabbar {
     margin-top: 10px;
 }
+
 
 .onclick-menu-content button:hover { color: black; }
 
