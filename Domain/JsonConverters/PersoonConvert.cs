@@ -32,8 +32,13 @@ namespace BL.Domain.JsonConverters
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         Persoon persoon = (Persoon)value;
-         writer.WriteValue(persoon.Naam);
+         /*Persoon persoon = (Persoon)value;
+
+         JProperty jp = new JProperty("person", persoon.Naam);
+
+         jp.ToString();
+
+         JObject jObject = JObject.Load(writer);*/
       }
    }
 }

@@ -1,3 +1,9 @@
+@model List<BL.Domain.Grafiek>
+
+@{
+   ViewBag.Title = "Home Page";
+}
+
 <link href="~/Content/bootstrap.min.css">
 <link rel="stylesheet" href="~/Content/Layout.css">
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
@@ -6,45 +12,215 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+<!--<script src="~/Scripts/Chart.js"></script>-->
 
-<script src="~/Scripts/Chart.js"></script>
 
 
 
 <div>
-    <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-    <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
-</div>
 
+   <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+   <!--<a href="/Home/Toevoegen?type=bar" id="newgraph" class="btn btn-success">Nieuwe Grafiek B &raquo;</a>-->
+   <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+
+</div>
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-12">
-            <div>
-                <div>
-                    <img src="~/Images/nodebox.svg" style="width: 100%; height: auto;" />
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div id="chart6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-    </div>
+   <div class="row">
+      @foreach (var grafiek in Model)
+      {
+         <div class="col-sm-6 col-md-6">
+            <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+         </div>
+      }
+   </div>
 </div>
 
+
+
+<script type="text/javascript">
+   $(document).ready(function () {
+      @foreach(var grafiek in Model)
+      {
+         <text>
+         var elem = document.getElementById('@grafiek.ID');
+         if (elem != null) {
+            Highcharts.chart('@grafiek.ID',
+               {
+                  @if (!(grafiek.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                           @if(grafiek.Chart.Type.Equals("pie"))
+                           {
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @grafiek.GetBoolString(grafiek.Chart.PlotShadow),
+                        </text>
+                     }  
+                        type: '@grafiek.Chart.Type'
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@grafiek.Titel'
+                  },
+
+                  @if (grafiek.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@Html.Raw(grafiek.Tooltip)'
+                  },
+                     </text>
+                  }
+
+                  @if (grafiek.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@grafiek.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  @if (grafiek.xAs.IsUsed == true)
+                  {
+                     <text>
+                  xAxis: {
+                     categories: @Html.Raw(grafiek.xAs.GetCategorieen())
+                  },
+                  </text>
+                  }
+
+                  @if (grafiek.Chart.Type.Equals("normal"))
+                  {
+                     <text>
+                  xAxis: {
+                     type: 'datetime'
+                  },
+                  </text>
+                  }
+                  
+
+                  @if (grafiek.Chart.Type.Equals("column"))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @grafiek.GetBoolString(grafiek.Credits)
+                  },
+                     </text>
+                  }
+
+                  @if (grafiek.Legende.Layout != null){
+                     <text>
+                  legend: {
+                     layout: '@grafiek.Legende.Layout',
+                     align: '@grafiek.Legende.Alignment',
+                     verticalAlign: '@grafiek.Legende.VerticalAlign'
+                  },
+                  </text>
+                  }
+
+                  @if (grafiek.PlotOptions.PointStart != null || grafiek.PlotOptions.Cursor != null)
+                  {
+                     <text>
+                  plotOptions: {
+                     @if (grafiek.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                           allowPointSelect: @grafiek.GetBoolString(grafiek.PlotOptions.AllowPointSelect),
+                        cursor: '@grafiek.PlotOptions.Cursor',
+                        dataLabels: {
+                              enabled: @grafiek.GetBoolString(grafiek.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @grafiek.GetBoolString(grafiek.PlotOptions.ShowInLegend)
+                     }
+                     </text>
+                     }
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                           {
+                              connectorAllowed: @grafiek.PlotOptions.getBool(grafiek.PlotOptions.SeriesLabelConnector)
+                              },
+                              pointStart: @grafiek.PlotOptions.PointStart
+                              @if (grafiek.Chart.Type.Equals("normal"))
+                              {
+                                 <text>,
+                              pointInterval: 24 * 3600 * 1000 * 7</text>
+                              }
+                           }
+                        </text>
+                     }
+                  },
+                  </text>
+                  }
+
+                  series: [
+                     @for(int i = 0; i < grafiek.Series.Count; i++)
+                     {
+                     var serie = grafiek.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (grafiek.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @grafiek.GetBoolString(serie.ColorByPoint),
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @grafiek.GetBoolString(data.Sliced),
+                              selected: @grafiek.GetBoolString(data.Selected)
+                           }
+                        </text>
+                           if (j != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>] }</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                     @if(i != grafiek.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+         };
+         </text>
+      }
+   });
+
+
+</script>

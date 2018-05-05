@@ -96,8 +96,10 @@ namespace MVCIntegratie.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string NieuweGrafiek = "NieuweGrafiek";
             }
             public readonly string Index = "~/Views/Graph/Index.cshtml";
+            public readonly string NieuweGrafiek = "~/Views/Graph/NieuweGrafiek.cshtml";
         }
     }
 
