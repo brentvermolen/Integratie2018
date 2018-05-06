@@ -14,7 +14,7 @@ namespace BL.Domain.BerichtKlassen
       [MaxLength(500)]
       public string Tekst { get; set; }
 
-      public ICollection<Bericht> Berichten { get; set; }
+      public virtual ICollection<Bericht> Berichten { get; set; }
 
       public override string ToString()
       {

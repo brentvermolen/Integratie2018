@@ -18,5 +18,10 @@ namespace MVCIntegratie.Controllers
 
          return View(alerts);
       }
-   }
+
+     public virtual ActionResult ManageAlerts()
+     {
+       return View();
+     }
+  }
 }
