@@ -151,7 +151,17 @@ namespace MVCIntegratie.Controllers
       {
          if (ModelState.IsValid)
          {
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                Voornaam = model.Voornaam,
+                Achternaam = model.Achternaam,
+                Geboortedatum = model.Geboortedatum,
+                Postcode = model.Postcode,
+                Beveiligingsvraag = model.Beveiligingsvraag,
+                Antwoord = model.Antwoord
+            };
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
