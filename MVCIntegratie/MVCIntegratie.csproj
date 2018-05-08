@@ -289,13 +289,9 @@
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804271131591_role.cs" />
-    <Compile Include="Migrations\201804271131591_role.Designer.cs">
-      <DependentUpon>201804271131591_role.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805081031155_role1.cs" />
-    <Compile Include="Migrations\201805081031155_role1.Designer.cs">
-      <DependentUpon>201805081031155_role1.cs</DependentUpon>
+    <Compile Include="Migrations\201805081055567_role.cs" />
+    <Compile Include="Migrations\201805081055567_role.Designer.cs">
+      <DependentUpon>201805081055567_role.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -492,8 +488,8 @@
     <Content Include="Views\Search\_Resultaat.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805081031155_role1.resx">
-      <DependentUpon>201805081031155_role1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805081055567_role.resx">
+      <DependentUpon>201805081055567_role.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -505,6 +501,10 @@
       <Project>{B4817A46-311C-4C08-ABB4-D5F4944C7BCE}</Project>
       <Name>BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{C81C8B0F-8389-4CE1-908F-393EAC164923}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{279C2978-6215-4D50-9741-4D89827EFB93}</Project>
       <Name>Domain</Name>
@@ -513,11 +513,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804271131591_role.resx">
-      <DependentUpon>201804271131591_role.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

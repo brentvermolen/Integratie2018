@@ -7,13 +7,13 @@ namespace MVCIntegratie.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class role1 : IMigrationMetadata
+    public sealed partial class role : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(role1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(role));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805081031155_role1"; }
+            get { return "201805081055567_role"; }
         }
         
         string IMigrationMetadata.Source

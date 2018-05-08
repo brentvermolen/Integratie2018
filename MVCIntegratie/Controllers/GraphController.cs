@@ -21,7 +21,8 @@ namespace MVCIntegratie.Controllers
       // GET: Graph
       public virtual ActionResult Index()
       {
-         var gebruiker = Membership.GetUser();
+         var gebruiker = User;
+         //var gebruiker = Membership.GetUser();
 
          List<Persoon> personen = berichtMng.GetPersonen().ToList();
          personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));

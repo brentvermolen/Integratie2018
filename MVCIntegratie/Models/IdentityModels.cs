@@ -48,6 +48,6 @@ namespace MVCIntegratie.Models
             return new ApplicationDbContext();
         }
 
-      public System.Data.Entity.DbSet<BL.Domain.Grafiek> Grafieks { get; set; }
+      public DbSet<BL.Domain.Grafiek> Grafieks { get; set; }
    }
 }
