@@ -176,7 +176,7 @@
 
    <div id="linechart">
       <div class="col-sm-12 col-md-12 linechartopties">
-         <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties','polperline', 'themaperline');">
+         <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties', 'polperline', 'themaperline'); grafiekGewijzigd();">
             <option value="Politieker">Politieker</option>
             <option value="Thema">Thema</option>
             <option value="Evolutie">Evolutie van aantal tweets</option>
@@ -193,7 +193,7 @@
             <option value="5">5</option>
          </select>-->
          <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line')" />
+         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line');" />
          <div id="polLine" class="row">
 
 
@@ -292,7 +292,7 @@
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepoldagen">
          <label>Aantal weken</label>
-         <input type="number" id="aantalWekenPolLine" class="form-control" value="5" />
+         <input type="number" id="aantalWekenPolLine" class="form-control" value="5" onchange="grafiekGewijzigd();" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemadagen">
@@ -439,7 +439,7 @@
    <div class="form-group maakgrafiek">
       <div class="col-md-6">
          <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" />
-         <input type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" />
+         <input id="grafiekOpslaan" type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" disabled />
       </div>
    </div>
 </div>
@@ -452,6 +452,8 @@
    var elemToAdd = 'polLine';
 
    function wijzigTitel(value) {
+      grafiekGewijzigd();
+
       switch (currentChart) {
          case 'line':
             lineChart.setTitle({ text: value });
@@ -466,7 +468,6 @@
    }
 
    function politiekerToevoegen(graph) {
-
       if (currentPersonen.length == 5) {
          alert('Kan niet meer dan 5 personen toevoegen');
          return;
@@ -513,6 +514,8 @@
             btn.id = id;
             btn.value = naam;
       }
+
+      grafiekGewijzigd();
    }
 
    var currentSeries = 0;
@@ -571,7 +574,7 @@
    }
 
    function persoonToevoegen(naam, id) {
-      elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.className, this);' value='Verwijder " + naam + "' id='" + naam + "' class='" + id + "' />";
+      elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
       currentPersonen.push(new Persoon(id, naam));
    }
 
@@ -580,10 +583,6 @@
          this.id = id;
          this.naam = naam;
          this.loaded = false;
-      }
-
-      toString() {
-         return id;
       }
    }
 
@@ -626,6 +625,30 @@
 
             break;
          }
+      }
+
+      grafiekGewijzigd();
+   }
+
+   var isGewijzigd = true;
+
+   function grafiekGewijzigd() {
+      isGewijzigd = true;
+   }
+
+   function checkGrafiek() {
+      var canSave = false;
+
+      if (currentPersonen.length > 0) {
+         canSave = true;
+      }
+
+      var element = $("#grafiekOpslaan");
+
+      if (canSave && !isGewijzigd) {
+         element.removeAttr("disabled");
+      } else {
+         element.attr("disabled", "true");
       }
    }
 
@@ -713,6 +736,7 @@
 
       json += '"';
 
+      showLoading();
       $.ajax('/api/NieuweGrafiek/PostGrafiek', {
          type: 'POST',
          contentType: "application/json",
@@ -720,8 +744,10 @@
          data: json
       }).done(function (data) {
          alert('done');
+         hideLoading();
       }).fail(function () {
          alert('fail');
+         hideLoading();
       });
    }
 
@@ -737,6 +763,8 @@
             prevBar(data);
             break;
       }
+
+      checkGrafiek();
    }
 
    function prevBar(){
@@ -780,14 +808,17 @@
          var naam = currentPersonen[i].naam;
 
          if (currentPersonen[i].loaded == false) {
+            showLoading();
             $.ajax('/api/NieuweGrafiek/AantalXVanPersoon/' + type + '/' + id,
                {
                   type: 'GET',
                   dataType: 'json'
                }).done(function (data) {
                   aantalTweetsToevoegen(data["Data"], data["Naam"], data["ID"], cat);
+                  hideLoading();
                }).fail(function () {
                   alert('fail');
+                  hideLoading();
                });
 
             currentPersonen[i].loaded = true;
@@ -829,14 +860,17 @@
                var naam = currentPersonen[i].naam;
 
                if (currentPersonen[i].loaded == false) {
+                  showLoading();
                   $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
                      {
                         type: 'GET',
                         dataType: 'json'
                      }).done(function (data) {
                         aantalTweetsToevoegen(data, data["Naam"], data["ID"]);
+                        hideLoading();
                      }).fail(function () {
                         alert('fail');
+                        hideLoading();
                      });
 
                   currentPersonen[i].loaded = true;
@@ -861,14 +895,17 @@
 
       var top = document.getElementById("piePolOptiesTop").value;
 
+      showLoading();
       $.ajax('/api/NieuweGrafiek/PieDataPersoon/' + id + '/' + type + '/' + top,
          {
             type: 'GET',
             dataType: 'json'
          }).done(function (data) {
             dataToevoegenAanPie(data, type, top)
+            hideLoading();
          }).fail(function () {
             alert('fail');
+            hideLoading();
          });
    }
 
@@ -1407,6 +1444,8 @@
    })
 
    function wijzigtype(selectie, id, vergid, barid, lineid, pieid) {
+      grafiekGewijzigd();
+
       if (selectie.value == "Lijn Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "block";
          currentChart = 'line';
@@ -1453,6 +1492,15 @@
          document.getElementById(pieid).style.display = "none";
       }
    }
+
+   function showLoading() {
+      document.getElementById("loading").style.display = "block";
+   }
+
+   function hideLoading() {
+      document.getElementById("loading").style.display = "none";
+      window.location.replace("#typediagram");
+   }
 </script>
 
 <div class="popup" onclick="/*ClosePopup()*/" style="display: none;">
@@ -1472,11 +1520,22 @@
       </div>
    </div>
 </div>
+
+<div id="loading" class="loading" style="display:none">
+   <div class="loading-content">
+      <div class="loading-body">
+         <h2>Loading...</h2>
+         <img src="~/Images/dashboard.png" />
+      </div>
+   </div>
+</div>
+
+
 <style>
    /*popup
    ------------------------------------------------------------------*/
 
-   .popup {
+   .popup, .loading {
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
       z-index: 1; /* Sit on top */
@@ -1488,6 +1547,16 @@
       overflow: auto; /* Enable scroll if needed */
       background-color: rgb(0,0,0); /* Fallback color */
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+   }
+
+   .loading img {
+      width: 50%
+   }
+
+   .loading {
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+      color: white;
    }
 
    .popup-content {
@@ -1503,7 +1572,7 @@
       border-bottom: solid black 1px;
    }
 
-   .popup-body {
+   .popup-body, .loading-body {
       margin: 10px;
       text-align: center;
    }
