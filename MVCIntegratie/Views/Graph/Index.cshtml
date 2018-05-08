@@ -47,8 +47,8 @@
 
 
    <div class="col-sm-12 col-md-12 row chartopties">
-      <label>Grafiek titel: </label>
-      <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value)" />
+       <!--<label>Grafiek titel: </label>-->
+       <input id="grafTitel" type="text" class="form-control" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value)" />
    </div>
 
    <div id="vergelijking">
@@ -193,7 +193,7 @@
             <option value="5">5</option>
          </select>-->
          <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line')" />
+         <input type="button" class="btn btn-success" value="Toevoegen" onclick="politiekerToevoegen('line')" />
          <div id="polLine" class="row">
 
 
@@ -438,8 +438,8 @@
    </div>
    <div class="form-group maakgrafiek">
       <div class="col-md-6">
-         <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" />
-         <input type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" />
+         <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" id="knopgraph" />
+         <input type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" id="knopgraph"/>
       </div>
    </div>
 </div>
@@ -1466,7 +1466,7 @@
          <p>
             @foreach (var persoon in Model.Personen)
             {
-               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getDataPolitieker(this); ClosePopup();" value="@persoon.Naam" />
+               <input type="button" class="btnPersoon btn btn-success" id="@persoon.ID" onclick="getDataPolitieker(this); ClosePopup();" value="@persoon.Naam" />
             }
          </p>
       </div>

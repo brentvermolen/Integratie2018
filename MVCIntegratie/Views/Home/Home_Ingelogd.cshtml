@@ -15,15 +15,15 @@
 
 <div>
     <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-    <a href="#" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+    <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-12" id="nodeBox">
+        <div class="col-sm-6 col-md-6 content" id="nodeBox">
             <div>
                 <div>
-                    <img src="~/Images/nodebox.svg" style="width: 100%; height: auto;"/>
+                    <img src="~/Images/nodebox.svg" style="height: 350px; width:100%;" />
                 </div>
                 <div tabindex="0" class="onclick-menu">
                     <span class="glyphicon glyphicon-pencil"></span>

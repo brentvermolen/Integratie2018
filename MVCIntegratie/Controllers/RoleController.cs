@@ -70,7 +70,8 @@ namespace MVCIntegratie.Controllers
             return RedirectToAction("Index");
         }
 
-        public virtual async Task<ActionResult> Details(string id)
+
+    public virtual async Task<ActionResult> Details(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
             return View(new RoleViewModel(role));

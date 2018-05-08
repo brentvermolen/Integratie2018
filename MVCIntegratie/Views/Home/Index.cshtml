@@ -26,14 +26,21 @@
 </div>
 
 <div class="container">
-   <div class="row">
-      @foreach (var grafiek in Model)
-      {
-         <div class="col-sm-6 col-md-6">
+    <div class="row">
+         <div class="col-sm-6 col-md-6 content" id="nodeBox">
+            <div>
+                <div>
+                    <img src="~/Images/nodebox.svg" style="height: 350px; width:100%;" />
+                </div>
+            </div>
+        </div>
+        @foreach (var grafiek in Model)
+    {
+        <div class="col-sm-6 col-md-6">
             <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         </div>
-      }
-   </div>
+        </div>
+}
+    </div>
 </div>
 
 
