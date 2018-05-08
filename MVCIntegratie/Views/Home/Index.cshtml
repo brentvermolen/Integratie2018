@@ -6,13 +6,13 @@
 
 <link href="~/Content/bootstrap.min.css">
 <link rel="stylesheet" href="~/Content/Layout.css">
-<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <!--<script src="~/Scripts/Chart.js"></script>-->
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
 
 
@@ -59,7 +59,7 @@
                            plotBorderWidth: null,
                      plotShadow: @grafiek.GetBoolString(grafiek.Chart.PlotShadow),
                         </text>
-                     }  
+                     }
                         type: '@grafiek.Chart.Type'
                      },
                      </text>
@@ -106,7 +106,7 @@
                   },
                   </text>
                   }
-                  
+
 
                   @if (grafiek.Chart.Type.Equals("column"))
                   {
