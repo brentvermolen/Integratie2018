@@ -1,222 +1,135 @@
-﻿@{
-    ViewBag.Title = "FAQ";
+﻿@model List<BL.Domain.FAQ>
+
+@{
+   ViewBag.Title = "FAQ";
 }
 <script src="~/Scripts/faq.js"></script>
 <link rel="stylesheet" href="~/Content/faq.css">
 <h2>FAQ</h2>
 
 <div class="container">
-    <div class="col-md-4">
-        <ul class="list-group help-group">
-            <div class="faq-list list-group nav nav-tabs">
-                <a href="#tab1" class="list-group-item active" role="tab" data-toggle="tab">Frequently Asked Questions</a>
-                <a href="#tab2" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-website"></i>De website</a>
-                <a href="#tab3" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-account"></i>Mijn account</a>
-                <a href="#tab4" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-notificatie"></i>Notificaties</a>
-                <a href="#tab5" class="list-group-item " role="tab" data-toggle="tab"><i class="mdi mdi-overig"></i>Overige problemen</a>
+   <div class="col-md-4">
+      <ul class="list-group help-group">
+         <div class="faq-list list-group nav nav-tabs">
+            <a href="#tab1" class="list-group-item active" role="tab" data-toggle="tab">Frequently Asked Questions</a>
+            <a href="#tab2" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-website"></i>De website</a>
+            <a href="#tab3" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-account"></i>Mijn account</a>
+            <a href="#tab4" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-notificatie"></i>Notificaties</a>
+            <a href="#tab5" class="list-group-item " role="tab" data-toggle="tab"><i class="mdi mdi-overig"></i>Overige problemen</a>
+         </div>
+      </ul>
+   </div>
+   @{
+      var intTeller = 0;
+   }
+   <div class="col-md-8">
+      <div class="tab-content panels-faq">
+         <div class="tab-pane active" id="tab2">
+            <div class="panel-group" id="help-accordion-1">
+
+               @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Website))
+               {
+                     var refer = "#web" + intTeller;
+                     var id = "web" + intTeller++;
+                  
+                  if (faq.Beantwoord == true)
+                  {
+                     <div class="panel panel-default panel-help">
+                        <a href="@refer" data-toggle="collapse" data-parent="#help-accordion-1">
+                           <div class="panel-heading">
+                              <h2>@faq.Vraag</h2>
+                           </div>
+                        </a>
+                        <div id="@id" class="collapse">
+                           <div class="panel-body">
+                              <p>@faq.Antwoord</p>
+                              <p><strong>Voorbeeld: </strong>@faq.Voorbeeld</p>
+                           </div>
+                        </div>
+                     </div>
+                  }
+               }
             </div>
-        </ul>
-    </div>
-    <div class="col-md-8">
-        <div class="tab-content panels-faq">
-            <div class="tab-pane active" id="tab2">
-                <div class="panel-group" id="help-accordion-1">
-                    <div class="panel panel-default panel-help">
-                        <a href="#web1" data-toggle="collapse" data-parent="#help-accordion-1">
-                            <div class="panel-heading">
-                                <h2>Hoe gebruik ik de website?</h2>
-                            </div>
+         </div>
+         <div class="tab-pane active" id="tab3">
+            <div class="panel-group" id="help-accordion-2">
+               @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Account))
+               {
+                     var refer = "#acc" + intTeller;
+                     var id = "acc" + intTeller++;
+                  
+                  if (faq.Beantwoord == true)
+                  {
+                     <div class="panel panel-default panel-help">
+                        <a href="@refer" data-toggle="collapse" data-parent="#help-accordion-2">
+                           <div class="panel-heading">
+                              <h2>@faq.Vraag</h2>
+                           </div>
                         </a>
-                        <div id="web1" class="collapse in">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
+                        <div id="@id" class="collapse">
+                           <div class="panel-body">
+                              <p>@faq.Antwoord</p>
+                              <p><strong>Voorbeeld: </strong>@faq.Voorbeeld</p>
+                           </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#web2" data-toggle="collapse" data-parent="#help-accordion-1">
-                            <div class="panel-heading">
-                                <h2>Wat is het doel van deze website</h2>
-                            </div>
-                        </a>
-                        <div id="web2" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#web3" data-toggle="collapse" data-parent="#help-accordion-1">
-                            <div class="panel-heading">
-                                <h2>Hoe maak ik een nieuwe grafiek aan?</h2>
-                            </div>
-                        </a>
-                        <div id="web3" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  }
+               }
             </div>
-            <div class="tab-pane active" id="tab3">
-                <div class="panel-group" id="help-accordion-2">
-                    <div class="panel panel-default panel-help">
-                        <a href="#acc1" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Hoe pas ik de instellingen van mijn account aan?</h2>
-                            </div>
+         </div>
+         <div class="tab-pane active" id="tab4">
+            <div class="panel-group" id="help-accordion-3">
+               @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Notificaties))
+               {
+                     var refer = "#not" + intTeller;
+                     var id = "not" + intTeller++;
+                  
+                  if (faq.Beantwoord == true)
+                  {
+                     <div class="panel panel-default panel-help">
+                        <a href="@refer" data-toggle="collapse" data-parent="#help-accordion-3">
+                           <div class="panel-heading">
+                              <h2>@faq.Vraag</h2>
+                           </div>
                         </a>
-                        <div id="acc1" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
+                        <div id="@id" class="collapse">
+                           <div class="panel-body">
+                              <p>@faq.Antwoord</p>
+                              <p><strong>Voorbeeld: </strong>@faq.Voorbeeld</p>
+                           </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#acc2" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Hoe log ik in met een multimedia account</h2>
-                            </div>
-                        </a>
-                        <div id="acc2" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#acc3" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Hoe verander ik mijn email-adres</h2>
-                            </div>
-                        </a>
-                        <div id="acc3" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#acc4" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Hoe verander ik mijn wachtwoord?</h2>
-                            </div>
-                        </a>
-                        <div id="acc4" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  }
+               }
             </div>
-            <div class="tab-pane active" id="tab4">
-                <div class="panel-group" id="help-accordion-2">
-                    <div class="panel panel-default panel-help">
-                        <a href="#not1" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Hoe pas ik de meldingen aan?</h2>
-                            </div>
+         </div>
+         <div class="tab-pane active" id="tab5">
+            <div class="panel-group" id="help-accordion-4">
+
+               @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Overig))
+               {
+                  var refer = "#over" + intTeller;
+                  var id = "over" + intTeller++;
+
+                  if (faq.Beantwoord == true)
+                  {
+                     <div class="panel panel-default panel-help">
+                        <a href="@refer" data-toggle="collapse" data-parent="#help-accordion-4">
+                           <div class="panel-heading">
+                              <h2>@faq.Vraag</h2>
+                           </div>
                         </a>
-                        <div id="not1" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
+                        <div id="@id" class="collapse">
+                           <div class="panel-body">
+                              <p>@faq.Antwoord</p>
+                              <p><strong>Voorbeeld: </strong>@faq.Voorbeeld</p>
+                           </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#not2" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Hoe kan ik kieze wat ik via mail wil ontvangen?</h2>
-                            </div>
-                        </a>
-                        <div id="not2" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#not3" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Ik krijg geen meldingen?</h2>
-                            </div>
-                        </a>
-                        <div id="not3" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#not4" data-toggle="collapse" data-parent="#help-accordion-">
-                            <div class="panel-heading">
-                                <h2>Ik wl een melding krijgen via sms?</h2>
-                            </div>
-                        </a>
-                        <div id="not4" class="collapse">
-                            <div class="panel-body">
-                                <p>Helaas, zover is ons project niet gevorderd</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  }
+               }
             </div>
-            <div class="tab-pane active" id="tab5">
-                <div class="panel-group" id="help-accordion-2">
-                    <div class="panel panel-default panel-help">
-                        <a href="#over1" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Ik ik ook via mijn gsm aan de website?</h2>
-                            </div>
-                        </a>
-                        <div id="over1" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#over2" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Waar kan ik de app downloaden</h2>
-                            </div>
-                        </a>
-                        <div id="over2" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default panel-help">
-                        <a href="#over3" data-toggle="collapse" data-parent="#help-accordion-2">
-                            <div class="panel-heading">
-                                <h2>Ik kan niet registreren?</h2>
-                            </div>
-                        </a>
-                        <div id="over3" class="collapse">
-                            <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!</p>
-                                <p><strong>Example: </strong>Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+         </div>
+      </div>
+   </div>
 </div>

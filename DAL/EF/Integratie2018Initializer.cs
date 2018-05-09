@@ -25,6 +25,158 @@ namespace DAL
 
          AddGrafieken(context);
 
+         AddFaq(context);
+
+         context.SaveChanges();
+      }
+
+      private void AddFaq(Integratie2018Context context)
+      {
+         FAQ faq1 = new FAQ()
+         {
+            Vraag = "Hoe gebruik ik de website?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Website,
+            Beantwoord = true
+         };
+
+         FAQ faq2 = new FAQ()
+         {
+            Vraag = "Wat is het doel van deze website?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Website,
+            Beantwoord = true
+         };
+
+         FAQ faq3 = new FAQ()
+         {
+            Vraag = "Hoe maak ik een nieuwe grafiek aan?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Website,
+            Beantwoord = true
+         };
+
+
+         FAQ faq4 = new FAQ()
+         {
+            Vraag = "Hoe pas ik de instellingen van mijn account aan?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Account,
+            Beantwoord = true
+         };
+
+         FAQ faq5 = new FAQ()
+         {
+            Vraag = "Hoe log ik in met een multimedia account?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Account,
+            Beantwoord = true
+         };
+
+         FAQ faq6 = new FAQ()
+         {
+            Vraag = "Hoe verander ik mijn email adres?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Account,
+            Beantwoord = true
+         };
+
+         FAQ faq7 = new FAQ()
+         {
+            Vraag = "Hoe verander ik mijn wachtwoord?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Account,
+            Beantwoord = true
+         };
+
+
+         FAQ faq8 = new FAQ()
+         {
+            Vraag = "Hoe pas ik de meldingen aan?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Notificaties,
+            Beantwoord = true
+         };
+
+         FAQ faq9 = new FAQ()
+         {
+            Vraag = "Hoe kan ik kiezen wat ik via mail wil ontvangen?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Notificaties,
+            Beantwoord = true
+         };
+
+         FAQ faq10 = new FAQ()
+         {
+            Vraag = "Ik krijg geen meldingen, wat nu?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Notificaties,
+            Beantwoord = true
+         };
+
+         FAQ faq11 = new FAQ()
+         {
+            Vraag = "Ik wil een melding krijgen via sms?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Notificaties,
+            Beantwoord = true
+         };
+
+
+         FAQ faq12 = new FAQ()
+         {
+            Vraag = "Kan ik ook via mijn gsm aan de website?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Overig,
+            Beantwoord = true
+         };
+
+         FAQ faq13= new FAQ()
+         {
+            Vraag = "Waar kan ik de app downloaden?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Overig,
+            Beantwoord = true
+         };
+
+         FAQ faq14 = new FAQ()
+         {
+            Vraag = "Ik kan niet registreren?",
+            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
+            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
+            Categorie = FAQCategorie.Overig,
+            Beantwoord = true
+         };
+
+
+         context.FAQ.Add(faq1);
+         context.FAQ.Add(faq2);
+         context.FAQ.Add(faq3);
+         context.FAQ.Add(faq4);
+         context.FAQ.Add(faq5);
+         context.FAQ.Add(faq6);
+         context.FAQ.Add(faq7);
+         context.FAQ.Add(faq8);
+         context.FAQ.Add(faq9);
+         context.FAQ.Add(faq10);
+         context.FAQ.Add(faq11);
+         context.FAQ.Add(faq12);
+         context.FAQ.Add(faq13);
+         context.FAQ.Add(faq14);
+
          context.SaveChanges();
       }
 
