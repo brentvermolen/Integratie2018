@@ -16,13 +16,15 @@ namespace MVCIntegratie.Controllers
    public partial class AccountController : Controller
    {
       private ApplicationSignInManager _signInManager;
-      private ApplicationUserManager _userManager;
+      private UserManager<MyUser,long> _userManager;
 
       public AccountController()
+            :this(new UserManager<MyUser,long>(new UserStore<MyUser,MyRole,long,MyLogin,MyUserRole,MyClaim>(new ApplicationDbContext())))
       {
+            
       }
 
-      public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+      public AccountController(UserManager<MyUser,long> userManager, ApplicationSignInManager signInManager)
       {
          UserManager = userManager;
          SignInManager = signInManager;
@@ -40,7 +42,7 @@ namespace MVCIntegratie.Controllers
          }
       }
 
-      public ApplicationUserManager UserManager
+      public UserManager<MyUser,long> UserManager
       {
          get
          {

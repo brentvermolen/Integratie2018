@@ -9,13 +9,14 @@ namespace BL.Domain
    public class Gebruiker
    {
       public int ID { get; set; }
-      public string Naam { get; set; }
+      public string Voornaam { get; set; }
+     
 
-      IEnumerable<Alert> Alerts { get; set; }
+        IEnumerable<Alert> Alerts { get; set; }
 
       public override string ToString()
       {
-         return Naam;
+         return Voornaam;
       }
    }
 }
