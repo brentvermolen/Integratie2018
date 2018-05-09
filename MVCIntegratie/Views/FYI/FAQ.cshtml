@@ -16,6 +16,7 @@
             <a href="#tab3" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-account"></i>Mijn account</a>
             <a href="#tab4" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-notificatie"></i>Notificaties</a>
             <a href="#tab5" class="list-group-item " role="tab" data-toggle="tab"><i class="mdi mdi-overig"></i>Overige problemen</a>
+            <a href="#tab6" class="list-group-item active" role="tab" data-toggle="tab">Nieuwe Vraag Toevoegen</a>
          </div>
       </ul>
    </div>
@@ -29,9 +30,9 @@
 
                @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Website))
                {
-                     var refer = "#web" + intTeller;
-                     var id = "web" + intTeller++;
-                  
+                  var refer = "#web" + intTeller;
+                  var id = "web" + intTeller++;
+
                   if (faq.Beantwoord == true)
                   {
                      <div class="panel panel-default panel-help">
@@ -51,13 +52,13 @@
                }
             </div>
          </div>
-         <div class="tab-pane active" id="tab3">
+         <div class="tab-pane" id="tab3">
             <div class="panel-group" id="help-accordion-2">
                @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Account))
                {
-                     var refer = "#acc" + intTeller;
-                     var id = "acc" + intTeller++;
-                  
+                  var refer = "#acc" + intTeller;
+                  var id = "acc" + intTeller++;
+
                   if (faq.Beantwoord == true)
                   {
                      <div class="panel panel-default panel-help">
@@ -77,13 +78,13 @@
                }
             </div>
          </div>
-         <div class="tab-pane active" id="tab4">
+         <div class="tab-pane" id="tab4">
             <div class="panel-group" id="help-accordion-3">
                @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Notificaties))
                {
-                     var refer = "#not" + intTeller;
-                     var id = "not" + intTeller++;
-                  
+                  var refer = "#not" + intTeller;
+                  var id = "not" + intTeller++;
+
                   if (faq.Beantwoord == true)
                   {
                      <div class="panel panel-default panel-help">
@@ -103,7 +104,7 @@
                }
             </div>
          </div>
-         <div class="tab-pane active" id="tab5">
+         <div class="tab-pane" id="tab5">
             <div class="panel-group" id="help-accordion-4">
 
                @foreach (var faq in Model.Where(m => m.Categorie == BL.Domain.FAQCategorie.Overig))
@@ -128,6 +129,37 @@
                      </div>
                   }
                }
+            </div>
+         </div>
+         <div class="tab-pane" id="tab6">
+            <div class="panel-group">
+               <div id="divVraag" style="display:block">
+                  <div class="row">
+                     <label style="width:20%" for="vraag">Uw Vraag:</label>
+                     <input id="vraag" type="text" value="" placeholder="Stel Hier Uw Vraag..." style="width:60%" />
+                  </div>
+                  <div class="row">
+                     <label style="width:20%" for="categorie">Categorie:</label>
+                     <select style="width:60%" id="categorie">
+                        <option value="0">De Website</option>
+                        <option value="1">Mijn Account</option>
+                        <option value="2">Notificaties</option>
+                        <option value="3">Overige Problemen</option>
+                     </select>
+                  </div>
+                  <div class="row">
+                     <input type="button" class="btn btn-success" value="Verzenden" onclick="verzendVraag();" />
+                  </div>
+               </div>
+               <div id="divVerzonden" style="display:none">
+                  <p>Uw vraag wordt weergegeven als de beheerder deze heeft gecontroleerd en beantwoord!</p>
+               </div>
+               <div id="divError" style="display:none">
+                  <p>Er is iets misgelopen, probeer later opnieuw...</p>
+               </div>
+               <div id="divLeeg" style="display:none">
+                  <p>Gelieve het veld vraag in te vullen</p>
+               </div>
             </div>
          </div>
       </div>

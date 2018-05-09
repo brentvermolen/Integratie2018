@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
+   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
@@ -38,7 +38,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Website,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq2 = new FAQ()
@@ -47,7 +48,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Website,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq3 = new FAQ()
@@ -56,7 +58,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Website,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
 
@@ -66,7 +69,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq5 = new FAQ()
@@ -75,7 +79,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq6 = new FAQ()
@@ -84,7 +89,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq7 = new FAQ()
@@ -93,7 +99,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
 
@@ -103,7 +110,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq9 = new FAQ()
@@ -112,7 +120,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq10 = new FAQ()
@@ -121,7 +130,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq11 = new FAQ()
@@ -130,7 +140,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
 
@@ -140,7 +151,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Overig,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq13= new FAQ()
@@ -149,7 +161,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Overig,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
          FAQ faq14 = new FAQ()
@@ -158,7 +171,8 @@ namespace DAL
             Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Overig,
-            Beantwoord = true
+            Beantwoord = true,
+            BeantwoordOp = DateTime.Now
          };
 
 

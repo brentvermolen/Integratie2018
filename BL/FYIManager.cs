@@ -21,5 +21,10 @@ namespace BL
       {
          return repo.ReadFaqs();
       }
+
+      public void AddFaq(FAQ faq)
+      {
+         repo.CreateFaq(faq);
+      }
    }
 }

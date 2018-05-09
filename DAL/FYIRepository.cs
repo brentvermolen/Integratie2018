@@ -20,5 +20,11 @@ namespace DAL
       {
          return ctx.FAQ;
       }
+
+      public void CreateFaq(FAQ faq)
+      {
+         ctx.FAQ.Add(faq);
+         ctx.SaveChanges();
+      }
    }
 }
