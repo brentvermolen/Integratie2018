@@ -7,49 +7,58 @@ using BL.Domain;
 
 namespace DAL
 {
-   public class GrafiekRepository
-   {
-      private Integratie2018Context ctx;
+  public class GrafiekRepository
+  {
+    private Integratie2018Context ctx;
 
-      public GrafiekRepository()
+    public GrafiekRepository()
+    {
+      ctx = new Integratie2018Context();
+    }
+
+    public IEnumerable<Grafiek> ReadGrafieken()
+    {
+      return ctx.Grafieken;
+    }
+
+    public Grafiek CreateGrafiek()
+    {
+      try
       {
-         ctx = new Integratie2018Context();
+        return new Grafiek() { ID = ctx.Grafieken.Max(g => g.ID) + 1 };
+      }
+      catch
+      {
+        return new Grafiek() { ID = 0 };
       }
 
-      public IEnumerable<Grafiek> ReadGrafieken()
-      {
-         return ctx.Grafieken;
-      }
+    }
 
-      public Grafiek CreateGrafiek()
-      {
-         return new Grafiek() { ID = ctx.Grafieken.Max(g => g.ID) + 1 };
-      }
+    public void SaveGrafiek(Grafiek grafiek)
+    {
+      ctx.Grafieken.Add(grafiek);
+      ctx.SaveChanges();
+    }
 
-      public void SaveGrafiek(Grafiek grafiek)
+    public void DeleteGrafiek(int ID)
+    {
+      try
       {
-         ctx.Grafieken.Add(grafiek);
-         ctx.SaveChanges();
+        Grafiek grafiek = ReadGrafieken().FirstOrDefault(g => g.ID == ID);
+        ctx.Grafieken.Remove(grafiek);
+        ctx.SaveChanges();
       }
+      catch (Exception e) { }
+    }
 
-      public void DeleteGrafiek(int ID)
-      {
-         try
-         {
-            Grafiek grafiek = ReadGrafieken().FirstOrDefault(g => g.ID == ID);
-            ctx.Grafieken.Remove(grafiek);
-            ctx.SaveChanges();
-         }catch(Exception e) { }
-      }
+    public int GetSerieID()
+    {
+      return ctx.Series.Max(s => s.ID);
+    }
 
-      public int GetSerieID()
-      {
-         return ctx.Series.Max(s => s.ID);
-      }
-
-      public int GetDataID()
-      {
-         return ctx.Datas.Max(d => d.ID);
-      }
-   }
+    public int GetDataID()
+    {
+      return ctx.Datas.Max(d => d.ID);
+    }
+  }
 }

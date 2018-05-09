@@ -12,7 +12,7 @@ namespace BL.Domain.GrafiekKlassen
       public Grafiek Line { get; set; }
       public Grafiek Bar { get; set; }
       public Grafiek Pie { get; set; }
-
+      public bool isGewijzigd { get; set; }
       public List<Persoon> Personen { get; set; }
    }
 }

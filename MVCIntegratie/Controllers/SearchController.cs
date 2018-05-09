@@ -12,72 +12,100 @@ using BL.Domain.ItemKlassen;
 
 namespace MVCIntegratie.Controllers
 {
-    public partial class SearchController : Controller
+  public partial class SearchController : Controller
+  {
+
+    private IBerichtManager berichtMng = new BerichtManager();
+    private IAlertManager alertMng = new AlertManager();
+    private IGebruikerManager gebruikerMng = new GebruikerManager();
+
+
+
+    // GET: Search
+    public virtual ActionResult Index(string search)
     {
-
-        private IBerichtManager berichtMng = new BerichtManager();
-        private IAlertManager alertMng = new AlertManager();
-        private IGebruikerManager gebruikerMng = new GebruikerManager();
+      List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()))
+          .ToList();
 
 
-        
-        // GET: Search
-        public virtual ActionResult Index(string search)
-        {
-            if (!search.IsEmpty() || search!=null)
-            {
-                return RedirectToAction("Search");
-            }
-            else
-            {
-                return View();
-            }
+      string[] splitSearch = search.Split(' ');
+      List<Woord> woorden = new List<Woord>();
+      List<Hashtag> hashtags = new List<Hashtag>();
+      List<Mention> mentions = new List<Mention>();
+      List<Url> urls = new List<Url>();
+      // List<Thema> themas = new List<Thema>();
 
-        }
+      List<Bericht> berichten = new List<Bericht>();
+      Bericht zoekresultaat = new Bericht();
+      foreach (string wrd in splitSearch)
+      {
+        woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()))
+            .ToList());
+        hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()))
+            .ToList());
+        mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()))
+            .ToList());
+        urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
+      }
 
-        public virtual ActionResult Search(string search)
-        {
-            if (search == null)
-            {
-                return PartialView("_Resultaat");
-            }
-
-            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()))
-                .ToList();
-
-
-            string[] splitSearch = search.Split(' ');
-            List<Woord> woorden = new List<Woord>();
-            List<Hashtag> hashtags = new List<Hashtag>();
-            List<Mention> mentions = new List<Mention>();
-            List<Url> urls = new List<Url>();
-            // List<Thema> themas = new List<Thema>();
-
-            List<Bericht> berichten = new List<Bericht>();
-            Bericht zoekresultaat = new Bericht();
-            foreach (string wrd in splitSearch)
-            {
-                woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()))
-                    .ToList());
-                urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
-            }
-
-            //personen.Sort();
-            zoekresultaat.Woorden = woorden;
-            zoekresultaat.Hashtags = hashtags;
-            zoekresultaat.Mentions = mentions;
-            zoekresultaat.Personen = personen;
-            zoekresultaat.Urls = urls;
-            //Sortering testSortering = new Sortering();
+      //personen.Sort();
+      zoekresultaat.Woorden = woorden;
+      zoekresultaat.Hashtags = hashtags;
+      zoekresultaat.Mentions = mentions;
+      zoekresultaat.Personen = personen;
+      zoekresultaat.Urls = urls;
+      //Sortering testSortering = new Sortering();
 
 
 
-            woorden.ToString();
-            return PartialView("_Resultaat",zoekresultaat);
-        }
+      woorden.ToString();
+      return View(zoekresultaat);
     }
+
+    public virtual ActionResult Search(string search)
+    {
+      if (search == null)
+      {
+        return PartialView("_Resultaat");
+      }
+
+      List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()))
+          .ToList();
+
+
+      string[] splitSearch = search.Split(' ');
+      List<Woord> woorden = new List<Woord>();
+      List<Hashtag> hashtags = new List<Hashtag>();
+      List<Mention> mentions = new List<Mention>();
+      List<Url> urls = new List<Url>();
+      // List<Thema> themas = new List<Thema>();
+
+      List<Bericht> berichten = new List<Bericht>();
+      Bericht zoekresultaat = new Bericht();
+      foreach (string wrd in splitSearch)
+      {
+        woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()))
+            .ToList());
+        hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()))
+            .ToList());
+        mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()))
+            .ToList());
+        urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower())).ToList());
+      }
+
+      //personen.Sort();
+      zoekresultaat.Woorden = woorden;
+      zoekresultaat.Hashtags = hashtags;
+      zoekresultaat.Mentions = mentions;
+      zoekresultaat.Personen = personen;
+      zoekresultaat.Urls = urls;
+      //Sortering testSortering = new Sortering();
+
+
+
+      woorden.ToString();
+      return View(zoekresultaat);
+      //return PartialView("_Resultaat",zoekresultaat);
+    }
+  }
 }

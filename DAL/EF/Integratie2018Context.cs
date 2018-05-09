@@ -16,8 +16,18 @@ namespace DAL
         {
             Database.SetInitializer(new Integratie2018Initializer());
 
-            if (Count++ == 0)
+            try
             {
+               Database.Initialize(false);
+            }
+            catch (Exception e)
+            {
+               e.ToString();
+            }
+
+            if (Count++ == 0)
+               {
+                sync = Sync.Find(0);
                 if (sync == null)
                 {
                     sync = new Synchronize()
@@ -34,15 +44,6 @@ namespace DAL
                 {
                     sync.Start();
                 }
-            }
-
-            try
-            {
-                Database.Initialize(false);
-            }
-            catch (Exception e)
-            {
-                e.ToString();
             }
         }
 

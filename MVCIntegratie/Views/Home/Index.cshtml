@@ -1,39 +1,53 @@
 @model List<BL.Domain.Grafiek>
 
 @{
-   ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home Page";
 }
 
 <link href="~/Content/bootstrap.min.css">
 <link rel="stylesheet" href="~/Content/Layout.css">
-<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <!--<script src="~/Scripts/Chart.js"></script>-->
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
 
 
 
 <div>
 
-   <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-   <!--<a href="/Home/Toevoegen?type=bar" id="newgraph" class="btn btn-success">Nieuwe Grafiek B &raquo;</a>-->
-   <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+    <!--<input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">-->
+    <div id="zoekdiv" class="row">
+        <form action="/Search/Index" method="post">
+            <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+            <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+        </form>
+
+    </div>
+    <!--<a href="/Home/Toevoegen?type=bar" id="newgraph" class="btn btn-success">Nieuwe Grafiek B &raquo;</a>-->
+
 
 </div>
 
 <div class="container">
-   <div class="row">
-      @foreach (var grafiek in Model)
-      {
-         <div class="col-sm-6 col-md-6">
-            <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         </div>
-      }
-   </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 content" id="nodeBox">
+            <div>
+                <div>
+                    <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
+                </div>
+            </div>
+        </div>
+        @foreach (var grafiek in Model)
+        {
+            <div class="col-sm-6 col-md-6">
+                <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
+        }
+    </div>
 </div>
 
 
@@ -59,7 +73,7 @@
                            plotBorderWidth: null,
                      plotShadow: @grafiek.GetBoolString(grafiek.Chart.PlotShadow),
                         </text>
-                     }  
+                     }
                         type: '@grafiek.Chart.Type'
                      },
                      </text>
@@ -106,7 +120,7 @@
                   },
                   </text>
                   }
-                  
+
 
                   @if (grafiek.Chart.Type.Equals("column"))
                   {
