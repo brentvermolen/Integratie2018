@@ -25,7 +25,7 @@ namespace DAL
       {
          AddGebruikers(context);
 
-         AddGrafieken(context);
+         //AddGrafieken(context);
 
          context.SaveChanges();
       }

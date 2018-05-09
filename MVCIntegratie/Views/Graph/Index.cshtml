@@ -6,7 +6,6 @@
 
 <link href="~/Content/bootstrap.min.css">
 <link rel="stylesheet" href="~/Content/Layout.css">
-<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -15,6 +14,7 @@
 <script src="~/Scripts/Chart.js"></script>
 <!--<script src="~/Scripts/TypeGeladen.js"></script>-->
 <script src="~/Scripts/MaakGrafiek.js"></script>
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
    $(document).ready(function () {
@@ -27,7 +27,7 @@
 <div class="container">
 
    <div class="row">
-      <div class="col-sm-10 col-md-10" id="typediagram">
+      <div class="col-sm-12 col-md-12 row" id="typediagram">
          <select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
             <option value="Lijn Diagram" selected>Lijn Diagram</option>
             <option value="Staaf Diagram">Staaf Diagram</option>
@@ -38,7 +38,7 @@
       </div>
    </div>
    <br />
-   <div class="col-sm-10 col-md-10 content" id="grafiekdiv">
+   <div class="col-sm-12 col-md-12 content row" id="grafiekdiv">
       <div id="@Model.Line.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Bar.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Pie.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -194,7 +194,7 @@
          </select>-->
          <label>Politiekers</label>
          
-         <input type="button" class="btn btn-success" value="Toevoegen" onclick="politiekerToevoegen('line')" />
+         <input type="button" class="btn btn-success" value="Toevoegen" onclick="politiekerToevoegen('line')" id="knopgraph"/>
          
          <div id="polLine" class="row">
 

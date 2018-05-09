@@ -248,15 +248,6 @@
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804271131591_role.cs" />
-    <Compile Include="Migrations\201804271131591_role.Designer.cs">
-      <DependentUpon>201804271131591_role.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805080751400_role1.cs" />
-    <Compile Include="Migrations\201805080751400_role1.Designer.cs">
-      <DependentUpon>201805080751400_role1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -440,7 +431,6 @@
     <Content Include="Views\Role\Details.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Home\Home_Ingelogd.cshtml" />
-    <Content Include="Views\Graph\NieuweGrafiek.cshtml" />
     <Content Include="Views\Home\GrafiekToevoegen.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
     <Content Include="Views\Home\Zoek.cshtml" />
@@ -453,9 +443,6 @@
     <Content Include="Views\Search\_Resultaat.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805080751400_role1.resx">
-      <DependentUpon>201805080751400_role1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -474,11 +461,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804271131591_role.resx">
-      <DependentUpon>201804271131591_role.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
