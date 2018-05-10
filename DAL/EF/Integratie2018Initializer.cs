@@ -27,6 +27,15 @@ namespace DAL
 
          AddFaq(context);
 
+
+         var sync = new Synchronize()
+         {
+            ID = 0,
+            Latest = new DateTime(2018, 1, 1),
+            Context = context
+         };
+         sync.Start();
+
          context.SaveChanges();
       }
 

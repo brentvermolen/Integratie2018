@@ -25,7 +25,7 @@ namespace DAL
             e.ToString();
          }
 
-         if (Count++ == 0)
+         /*if (Count++ == 0)
          {
             sync = Sync.Find(0);
             if (sync == null)
@@ -44,7 +44,7 @@ namespace DAL
             {
                sync.Start();
             }
-         }
+         }*/
       }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
