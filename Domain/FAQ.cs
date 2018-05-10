@@ -12,6 +12,7 @@ namespace BL.Domain
       {
          Beantwoord = false;
          GesteldOp = DateTime.Now;
+         BeantwoordOp = DateTime.Now;
          Antwoord = "";
          Voorbeeld = "";
       }

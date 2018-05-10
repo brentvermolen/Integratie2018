@@ -26,5 +26,20 @@ namespace BL
       {
          repo.CreateFaq(faq);
       }
+
+      public FAQ GetFAQ(int id)
+      {
+         return repo.ReadFaq(id);
+      }
+
+      public void EditFaq(FAQ faq)
+      {
+         repo.UpdateFaq(faq);
+      }
+
+      public void RemoveFaq(int ID)
+      {
+         repo.DeleteFaq(ID);
+      }
    }
 }

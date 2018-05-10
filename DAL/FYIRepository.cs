@@ -26,5 +26,33 @@ namespace DAL
          ctx.FAQ.Add(faq);
          ctx.SaveChanges();
       }
+
+      public FAQ ReadFaq(int id)
+      {
+         return ctx.FAQ.Find(id);
+      }
+
+      public void UpdateFaq(FAQ faq)
+      {
+         if (ReadFaq(faq.ID) == null)
+         {
+            return;
+         }
+
+         ctx.Entry(faq).State = System.Data.Entity.EntityState.Modified;
+         ctx.SaveChanges();
+      }
+
+      public void DeleteFaq(int ID)
+      {
+         FAQ f = ReadFaq(ID);
+         if (f == null)
+         {
+            return;
+         }
+
+         ctx.FAQ.Remove(f);
+         ctx.SaveChanges();
+      }
    }
 }
