@@ -10,7 +10,7 @@ namespace DAL
     public class Integratie2018Context : DbContext
     {
         public static int Count = 0;
-        public static Synchronize sync;
+        //public static Synchronize sync;
 
         public Integratie2018Context() : base("integratie2018DB")
         {
@@ -25,7 +25,7 @@ namespace DAL
                e.ToString();
             }
 
-            if (Count++ == 0)
+            /*if (Count++ == 0)
                {
                 sync = Sync.Find(0);
                 if (sync == null)
@@ -44,7 +44,7 @@ namespace DAL
                 {
                     sync.Start();
                 }
-            }
+            }*/
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

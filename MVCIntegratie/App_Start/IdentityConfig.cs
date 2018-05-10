@@ -35,16 +35,16 @@ namespace MVCIntegratie
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<MyUser,long>
     {
-        public ApplicationUserManager(IUserStore<MyUser> store)
+        public ApplicationUserManager(IUserStore<MyUser,long> store)
             : base(store)
         {
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<MyUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<MyUser, MyRole,long,MyLogin,MyUserRole,MyClaim>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<MyUser>(manager)
+            manager.UserValidator = new UserValidator<MyUser,long>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -67,11 +67,11 @@ namespace MVCIntegratie
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<MyUser>
+            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<MyUser,long>
             {
                 MessageFormat = "Your security code is {0}"
             });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<MyUser>
+            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<MyUser,long>
             {
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
@@ -82,14 +82,14 @@ namespace MVCIntegratie
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<MyUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                    new DataProtectorTokenProvider<MyUser, long>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
     }
 
     // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<MyUser, string>
+    public class ApplicationSignInManager : SignInManager<MyUser, long>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
