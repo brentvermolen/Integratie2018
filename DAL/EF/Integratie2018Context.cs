@@ -2,6 +2,7 @@
 using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.ItemKlassen;
+using BL.Domain.IdentityKlassen;
 using System;
 using System.Data.Entity;
 
@@ -72,6 +73,21 @@ namespace DAL
                .HasMany(a => a.Categorieen)
                .WithMany(c => c.Assen);
 
+            modelBuilder.Entity<GebruikerRoles>()
+                .HasKey(table => new { table.GebruikerId, table.RoleId });
+            modelBuilder.Entity<GebruikerRoles>()
+                .HasIndex(r => r.GebruikerId);
+            modelBuilder.Entity<GebruikerRoles>()
+                .HasIndex(r => r.RoleId);
+            modelBuilder.Entity<GebruikerLogins>()
+                .HasIndex(l => l.GebruikerId);
+            modelBuilder.Entity<GebruikerClaim>()
+                .HasIndex(c => c.GebruikersId);
+            modelBuilder.Entity<Role>()
+                .HasIndex(r => r.Name)
+                .IsUnique();
+
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -87,6 +103,10 @@ namespace DAL
         public DbSet<Persoon> Personen { get; set; }
 
         public DbSet<Gebruiker> Gebruikers { get; set; }
+        public DbSet<GebruikerRoles> GebruikerRoles { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<GebruikerClaim> GebruikerClaims { get; set; }
+        public DbSet<GebruikerLogins> GebruikersLogins { get; set; }
 
         public DbSet<Alert> Alerts { get; set; }
 
