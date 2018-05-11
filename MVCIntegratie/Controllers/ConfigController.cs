@@ -25,5 +25,9 @@ namespace MVCIntegratie.Controllers
         {
             return View();
         }
+        public virtual ActionResult EditDashBoard()
+        {
+            return View();
+        }
     }
 }
