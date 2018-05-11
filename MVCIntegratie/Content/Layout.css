@@ -187,7 +187,7 @@
 
 .piechartopties {
     margin-top: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;    
 }
 
 #barchart { display: none; }
@@ -195,6 +195,14 @@
 
 .startdisplaynone{
     display:none;
+}
+
+#knopgraph{
+    margin-bottom:5px;
+}
+
+#grafTitel{
+    margin-left:15px;
 }
 
 

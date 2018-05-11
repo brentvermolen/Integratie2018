@@ -65,6 +65,13 @@ namespace MVCIntegratie.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Save()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Save);
+            return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Details()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
@@ -103,6 +110,7 @@ namespace MVCIntegratie.Controllers
             public readonly string Index = "Index";
             public readonly string Create = "Create";
             public readonly string Edit = "Edit";
+            public readonly string Save = "Save";
             public readonly string Details = "Details";
             public readonly string Delete = "Delete";
             public readonly string DeleteConfirmed = "DeleteConfirmed";
@@ -114,6 +122,7 @@ namespace MVCIntegratie.Controllers
             public const string Index = "Index";
             public const string Create = "Create";
             public const string Edit = "Edit";
+            public const string Save = "Save";
             public const string Details = "Details";
             public const string Delete = "Delete";
             public const string DeleteConfirmed = "DeleteConfirmed";
@@ -135,6 +144,13 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_Edit
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_Save s_params_Save = new ActionParamsClass_Save();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Save SaveParams { get { return s_params_Save; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Save
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Details s_params_Details = new ActionParamsClass_Details();
@@ -237,14 +253,14 @@ namespace MVCIntegratie.Controllers
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVCIntegratie.Models.RoleViewModel model);
+        partial void SaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVCIntegratie.Models.RoleViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit(MVCIntegratie.Models.RoleViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Save(MVCIntegratie.Models.RoleViewModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Save);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            EditOverride(callInfo, model);
+            SaveOverride(callInfo, model);
             return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
         }
 

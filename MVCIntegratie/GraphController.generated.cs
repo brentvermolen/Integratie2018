@@ -59,6 +59,12 @@ namespace MVCIntegratie.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Wijzig()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wijzig);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public GraphController Actions { get { return MVC.Graph; } }
@@ -76,15 +82,25 @@ namespace MVCIntegratie.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Wijzig = "Wijzig";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Wijzig = "Wijzig";
         }
 
 
+        static readonly ActionParamsClass_Wijzig s_params_Wijzig = new ActionParamsClass_Wijzig();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Wijzig WijzigParams { get { return s_params_Wijzig; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Wijzig
+        {
+            public readonly string id = "id";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -96,10 +112,8 @@ namespace MVCIntegratie.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
-                public readonly string NieuweGrafiek = "NieuweGrafiek";
             }
             public readonly string Index = "~/Views/Graph/Index.cshtml";
-            public readonly string NieuweGrafiek = "~/Views/Graph/NieuweGrafiek.cshtml";
         }
     }
 
@@ -116,6 +130,18 @@ namespace MVCIntegratie.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void WijzigOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Wijzig(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wijzig);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            WijzigOverride(callInfo, id);
             return callInfo;
         }
 

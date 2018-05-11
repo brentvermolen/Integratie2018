@@ -1,5 +1,5 @@
 ﻿@{
-   ViewBag.Title = "Home Ingelogd";
+    ViewBag.Title = "Home Ingelogd";
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -13,93 +13,98 @@
 <script src="~/Scripts/Chart.js"></script>
 <script src="~/Scripts/IngelogdeGebruiker.js"></script>
 
-<div>
-   <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-   <a href="#" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+
+<div id="zoekdiv" class="row">
+    <form action="/Search/Index" method="post">
+        <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+        <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+    </form>
+
 </div>
 
 <div class="container">
-   <div class="row">
-      <div class="col-sm-12 col-md-12" id="nodeBox">
-         <div>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 content" id="nodeBox">
             <div>
-               <img src="~/Images/nodebox.svg" style="width: 100%; height: auto;" />
+                <div>
+                    <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
+                </div>
+                <div tabindex="0" class="onclick-menu">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <ul class="onclick-menu-content">
+                        <li><button>Bewerken</button></li>
+                        <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li>
+                        <li><button>Annuleren</button></li>
+                    </ul>
+                </div>
             </div>
+        </div>
+        <div class="col-sm-6 col-md-6 content" id="divchart1">
+            <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div tabindex="0" class="onclick-menu">
-               <span class="glyphicon glyphicon-pencil"></span>
-               <ul class="onclick-menu-content">
-                  <li><button>Bewerken</button></li>
-                  <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li>
-                  <li><button>Annuleren</button></li>
-               </ul>
+                <span class="glyphicon glyphicon-pencil"></span>
+                <ul class="onclick-menu-content">
+
+                    <li><a href="/Graph/Wijzig/4"><button id="1" onclick="bewerkGrafiek(this.id)">Bewerken</button></a></li>
+                    <li><button onclick="verwijder('divchart1')">Verwijderen</button></li>
+                    <li><button>Annuleren</button></li>
+                </ul>
             </div>
-         </div>
-      </div>
-      <div class="col-sm-6 col-md-6 content" id="divchart1">
-         <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         <div tabindex="0" class="onclick-menu">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <ul class="onclick-menu-content">
-               <li><button>Bewerken</button></li>
-               <li><button onclick="verwijder('divchart1')">Verwijderen</button></li>
-               <li><button>Annuleren</button></li>
-            </ul>
-         </div>
-      </div>
-      <div class="col-sm-6 col-md-6 content test" id="divchart2">
-         <div id="chart2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         <div tabindex="0" class="onclick-menu">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <ul class="onclick-menu-content">
-               <li><button>Bewerken</button></li>
-               <li><button onclick="verwijder('divchart2')">Verwijderen</button></li>
-               <li><button>Annuleren</button></li>
-            </ul>
-         </div>
-      </div>
-      <div class="col-sm-6 col-md-6 content" id="divchart3">
-         <div id="chart3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-         <div tabindex="0" class="onclick-menu">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <ul class="onclick-menu-content">
-               <li><button>Bewerken</button></li>
-               <li><button onclick="verwijder('divchart3')">Verwijderen</button></li>
-               <li><button>Annuleren</button></li>
-            </ul>
-         </div>
-      </div>
-      <div class="col-sm-6 col-md-6 content" id="divchart4">
-         <div id="chart4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         <div tabindex="0" class="onclick-menu">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <ul class="onclick-menu-content">
-               <li><button>Bewerken</button></li>
-               <li><button onclick="verwijder('divchart4')">Verwijderen</button></li>
-               <li><button>Annuleren</button></li>
-            </ul>
-         </div>
-      </div>
-      <div class="col-sm-6 col-md-6 content" id="divchart5">
-         <div id="chart5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         <div tabindex="0" class="onclick-menu">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <ul class="onclick-menu-content">
-               <li><button>Bewerken</button></li>
-               <li><button onclick="verwijder('divchart5')">Verwijderen</button></li>
-               <li><button>Annuleren</button></li>
-            </ul>
-         </div>
-      </div>
-      <div class="col-sm-6 col-md-6 content" id="divchart6">
-         <div id="chart6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         <div tabindex="0" class="onclick-menu">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <ul class="onclick-menu-content">
-               <li><button>Bewerken</button></li>
-               <li><button onclick="verwijder('divchart6')">Verwijderen</button></li>
-               <li><button>Annuleren</button></li>
-            </ul>
-         </div>
-      </div>
-   </div>
+        </div>
+        <div class="col-sm-6 col-md-6 content test"  id="divchart2">
+            <div id="chart2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div tabindex="0" class="onclick-menu">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <ul class="onclick-menu-content">
+                    <li><button>Bewerken</button></li>
+                    <li><button onclick="verwijder('divchart2')">Verwijderen</button></li>
+                    <li><button>Annuleren</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 content"  id="divchart3">
+            <div id="chart3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            <div tabindex="0" class="onclick-menu">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <ul class="onclick-menu-content">
+                    <li><button>Bewerken</button></li>
+                    <li><button onclick="verwijder('divchart3')">Verwijderen</button></li>
+                    <li><button>Annuleren</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 content"  id="divchart4">
+            <div id="chart4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div tabindex="0" class="onclick-menu">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <ul class="onclick-menu-content">
+                    <li><button>Bewerken</button></li>
+                    <li><button onclick="verwijder('divchart4')">Verwijderen</button></li>
+                    <li><button>Annuleren</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 content"  id="divchart5">
+            <div id="chart5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div tabindex="0" class="onclick-menu">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <ul class="onclick-menu-content">
+                    <li><button>Bewerken</button></li>
+                    <li><button onclick="verwijder('divchart5')">Verwijderen</button></li>
+                    <li><button>Annuleren</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 content"  id="divchart6">
+            <div id="chart6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div tabindex="0" class="onclick-menu">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <ul class="onclick-menu-content">
+                    <li><button>Bewerken</button></li>
+                    <li><button onclick="verwijder('divchart6')">Verwijderen</button></li>
+                    <li><button>Annuleren</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

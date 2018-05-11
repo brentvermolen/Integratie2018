@@ -63,14 +63,15 @@ namespace MVCIntegratie.Controllers
             return View(new RoleViewModel(role));
         }
 
-        public virtual async Task<ActionResult> Edit(RoleViewModel model)
+        public virtual async Task<ActionResult> Save(RoleViewModel model)
         {
             var role = new ApplicationRole() { Id = model.Id, Name = model.Name };
             await RoleManager.UpdateAsync(role);
             return RedirectToAction("Index");
         }
 
-        public virtual async Task<ActionResult> Details(string id)
+
+    public virtual async Task<ActionResult> Details(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
             return View(new RoleViewModel(role));
