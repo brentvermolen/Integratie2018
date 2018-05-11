@@ -20,7 +20,7 @@
          <td>@faq.Categorie.ToString()</td>
          <td>@faq.GesteldOp.ToShortDateString() - @faq.GesteldOp.ToShortTimeString()</td>
          <td>@faq.Beantwoord</td>
-         <td><input type="button" class="btn btn-success" value="Wijzig" id="@faq.ID" onclick="wijzigVraag(this.id)" /></td>
+         <td><input type="button" class="btn btn-info" value="Wijzig" id="@faq.ID" onclick="wijzigVraag(this.id)" /></td>
       </tr>
    }
 </table>
@@ -58,8 +58,8 @@
    </div>
    <div class="row" style="margin:0">
       <input id="antwoordOpslaan" onclick="antwoordOpslaan();" class="btn btn-success" type="button" value="Opslaan" />
-      <input id="antwoordAnnuleren" onclick="antwoordAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
-      <input id="vraagVerwijderen" onclick="vraagVerwijderen();" class="btn btn-danger" type="button" value="Vraag Verwijderen" />
+      <input id="vraagVerwijderen" onclick="vraagVerwijderen();" class="btn btn-danger" type="button" value="Verwijderen" />
+      <input id="antwoordAnnuleren" onclick="antwoordAnnuleren();" class="btn btn-group" type="button" value="Annuleren" />
    </div>
 </div>
 

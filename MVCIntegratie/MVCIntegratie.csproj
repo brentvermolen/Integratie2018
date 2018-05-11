@@ -340,7 +340,6 @@
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\Over.js" />
     <Content Include="Scripts\faq.js" />
-    <Content Include="Scripts\GebruikerSelect.js" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />

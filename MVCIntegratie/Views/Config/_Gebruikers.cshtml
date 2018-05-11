@@ -14,23 +14,23 @@
 <ul class="list-group">
    @foreach (var gebruiker in Model)
    {
-      <li class="list-group-item"><a href="javascript:void(0);" onclick="toggle(this);">@gebruiker.Naam</a></li>
+      <li class="list-group-item" id="@gebruiker.ID">@gebruiker.Naam</li>
    }
 </ul>
 
-<button type="button" class="btn">Gegevens toevoegen</button>
-<button type="button" class="btn">Gegevens verwijderen</button>
+<button type="button" class="btn btn-success">Gegevens toevoegen</button>
+<button type="button" class="btn btn-danger">Gegevens verwijderen</button>
 
 <script>
    function filterGebruiker(filter) {
       var lis = document.getElementsByClassName("list-group-item");
 
       for (var i = 0; i < lis.length; i++) {
-         var elem = lis[i].childNodes[0];
+         var elem = lis[i];
          if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
-            elem.parentNode.style.display = "block";
+            elem.style.display = "block";
          } else {
-            elem.parentNode.style.display = "none";
+            elem.style.display = "none";
          }
       }
    }
