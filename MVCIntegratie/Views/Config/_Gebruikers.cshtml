@@ -1,0 +1,50 @@
+﻿@model List<BL.Domain.Gebruiker>
+
+@{
+   Layout = "";
+}
+<script  src="~/Scripts/GebruikerSelect.js"></script>
+<link rel="stylesheet" href="~/Content/Config.css">
+<input type="text" name="search" placeholder="Filter op naam" onkeyup="filterGebruiker(this.value)">
+<p></p>
+
+<h2></h2>
+
+<h2> Kies een gebruiker</h2>
+<ul class="list-group">
+   @foreach (var gebruiker in Model)
+   {
+      <li class="list-group-item"><a href="javascript:void(0);" onclick="toggle(this);">@gebruiker.Naam</a></li>
+   }
+</ul>
+
+<button type="button" class="btn">Gegevens toevoegen</button>
+<button type="button" class="btn">Gegevens verwijderen</button>
+
+<script>
+   function filterGebruiker(filter) {
+      var lis = document.getElementsByClassName("list-group-item");
+
+      for (var i = 0; i < lis.length; i++) {
+         var elem = lis[i].childNodes[0];
+         if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
+            elem.parentNode.style.display = "block";
+         } else {
+            elem.parentNode.style.display = "none";
+         }
+      }
+   }
+
+   $(function () {
+      console.log('ready');
+
+      $('.list-group-item').click(function (e) {
+         e.preventDefault()
+
+         $that = $(this);
+
+         $that.parent().find('li').removeClass('active');
+         $that.addClass('active');
+      });
+   })
+</script>

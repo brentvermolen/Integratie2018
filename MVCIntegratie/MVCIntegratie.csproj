@@ -256,6 +256,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -441,13 +442,14 @@
     <Content Include="Views\Graph\Index.cshtml" />
     <Content Include="Views\Home\Zoek.cshtml" />
     <Content Include="Views\Config\AdminConfig.cshtml" />
-    <Content Include="Views\Config\Gebruikers.cshtml" />
+    <Content Include="Views\Config\_Gebruikers.cshtml" />
     <Content Include="Views\Config\Deelplatform.cshtml" />
     <Content Include="Views\Config\Admin.cshtml" />
     <Content Include="Views\Alert\ManageAlerts.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\_Resultaat.cshtml" />
     <Content Include="Views\TestLogica\Index.cshtml" />
+    <Content Include="Views\Config\_Faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805081055567_role.resx">
@@ -479,9 +481,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\LogicaTest\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
