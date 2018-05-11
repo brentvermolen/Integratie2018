@@ -76,23 +76,20 @@ namespace DAL
          modelBuilder.Entity<As>()
             .HasMany(a => a.Categorieen)
             .WithMany(c => c.Assen);
-            
-            modelBuilder.Entity<GebruikerRoles>()
-                .HasKey(table => new { table.GebruikerId, table.RoleId });
-            modelBuilder.Entity<GebruikerRoles>()
-                .HasIndex(r => r.GebruikerId);
-            modelBuilder.Entity<GebruikerRoles>()
-                .HasIndex(r => r.RoleId);
-            modelBuilder.Entity<GebruikerLogins>()
-                .HasIndex(l => l.GebruikerId);
-            modelBuilder.Entity<GebruikerClaim>()
-                .HasIndex(c => c.GebruikersId);
-            modelBuilder.Entity<Role>()
-                .HasIndex(r => r.Name)
-                .IsUnique();
+
+            modelBuilder.Entity<Gebruiker>()
+                .HasMany(e => e.GebruikersClaims)
+                .WithRequired(e => e.Gebruiker)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<Gebruiker>()
+                .HasMany(e => e.Roles)
+                .WithMany(e => e.Gebruikers)
+                .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
 
 
-         base.OnModelCreating(modelBuilder);
+
+            base.OnModelCreating(modelBuilder);
       }
 
 
@@ -107,19 +104,18 @@ namespace DAL
 
       public DbSet<Persoon> Personen { get; set; }
 
-      public DbSet<Gebruiker> Gebruikers { get; set; }
+      
 
 
       public DbSet<Alert> Alerts { get; set; }
 
-        public DbSet<Gebruiker> Gebruikers { get; set; }
-        public DbSet<GebruikerRoles> GebruikerRoles { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<GebruikerClaim> GebruikerClaims { get; set; }
-        public DbSet<GebruikerLogins> GebruikersLogins { get; set; }
+        public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
+        public virtual DbSet<Gebruiker> Gebruikers { get; set; }
+        public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
 
 
-      public DbSet<Grafiek> Grafieken { get; set; }
+        public DbSet<Grafiek> Grafieken { get; set; }
       public DbSet<Serie> Series { get; set; }
       public DbSet<Data> Datas { get; set; }
       public DbSet<As> Assen { get; set; }

@@ -4,43 +4,30 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace BL.Domain.IdentityKlassen
 {
-    public class Role : IComparable<Role>
+    public partial class Role
     {
-        [Key]
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            Gebruikers = new HashSet<Gebruiker>();
+        }
+
+        public string Id { get; set; }
+
+        [Required]
+        [StringLength(256)]
         public string Name { get; set; }
+
+        [Required]
+        [StringLength(128)]
         public string Discriminator { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            if(obj.GetType() != this.GetType())
-            {
-                return false;
-            }
-
-            Role role = (Role)obj;
-
-            if (role.Name.Equals(this.Name))
-            {
-                return true;
-            }
-            else return false;
-           
-
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
-
-        public int CompareTo(Role other)
-        {
-            throw new NotImplementedException();
-        }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gebruiker> Gebruikers { get; set; }
     }
 }

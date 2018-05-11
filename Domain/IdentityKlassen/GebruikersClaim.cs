@@ -6,15 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BL.Domain.IdentityKlassen
 {
-    public class GebruikerClaim
+    public partial class GebruikersClaim
     {
-        [Key]
         public int Id { get; set; }
-        [ForeignKey ("Gebruiker")]
-        public int GebruikersId { get; set; }
+
+        public int UserId { get; set; }
+
         public string ClaimType { get; set; }
+
         public string ClaimValue { get; set; }
+
+        public virtual Gebruiker Gebruiker { get; set; }
     }
 }

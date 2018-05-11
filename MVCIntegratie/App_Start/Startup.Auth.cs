@@ -31,13 +31,13 @@ namespace MVCIntegratie
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, MyUser,long>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, MyUser, int>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
-                        getUserIdCallback: (id) => long.Parse(id.GetUserId()))
+                        getUserIdCallback: (id) => int.Parse(id.GetUserId()))
 
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -67,6 +67,6 @@ namespace MVCIntegratie
                 ClientSecret = "MRsCbsHa0K--pQpp-IAqRhm2"
             });
         }
-    
+
     }
-    }
+}
