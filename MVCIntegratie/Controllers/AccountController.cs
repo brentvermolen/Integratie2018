@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MVCIntegratie.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MVCIntegratie.Controllers
 {
@@ -16,19 +17,26 @@ namespace MVCIntegratie.Controllers
    public partial class AccountController : Controller
    {
       private ApplicationSignInManager _signInManager;
-      private ApplicationUserManager _userManager;
+      private UserManager<MyUser,long> _userManager;
 
       public AccountController()
+            :this(new UserManager<MyUser,long>(new UserStore<MyUser,MyRole,long,MyLogin,MyUserRole,MyClaim>(new ApplicationDbContext())))
       {
+            
       }
 
-      public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+      public AccountController(UserManager<MyUser,long> userManager, ApplicationSignInManager signInManager)
       {
          UserManager = userManager;
          SignInManager = signInManager;
       }
 
-      public ApplicationSignInManager SignInManager
+        public AccountController(UserManager<MyUser, long> userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationSignInManager SignInManager
       {
          get
          {
@@ -40,7 +48,7 @@ namespace MVCIntegratie.Controllers
          }
       }
 
-      public ApplicationUserManager UserManager
+      public UserManager<MyUser,long> UserManager
       {
          get
          {
@@ -151,7 +159,7 @@ namespace MVCIntegratie.Controllers
       {
          if (ModelState.IsValid)
          {
-            var user = new ApplicationUser
+            var user = new MyUser
             {
                 UserName = model.Email,
                 Email = model.Email,
@@ -191,7 +199,7 @@ namespace MVCIntegratie.Controllers
          {
             return View("Error");
          }
-         var result = await UserManager.ConfirmEmailAsync(userId, code);
+         var result = await UserManager.ConfirmEmailAsync(long.Parse(userId), code);
          return View(result.Succeeded ? "ConfirmEmail" : "Error");
       }
 
@@ -377,7 +385,7 @@ namespace MVCIntegratie.Controllers
             {
                return View("ExternalLoginFailure");
             }
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var user = new MyUser { UserName = model.Email, Email = model.Email };
             var result = await UserManager.CreateAsync(user);
             if (result.Succeeded)
             {

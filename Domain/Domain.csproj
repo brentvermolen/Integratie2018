@@ -69,6 +69,10 @@
     <Compile Include="GrafiekTypes\Bar.cs" />
     <Compile Include="GrafiekTypes\Lijn.cs" />
     <Compile Include="GrafiekTypes\Pie.cs" />
+    <Compile Include="IdentityKlassen\GebruikerClaim.cs" />
+    <Compile Include="IdentityKlassen\GebruikerLogins.cs" />
+    <Compile Include="IdentityKlassen\GebruikerRoles.cs" />
+    <Compile Include="IdentityKlassen\Role.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="BerichtKlassen\Hashtag.cs" />
     <Compile Include="BerichtKlassen\Mention.cs" />
@@ -90,6 +94,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
