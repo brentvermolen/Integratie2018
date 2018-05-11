@@ -56,6 +56,7 @@
     <Compile Include="BerichtRepository.cs" />
     <Compile Include="EF\Integratie2018Context.cs" />
     <Compile Include="EF\Integratie2018Initializer.cs" />
+    <Compile Include="FYIRepository.cs" />
     <Compile Include="GebruikerRepository.cs" />
     <Compile Include="GrafiekRepository.cs" />
     <Compile Include="Interfaces\IAlertRepository.cs" />

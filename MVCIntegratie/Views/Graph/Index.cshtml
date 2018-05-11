@@ -27,7 +27,7 @@
 <div class="container">
 
    <div class="row">
-      <div class="col-sm-12 col-md-12 row" id="typediagram">
+      <div class="col-sm-10 col-md-10" id="typediagram">
          <select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
             <option value="Lijn Diagram" selected>Lijn Diagram</option>
             <option value="Staaf Diagram">Staaf Diagram</option>
@@ -38,17 +38,15 @@
       </div>
    </div>
    <br />
-   <div class="col-sm-12 col-md-12 content row" id="grafiekdiv">
+   <div class="col-sm-10 col-md-10 content" id="grafiekdiv">
       <div id="@Model.Line.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Bar.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Pie.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
    </div>
 
-
-
    <div class="col-sm-12 col-md-12 row chartopties">
-       <!--<label>Grafiek titel: </label>-->
-       <input id="grafTitel" type="text" class="form-control" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value)" />
+      <label>Grafiek titel: </label>
+      <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value);" />
    </div>
 
    <div id="vergelijking">
@@ -193,9 +191,7 @@
             <option value="5">5</option>
          </select>-->
          <label>Politiekers</label>
-         
-         <input type="button" class="btn btn-success" value="Toevoegen" onclick="politiekerToevoegen('line')" id="knopgraph"/>
-         
+         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line');" />
          <div id="polLine" class="row">
 
 
@@ -440,10 +436,8 @@
    </div>
    <div class="form-group maakgrafiek">
       <div class="col-md-6">
-
-         <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" id="knopgraph" />
-         <input type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" id="knopgraph"/>
-
+         <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" />
+         <input id="grafiekOpslaan" type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" disabled />
       </div>
    </div>
 </div>
@@ -1519,7 +1513,7 @@
          <p>
             @foreach (var persoon in Model.Personen)
             {
-               <input type="button" class="btnPersoon btn btn-success" id="@persoon.ID" onclick="getDataPolitieker(this); ClosePopup();" value="@persoon.Naam" />
+               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getDataPolitieker(this); ClosePopup();" value="@persoon.Naam" />
             }
          </p>
       </div>
@@ -1554,9 +1548,9 @@
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
    }
 
-   .loading img {
-      width: 50%
-   }
+      .loading img {
+         width: 50%
+      }
 
    .loading {
       background-color: rgb(0,0,0); /* Fallback color */
