@@ -200,8 +200,13 @@ a.article, a.article:hover {
     padding: 0px;
     min-height: 100vh;
     transition: all 0.3s;
+    width: 100%;
 }
 
+.subpage {
+   margin-left:25px;
+   margin-right:25px;
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
