@@ -741,8 +741,8 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         alert('done');
          hideLoading();
+         window.location.replace("/Home/Index");
       }).fail(function () {
          alert('fail');
          hideLoading();

@@ -30,10 +30,18 @@ namespace MVCIntegratie.Controllers
       }
       else
       {
-        int count = 0;
-        List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 10).ToList();
+         if (User.Identity.IsAuthenticated)
+         {
+            int id = int.Parse(User.Identity.GetUserId());
+            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.Gebruiker.ID == id).ToList();
 
-        return View(graf);
+            return View("Home_Ingelogd", graf);
+         }
+         else
+         {
+            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.isDefault == true).ToList();
+            return View(graf);
+         }
       }
 
     }

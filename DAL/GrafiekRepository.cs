@@ -18,7 +18,8 @@ namespace DAL
 
     public IEnumerable<Grafiek> ReadGrafieken()
     {
-      return ctx.Grafieken;
+      return ctx.Grafieken
+            .Include("Gebruiker");
     }
 
     public Grafiek CreateGrafiek()

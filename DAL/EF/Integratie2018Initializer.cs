@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 namespace DAL
 {
 
+
   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
 
   {
@@ -32,7 +33,6 @@ namespace DAL
       new Synchronize()
       {
         Context = context
-
       }.Start();
       context.SaveChanges();
 
@@ -69,7 +69,6 @@ namespace DAL
         Beantwoord = true,
         BeantwoordOp = DateTime.Now
       };
-
 
       FAQ faq4 = new FAQ()
       {
@@ -110,7 +109,6 @@ namespace DAL
         Beantwoord = true,
         BeantwoordOp = DateTime.Now
       };
-
 
       FAQ faq8 = new FAQ()
       {
@@ -438,14 +436,14 @@ namespace DAL
 
     private void AddGebruikers(Integratie2018Context context)
     {
-      Gebruiker g1 = new Gebruiker()
-      {
-        ID = 0,
-        Voornaam = "Eddy"
-      };
-      context.Gebruikers.Add(g1);
-      
-    }
-  }
+         Gebruiker g1 = new Gebruiker()
+         {
+            ID = 0,
+            Voornaam = "Alle",
+            Achternaam = "Gebruikers"
+         };
+         context.Gebruikers.Add(g1);
+      }
+   }
 }
 
