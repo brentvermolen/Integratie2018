@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home";
+   ViewBag.Title = "Home";
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -15,47 +15,47 @@
 
 
 <div id="zoekdiv" class="row">
-    <form action="/Search/Index" method="post">
-        <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-        <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
-    </form>
+   <form action="/Search/Index" method="post">
+      <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+      <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+   </form>
 
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-6 content">
-            <div id="nodeBox">
-                <div>
-                    <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
-                </div>
-                <div tabindex="0" class="onclick-menu">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <ul class="onclick-menu-content">
-                        <li><button>Bewerken</button></li>
-                        <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li>
-                        <li><button>Annuleren</button></li>
-                    </ul>
-                </div>
+   <div class="row">
+      <div class="col-sm-6 col-md-6 content">
+         <div id="nodeBox">
+            <div>
+               <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
             </div>
-        </div>
-
-        @foreach (var grafiek in Model)
-        {
-            <div class="col-sm-6 col-md-6 content">
-                <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                <div tabindex="0" class="onclick-menu">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <ul class="onclick-menu-content">
-
-                        <li><a href="/Graph/Wijzig/@grafiek.ID"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
-                        <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
-                        <li><button>Annuleren</button></li>
-                    </ul>
-                </div>
+            <div tabindex="0" class="onclick-menu">
+               <span class="glyphicon glyphicon-pencil"></span>
+               <ul class="onclick-menu-content">
+                  <li><button>Bewerken</button></li>
+                  <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li>
+                  <li><button>Annuleren</button></li>
+               </ul>
             </div>
-        }
-    </div>
+         </div>
+      </div>
+
+      @foreach (var grafiek in Model)
+      {
+         <div class="col-sm-6 col-md-6 content">
+            <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div tabindex="0" class="onclick-menu">
+               <span class="glyphicon glyphicon-pencil"></span>
+               <ul class="onclick-menu-content">
+
+                  <li><a href="/Graph/Wijzig/@grafiek.ID"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
+                  <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
+                  <li><button>Annuleren</button></li>
+               </ul>
+            </div>
+         </div>
+      }
+   </div>
 </div>
 
 <script type="text/javascript">

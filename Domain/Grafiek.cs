@@ -9,18 +9,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BL.Domain
 {
-  public class Grafiek
-  {
-    public Grafiek()
-    {
-      Chart = new Chart() { Type = "normal" };
-      xAs = new As();
-      yAs = new As();
-      Legende = new Legende();
-      PlotOptions = new PlotOptions();
-      Series = new List<Serie>();
-      isDefault = true;
-    }
+   public class Grafiek
+   {
+      public Grafiek()
+      {
+         Chart = new Chart() { Type = "normal" };
+         xAs = new As();
+         yAs = new As();
+         Legende = new Legende();
+         PlotOptions = new PlotOptions();
+         Series = new List<Serie>();
+         isDefault = true;
+      }
+
 
     [Key]
     public int ID { get; set; }
@@ -35,20 +36,22 @@ namespace BL.Domain
     public Legende Legende { get; set; }
     public PlotOptions PlotOptions { get; set; }
     public int GebruikerId { get; set; }
-    public Gebruiker gebruiker { get; set; }
+    public Gebruiker Gebruiker { get; set; }
 
-    public virtual List<Serie> Series { get; set; }
+      public virtual List<Serie> Series { get; set; }
+      public Gebruiker Gebruiker { get; set; }
+      public int GebruikerID { get; set; }
 
-    public bool isDefault { get; set; }
+      public bool isDefault { get; set; }
 
-    public string GetBoolString(bool boolean)
-    {
-      if (boolean)
+      public string GetBoolString(bool boolean)
       {
-        return "true";
-      }
+         if (boolean)
+         {
+            return "true";
+         }
 
-      return "false";
-    }
-  }
+         return "false";
+      }
+   }
 }

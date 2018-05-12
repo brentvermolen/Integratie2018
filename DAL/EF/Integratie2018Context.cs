@@ -50,52 +50,49 @@ namespace DAL
       }*/
     }
 
-
-    protected override void OnModelCreating(DbModelBuilder modelBuilder)
-    {
-      modelBuilder.Entity<Bericht>()
-         .HasMany(b => b.Woorden)
-         .WithMany(t => t.Berichten);
-      modelBuilder.Entity<Bericht>()
-         .HasMany(b => b.Urls)
-         .WithMany(u => u.Berichten);
-      modelBuilder.Entity<Bericht>()
-         .HasMany(b => b.Mentions)
-         .WithMany(m => m.Berichten);
-      modelBuilder.Entity<Bericht>()
-         .HasMany(b => b.Hashtags)
-         .WithMany(h => h.Berichten);
-
-
-      modelBuilder.Entity<Grafiek>()
-         .HasMany(g => g.Series)
-         .WithMany(s => s.Grafieken);
-      modelBuilder.Entity<Serie>()
-         .HasMany(s => s.Data)
-         .WithMany(d => d.Series);
-      modelBuilder.Entity<As>()
-         .HasMany(a => a.Categorieen)
-         .WithMany(c => c.Assen);
-
-      modelBuilder.Entity<Gebruiker>()
-          .HasMany(e => e.GebruikersClaims)
-          .WithRequired(e => e.Gebruiker)
-          .HasForeignKey(e => e.UserId);
-
-      modelBuilder.Entity<Gebruiker>()
-          .HasMany(e => e.Roles)
-          .WithMany(e => e.Gebruikers)
-          .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
+      protected override void OnModelCreating(DbModelBuilder modelBuilder)
+      {
+         modelBuilder.Entity<Bericht>()
+            .HasMany(b => b.Woorden)
+            .WithMany(t => t.Berichten);
+         modelBuilder.Entity<Bericht>()
+            .HasMany(b => b.Urls)
+            .WithMany(u => u.Berichten);
+         modelBuilder.Entity<Bericht>()
+            .HasMany(b => b.Mentions)
+            .WithMany(m => m.Berichten);
+         modelBuilder.Entity<Bericht>()
+            .HasMany(b => b.Hashtags)
+            .WithMany(h => h.Berichten);
 
 
-      modelBuilder.Entity<Grafiek>()
-        .HasRequired<Gebruiker>(g => g.gebruiker)
-        .WithMany(g => g.Grafieken)
-        .HasForeignKey(g => g.GebruikerId);
+         modelBuilder.Entity<Grafiek>()
+            .HasMany(g => g.Series)
+            .WithMany(s => s.Grafieken);
+         modelBuilder.Entity<Serie>()
+            .HasMany(s => s.Data)
+            .WithMany(d => d.Series);
+         modelBuilder.Entity<As>()
+            .HasMany(a => a.Categorieen)
+            .WithMany(c => c.Assen);
 
-      base.OnModelCreating(modelBuilder);
+         modelBuilder.Entity<Gebruiker>()
+             .HasMany(e => e.GebruikersClaims)
+             .WithRequired(e => e.Gebruiker)
+             .HasForeignKey(e => e.UserId);
+
+         modelBuilder.Entity<Gebruiker>()
+             .HasMany(e => e.Roles)
+             .WithMany(e => e.Gebruikers)
+             .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
+
+         modelBuilder.Entity<Grafiek>()
+            .HasRequired<Gebruiker>(s => s.Gebruiker)
+            .WithMany(g => g.Grafieken)
+            .HasForeignKey<int>(s => s.GebruikerID);
+
+         base.OnModelCreating(modelBuilder);
     }
-
 
     public DbSet<Synchronize> Sync { get; set; }
 
@@ -109,21 +106,19 @@ namespace DAL
     public DbSet<Persoon> Personen { get; set; }
 
 
-
-
     public DbSet<Alert> Alerts { get; set; }
+      public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
+      public virtual DbSet<Gebruiker> Gebruikers { get; set; }
+      public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
+      public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
-    public virtual DbSet<Gebruiker> Gebruikers { get; set; }
-    public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
-    public virtual DbSet<Role> Roles { get; set; }
 
+      public DbSet<Grafiek> Grafieken { get; set; }
+      public DbSet<Serie> Series { get; set; }
+      public DbSet<Data> Datas { get; set; }
+      public DbSet<As> Assen { get; set; }
+      public DbSet<Categorie> Categorieën { get; set; }
 
-    public DbSet<Grafiek> Grafieken { get; set; }
-    public DbSet<Serie> Series { get; set; }
-    public DbSet<Data> Datas { get; set; }
-    public DbSet<As> Assen { get; set; }
-    public DbSet<Categorie> Categorieën { get; set; }
 
     public DbSet<FAQ> FAQ { get; set; }
   }
