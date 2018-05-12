@@ -2,15 +2,18 @@
 using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.ItemKlassen;
+using BL.Domain.IdentityKlassen;
 using System;
 using System.Data.Entity;
 
 namespace DAL
 {
+
    public class Integratie2018Context : DbContext
    {
       public static int Count = 0;
       public static Synchronize sync;
+
 
       public Integratie2018Context() : base("integratie2018DB")
       {
@@ -47,6 +50,7 @@ namespace DAL
          }*/
       }
 
+
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
       {
          modelBuilder.Entity<Bericht>()
@@ -62,6 +66,7 @@ namespace DAL
             .HasMany(b => b.Hashtags)
             .WithMany(h => h.Berichten);
 
+
          modelBuilder.Entity<Grafiek>()
             .HasMany(g => g.Series)
             .WithMany(s => s.Grafieken);
@@ -72,8 +77,21 @@ namespace DAL
             .HasMany(a => a.Categorieen)
             .WithMany(c => c.Assen);
 
-         base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Gebruiker>()
+                .HasMany(e => e.GebruikersClaims)
+                .WithRequired(e => e.Gebruiker)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<Gebruiker>()
+                .HasMany(e => e.Roles)
+                .WithMany(e => e.Gebruikers)
+                .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
+
+
+
+            base.OnModelCreating(modelBuilder);
       }
+
 
       public DbSet<Synchronize> Sync { get; set; }
 
@@ -86,11 +104,18 @@ namespace DAL
 
       public DbSet<Persoon> Personen { get; set; }
 
-      public DbSet<Gebruiker> Gebruikers { get; set; }
+      
+
 
       public DbSet<Alert> Alerts { get; set; }
 
-      public DbSet<Grafiek> Grafieken { get; set; }
+        public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
+        public virtual DbSet<Gebruiker> Gebruikers { get; set; }
+        public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+
+
+        public DbSet<Grafiek> Grafieken { get; set; }
       public DbSet<Serie> Series { get; set; }
       public DbSet<Data> Datas { get; set; }
       public DbSet<As> Assen { get; set; }

@@ -18,12 +18,12 @@ using System.Threading.Tasks;
 namespace DAL
 {
 
-   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
+   public class Integratie2018Initializer : DropCreateDatabaseIfModelChanges<Integratie2018Context>
 
    {
       protected override void Seed(Integratie2018Context context)
       {
-         AddGebruikers(context);
+         //AddGebruikers(context);
 
          AddGrafieken(context);
 
@@ -435,14 +435,14 @@ namespace DAL
          Gebruiker g1 = new Gebruiker()
          {
             ID = 0,
-            Naam = "Eddy"
+            Voornaam = "Eddy"
          };
          context.Gebruikers.Add(g1);
 
          Gebruiker g2 = new Gebruiker()
          {
             ID = 1,
-            Naam = "Jan"
+            Voornaam = "Jan"
          };
          context.Gebruikers.Add(g2);
       }
