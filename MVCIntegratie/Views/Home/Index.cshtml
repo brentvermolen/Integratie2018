@@ -1,7 +1,7 @@
 @model List<BL.Domain.Grafiek>
 
 @{
-    ViewBag.Title = "Home Page";
+   ViewBag.Title = "Home Page";
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -18,31 +18,59 @@
 
 
 <div>
-    <div id="zoekdiv" class="row">
-        <form action="/Search/Index" method="post">
-            <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-        </form>
-    </div>
+
+   <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+   <!--<a href="/Home/Toevoegen?type=bar" id="newgraph" class="btn btn-success">Nieuwe Grafiek B &raquo;</a>-->
+   <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
+
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-6 content" id="nodeBox">
-            <div>
-                <div>
-                    <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
-                </div>
-            </div>
-        </div>
-        @foreach (var grafiek in Model)
-        {
-            <div class="col-sm-6 col-md-6">
-                <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-            </div>
-        }
-    </div>
+   <div class="row">
+      @foreach (var grafiek in Model)
+      {
+         <div class="col-sm-6 col-md-6" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);" >
+            <div style="display:block" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);"></div>
+            <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+         </div>
+      }
+   </div>
 </div>
 
+<script>
+   function allowDrop(ev) {
+      ev.preventDefault();
+   }
+
+   function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.title);
+   }
+
+   function drop(ev) {
+      ev.preventDefault();
+      var srcID = ev.dataTransfer.getData("text");
+      var targetID = $(ev.target.parentElement).attr("data-id");
+
+      var target = ev.target.parentElement;
+      var source = document.getElementById(srcID)
+      source = source.parentElement;
+
+      var copy_to = $(target).clone(true);
+      var copy_from = $(source).clone(true);
+      $(target).replaceWith(copy_from);
+      $(source).replaceWith(copy_to);
+   }
+</script>
+<style>
+   .dragger{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+   }
+</style>
 
 
 <script type="text/javascript">

@@ -1,84 +1,118 @@
-﻿@{
-    Layout = "";
+﻿@model MVCIntegratie.Models.AdminModel
+
+@{
+   Layout = "";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 3</title>
+   <title>Admin</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Content/Config.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <link rel="stylesheet" href="~/Content/Config.css">
+   <script src="~/Scripts/jquery-3.0.0.min.js"></script>
 </head>
 <body>
-    <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Config Sidebar</h3>
-                <strong>CS</strong>
+   <div class="wrapper">
+      <nav id="sidebar">
+         <div class="sidebar-header">
+            <h3>Admin</h3>
+            <strong>Ad</strong>
+         </div>
+         <ul class="list-unstyled components">
+            <li class="active sidebar">
+               <a href="javascript:void(0)" data-id="home" onclick="showPage(this)">
+                  <i class="glyphicon glyphicon-home"></i>
+                  Home
+               </a>
+            </li>
+            <li class="sidebar">
+               <a href="javascript:void(0)" data-id="gebruikers" onclick="showPage(this)">
+                  <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+                  Gebruikers
+               </a>
+            </li>
+            <li>
+               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+                  <i class="glyphicon glyphicon-dashboard"></i>
+                  Platformen
+               </a>
+               <ul class="collapse list-unstyled" id="pageSubmenu">
+                  <li><a href="@Url.Action("Deelplatform", "Config")">Platform1</a></li>
+                  <li><a href="@Url.Action("Deelplatform", "Config")">Platform2</a></li>
+                  <li><a href="@Url.Action("Deelplatform", "Config")">Platform3</a></li>
+               </ul>
+            </li>
+            <li class="sidebar">
+               <a href="javascript:void(0)" data-id="alerts" onclick="showPage(this)">
+                  <i class="glyphicon glyphicon-bell"></i>
+                  Alerts
+               </a>
+            </li>
+            <li class="sidebar">
+               <a href="javascript:void(0)" data-id="faq" onclick="showPage(this)">
+                  <i class="glyphicon glyphicon-question-sign"></i>
+                  FAQ
+               </a>
+            </li>
+         </ul>
+      </nav>
+      <!-- Page Content Holder -->
+      <div id="content">
+         <nav class="navbar navbar-default">
+            <div class="container-fluid">
+
+               <div class="navbar-header">
+                  <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                     <i class="glyphicon glyphicon-align-left"></i>
+                     <span>Toggle Sidebar</span>
+                  </button>
+               </div>
+
+               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                     <li><a href="@Url.Action("Contact", "FYI")">Contact</a></li>
+                     <li><a href="@Url.Action("Over", "FYI")">Over</a></li>
+                     <li><a href="@Url.Action("FAQ", "FYI")">FAQ</a></li>
+                  </ul>
+               </div>
             </div>
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="#">
-                        <i class="glyphicon glyphicon-home"></i>
-                        Home
-                    </a>
-                </li>
-                <li>
+         </nav>
 
-                    <a href="@Url.Action("Gebruikers", "Config")">
-                        <i class="glyphicon glyphicon-user" aria-hidden="true"></i> Gebruikers
-                       
-                    </a>
-                      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
-                        <i class="glyphicon glyphicon-dashboard"></i>
-                        DashBoards
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li><a href="~/Views/Config/Deelplatform.cshtml">DashBoard1</a></li>
-                        <li><a href="~/Views/Config/Deelplatform.cshtml">DashBoard2</a></li>
-                        <li><a href="~/Views/Config/Deelplatform.cshtml">DashBoard3</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="glyphicon glyphicon-bell"></i>
-                        Alerts
-                    </a>
-                </li>
+         <div id="home" class="subpage" style="display:block">
+            <h2>Home</h2>
+            <p>Hier de kleuren wijzigen en teksten veranderen op de website zelf?</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            </ul>
-        </nav>
-        <!-- Page Content Holder -->
-        <div id="content">
+            <div class="line"></div>
 
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
+            <h2>Lorem Ipsum Dolor</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-                    <div class="navbar-header">
-                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                            <i class="glyphicon glyphicon-align-left"></i>
-                            <span>Toggle Sidebar</span>
-                        </button>
-                    </div>
+            <div class="line"></div>
 
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="@Url.Action("Home_ingelogd", "Home")">Home</a></li>
-                            <li><a href="@Url.Action("Contact", "FYI")">Contact</a></li>
-                            <li><a href="@Url.Action("Over", "FYI")">Over</a></li>
-                            <li><a href="@Url.Action("FAQ", "FYI")">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <h2>Lorem Ipsum Dolor</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            <h2>Collapsible Sidebar Using Bootstrap 3</h2>
+            <div class="line"></div>
+
+            <h3>Lorem Ipsum Dolor</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+         </div>
+
+         <div id="gebruikers" class="subpage" style="display:none">
+            @Html.Partial("_Gebruikers", Model.Gebruikers)
+         </div>
+
+         <div id="alerts" class="subpage" style="display:none">
+            <h2>Alerts</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
@@ -96,24 +130,47 @@
 
             <h3>Lorem Ipsum Dolor</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-    </div>
+         </div>
+
+         <div id="faq" class="subpage" style="display:none">
+            @Html.Partial("_Faq", Model.FAQ)
+         </div>
+      </div>
+   </div>
+
+   <!-- jQuery CDN -->
+   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+   <!-- Bootstrap Js CDN -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+   <script type="text/javascript">
+      $(document).ready(function () {
+         $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+         });
+      });
+
+      function showPage(elem) {
+         var lis = document.getElementsByClassName("sidebar");
+         for (var i = 0; i < lis.length; i++) {
+            lis[i].className = lis[i].className.replace("active", "");
+         }
+         $(elem.parentNode).toggleClass("active");
 
 
+         var id = $(elem).attr("data-id");
+         var divs = document.getElementsByClassName("subpage");
 
+         for (var i = 0; i < divs.length; i++) {
+            var div = divs[i];
 
+            div.style.display = "none";
 
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Js CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript">
-             $(document).ready(function () {
-                 $('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').toggleClass('active');
-                 });
-             });
-    </script>
+            if (div.id == id) {
+               div.style.display = "block";
+            }
+         }
+      }
+   </script>
 </body>
 </html>
