@@ -85,7 +85,7 @@ namespace DAL
                 };
                 content.Headers.Add("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
 
-                HttpResponseMessage response = await client.PostAsync("http://kdg.textgain.com/query", content);
+                HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
 
                 string responseString = await response.Content.ReadAsStringAsync();
                 responseString.ToString();

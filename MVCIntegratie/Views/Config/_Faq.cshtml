@@ -1,12 +1,12 @@
 ﻿@model List<BL.Domain.FAQ>
 
 @{
-   ViewBag.Title = "Index";
+   Layout = "";
 }
 
-<h2>Index</h2>
+<h2>FAQ</h2>
 
-<table id="vragen">
+<table id="vragen" style="width:100%">
    <tr>
       <th>Vraag</th>
       <th>Categorie</th>
@@ -20,21 +20,21 @@
          <td>@faq.Categorie.ToString()</td>
          <td>@faq.GesteldOp.ToShortDateString() - @faq.GesteldOp.ToShortTimeString()</td>
          <td>@faq.Beantwoord</td>
-         <td><input type="button" value="Wijzig" id="@faq.ID" onclick="wijzigVraag(this.id)" /></td>
+         <td><input type="button" class="btn btn-info" value="Wijzig" id="@faq.ID" onclick="wijzigVraag(this.id)" /></td>
       </tr>
    }
 </table>
-<div id="wijzigen" class="row" style="display:none">
+<div id="wijzigen" style="display:none">
    <div>
       <label id="vraagID" style="display:none">ID</label>
    </div>
    <div>
-      <label for="vraag" style="width:15%">Vraag:</label>
-      <input id="vraag" name="vraag" style="width:60%" type="text" value="" />
+      <label for="vraag">Vraag:</label>
+      <input id="vraag" name="vraag" type="text" value="" />
    </div>
    <div>
-      <label for="categorie" style="width:15%">Categorie:</label>
-      <select id="categorie" name="categorie" style="width:60%" type="text" value="">
+      <label for="categorie">Categorie:</label>
+      <select id="categorie" name="categorie" type="text" value="">
          <option value="0">De Website</option>
          <option value="1">Mijn Account</option>
          <option value="2">Notificaties</option>
@@ -42,24 +42,24 @@
       </select>
    </div>
    <div class="row" style="margin:0">
-      <label for="antwoord" style="width:15%">Antwoord:</label>
-      <textarea rows="3" id="antwoord" name="antwoord" style="width:60%" value=""></textarea>
+      <label for="antwoord">Antwoord:</label>
+      <textarea rows="3" id="antwoord" name="antwoord" value=""></textarea>
    </div>
    <div>
-      <label for="voorbeeld" style="width:15%">Voorbeeld:</label>
-      <input id="voorbeeld" name="voorbeeld" style="width:60%" type="text" value="" />
+      <label for="voorbeeld">Voorbeeld:</label>
+      <input id="voorbeeld" name="voorbeeld"  type="text" value="" />
    </div>
    <div>
-      <label for="beantwoord" style="width:15%">Beantwoord:</label>
-      <select id="beantwoord" name="beantwoord" style="width:60%" type="text" value="">
+      <label for="beantwoord">Beantwoord:</label>
+      <select id="beantwoord" name="beantwoord" type="text" value="">
          <option value="0">Nee</option>
          <option value="1">Ja</option>
       </select>
    </div>
    <div class="row" style="margin:0">
       <input id="antwoordOpslaan" onclick="antwoordOpslaan();" class="btn btn-success" type="button" value="Opslaan" />
-      <input id="antwoordAnnuleren" onclick="antwoordAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
-      <input id="vraagVerwijderen" onclick="vraagVerwijderen();" class="btn btn-danger" type="button" value="Vraag Verwijderen" />
+      <input id="vraagVerwijderen" onclick="vraagVerwijderen();" class="btn btn-danger" type="button" value="Verwijderen" />
+      <input id="antwoordAnnuleren" onclick="antwoordAnnuleren();" class="btn btn-group" type="button" value="Annuleren" />
    </div>
 </div>
 
@@ -151,7 +151,7 @@
    function antwoordAnnuleren() {
       lblID.innerHTML = "ID";
       divWijzigen.style.display = "none";
-      tableVragen.style.display = "block";
+      tableVragen.style.display = "table";
    }
 
    function vraagVerwijderen() {

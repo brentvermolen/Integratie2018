@@ -1,24 +1,16 @@
 ﻿@using BL.Domain.ItemKlassen
 @model BL.Domain.Bericht
 
-<h2>Resultaat</h2>
 @if (Model == null)
 {
-    <p> geen </p>
+    <p> Geen resultaten gevonden. </p>
 }
 else
 {
     <table>
         <tr>
-            <th>Personen</th>
-        </tr>
-
-
-        <tr>
-
-            <th>Naam</th>
+            <th>Politiekers</th>
             <th>Aantal Berichten</th>
-
         </tr>
 
         @foreach (var dingskePersoon in Model.Personen)
@@ -29,19 +21,11 @@ else
                 <td>@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count) </td>
             </tr>
         }
-
+        
         <tr>
-            <th>Woorden</th>
-        </tr>
-
-
-        <tr>
-
-            <th>Woord</th>
+            <th>Trefwoorden</th>
             <th>Aantal Berichten</th>
-
         </tr>
-
 
         @foreach (var woord in Model.Woorden)
         {
@@ -51,20 +35,12 @@ else
                 <td>@Html.DisplayFor(modelItem => woord.Berichten.Count) </td>
             </tr>
         }
-
-
         <tr>
+
             <th>Mentions</th>
-        </tr>
-
-
-        <tr>
-
-            <th>Mention</th>
             <th>Aantal Berichten</th>
 
         </tr>
-
 
         @foreach (var mention in Model.Mentions)
         {
@@ -74,19 +50,10 @@ else
                 <td>@Html.DisplayFor(modelItem => mention.Berichten.Count) </td>
             </tr>
         }
-
         <tr>
             <th>Hashtags</th>
-        </tr>
-
-
-        <tr>
-
-            <th>Hashtag</th>
             <th>Aantal Berichten</th>
-
         </tr>
-
 
         @foreach (var hashtag in Model.Hashtags)
         {
@@ -96,32 +63,19 @@ else
                 <td>@Html.DisplayFor(modelItem => hashtag.Berichten.Count) </td>
             </tr>
         }
-
-
         <tr>
             <th>Urls</th>
-        </tr>
-
-
-        <tr>
-
-            <th>Url</th>
             <th>Aantal Berichten</th>
-
         </tr>
-
 
         @foreach (var url in Model.Urls)
         {
             <tr>
-
-
                 <td>
                     <a href="@url.Tekst"> @url.Tekst</a>
                 </td>
                 <td>@Html.DisplayFor(modelItem => url.Berichten.Count) </td>
             </tr>
         }
-
     </table>
 }

@@ -34,6 +34,8 @@ namespace BL.Domain
     public bool Credits { get; set; }
     public Legende Legende { get; set; }
     public PlotOptions PlotOptions { get; set; }
+    public int GebruikerId { get; set; }
+    public Gebruiker gebruiker { get; set; }
 
     public virtual List<Serie> Series { get; set; }
 

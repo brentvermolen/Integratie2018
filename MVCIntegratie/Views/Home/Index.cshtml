@@ -18,18 +18,11 @@
 
 
 <div>
-
-    <!--<input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">-->
     <div id="zoekdiv" class="row">
         <form action="/Search/Index" method="post">
             <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-            <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
         </form>
-
     </div>
-    <!--<a href="/Home/Toevoegen?type=bar" id="newgraph" class="btn btn-success">Nieuwe Grafiek B &raquo;</a>-->
-
-
 </div>
 
 <div class="container">
@@ -50,6 +43,40 @@
     </div>
 </div>
 
+<script>
+   function allowDrop(ev) {
+      ev.preventDefault();
+   }
+
+   function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.title);
+   }
+
+   function drop(ev) {
+      ev.preventDefault();
+      var srcID = ev.dataTransfer.getData("text");
+      var targetID = $(ev.target.parentElement).attr("data-id");
+
+      var target = ev.target.parentElement;
+      var source = document.getElementById(srcID)
+      source = source.parentElement;
+
+      var copy_to = $(target).clone(true);
+      var copy_from = $(source).clone(true);
+      $(target).replaceWith(copy_from);
+      $(source).replaceWith(copy_to);
+   }
+</script>
+<style>
+   .dragger{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+   }
+</style>
 
 
 <script type="text/javascript">

@@ -65,7 +65,8 @@ namespace BL.Domain
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
-
+        
+        public List<Grafiek> Grafieken { get; set; }
 
 
 
