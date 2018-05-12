@@ -18,12 +18,12 @@ using System.Threading.Tasks;
 namespace DAL
 {
 
-   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
+   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
 
    {
       protected override void Seed(Integratie2018Context context)
       {
-         //AddGebruikers(context);
+         AddGebruikers(context);
 
          AddGrafieken(context);
 
@@ -302,6 +302,7 @@ namespace DAL
 
          Grafiek grafiek1 = new Lijn(0, "Solar Employment Growth by Sector, 2010-2016", new As()
          { IsUsed = true, Titel = "Number of Employees" }, series);
+         grafiek1.GebruikerID = 0;
 
          As xAs = new As() { IsUsed = true };
 
@@ -360,6 +361,7 @@ namespace DAL
 
          Grafiek grafiek2 = new Bar(1, "Column chart with negative values",
             xAs, series2);
+         grafiek2.GebruikerID = 0;
 
          serie1 = new Serie() { Naam = "Brands", ColorByPoint = true };
          data1 = new Data() { Naam = "Chrome", Value = 61.41, Sliced = true, Selected = false };
@@ -376,7 +378,8 @@ namespace DAL
          serie1.Data.Add(data6);
 
          Grafiek grafiek3 = new Pie(2, "Browser market shares in January, 2018", serie1);
-
+         grafiek3.GebruikerID = 0;
+          
          context.Grafieken.Add(grafiek1);
          context.Grafieken.Add(grafiek2);
          context.Grafieken.Add(grafiek3);
@@ -440,16 +443,10 @@ namespace DAL
          Gebruiker g1 = new Gebruiker()
          {
             ID = 0,
-            Voornaam = "Eddy"
+            Voornaam = "Alle",
+            Achternaam = "Gebruikers"
          };
          context.Gebruikers.Add(g1);
-
-         Gebruiker g2 = new Gebruiker()
-         {
-            ID = 1,
-            Voornaam = "Jan"
-         };
-         context.Gebruikers.Add(g2);
       }
    }
 }

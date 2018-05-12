@@ -4,6 +4,7 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,8 @@ namespace MVCIntegratie.Controllers.Api
          try
          {
             intAantalWeken = int.Parse(aantalWeken);
-         }catch(Exception e)
+         }
+         catch (Exception e)
          {
             intAantalWeken = 5;
          }
@@ -179,7 +181,7 @@ namespace MVCIntegratie.Controllers.Api
          catch
          {
             return NotFound();
-         }         
+         }
          List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
 
          SentimentModel model = new SentimentModel()
@@ -199,7 +201,8 @@ namespace MVCIntegratie.Controllers.Api
          try
          {
             intTop = int.Parse(top.Replace("Top", ""));
-         }catch(Exception e)
+         }
+         catch (Exception e)
          {
             return NotFound();
          }
@@ -208,9 +211,10 @@ namespace MVCIntegratie.Controllers.Api
          try
          {
             intID = int.Parse(id);
-         }catch(Exception e)
+         }
+         catch (Exception e)
          {
-            return NotFound();  
+            return NotFound();
          }
 
          PieDataPersoonModel model = new PieDataPersoonModel()
@@ -246,7 +250,7 @@ namespace MVCIntegratie.Controllers.Api
                woorden.Sort((w1, w2) => w2.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count.CompareTo(w1.Berichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList().Count));
 
                intTeller = 0;
-               while(model.Series.Count < intTop)
+               while (model.Series.Count < intTop)
                {
                   Woord woord = woorden[intTeller];
                   if (!model.Persoon.ToLower().Contains(woord.Tekst.ToLower()))
@@ -256,7 +260,7 @@ namespace MVCIntegratie.Controllers.Api
                   }
                   intTeller++;
                }
-               
+
                return Ok(model);
             case "Themas":
                return NotFound();
@@ -356,7 +360,7 @@ namespace MVCIntegratie.Controllers.Api
                   }
                   model.Waarden.Add(group.Count());
                }
-               
+
                return Ok(model);
             case "Trend":
                return NotFound();
@@ -377,6 +381,8 @@ namespace MVCIntegratie.Controllers.Api
       {
          GrafJson json = JsonConvert.DeserializeObject<GrafJson>(data);
 
+         int gebruiker = int.Parse(User.Identity.GetUserId());
+
          switch (json.type)
          {
             case "line":
@@ -387,17 +393,19 @@ namespace MVCIntegratie.Controllers.Api
                Grafiek grafiek = new Lijn(grafiekenMng.NewGrafiek().ID,
                   line.title,
                   new As() { Titel = "Aantal Tweets", IsUsed = true },
-                  series);
+                  series
+                  );
+               grafiek.GebruikerID = gebruiker;
 
                grafiek.PlotOptions.PointStart = line.pointStart.ToString();
 
-               foreach(PersoonJson persoon in line.series)
+               foreach (PersoonJson persoon in line.series)
                {
                   AantalBerichtenPerWeekModel model = GetAantalBerichtenPerWeekModel(line.aantalWeken, int.Parse(persoon.id));
                   Serie serie = new Serie();
                   serie.Naam = persoon.naam;
 
-                  foreach(int d in model.Data)
+                  foreach (int d in model.Data)
                   {
                      Data dat = new Data(d);
                      serie.Data.Add(dat);
@@ -425,7 +433,7 @@ namespace MVCIntegratie.Controllers.Api
 
                List<Categorie> categories = new List<Categorie>();
 
-               foreach(string categorie in bar.categories)
+               foreach (string categorie in bar.categories)
                {
                   categories.Add(new Categorie(categorie));
                }
@@ -450,6 +458,7 @@ namespace MVCIntegratie.Controllers.Api
                   xAs,
                   series2
                   );
+               grafiek2.GebruikerID = gebruiker;
                grafiek2.yAs = yAs;
 
                grafiekenMng.AddGrafiek(grafiek2);
@@ -460,8 +469,8 @@ namespace MVCIntegratie.Controllers.Api
 
                Serie serie2 = new Serie();
                serie2.Naam = pie.serieNaam;
-               
-               for(int i = 0; i < pie.series.Count; i++)
+
+               for (int i = 0; i < pie.series.Count; i++)
                {
                   Data data2 = new Data()
                   {
@@ -474,11 +483,12 @@ namespace MVCIntegratie.Controllers.Api
                Grafiek grafiek3 = new Pie(grafiekenMng.NewGrafiek().ID,
                   pie.title,
                   serie2);
+               grafiek3.GebruikerID = gebruiker;
 
                grafiekenMng.AddGrafiek(grafiek3);
                break;
          }
-         
+
 
          return Ok();
       }

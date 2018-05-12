@@ -4,6 +4,7 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ using System.Web.Mvc;
 namespace MVCIntegratie.Controllers
 {
    [RequireHttps]
-    public partial class HomeController : Controller
-   { 
+   public partial class HomeController : Controller
+   {
       private IBerichtManager berichtMng = new BerichtManager();
       private IAlertManager alertMng = new AlertManager();
       private IGebruikerManager gebruikerMng = new GebruikerManager();
@@ -27,10 +28,18 @@ namespace MVCIntegratie.Controllers
 
       public virtual ActionResult Index()
       {
-         int count = 0;
-         List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => count++ < 10).ToList();
+         if (User.Identity.IsAuthenticated)
+         {
+            int id = int.Parse(User.Identity.GetUserId());
+            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.Gebruiker.ID == id).ToList();
 
-         return View(graf);
+            return View("Home_Ingelogd", graf);
+         }
+         else
+         {
+            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.isDefault == true).ToList();
+            return View(graf);
+         }
       }
 
       public class AantalTweetsPerWeek
@@ -39,23 +48,23 @@ namespace MVCIntegratie.Controllers
          public DateTime Week { get; set; }
       }
 
-        public virtual ActionResult Zoek(string search)
-        {
-            
-                return View();
+      public virtual ActionResult Zoek(string search)
+      {
 
-            
-        }
+         return View();
 
-        public virtual ActionResult Search(string search)
-        {
-         
 
-            return RedirectToAction("Index","Search") ;
-        }
+      }
 
-      
-       public virtual ActionResult Toevoegen(string type)
+      public virtual ActionResult Search(string search)
+      {
+
+
+         return RedirectToAction("Index", "Search");
+      }
+
+
+      public virtual ActionResult Toevoegen(string type)
       {
          Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieen = new List<Categorie>() }, new List<Serie>());
          graf.xAs.Categorieen.Add(new Categorie("Objectiviteit"));

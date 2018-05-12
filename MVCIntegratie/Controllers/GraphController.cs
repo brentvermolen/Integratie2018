@@ -22,8 +22,10 @@ namespace MVCIntegratie.Controllers
       // GET: Graph
       public virtual ActionResult Index()
       {
-         var gebruiker = User;
-         //var gebruiker = Membership.GetUser();
+         if (User.Identity.IsAuthenticated == false)
+         {
+            return Redirect("/Home/Index");
+         }
 
          List<Persoon> personen = berichtMng.GetPersonen().ToList();
          personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));

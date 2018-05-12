@@ -77,19 +77,22 @@ namespace DAL
             .HasMany(a => a.Categorieen)
             .WithMany(c => c.Assen);
 
-            modelBuilder.Entity<Gebruiker>()
-                .HasMany(e => e.GebruikersClaims)
-                .WithRequired(e => e.Gebruiker)
-                .HasForeignKey(e => e.UserId);
+         modelBuilder.Entity<Gebruiker>()
+             .HasMany(e => e.GebruikersClaims)
+             .WithRequired(e => e.Gebruiker)
+             .HasForeignKey(e => e.UserId);
 
-            modelBuilder.Entity<Gebruiker>()
-                .HasMany(e => e.Roles)
-                .WithMany(e => e.Gebruikers)
-                .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
+         modelBuilder.Entity<Gebruiker>()
+             .HasMany(e => e.Roles)
+             .WithMany(e => e.Gebruikers)
+             .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
 
+         modelBuilder.Entity<Grafiek>()
+            .HasRequired<Gebruiker>(s => s.Gebruiker)
+            .WithMany(g => g.Grafieken)
+            .HasForeignKey<int>(s => s.GebruikerID);
 
-
-            base.OnModelCreating(modelBuilder);
+         base.OnModelCreating(modelBuilder);
       }
 
 
@@ -104,18 +107,18 @@ namespace DAL
 
       public DbSet<Persoon> Personen { get; set; }
 
-      
+
 
 
       public DbSet<Alert> Alerts { get; set; }
 
-        public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
-        public virtual DbSet<Gebruiker> Gebruikers { get; set; }
-        public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
+      public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
+      public virtual DbSet<Gebruiker> Gebruikers { get; set; }
+      public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
+      public virtual DbSet<Role> Roles { get; set; }
 
 
-        public DbSet<Grafiek> Grafieken { get; set; }
+      public DbSet<Grafiek> Grafieken { get; set; }
       public DbSet<Serie> Series { get; set; }
       public DbSet<Data> Datas { get; set; }
       public DbSet<As> Assen { get; set; }

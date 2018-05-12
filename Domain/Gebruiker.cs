@@ -67,14 +67,19 @@ namespace BL.Domain
       public virtual ICollection<Role> Roles { get; set; }
 
 
-
+      public virtual List<Grafiek> Grafieken { get; set; }
 
 
       IEnumerable<Alert> Alerts { get; set; }
 
       public override string ToString()
       {
-         return Voornaam + Achternaam;
+         if (Voornaam.Equals("") || Achternaam.Equals(""))
+         {
+            return Email;
+         }
+
+         return Voornaam + " " + Achternaam;
       }
    }
 }
