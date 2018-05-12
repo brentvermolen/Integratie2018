@@ -38,7 +38,6 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
     public static MVCIntegratie.Controllers.RoleController Role = new MVCIntegratie.Controllers.T4MVC_RoleController();
     public static MVCIntegratie.Controllers.SearchController Search = new MVCIntegratie.Controllers.T4MVC_SearchController();
-    public static MVCIntegratie.Controllers.TestLogicaController TestLogica = new MVCIntegratie.Controllers.T4MVC_TestLogicaController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 

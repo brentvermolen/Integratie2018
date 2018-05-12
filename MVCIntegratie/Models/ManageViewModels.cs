@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using BL.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -22,6 +23,7 @@ namespace MVCIntegratie.Models
         public string Antwoord { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public Gebruiker Gebruiker { get; set; }
     }
 
     public class ManageLoginsViewModel
