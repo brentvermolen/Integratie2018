@@ -4,6 +4,7 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using BL.Domain.ItemKlassen;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,9 @@ namespace MVCIntegratie.Controllers
 
       public virtual ActionResult Home_Ingelogd()
       {
-         return View();
+      List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.GebruikerId ==int.Parse( User.Identity.GetUserId())).ToList();
+
+      return View(graf);
       }
 
       public virtual ActionResult Index()

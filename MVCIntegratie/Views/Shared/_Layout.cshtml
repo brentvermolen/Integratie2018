@@ -19,15 +19,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="@Url.Action("Index", "Home")" class=" navbar-brand"><img alt="Logo" src="~/Images/dashboard.png" height="30" /></a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Home_Ingelogd", "Home")" class=" navbar-brand"><img alt="Logo" src="~/Images/dashboard.png" height="30" /></a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "Home")" class=" navbar-brand"><img alt="Logo" src="~/Images/dashboard.png" height="30" /></a>
+                }
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Home", MVC.Home.Home_Ingelogd())</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
+                    }
                     <li>@Html.ActionLink("Over", MVC.FYI.Over())</li>
                     <li>@Html.ActionLink("Contact", MVC.FYI.Contact())</li>
                     <li>@Html.ActionLink("FAQ", MVC.FYI.FAQ())</li>
-                    <li>@Html.ActionLink("Rollen", MVC.Role.Index())</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Rollen", MVC.Role.Index())</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -35,7 +53,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        
+
         <footer id="footer" style="float:left">
             <hr />
             <p>
@@ -53,5 +71,5 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-   </body>
+</body>
 </html>
