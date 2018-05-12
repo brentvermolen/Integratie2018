@@ -89,7 +89,7 @@ namespace DAL
 
 
       modelBuilder.Entity<Grafiek>()
-        .HasRequired<Gebruiker>(g => g.gebruiker)
+        .HasRequired<Gebruiker>(g => g.Gebruiker)
         .WithMany(g => g.Grafieken)
         .HasForeignKey(g => g.GebruikerId);
 
