@@ -38,6 +38,7 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
     public static MVCIntegratie.Controllers.RoleController Role = new MVCIntegratie.Controllers.T4MVC_RoleController();
     public static MVCIntegratie.Controllers.SearchController Search = new MVCIntegratie.Controllers.T4MVC_SearchController();
+    public static MVCIntegratie.Controllers.TestLogicaController TestLogica = new MVCIntegratie.Controllers.T4MVC_TestLogicaController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -137,7 +138,6 @@ namespace Links
         public static readonly string export_data_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/export-data.min.js") ? Url("export-data.min.js") : Url("export-data.js");
         public static readonly string exporting_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/exporting.min.js") ? Url("exporting.min.js") : Url("exporting.js");
         public static readonly string faq_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/faq.min.js") ? Url("faq.min.js") : Url("faq.js");
-        public static readonly string GebruikerSelect_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/GebruikerSelect.min.js") ? Url("GebruikerSelect.min.js") : Url("GebruikerSelect.js");
         public static readonly string highcharts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/highcharts.min.js") ? Url("highcharts.min.js") : Url("highcharts.js");
         public static readonly string index_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/index.d.min.js") ? Url("index.d.min.js") : Url("index.d.js");
         public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/IngelogdeGebruiker.min.js") ? Url("IngelogdeGebruiker.min.js") : Url("IngelogdeGebruiker.js");
@@ -272,7 +272,6 @@ namespace Links
                 public static readonly string export_data_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/export-data.js"); 
                 public static readonly string exporting_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/exporting.js"); 
                 public static readonly string faq_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/faq.js"); 
-                public static readonly string GebruikerSelect_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/GebruikerSelect.js"); 
                 public static readonly string highcharts_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/highcharts.js"); 
                 public static readonly string IngelogdeGebruiker_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/IngelogdeGebruiker.js"); 
                 public static readonly string jquery_3_0_0_intellisense_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-3.0.0.intellisense.js"); 

@@ -32,7 +32,7 @@ namespace MVCIntegratie.Controllers
          AdminModel model = new AdminModel()
          {
             FAQ = FyiMng.GetFAQs().OrderByDescending(f => f.GesteldOp).ToList(),
-            Gebruikers = GebruikerMng.GetGebruikers().OrderBy(g => g.Naam).ToList()
+            Gebruikers = GebruikerMng.GetGebruikers().OrderBy(g => g.Email).ToList()
          };
          return View(model);
       }

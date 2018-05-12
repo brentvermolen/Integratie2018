@@ -25,13 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MVCIntegratie.Controllers
 {
-    public partial class ConfigController
+    public partial class TestLogicaController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ConfigController() { }
+        public TestLogicaController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected ConfigController(Dummy d) { }
+        protected TestLogicaController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -61,13 +61,13 @@ namespace MVCIntegratie.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ConfigController Actions { get { return MVC.Config; } }
+        public TestLogicaController Actions { get { return MVC.TestLogica; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Config";
+        public readonly string Name = "TestLogica";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Config";
+        public const string NameConst = "TestLogica";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -75,19 +75,13 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string AdminConfig = "AdminConfig";
-            public readonly string Gebruikers = "Gebruikers";
-            public readonly string Deelplatform = "Deelplatform";
-            public readonly string Admin = "Admin";
+            public readonly string Index = "Index";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string AdminConfig = "AdminConfig";
-            public const string Gebruikers = "Gebruikers";
-            public const string Deelplatform = "Deelplatform";
-            public const string Admin = "Admin";
+            public const string Index = "Index";
         }
 
 
@@ -101,66 +95,25 @@ namespace MVCIntegratie.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _Faq = "_Faq";
-                public readonly string _Gebruikers = "_Gebruikers";
-                public readonly string Admin = "Admin";
-                public readonly string AdminConfig = "AdminConfig";
-                public readonly string Deelplatform = "Deelplatform";
+                public readonly string Index = "Index";
             }
-            public readonly string _Faq = "~/Views/Config/_Faq.cshtml";
-            public readonly string _Gebruikers = "~/Views/Config/_Gebruikers.cshtml";
-            public readonly string Admin = "~/Views/Config/Admin.cshtml";
-            public readonly string AdminConfig = "~/Views/Config/AdminConfig.cshtml";
-            public readonly string Deelplatform = "~/Views/Config/Deelplatform.cshtml";
+            public readonly string Index = "~/Views/TestLogica/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ConfigController : MVCIntegratie.Controllers.ConfigController
+    public partial class T4MVC_TestLogicaController : MVCIntegratie.Controllers.TestLogicaController
     {
-        public T4MVC_ConfigController() : base(Dummy.Instance) { }
+        public T4MVC_TestLogicaController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void AdminConfigOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AdminConfig()
+        public override System.Web.Mvc.ActionResult Index()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminConfig);
-            AdminConfigOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GebruikersOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Gebruikers()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Gebruikers);
-            GebruikersOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void DeelplatformOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Deelplatform()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Deelplatform);
-            DeelplatformOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Admin()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Admin);
-            AdminOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return callInfo;
         }
 
