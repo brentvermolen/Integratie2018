@@ -38,8 +38,7 @@ namespace BL.Domain.BerichtKlassen
          {
             return true;
          }
-
-         return false;
+         else return false;
       }
    }
 }
