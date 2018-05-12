@@ -7,9 +7,12 @@
 <script type="text/javascript" src="~/Scripts/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+
 <div id="zoekdiv"><form action="/Search/Index" method="post"> <input type="text" id="zoekbar2" name="search" class="form-control" placeholder="Zoeken.."></form></div>
 
 <div class="container">
+    
     <form>
         <div class="row">
             <div class="col-md-3">
@@ -76,28 +79,10 @@
         </div>
     </form>
     <div class="col-md-12">
-
     </div>
+    </div>
+    @Html.Partial("_Resultaat", Model)
     <div class="row">
         <input type="submit" value="Opslaan" class="btn btn-success" id="btnzoek" />
         <input type="submit" value="Annuleren" class="btn btn-success" />
-    </div>
-    @Html.Partial("_Resultaat", Model)
-
-
-
 </div>
-<script>
-    $
-        ('.datepicker').datepicker(
-        {
-            format:
-                'mm/dd/yyyy',
-            startDate:
-                '-3d',
-            orientation:
-                top,
-        }
-        )
-        ;
-</script>

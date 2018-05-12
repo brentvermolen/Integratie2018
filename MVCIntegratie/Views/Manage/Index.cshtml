@@ -4,177 +4,180 @@
 @{
 
     var naam = User.Identity.GetUserName().Substring(0, User.Identity.GetUserName().IndexOf("@"));
+    var email = User.Identity.GetUserName();
+    var db =
 }
-<link rel="stylesheet" href="~/Content/Layout.css"/>
+<link rel="stylesheet" href="~/Content/Layout.css" />
 <script src="~/Scripts/ReadOnly.js"></script>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 
 <div>
 
-<h2 id="naam">@naam</h2>
-<hr/>
-<div class="col-md-8">
-@using (Html.BeginForm("Index", "Manage", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-{
-    @Html.ValidationSummary("", new {@class = "text-danger"})
-    <div class="form-group">
-        @Html.LabelFor(m => m.Voornaam, new {@class = "col-md-2 control-label"})
-        <div class="col-md-8" id="invoer">
-            @Html.TextBoxFor(m => m.Voornaam, new {@class = "form-control invoerveld", @readonly = true})
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Achternaam, new {@class = "col-md-2 control-label"})
-        <div class="col-md-8" id="invoer">
-            @Html.TextBoxFor(m => m.Achternaam, new {@class = "form-control invoerveld", @readonly = true})
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new {@class = "col-md-2 control-label"})
-        <div class="col-md-8" id="invoer">
-            @Html.TextBoxFor(m => m.Email, new {@class = "form-control invoerveld", @readonly = true})
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Geboortedatum, new {@class = "col-md-2 control-label"})
-        <div class="col-md-8" id="invoer">
-            @Html.TextBoxFor(m => m.Geboortedatum, new {@class = "form-control invoerveld", @readonly = true})
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Postcode, new {@class = "col-md-2 control-label"})
-        <div class="col-md-8" id="invoer">
-            @Html.TextBoxFor(m => m.Postcode, new {@class = "form-control invoerveld", @readonly = true})
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Beveiligingsvraag, new {@class = "col-md-2 control-label"})
-        <div class="col-md-8" id="invoer">
-            @Html.DropDownListFor(m => m.Beveiligingsvraag,
-                new List<SelectListItem>
-                {
-                    new SelectListItem {Value = "0", Text = "Wat is de geboorteplaats van je moeder?"},
-                    new SelectListItem {Value = "1", Text = "Wat is de geboorteplaats van je vader?"},
-                    new SelectListItem {Value = "2", Text = "Wat was het merk van je eerste auto?"},
-                    new SelectListItem {Value = "3", Text = "Wat is de naam van je beste jeugdvriend?"},
-                    new SelectListItem {Value = "4", Text = "Met wie was je eerste kus?"},
-                    new SelectListItem {Value = "5", Text = "In welke straat stond je eerste eigen huis?"},
-                    new SelectListItem {Value = "6", Text = "Wat is de naam van je eerste huisdier?"}
-                },
-                new {@class = "form-control invoerdropdown", @disabled = "disabled"})
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Antwoord, new {@class = "col-md-2 control-label"})
-        <div class="col-md-8" id="invoer">
-            @Html.TextBoxFor(m => m.Antwoord, new {@class = "form-control invoerveld", @readonly = true})
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="wijzig" type="button" class="btn btn-default" value="Wijzig" onclick="invoer(this)"/>
-            <input type="submit" class="btn btn-default" value="Opslaan"/>
-        </div>
-    </div>
-}
+    <h2 id="naam">@naam</h2>
+    <hr />
+    <div class="col-md-8">
+        @using (Html.BeginForm("Index", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Voornaam, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8" id="invoer">
+                    <input class="form-control invoerveld" readonly="readonly" value="" type="text" />
+                    <!--@Html.TextBoxFor(m => m.Voornaam, new { @class = "form-control invoerveld", @readonly = true })-->
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Achternaam, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8" id="invoer">
+                    @Html.TextBoxFor(m => m.Achternaam, new { @class = "form-control invoerveld", @readonly = true })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8" id="invoer">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control invoerveld", @readonly = true })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Geboortedatum, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8" id="invoer">
+                    @Html.TextBoxFor(m => m.Geboortedatum, new { @class = "form-control invoerveld", @readonly = true })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Postcode, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8" id="invoer">
+                    @Html.TextBoxFor(m => m.Postcode, new { @class = "form-control invoerveld", @readonly = true })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Beveiligingsvraag, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8" id="invoer">
+                    @Html.DropDownListFor(m => m.Beveiligingsvraag,
+                                  new List<SelectListItem>
+                                  {
+                            new SelectListItem {Value = "0", Text = "Wat is de geboorteplaats van je moeder?"},
+                            new SelectListItem {Value = "1", Text = "Wat is de geboorteplaats van je vader?"},
+                            new SelectListItem {Value = "2", Text = "Wat was het merk van je eerste auto?"},
+                            new SelectListItem {Value = "3", Text = "Wat is de naam van je beste jeugdvriend?"},
+                            new SelectListItem {Value = "4", Text = "Met wie was je eerste kus?"},
+                            new SelectListItem {Value = "5", Text = "In welke straat stond je eerste eigen huis?"},
+                            new SelectListItem {Value = "6", Text = "Wat is de naam van je eerste huisdier?"}
+                                  },
+                                  new { @class = "form-control invoerdropdown", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Antwoord, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8" id="invoer">
+                    @Html.TextBoxFor(m => m.Antwoord, new { @class = "form-control invoerveld", @readonly = true })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="wijzig" type="button" class="btn btn-default" value="Wijzig" onclick="invoer(this)" />
+                    <input type="submit" class="btn btn-default" value="Opslaan" />
+                </div>
+            </div>
+        }
 
 
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
 
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-
-             Uncomment the following block after you have set up two-factor authentication
-            *@
-        @*
-            <dt>Phone Number:</dt>
+        <dl class="dl-horizontal">
+            <dt>Password:</dt>
             <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
+                [
+                @if (Model.HasPassword)
                 {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
+                    @Html.ActionLink("Change your password", "ChangePassword")
                 }
                 else
                 {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                    @Html.ActionLink("Create", "SetPassword")
                 }
+                ]
             </dd>
+            <dt>External Logins:</dt>
+            <dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>
+            @*
+                Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+                 See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+                 Uncomment the following block after you have set up two-factor authentication
             *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @*
+                <dt>Phone Number:</dt>
+                <dd>
+                    @(Model.PhoneNumber ?? "None")
+                    @if (Model.PhoneNumber != null)
                     {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
+                        <br />
+                        <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                        using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                        }
                     }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    else
                     {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
+                        <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
                     }
-                }*@
-        </dd>
-    </dl>
-</div>
+                </dd>
+            *@
+            <dt>Two-Factor Authentication:</dt>
+            <dd>
+                <p>
+                    There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication.
+                </p>
+                @*@if (Model.TwoFactor)
+                    {
+                        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <text>Enabled
+                            <input type="submit" value="Disable" class="btn btn-link" />
+                            </text>
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <text>Disabled
+                            <input type="submit" value="Enable" class="btn btn-link" />
+                            </text>
+                        }
+                    }*@
+            </dd>
+        </dl>
+    </div>
