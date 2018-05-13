@@ -231,7 +231,6 @@
     <Compile Include="Controllers\FYIController.cs" />
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TestLogicaController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersoonController.cs" />
     <Compile Include="Controllers\RoleController.cs" />

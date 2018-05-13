@@ -21,9 +21,9 @@ namespace DAL
       [NotMapped]
       public Integratie2018Context Context { get; set; }
 
-      public void Start()
+      public async Task StartAsync()
       {
-         ApiCallAsync(Context);
+         await ApiCallAsync(Context);
       }
 
       private string GetMaand(int maand)
@@ -75,7 +75,7 @@ namespace DAL
             {
                CharSet = "utf-8"
             });
-
+            Latest = new DateTime(2018, 1, 1);
             StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
             Latest = DateTime.Now;
 

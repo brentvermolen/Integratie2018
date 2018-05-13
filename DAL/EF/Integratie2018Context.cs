@@ -9,46 +9,46 @@ using System.Data.Entity;
 namespace DAL
 {
 
-  public class Integratie2018Context : DbContext
-  {
-    public static int Count = 0;
-    public static Synchronize sync;
+   public class Integratie2018Context : DbContext
+   {
+      public static int Count = 0;
+      public static Synchronize sync;
 
 
-    public Integratie2018Context() : base("integratie2018DB")
-    {
-      Database.SetInitializer(new Integratie2018Initializer());
-
-      try
+      public Integratie2018Context() : base("integratie2018DB")
       {
-        Database.Initialize(false);
-      }
-      catch (Exception e)
-      {
-        e.ToString();
-      }
+         Database.SetInitializer(new Integratie2018Initializer());
 
-      /*if (Count++ == 0)
-      {
-         sync = Sync.Find(0);
-         if (sync == null)
+         try
          {
-            sync = new Synchronize()
+            Database.Initialize(false);
+         }
+         catch (Exception e)
+         {
+            e.ToString();
+         }
+
+         /*if (Count++ == 0)
+         {
+            sync = Sync.Find(0);
+            if (sync == null)
             {
-               ID = 0,
-               Latest = new DateTime(2018, 1, 1),
-               Context = this
-            };
-            Sync.Add(sync);
-            SaveChanges();
-            sync.Start();
-         }
-         else
-         {
-            sync.Start();
-         }
-      }*/
-    }
+               sync = new Synchronize()
+               {
+                  ID = 0,
+                  Latest = new DateTime(2018, 1, 1),
+                  Context = this
+               };
+               Sync.Add(sync);
+               SaveChanges();
+               sync.Start();
+            }
+            else
+            {
+               sync.Start();
+            }
+         }*/
+      }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
       {
@@ -89,24 +89,24 @@ namespace DAL
          modelBuilder.Entity<Grafiek>()
             .HasRequired<Gebruiker>(s => s.Gebruiker)
             .WithMany(g => g.Grafieken)
-            .HasForeignKey<int>(s => s.GebruikerID);
+            .HasForeignKey<int>(s => s.GebruikerId);
 
          base.OnModelCreating(modelBuilder);
-    }
+      }
 
-    public DbSet<Synchronize> Sync { get; set; }
+      public DbSet<Synchronize> Sync { get; set; }
 
-    public DbSet<Bericht> Berichten { get; set; }
-    public DbSet<Woord> Woorden { get; set; }
-    public DbSet<Url> Urls { get; set; }
-    public DbSet<Mention> Mentions { get; set; }
-    public DbSet<Hashtag> Hashtags { get; set; }
-    public DbSet<Thema> Themas { get; set; }
+      public DbSet<Bericht> Berichten { get; set; }
+      public DbSet<Woord> Woorden { get; set; }
+      public DbSet<Url> Urls { get; set; }
+      public DbSet<Mention> Mentions { get; set; }
+      public DbSet<Hashtag> Hashtags { get; set; }
+      public DbSet<Thema> Themas { get; set; }
 
-    public DbSet<Persoon> Personen { get; set; }
+      public DbSet<Persoon> Personen { get; set; }
 
 
-    public DbSet<Alert> Alerts { get; set; }
+      public DbSet<Alert> Alerts { get; set; }
       public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
       public virtual DbSet<Gebruiker> Gebruikers { get; set; }
       public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
@@ -120,6 +120,6 @@ namespace DAL
       public DbSet<Categorie> Categorieën { get; set; }
 
 
-    public DbSet<FAQ> FAQ { get; set; }
-  }
+      public DbSet<FAQ> FAQ { get; set; }
+   }
 }

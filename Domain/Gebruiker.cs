@@ -64,12 +64,10 @@ namespace BL.Domain
       public virtual ICollection<GebruikersClaim> GebruikersClaims { get; set; }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
-        
-        public List<Grafiek> Grafieken { get; set; }
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+      public virtual ICollection<Role> Roles { get; set; }
 
-      public virtual List<Grafiek> Grafieken { get; set; }
+      public List<Grafiek> Grafieken { get; set; }
 
 
       IEnumerable<Alert> Alerts { get; set; }

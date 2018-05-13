@@ -16,40 +16,17 @@
 <script src="~/Scripts/MaakGrafiek.js"></script>
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
-<script>
-   $(document).ready(function () {
-      //var elem = document.getElementById('selector');
-      @if (Model.IsGewijzigd) {
-         switch (Model.GewijzigdType) {
-            case "lijn":
-               <text>wijzigtype("Lijn Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
-               break;
-            case "staaf":
-               <text>wijzigtype("Staaf Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
-               break;
-            case "taart":
-               <text>wijzigtype("Taart Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
-               break;
-         }
-      }
-      else
-      {
-         <text>wijzigtype("Lijn Diagram", 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');</text>
-      }
-   })
-</script>
-
 
 <div class="container">
 
    <div class="row">
       <div class="col-sm-12 col-md-12" id="typediagram">
          <!--<select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
-      <option value="Lijn Diagram" selected>Lijn Diagram</option>
-      <option value="Staaf Diagram">Staaf Diagram</option>
-      <option value="Taart Diagram">Taart Diagram</option>
-      <option value="Vergelijking">Vergelijking</option>
-   </select>-->
+            <option value="Lijn Diagram" selected>Lijn Diagram</option>
+            <option value="Staaf Diagram">Staaf Diagram</option>
+            <option value="Taart Diagram">Taart Diagram</option>
+            <option value="Vergelijking">Vergelijking</option>
+         </select>-->
          <a href="javascript:void(0);" onclick="wijzigtype('Lijn Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/lijn_diagram.png" alt="line" style="max-width:100%" /></div></a>
          <a href="javascript:void(0);" onclick="wijzigtype('Staaf Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/staaf_diagram.png" alt="line" style="max-width:100%" /></div></a>
          <a href="javascript:void(0);" onclick="wijzigtype('Taart Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/taart_diagram.png" alt="line" style="max-width:100%" /></div></a>
@@ -1459,6 +1436,24 @@
                   ]
                });
    })
+
+   @if (Model.IsGewijzigd) {
+         switch (Model.GewijzigdType) {
+            case "lijn":
+               <text>wijzigtype("Lijn Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "staaf":
+               <text>wijzigtype("Staaf Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "taart":
+               <text>wijzigtype("Taart Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+         }
+      }
+      else
+      {
+         <text>wijzigtype("Lijn Diagram", 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');</text>
+      }
 
    function wijzigtype(selectie, id, vergid, barid, lineid, pieid) {
       grafiekGewijzigd();
