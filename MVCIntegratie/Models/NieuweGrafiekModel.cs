@@ -21,6 +21,5 @@ namespace MVCIntegratie.Models
       public Grafiek Pie { get; set; }
       public bool IsGewijzigd { get; set; }
       public string GewijzigdType { get; set; }
-      public List<Persoon> Personen { get; set; }
    }
 }

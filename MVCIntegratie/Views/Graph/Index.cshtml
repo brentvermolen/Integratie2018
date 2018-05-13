@@ -16,6 +16,26 @@
 <script src="~/Scripts/MaakGrafiek.js"></script>
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
+<script>
+   $.ajax("/api/NieuweGrafiek/Personen", {
+      type: 'GET',
+      dataType: 'json'
+   }).done(function (data) {
+      var elem = document.getElementById("personenButtons");
+      var loading = document.getElementById("personenLoading");
+      var personen = data;
+      for (var i = 0; i < personen.length; i++) {
+         var persoon = personen[i];
+         var button = "<input type='button' style='margin: 1px' class='btnPersoon btn btn-info' id='" + persoon["ID"] + "' onclick='getDataPolitieker(this); ClosePopup();' value='" + persoon["Naam"] + "' />"
+         elem.innerHTML = elem.innerHTML + button;
+      }
+      loading.style.display = "none";
+      elem.style.display = "block";
+   }).fail(function (data) {
+      alert('Oeps, er is iets misgelopen, de pagina wordt opnieuw geladen');
+      window.location.reload();
+   });
+</script>
 
 <div class="container">
 
@@ -1523,11 +1543,8 @@
          <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value="" />
       </div>
       <div class="popup-body">
-         <p>
-            @foreach (var persoon in Model.Personen)
-            {
-               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getDataPolitieker(this); ClosePopup();" value="@persoon.Naam" />
-            }
+         <p id="personenLoading" style="display:block">Personen worden geladen</p>
+         <p id="personenButtons" style="display:none">
          </p>
       </div>
    </div>

@@ -77,7 +77,7 @@ namespace DAL
             });
             Latest = new DateTime(2018, 1, 1);
             StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
-            Latest = DateTime.Now;
+            //Latest = DateTime.Now;
 
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
             {

@@ -19,7 +19,7 @@ namespace DAL
 {
 
 
-  public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
+  public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
 
   {
     protected override void Seed(Integratie2018Context context)

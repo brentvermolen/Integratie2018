@@ -29,17 +29,13 @@ namespace MVCIntegratie.Controllers
             return Redirect("/Home/Index");
          }
 
-         List<Persoon> personen = berichtMng.GetPersonen().ToList();
-         personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
-
          As xAsBar = new As() { IsUsed = true };
 
          NieuweGrafiekModel types = new NieuweGrafiekModel()
          {
             Bar = new Bar(0, "PREVIEW STAAF", xAsBar, new List<Serie>()),
             Line = new Lijn(1, "PREVIEW LIJN", new As(), new List<Serie>()),
-            Pie = new Pie(2, "PREVIEW TAART", new Serie()),
-            Personen = personen
+            Pie = new Pie(2, "PREVIEW TAART", new Serie())
          };
 
          return View(types);
@@ -48,9 +44,6 @@ namespace MVCIntegratie.Controllers
       public virtual ActionResult Wijzig(int id)
       {
          int userID = int.Parse(User.Identity.GetUserId());
-
-         List<Persoon> personen = berichtMng.GetPersonen().ToList();
-         personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
          Grafiek gr = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id);
          
          if (gr.Gebruiker.ID != userID)
@@ -64,7 +57,6 @@ namespace MVCIntegratie.Controllers
             Bar = new Bar(0, "PREVIEW STAAF", xAsBar, new List<Serie>()),
             Line = new Lijn(1, "PREVIEW LIJN", new As(), new List<Serie>()),
             Pie = new Pie(2, "PREVIEW TAART", new Serie()),
-            Personen = personen,
             IsGewijzigd = true
          };
 
