@@ -17,8 +17,6 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-
-
   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
 
   {
@@ -35,7 +33,6 @@ namespace DAL
         Context = context
       }.StartAsync();
       context.SaveChanges();
-
     }
 
     private void AddFaq(Integratie2018Context context)

@@ -10,7 +10,20 @@ namespace BL.Domain.GrafiekTypes
 {
    public class Lijn : Grafiek
    {
-      public Lijn() { }
+      public Lijn()
+      {
+         Chart = new Chart() { Type = "normal" };
+         Legende = new Legende()
+         {
+            Layout = "vertical",
+            Alignment = "right",
+            VerticalAlign = "middle"
+         };
+         PlotOptions = new PlotOptions()
+         {
+            SeriesLabelConnector = false
+         };
+      }
 
       public Lijn(int ID,
          string Titel,
@@ -21,6 +34,7 @@ namespace BL.Domain.GrafiekTypes
          this.Titel = Titel;
          this.yAs = yAs;
          this.Series = Series;
+         Chart = new Chart() { Type = "normal" };
          Legende = new Legende()
          {
             Layout = "vertical",

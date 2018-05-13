@@ -13,7 +13,6 @@ namespace BL.Domain
    {
       public Grafiek()
       {
-         Chart = new Chart() { Type = "normal" };
          xAs = new As();
          yAs = new As();
          Legende = new Legende();
@@ -26,14 +25,19 @@ namespace BL.Domain
       [Key]
       public int ID { get; set; }
       [JsonProperty("chart")]
+      [NotMapped]
       public Chart Chart { get; set; }
       public string Titel { get; set; }
+      [NotMapped]
       public string Tooltip { get; set; }
       [JsonProperty("xAxis")]
       public virtual As xAs { get; set; }
       public virtual As yAs { get; set; }
+      [NotMapped]
       public bool Credits { get; set; }
+      [NotMapped]
       public Legende Legende { get; set; }
+      [NotMapped]
       public PlotOptions PlotOptions { get; set; }
       public int GebruikerId { get; set; }
       public Gebruiker Gebruiker { get; set; }

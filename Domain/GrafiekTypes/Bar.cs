@@ -10,7 +10,14 @@ namespace BL.Domain.GrafiekTypes
 {
    public class Bar : Grafiek
    {
-      public Bar() { }
+      public Bar()
+      {
+         Chart = new Chart()
+         {
+            Type = "column"
+         };
+         Credits = false;
+      }
 
       public Bar(int ID,
          string Titel,

@@ -9,13 +9,10 @@ namespace BL.Domain.GrafiekKlassen
 {
    public class Categorie
    {
-      public static int Count = 0;
-
       public Categorie() { }
 
       public Categorie(string tekst)
       {
-         ID = Count++;
          Tekst = tekst;
          Assen = new List<As>();
       }

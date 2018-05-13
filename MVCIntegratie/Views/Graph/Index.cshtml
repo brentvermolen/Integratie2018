@@ -23,6 +23,7 @@
    }).done(function (data) {
       var elem = document.getElementById("personenButtons");
       var loading = document.getElementById("personenLoading");
+
       var personen = data;
       for (var i = 0; i < personen.length; i++) {
          var persoon = personen[i];
@@ -31,9 +32,8 @@
       }
       loading.style.display = "none";
       elem.style.display = "block";
-   }).fail(function (data) {
-      alert('Oeps, er is iets misgelopen, de pagina wordt opnieuw geladen');
-      window.location.reload();
+   }).fail(function () {
+      document.getElementById("personenLoading").innerHTML = "Oeps, er is iets misgelopen<br />Probeer de pagina te herladen..."
    });
 </script>
 
@@ -535,6 +535,16 @@
    var personenLine = [];
    var personenBar = [];
    var currentPersonen = personenLine;
+
+   @if (Model.IsGewijzigd)
+   {
+      <text>
+   $(document).ready(function () {
+
+   });
+      </text>
+   }
+
 
    function aantalTweetsToevoegen(data, naam, id, cat) {
       switch (currentChart) {
