@@ -27,6 +27,7 @@
 <div class="container">
    <div class="row">
       <div class="col-sm-6 col-md-6 content">
+         <div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);" ondrop="allowDrop(event);" ondragover="allowDrop(event)"></div>
          <div id="nodeBox">
             <div>
                <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
@@ -44,6 +45,7 @@
       @foreach (var grafiek in Model)
       {
          <div class="col-sm-6 col-md-6 content">
+            <div style="display:none" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);" ondrop="drop(event);" ondragover="allowDrop(event)"></div>
             <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
@@ -58,6 +60,55 @@
       }
    </div>
 </div>
+
+<input type="button" value="Wijzig Volgorde" onclick="enableDisableDragDrop();" />
+
+<script>
+   function enableDisableDragDrop() {
+      var divs = document.getElementsByClassName("dragger");
+
+      for (var i = 0; i < divs.length; i++) {
+         if (divs[i].style.display == "none") {
+            divs[i].style.display = "block";
+         } else {
+            divs[i].style.display = "none";
+         }
+      }
+   }
+
+   function allowDrop(ev) {
+      ev.preventDefault();
+   }
+
+   function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.title);
+   }
+
+   function drop(ev) {
+      ev.preventDefault();
+      var srcID = ev.dataTransfer.getData("text");
+      var targetID = $(ev.target.parentElement).attr("data-id");
+
+      var target = ev.target.parentElement;
+      var source = document.getElementById(srcID)
+      source = source.parentElement;
+
+      var copy_to = $(target).clone(true);
+      var copy_from = $(source).clone(true);
+      $(target).replaceWith(copy_from);
+      $(source).replaceWith(copy_to);
+   }
+</script>
+<style>
+   .dragger {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+   }
+</style>
 
 <script type="text/javascript">
    $(document).ready(function () {
