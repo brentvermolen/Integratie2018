@@ -301,6 +301,7 @@
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NieuweGrafiekModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="PersoonController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -341,7 +342,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\dashboard.png" />
+    <Content Include="Images\lijn_diagram.png" />
     <Content Include="Images\nodebox.svg" />
+    <Content Include="Images\staaf_diagram.png" />
+    <Content Include="Images\taart_diagram.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chart.js" />

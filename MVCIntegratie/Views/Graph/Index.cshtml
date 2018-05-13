@@ -1,4 +1,4 @@
-﻿@model BL.Domain.GrafiekKlassen.NieuweGrafiekModel
+﻿@model MVCIntegratie.Models.NieuweGrafiekModel
 
 @{
    ViewBag.Title = "NieuweGrafiek";
@@ -18,8 +18,24 @@
 
 <script>
    $(document).ready(function () {
-      var elem = document.getElementById('selector');
-      wijzigtype(elem, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')
+      //var elem = document.getElementById('selector');
+      @if (Model.IsGewijzigd) {
+         switch (Model.GewijzigdType) {
+            case "lijn":
+               <text>wijzigtype("Lijn Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "staaf":
+               <text>wijzigtype("Staaf Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "taart":
+               <text>wijzigtype("Taart Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+         }
+      }
+      else
+      {
+         <text>wijzigtype("Lijn Diagram", 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');</text>
+      }
    })
 </script>
 
@@ -27,24 +43,26 @@
 <div class="container">
 
    <div class="row">
-      <div class="col-sm-10 col-md-10" id="typediagram">
-         <select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
-            <option value="Lijn Diagram" selected>Lijn Diagram</option>
-            <option value="Staaf Diagram">Staaf Diagram</option>
-            <option value="Taart Diagram">Taart Diagram</option>
-            <option value="Vergelijking">Vergelijking</option>
-
-         </select>
+      <div class="col-sm-12 col-md-12" id="typediagram">
+         <!--<select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
+      <option value="Lijn Diagram" selected>Lijn Diagram</option>
+      <option value="Staaf Diagram">Staaf Diagram</option>
+      <option value="Taart Diagram">Taart Diagram</option>
+      <option value="Vergelijking">Vergelijking</option>
+   </select>-->
+         <a href="javascript:void(0);" onclick="wijzigtype('Lijn Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/lijn_diagram.png" alt="line" style="max-width:100%" /></div></a>
+         <a href="javascript:void(0);" onclick="wijzigtype('Staaf Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/staaf_diagram.png" alt="line" style="max-width:100%" /></div></a>
+         <a href="javascript:void(0);" onclick="wijzigtype('Taart Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/taart_diagram.png" alt="line" style="max-width:100%" /></div></a>
       </div>
    </div>
    <br />
-   <div class="col-sm-10 col-md-10 content" id="grafiekdiv">
+   <div class="col-sm-12 col-md-12 content row" id="grafiekdiv">
       <div id="@Model.Line.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Bar.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Pie.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
    </div>
 
-   <div class="col-sm-12 col-md-12 row chartopties">
+   <div class="col-sm-12 col-md-12 content row chartopties">
       <label>Grafiek titel: </label>
       <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value);" />
    </div>
@@ -1445,7 +1463,7 @@
    function wijzigtype(selectie, id, vergid, barid, lineid, pieid) {
       grafiekGewijzigd();
 
-      if (selectie.value == "Lijn Diagram") {
+      if (selectie/*.value*/ == "Lijn Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "block";
          currentChart = 'line';
          currentPersonen = personenLine;
@@ -1458,7 +1476,7 @@
          document.getElementById(pieid).style.display = "none";
          document.getElementById("grafTitel").value = lineChart.title.textStr;
       }
-      else if (selectie.value == "Staaf Diagram") {
+      else if (selectie/*.value*/ == "Staaf Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "none";
          document.getElementById('@Model.Bar.ID').style.display = "block";
          currentChart = 'bar';
@@ -1471,7 +1489,7 @@
          document.getElementById(pieid).style.display = "none";
          document.getElementById("grafTitel").value = barChart.title.textStr;
       }
-      else if (selectie.value == "Taart Diagram") {
+      else if (selectie/*.value*/ == "Taart Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "none";
          document.getElementById('@Model.Bar.ID').style.display = "none";
          document.getElementById('@Model.Pie.ID').style.display = "block";
@@ -1481,7 +1499,7 @@
          document.getElementById(barid).style.display = "none";
          document.getElementById(pieid).style.display = "block";
          document.getElementById("grafTitel").value = pieChart.title.textStr;
-      } else if (selectie.value == "Vergelijking") {
+      } else if (selectie/*.value*/ == "Vergelijking") {
          document.getElementById('@Model.Line.ID').style.display = "none";
          document.getElementById('@Model.Bar.ID').style.display = "none";
          document.getElementById('@Model.Pie.ID').style.display = "none";

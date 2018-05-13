@@ -101,7 +101,7 @@ namespace DAL
       private class BerichtenClass
       {
          [JsonProperty("berichten")]
-         public List<Bericht> berichten { get; set; }
+         public List<Bericht> Berichten { get; set; }
       }
 
       public IEnumerable<Bericht> AddBerichten(string json, Integratie2018Context context)
@@ -123,7 +123,7 @@ namespace DAL
 
          BerichtenJson.ToString();
          int count = 0;
-         context.Berichten.AddRange(BerichtenJson.berichten/*.Where((b) => count++ < 100000)*/);
+         context.Berichten.AddRange(BerichtenJson.Berichten/*.Where((b) => count++ < 100000)*/);
 
          try
          {
@@ -133,7 +133,7 @@ namespace DAL
          {
             ex.ToString();
          }
-         return BerichtenJson.berichten;
+         return BerichtenJson.Berichten;
       }
    }
 }

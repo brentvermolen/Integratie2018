@@ -474,7 +474,7 @@ namespace MVCIntegratie.Controllers.Api
                {
                   Data data2 = new Data()
                   {
-                     Naam = pie.series[i].naam,
+                     Naam = pie.series[i],
                      Value = pie.waarden[i]
                   };
                   serie2.Data.Add(data2);
@@ -525,7 +525,7 @@ namespace MVCIntegratie.Controllers.Api
       {
          public string title { get; set; }
          public string serieNaam { get; set; }
-         public List<PersoonJson> series { get; set; }
+         public List<string> series { get; set; }
          public List<double> waarden { get; set; }
       }
 

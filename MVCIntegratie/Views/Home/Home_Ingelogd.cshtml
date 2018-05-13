@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<BL.Domain.Grafiek>
+
+@{
    ViewBag.Title = "Home";
 }
 
@@ -32,8 +34,7 @@
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
                <ul class="onclick-menu-content">
-                  <li><button>Bewerken</button></li>
-                  <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li>
+                  <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li> <!--In gebruiker klassen een attribuut bool hasNodebox? if true => Show Nodebox-->
                   <li><button>Annuleren</button></li>
                </ul>
             </div>
