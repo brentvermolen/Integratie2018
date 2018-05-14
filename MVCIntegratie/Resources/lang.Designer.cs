@@ -22,14 +22,14 @@ namespace Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class home_index {
+    public class lang {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal home_index() {
+        internal lang() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MVCIntegratie.Resources.home_index", typeof(home_index).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MVCIntegratie.Resources.lang", typeof(lang).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -88,6 +88,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hoe gebruik je onze site?.
+        /// </summary>
+        public static string gebruik {
+            get {
+                return ResourceManager.GetString("gebruik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onze groepsleden zijn: Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauqiuer en Daan Schokkaert..
+        /// </summary>
+        public static string groepsleden {
+            get {
+                return ResourceManager.GetString("groepsleden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onze groepsnaam is: &quot;Bit By Bit&quot;..
+        /// </summary>
+        public static string groepsnaam {
+            get {
+                return ResourceManager.GetString("groepsnaam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startpagina.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wij zijn een groep studenten uit de richting Toegepaste Informatice aan de Karel De Grote Hogeschool in antwerpen..
+        /// </summary>
+        public static string info_groep {
+            get {
+                return ResourceManager.GetString("info_groep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuwe Grafiek.
         /// </summary>
         public static string NieuweGraf {
@@ -102,6 +147,15 @@ namespace Resources {
         public static string Over {
             get {
                 return ResourceManager.GetString("Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Over ons.
+        /// </summary>
+        public static string overons {
+            get {
+                return ResourceManager.GetString("overons", resourceCulture);
             }
         }
         

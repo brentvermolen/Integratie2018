@@ -25,13 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MVCIntegratie.Controllers
 {
-    public partial class GraphController
+    public partial class TestLogicaController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public GraphController() { }
+        public TestLogicaController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected GraphController(Dummy d) { }
+        protected TestLogicaController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -59,21 +59,15 @@ namespace MVCIntegratie.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Wijzig()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wijzig);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public GraphController Actions { get { return MVC.Graph; } }
+        public TestLogicaController Actions { get { return MVC.TestLogica; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Graph";
+        public readonly string Name = "TestLogica";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Graph";
+        public const string NameConst = "TestLogica";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,25 +76,15 @@ namespace MVCIntegratie.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string Wijzig = "Wijzig";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string Wijzig = "Wijzig";
         }
 
 
-        static readonly ActionParamsClass_Wijzig s_params_Wijzig = new ActionParamsClass_Wijzig();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Wijzig WijzigParams { get { return s_params_Wijzig; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Wijzig
-        {
-            public readonly string id = "id";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -112,17 +96,15 @@ namespace MVCIntegratie.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
-                public readonly string NieuweGrafiek = "NieuweGrafiek";
             }
-            public readonly string Index = "~/Views/Graph/Index.cshtml";
-            public readonly string NieuweGrafiek = "~/Views/Graph/NieuweGrafiek.cshtml";
+            public readonly string Index = "~/Views/TestLogica/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_GraphController : MVCIntegratie.Controllers.GraphController
+    public partial class T4MVC_TestLogicaController : MVCIntegratie.Controllers.TestLogicaController
     {
-        public T4MVC_GraphController() : base(Dummy.Instance) { }
+        public T4MVC_TestLogicaController() : base(Dummy.Instance) { }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
@@ -132,18 +114,6 @@ namespace MVCIntegratie.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void WijzigOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Wijzig(int id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wijzig);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            WijzigOverride(callInfo, id);
             return callInfo;
         }
 

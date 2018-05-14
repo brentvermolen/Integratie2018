@@ -126,11 +126,29 @@
   <data name="FAQ" xml:space="preserve">
     <value>FAQ</value>
   </data>
+  <data name="gebruik" xml:space="preserve">
+    <value>How do you use our site?</value>
+  </data>
+  <data name="groepsleden" xml:space="preserve">
+    <value>Our groupmembers are:  Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauqiuer and Daan Schokkaert.</value>
+  </data>
+  <data name="groepsnaam" xml:space="preserve">
+    <value>Our groupname is: "Bit by Bit"</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="info_groep" xml:space="preserve">
+    <value>We are a group of IT students from the KDG in Antwerp.</value>
+  </data>
   <data name="NieuweGraf" xml:space="preserve">
     <value>New Graph</value>
   </data>
   <data name="Over" xml:space="preserve">
     <value>About</value>
+  </data>
+  <data name="overons" xml:space="preserve">
+    <value>About us</value>
   </data>
   <data name="Rollen" xml:space="preserve">
     <value>Roles</value>
