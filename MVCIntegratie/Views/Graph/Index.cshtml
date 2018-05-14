@@ -462,7 +462,7 @@
    var barChart;
    var pieChart;
    var currentChart;
-   var elemToAdd = 'polLine';
+   var elemToAdd = document.getElementById('polLine');
 
    function wijzigTitel(value) {
       grafiekGewijzigd();
@@ -540,72 +540,102 @@
    {
       <text>
    $(document).ready(function () {
+            @foreach(var persoon in Model.Line.Personen)
+            {
+               <text>
+      elemToAdd = document.getElementById('polLine');
+      persoonToevoegen('@persoon.Naam', '@persoon.ID', true);
+               </text>
+            }
+      @foreach(var persoon in Model.Bar.Personen)
+            {
+               <text>
+      elemToAdd = document.getElementById('polBar');
+      persoonToevoegen('@persoon.Naam', '@persoon.ID', true);
+               </text>
+            }
+      @if(Model.Pie.Personen.Count > 0)
+      {
+         <text>
+         var btnPie = document.getElementsByClassName('btnPiePersoon')[0];
+         btnPie.id = '@Model.Pie.Personen[0].ID';
+         btnPie.value = '@Model.Pie.Personen[0].Naam';
+      </text>
+      }
 
+      isGewijzigd = false;
+      checkGrafiek();
    });
+
       </text>
    }
 
 
-   function aantalTweetsToevoegen(data, naam, id, cat) {
-      switch (currentChart) {
-         case 'line':
-            var str = [];
-            var d = data["Data"];
-            var dag = data["StartDag"];
-            var maand = data["StartMaand"] - 1;
-            var jaar = data["StartJaart"];
+      function aantalTweetsToevoegen(data, naam, id, cat) {
+         switch (currentChart) {
+            case 'line':
+               var str = [];
+               var d = data["Data"];
+               var dag = data["StartDag"];
+               var maand = data["StartMaand"] - 1;
+               var jaar = data["StartJaart"];
 
-            for (var i = 0; i < d.length; i++) {
-               str.push(d[i]);
-            }
+               for (var i = 0; i < d.length; i++) {
+                  str.push(d[i]);
+               }
 
-            lineChart.addSeries({ name: naam, data: str });
-            if (currentSeries == -1) {
-               currentSeries = 0;
-            }
-            lineChart.series[currentSeries].xAxis.update({
-               type: "datetime"
-            }, false);
-            lineChart.series[currentSeries].update({
-               pointStart: Date.UTC(jaar, maand, dag),
+               lineChart.addSeries({ name: naam, data: str });
+               if (currentSeries == -1) {
+                  currentSeries = 0;
+               }
+               lineChart.series[currentSeries].xAxis.update({
+                  type: "datetime"
+               }, false);
+               lineChart.series[currentSeries].update({
+                  pointStart: Date.UTC(jaar, maand, dag),
                pointInterval: 24 * 3600 * 1000 * 7
-            }, false);
-            lineChart.series[currentSeries].yAxis.update({
-               title: { text:  cat }
-            }, true);
-            currentSeries++;
-            break;
-         case 'bar':
-            barChart.addSeries({ name: naam, data: [data] });
-            if (currentSeries == -1) {
-               currentSeries = 0;
-            }
-            var categories = barChart.userOptions.xAxis.categories;
-            if (categories.length == 0) {
-               categories.push(cat);
-            } else {
-               categories[0] = cat;
-            }
-            barChart.series[currentSeries].yAxis.update({
-               title: { text: cat }
-            }, true);
-            currentSeries++;
-            break;
-         case 'pie':
-            break;
+               }, false);
+               lineChart.series[currentSeries].yAxis.update({
+                  title: { text:  cat }
+               }, true);
+               currentSeries++;
+               break;
+            case 'bar':
+               barChart.addSeries({ name: naam, data: [data] });
+               if (currentSeries == -1) {
+                  currentSeries = 0;
+               }
+               var categories = barChart.userOptions.xAxis.categories;
+               if (categories.length == 0) {
+                  categories.push(cat);
+               } else {
+                  categories[0] = cat;
+               }
+               barChart.series[currentSeries].yAxis.update({
+                  title: { text: cat }
+               }, true);
+               currentSeries++;
+               break;
+            case 'pie':
+               break;
+         }
+   }
+
+   function persoonToevoegen(naam, id, loaded) {
+      if (loaded == true) {
+         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+         currentPersonen.push(new Persoon(id, naam, true));
+      } else {
+         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+         currentPersonen.push(new Persoon(id, naam, false));
       }
    }
 
-   function persoonToevoegen(naam, id) {
-      elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
-      currentPersonen.push(new Persoon(id, naam));
-   }
-
    class Persoon {
-      constructor(id, naam) {
+      constructor(id, naam, loaded) {
          this.id = id;
          this.naam = naam;
-         this.loaded = false;
+         this.loaded = loaded;
       }
    }
 
@@ -676,22 +706,41 @@
    }
 
    function grafiekOpslaan() {
+
+      var grafiD;
+
+      switch ('@Model.GewijzigdType') {
+         case 'lijn':
+            grafiD = '@Model.Line.ID';
+            break;
+         case 'staaf':
+            grafiD = '@Model.Bar.ID';
+            break;
+         case 'taart':
+            grafiD = '@Model.Pie.ID';
+            break;
+      }
+
       class LineClass {
-         constructor(title, pointStart, content, series, aantalWeken) {
+         constructor(title, pointStart, content, series, aantalWeken, id) {
             this.title = title;
             this.pointStart = pointStart;
             this.type = 'line';
             this.content = content;
             this.series = series;
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
             this.aantalWeken = aantalWeken;
          }
       }
 
       class BarClass {
-         constructor(title, categories, series) {
+         constructor(title, categories, series, id) {
             this.title = title;
             this.categories = categories;
             this.series = series;
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
             this.type = 'bar';
          }
       }
@@ -705,12 +754,15 @@
             this.type = 'pie';
          }
       }*/
+
       class PieClass {
-         constructor(title, serieNaam, content, persoon) {
+         constructor(title, serieNaam, content, persoon, id) {
             this.title = title;
             this.serieNaam = serieNaam;
             this.content = content;
             this.type = "pie";
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
             this.persoon = persoon;
          }
       }
@@ -723,7 +775,7 @@
                lineChart.series[0].xAxis.series[0].options.pointStart,
                'politieker',
                currentPersonen,
-               document.getElementById('aantalWekenPolLine').value);
+               document.getElementById('aantalWekenPolLine').value, grafiD);
             break;
          case 'bar':
             var categories = [];
@@ -734,7 +786,7 @@
 
             graf = new BarClass(barChart.title.textStr,
                categories,
-               currentPersonen)
+               currentPersonen, grafiD)
             break;
          case 'pie':
             /*var series = [];
@@ -763,7 +815,7 @@
                /*series,
                waarden*/
                type,
-               id
+               id, grafiD
             )
             break;
       }

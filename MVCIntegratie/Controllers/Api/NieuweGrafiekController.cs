@@ -248,7 +248,7 @@ namespace MVCIntegratie.Controllers.Api
             return NotFound();
          }
 
-         foreach(Data data in grafiek.Series[0].Data)
+         foreach (Data data in grafiek.Series[0].Data)
          {
             model.Series.Add(data.Naam);
             model.Waarden.Add(data.Value);
@@ -415,7 +415,15 @@ namespace MVCIntegratie.Controllers.Api
       public IHttpActionResult Post([FromBody]string data)
       {
          GrafJson json = JsonConvert.DeserializeObject<GrafJson>(data);
+         string gewijzigd = json.gewijzigd;
+         int id = grafiekenMng.NewGrafiek().ID;
+         if (gewijzigd.Equals("true"))
+         {
+            id = int.Parse(json.graf);
+         }
+
          int gebruiker = int.Parse(User.Identity.GetUserId());
+
          switch (json.type)
          {
             case "line":
@@ -423,7 +431,7 @@ namespace MVCIntegratie.Controllers.Api
                line.ToString();
 
                Grafiek grafiek = new Lijn();
-               grafiek.ID = grafiekenMng.NewGrafiek().ID;
+               grafiek.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
                grafiek.Titel = line.title;
                grafiek.PointStart = line.pointStart;
                grafiek.ContentType = line.content;
@@ -461,6 +469,11 @@ namespace MVCIntegratie.Controllers.Api
                   grafiek.Series.Add(serie);
                }*/
 
+               if (gewijzigd.Equals("true"))
+               {
+                  grafiekenMng.RemoveGrafiek(id);
+               }
+
                grafiekenMng.AddGrafiek(grafiek);
                break;
             case "bar":
@@ -468,11 +481,13 @@ namespace MVCIntegratie.Controllers.Api
                bar.ToString();
 
                Grafiek grafiek2 = new Bar();
+
+               grafiek2.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
                grafiek2.Titel = bar.title;
                grafiek2.TitelYAs = "Aantal Tweets";
                grafiek2.TitelXAs = "Aantal Tweets";
 
-               foreach(string categorie in bar.categories)
+               foreach (string categorie in bar.categories)
                {
                   grafiek2.Categorieen.Add(new Categorie(categorie));
                }
@@ -524,6 +539,12 @@ namespace MVCIntegratie.Controllers.Api
                   );
                grafiek2.yAs = yAs;
                grafiek2.GebruikerId = gebruiker;*/
+
+               if (gewijzigd.Equals("true"))
+               {
+                  grafiekenMng.RemoveGrafiek(id);
+               }
+
                grafiekenMng.AddGrafiek(grafiek2);
                break;
             case "pie":
@@ -531,6 +552,7 @@ namespace MVCIntegratie.Controllers.Api
                pie.ToString();
 
                Grafiek grafiek3 = new Pie();
+               grafiek3.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
                grafiek3.Titel = pie.title;
                grafiek3.TitelXAs = pie.serieNaam;
                grafiek3.ContentType = pie.content;
@@ -553,6 +575,12 @@ namespace MVCIntegratie.Controllers.Api
                   pie.title,
                   serie2);
                grafiek3.GebruikerId = gebruiker;*/
+
+               if (gewijzigd.Equals("true"))
+               {
+                  grafiekenMng.RemoveGrafiek(id);
+               }
+               
                grafiekenMng.AddGrafiek(grafiek3);
                break;
          }
@@ -571,6 +599,8 @@ namespace MVCIntegratie.Controllers.Api
       public class GrafJson
       {
          public string type { get; set; }
+         public string gewijzigd { get; set; }
+         public string graf { get; set; }
       }
 
       public class BarJson
@@ -614,7 +644,7 @@ namespace MVCIntegratie.Controllers.Api
 
          List<Grafiek> grafs = grafiekenMng.GetGrafieken().Where(g => g.GebruikerId == user).ToList();
 
-         for(int i = 0; i < volgorde.grafiek.Count; i++)
+         for (int i = 0; i < volgorde.grafiek.Count; i++)
          {
             int grafId = int.Parse(volgorde.grafiek[i]);
             int v = int.Parse(volgorde.volgorde[i]);
