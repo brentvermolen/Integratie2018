@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -71,23 +72,29 @@ namespace DAL
       {
          try
          {
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            //{
+            //   CharSet = "utf-8"
+            //});
+            //Latest = new DateTime(2018, 3, 1);
+            //StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
+            ////Latest = DateTime.Now;
+
+            //content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
+            //{
+            //   CharSet = "utf-8"
+            //};
+            //content.Headers.Add("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
+
+            //HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
+
+            string responseString; // = await response.Content.ReadAsStringAsync();
+
+            using(StreamReader sr = new StreamReader("C:\\Users\\Brent\\Documents\\School\\KDG\\2017-2018\\IntegratieProject\\MVCIntegratie\\MVCIntegratie\\Content\\alljson.txt"))
             {
-               CharSet = "utf-8"
-            });
-            Latest = new DateTime(2018, 1, 1);
-            StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
-            //Latest = DateTime.Now;
+               responseString = sr.ReadToEnd();
+            }
 
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
-            {
-               CharSet = "utf-8"
-            };
-            content.Headers.Add("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
-
-            HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
-
-            string responseString = await response.Content.ReadAsStringAsync();
             responseString.ToString();
 
             AddBerichten(responseString, context);

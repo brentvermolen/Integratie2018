@@ -1102,15 +1102,12 @@
                   },
                   </text>
                   }
-
-                  @if (Model.Line.xAs.IsUsed == true)
-                  {
-                     <text>
+                  
                   xAxis: {
-                     categories: @Html.Raw(Model.Line.xAs.GetCategorieen())
+                     type: 'datetime'
                   },
-                  </text>
-                  }
+                  
+
 
 
                   @if (Model.Line.Chart.Type.Equals("column"))
@@ -1158,11 +1155,11 @@
                            {
                               connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
                               }
-                              @if(Model.Line.PlotOptions.PointInterval != null)
+                              @if(Model.Line.PlotOptions.PointStart != null)
                               {
                                  <text>,
                               pointStart: @Model.Line.PlotOptions.PointStart
-                              , pointInterval: @Model.Line.PlotOptions.PointInterval;
+                              , pointInterval: 24 * 3600 * 1000 * 7
                               </text>
                               }
                            }
@@ -1587,7 +1584,7 @@
          document.getElementById(vergid).style.display = "none";
          document.getElementById(barid).style.display = "block";
          document.getElementById(pieid).style.display = "none";
-         document.getElementById("grafTitel").value = barChart.title.textStr;
+         //document.getElementById("grafTitel").value = barChart.title.textStr;
       }
       else if (selectie/*.value*/ == "Taart Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "none";

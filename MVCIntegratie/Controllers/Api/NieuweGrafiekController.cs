@@ -431,7 +431,12 @@ namespace MVCIntegratie.Controllers.Api
                line.ToString();
 
                Grafiek grafiek = new Lijn();
-               grafiek.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
+
+               try
+               {
+                  grafiek.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
+               }
+               catch(Exception e) { }
                grafiek.Titel = line.title;
                grafiek.PointStart = line.pointStart;
                grafiek.ContentType = line.content;
@@ -481,8 +486,11 @@ namespace MVCIntegratie.Controllers.Api
                bar.ToString();
 
                Grafiek grafiek2 = new Bar();
-
-               grafiek2.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
+               try
+               {
+                  grafiek2.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
+               }
+               catch(Exception e) { }
                grafiek2.Titel = bar.title;
                grafiek2.TitelYAs = "Aantal Tweets";
                grafiek2.TitelXAs = "Aantal Tweets";
@@ -552,7 +560,11 @@ namespace MVCIntegratie.Controllers.Api
                pie.ToString();
 
                Grafiek grafiek3 = new Pie();
-               grafiek3.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
+               try
+               {
+                  grafiek3.Order = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id).Order;
+               }
+               catch(Exception e) { }
                grafiek3.Titel = pie.title;
                grafiek3.TitelXAs = pie.serieNaam;
                grafiek3.ContentType = pie.content;

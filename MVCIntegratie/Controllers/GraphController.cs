@@ -54,9 +54,9 @@ namespace MVCIntegratie.Controllers
          As xAsBar = new As() { IsUsed = true };
          NieuweGrafiekModel model = new NieuweGrafiekModel()
          {
-            Bar = new Bar(0, "PREVIEW STAAF", xAsBar, new List<Serie>()),
-            Line = new Lijn(1, "PREVIEW LIJN", new As(), new List<Serie>()),
-            Pie = new Pie(2, "PREVIEW TAART", new Serie()),
+            Bar = new Bar(-1, "PREVIEW STAAF", xAsBar, new List<Serie>()),
+            Line = new Lijn(-2, "PREVIEW LIJN", new As(), new List<Serie>()),
+            Pie = new Pie(-3, "PREVIEW TAART", new Serie()),
             IsGewijzigd = true
          };
 
