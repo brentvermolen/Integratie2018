@@ -21,6 +21,7 @@ namespace BL.Domain
          Personen = new List<Persoon>();
          isDefault = false;
          Categorieen = new List<Categorie>();
+         Order = -1;
       }
 
       [Key]
@@ -55,6 +56,8 @@ namespace BL.Domain
       public List<Categorie> Categorieen { get; set; }
       public string TitelXAs { get; set; }
       public string TitelYAs { get; set; }
+
+      public int Order { get; set; }
 
       public bool isDefault { get; set; }
 

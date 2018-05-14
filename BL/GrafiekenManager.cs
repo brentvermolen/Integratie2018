@@ -354,5 +354,10 @@ namespace BL
          public int Count { get; set; }
          public DateTime Week { get; set; }
       }
+
+      public void ChangeGrafiek(Grafiek grafiek)
+      {
+         repo.UpdateGrafiek(grafiek);
+      }
    }
 }

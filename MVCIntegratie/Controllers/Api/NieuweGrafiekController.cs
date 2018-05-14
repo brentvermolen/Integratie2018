@@ -604,5 +604,33 @@ namespace MVCIntegratie.Controllers.Api
          public double Objectiviteit { get; set; }
          public double Polariteit { get; set; }
       }
+
+      [Route("~/api/NieuweGrafiek/WijzigVolgorde")]
+      public IHttpActionResult PostWijzigVolgorde([FromBody] string data)
+      {
+         VolgordeJson volgorde = JsonConvert.DeserializeObject<VolgordeJson>(data);
+         int user = int.Parse(User.Identity.GetUserId());
+
+         List<Grafiek> grafs = grafiekenMng.GetGrafieken().Where(g => g.GebruikerId == user).ToList();
+
+         for(int i = 0; i < volgorde.grafiek.Count; i++)
+         {
+            int grafId = int.Parse(volgorde.grafiek[i]);
+            int v = int.Parse(volgorde.volgorde[i]);
+
+            Grafiek g = grafs.FirstOrDefault(gr => gr.ID == grafId);
+            g.Order = v;
+
+            grafiekenMng.ChangeGrafiek(g);
+         }
+
+         return Ok();
+      }
+
+      public class VolgordeJson
+      {
+         public List<string> grafiek { get; set; }
+         public List<string> volgorde { get; set; }
+      }
    }
 }

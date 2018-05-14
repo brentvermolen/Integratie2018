@@ -60,6 +60,12 @@ namespace DAL
          catch (Exception e) { }
       }
 
+      public void UpdateGrafiek(Grafiek grafiek)
+      {
+         ctx.Entry(grafiek).State = System.Data.Entity.EntityState.Modified;
+         ctx.SaveChanges();
+      }
+
       /*public int GetSerieID()
       {
         return ctx.Series.Max(s => s.ID);

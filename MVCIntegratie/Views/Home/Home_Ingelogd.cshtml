@@ -26,8 +26,8 @@
 
 <div class="container">
    <div class="row">
-      <div class="col-sm-6 col-md-6 content" data-id="nodeBox" ondrop="drop(event);" ondragover="allowDrop(event)">
-         <div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);"></div>
+      <div class="col-sm-6 col-md-6 content" data-id="nodeBox">
+         <!--<div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);"></div>-->
          <div id="nodeBox">
             <div>
                <img src="~/Images/nodebox.svg" draggable="false" style="height: 399px; width:100%;" />
@@ -44,7 +44,7 @@
 
       @foreach (var grafiek in Model)
       {
-         <div class="col-sm-6 col-md-6 content" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);" >
+         <div class="col-sm-6 col-md-6 content grafiek" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);" >
             <div style="display:none" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);"></div>
             <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div tabindex="0" class="onclick-menu">
@@ -63,22 +63,78 @@
 <div class="row">
 
    <input type="button" value="Wijzig Volgorde" onclick="enableDisableDragDrop(this);" />
+   <input type="button" id="annuleerVolgorde" onclick="disableDragDrop()" value="Annuleer" style="display:none" />
 </div>
 
 <script>
    function enableDisableDragDrop(button) {
       var divs = document.getElementsByClassName("dragger");
 
+      var annuleer = document.getElementById("annuleerVolgorde");
+
       for (var i = 0; i < divs.length; i++) {
          if (divs[i].style.display == "none") {
             divs[i].style.display = "block";
             button.value = "Volgorde Opslaan";
-            //window.location.reload(); + Ajax call om volgorde op te slaan
+            annuleer.style.display = "block";
          } else {
             divs[i].style.display = "none";
+            annuleer.style.display = "none";
+            volgordeOpslaan();
             button.value = "Wijzig Opslaan";
          }
       }
+   }
+
+   function disableDragDrop(button) {
+      window.location.reload();
+   }
+
+   function volgordeOpslaan() {
+      class Volgorde {
+         constructor(grafiek, volgorde) {
+            this.grafiek = grafiek;
+            this.volgorde = volgorde;
+         }
+      }
+
+      var divs = document.getElementsByClassName("grafiek");
+      var grafieken = [];
+      var volgorde = [];
+
+      for (var i = 0; i < divs.length; i++) {
+         var id = $(divs[i]).attr("data-id");
+         grafieken.push(id);
+         volgorde.push(i);
+      }
+
+      var volg = new Volgorde(grafieken, volgorde);
+
+      var jsonG = JSON.stringify(volg);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/NieuweGrafiek/WijzigVolgorde', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         window.location.reload();
+      }).fail(function () {
+         alert('Er is iets misgelopen tijdens het opslaan van de volgorde...');
+      });
    }
 
    function allowDrop(ev) {
@@ -112,6 +168,7 @@
       top: 0;
       left: 0;
       z-index: 10;
+      border: solid;
    }
 </style>
 
