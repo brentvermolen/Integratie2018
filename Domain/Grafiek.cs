@@ -53,7 +53,7 @@ namespace BL.Domain
       public double PointStart { get; set; }
       public string ContentType { get; set; }
       public int AantalSeries { get; set; }
-      public List<Categorie> Categorieen { get; set; }
+      public virtual List<Categorie> Categorieen { get; set; }
       public string TitelXAs { get; set; }
       public string TitelYAs { get; set; }
 

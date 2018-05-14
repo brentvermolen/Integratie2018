@@ -470,6 +470,7 @@ namespace MVCIntegratie.Controllers.Api
                Grafiek grafiek2 = new Bar();
                grafiek2.Titel = bar.title;
                grafiek2.TitelYAs = "Aantal Tweets";
+               grafiek2.TitelXAs = "Aantal Tweets";
 
                foreach(string categorie in bar.categories)
                {

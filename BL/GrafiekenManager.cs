@@ -88,7 +88,7 @@ namespace BL
                   Serie serie = new Serie();
                   serie.Naam = berichtMng.GetPersoon(id).Naam;
 
-                  serie.Data.Add(new Data(aantal));
+                  serie.Data.Add(new Data(aantal) { Naam = grafiek.TitelXAs });
                   grafiek.Series.Add(serie);
                }
 
