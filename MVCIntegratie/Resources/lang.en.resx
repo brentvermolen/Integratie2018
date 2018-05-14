@@ -156,4 +156,7 @@
   <data name="Zoeken" xml:space="preserve">
     <value>Search..</value>
   </data>
+  <data name="veranderTaal" xml:space="preserve">
+    <value>Change Language</value>
+  </data>
 </root>

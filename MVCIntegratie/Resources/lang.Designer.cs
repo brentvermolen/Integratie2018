@@ -169,6 +169,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wijzig taal.
+        /// </summary>
+        public static string veranderTaal {
+            get {
+                return ResourceManager.GetString("veranderTaal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zoeken...
         /// </summary>
         public static string Zoeken {

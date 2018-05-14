@@ -21,7 +21,14 @@ else
         <li>@Html.ActionLink("Registreren", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Aanmelden", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         <li><span></span></li>
-        <li>@Html.ActionLink("Nederlands", ViewContext.RouteData.Values["action"].ToString(),ViewContext.RouteData.Values["controller"].ToString(), new { language = "nl-BE" },null)</li>
-        <li>@Html.ActionLink("English", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "en-US" }, null)</li>
+        <li>
+            <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "nl-BE" })'> 
+            <img src='@Url.Content("~/images/flag-be.png")' width="25px" height="25px" /></a>
+            
+        </li>
+        <li>
+           <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "en-US" })'> 
+            <img src='@Url.Content("~/images/flag-en.png")' width="25px" height="25px" /></a>
+        </li>
     </ul>
 }
