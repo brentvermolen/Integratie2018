@@ -14,14 +14,14 @@ namespace BL.Domain.GrafiekKlassen
       public Categorie(string tekst)
       {
          Tekst = tekst;
-         Assen = new List<As>();
+         Grafieken = new List<Grafiek>();
       }
 
       [Key]
       public int ID { get; set; }
       public string Tekst { get; set; }
 
-      public virtual List<As> Assen { get; set; }
+      public virtual List<Grafiek> Grafieken { get; set; }
 
       public override string ToString()
       {

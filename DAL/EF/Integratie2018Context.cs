@@ -66,7 +66,7 @@ namespace DAL
             .WithMany(h => h.Berichten);
 
 
-         modelBuilder.Entity<Grafiek>()
+         /*modelBuilder.Entity<Grafiek>()
             .HasMany(g => g.Series)
             .WithMany(s => s.Grafieken);
          modelBuilder.Entity<Serie>()
@@ -74,7 +74,10 @@ namespace DAL
             .WithMany(d => d.Series);
          modelBuilder.Entity<As>()
             .HasMany(a => a.Categorieen)
-            .WithMany(c => c.Assen);
+            .WithMany(c => c.Assen);*/
+         modelBuilder.Entity<Grafiek>()
+         .HasMany(g => g.Categorieen)
+         .WithMany(c => c.Grafieken);
 
          modelBuilder.Entity<Gebruiker>()
              .HasMany(e => e.GebruikersClaims)
@@ -87,9 +90,13 @@ namespace DAL
              .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
 
          modelBuilder.Entity<Grafiek>()
-            .HasRequired<Gebruiker>(s => s.Gebruiker)
+            .HasRequired(s => s.Gebruiker)
             .WithMany(g => g.Grafieken)
-            .HasForeignKey<int>(s => s.GebruikerId);
+            .HasForeignKey(s => s.GebruikerId);
+
+         modelBuilder.Entity<Grafiek>()
+            .HasMany(g => g.Personen)
+            .WithMany(p => p.Grafieken);
 
          base.OnModelCreating(modelBuilder);
       }
@@ -114,9 +121,9 @@ namespace DAL
 
 
       public DbSet<Grafiek> Grafieken { get; set; }
-      public DbSet<Serie> Series { get; set; }
-      public DbSet<Data> Datas { get; set; }
-      public DbSet<As> Assen { get; set; }
+      //public DbSet<Serie> Series { get; set; }
+      //public DbSet<Data> Datas { get; set; }
+      //public DbSet<As> Assen { get; set; }
       public DbSet<Categorie> Categorieën { get; set; }
 
 

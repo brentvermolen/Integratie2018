@@ -123,7 +123,7 @@ namespace DAL
 
          BerichtenJson.ToString();
          int count = 0;
-         context.Berichten.AddRange(BerichtenJson.Berichten/*.Where((b) => count++ < 100000)*/);
+         context.Berichten.AddRange(BerichtenJson.Berichten.Where((b) => count++ < 1000));
 
          try
          {

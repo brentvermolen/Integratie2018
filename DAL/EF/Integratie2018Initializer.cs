@@ -18,13 +18,12 @@ using System.Threading.Tasks;
 namespace DAL
 {
   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
-
   {
     protected override void Seed(Integratie2018Context context)
     {
       AddGebruikers(context);
 
-      AddGrafieken(context);
+      //AddGrafieken(context);
 
       AddFaq(context);
 
@@ -32,6 +31,7 @@ namespace DAL
       {
         Context = context
       }.StartAsync();
+
       context.SaveChanges();
     }
 

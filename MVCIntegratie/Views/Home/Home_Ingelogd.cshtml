@@ -26,11 +26,11 @@
 
 <div class="container">
    <div class="row">
-      <div class="col-sm-6 col-md-6 content">
-         <div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);" ondrop="allowDrop(event);" ondragover="allowDrop(event)"></div>
+      <div class="col-sm-6 col-md-6 content" data-id="nodeBox" ondrop="drop(event);" ondragover="allowDrop(event)">
+         <div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);"></div>
          <div id="nodeBox">
             <div>
-               <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
+               <img src="~/Images/nodebox.svg" draggable="false" style="height: 399px; width:100%;" />
             </div>
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
@@ -44,13 +44,12 @@
 
       @foreach (var grafiek in Model)
       {
-         <div class="col-sm-6 col-md-6 content">
-            <div style="display:none" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);" ondrop="drop(event);" ondragover="allowDrop(event)"></div>
+         <div class="col-sm-6 col-md-6 content" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);" >
+            <div style="display:none" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);"></div>
             <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
                <ul class="onclick-menu-content">
-
                   <li><a href="/Graph/Wijzig/@grafiek.ID"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
                   <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
                   <li><button>Annuleren</button></li>
@@ -61,17 +60,23 @@
    </div>
 </div>
 
-<input type="button" value="Wijzig Volgorde" onclick="enableDisableDragDrop();" />
+<div class="row">
+
+   <input type="button" value="Wijzig Volgorde" onclick="enableDisableDragDrop(this);" />
+</div>
 
 <script>
-   function enableDisableDragDrop() {
+   function enableDisableDragDrop(button) {
       var divs = document.getElementsByClassName("dragger");
 
       for (var i = 0; i < divs.length; i++) {
          if (divs[i].style.display == "none") {
             divs[i].style.display = "block";
+            button.value = "Volgorde Opslaan";
+            //window.location.reload(); + Ajax call om volgorde op te slaan
          } else {
             divs[i].style.display = "none";
+            button.value = "Wijzig Opslaan";
          }
       }
    }

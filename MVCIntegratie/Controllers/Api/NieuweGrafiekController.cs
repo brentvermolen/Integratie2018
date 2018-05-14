@@ -25,7 +25,7 @@ namespace MVCIntegratie.Controllers.Api
       public IHttpActionResult GetPersonen()
       {
          List<Persoon> personen = berichtMng.GetPersonen().ToList();
-         personen.ForEach(p => p.Berichten = null);
+         personen.ForEach((p) => { p.Berichten = null; p.Grafieken = null; });
          personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
 
          return Ok(personen);
@@ -72,7 +72,7 @@ namespace MVCIntegratie.Controllers.Api
          AantalXPerWeekModel model = new AantalXPerWeekModel()
          {
             ID = intID,
-            Naam = berichtMng.GetPersoon(intID).Naam
+            Naam = grafiekenMng.GetPersoon(intID).Naam
          };
 
          switch (type)
@@ -227,15 +227,40 @@ namespace MVCIntegratie.Controllers.Api
             return NotFound();
          }
 
+         Grafiek grafiek = new Pie()
+         {
+            AantalSeries = intTop,
+            Personen = new List<Persoon>(),
+            ContentType = type,
+         };
+         grafiek.Personen.Add(grafiekenMng.GetPersoon(intID));
+         grafiekenMng.CreateGrafiek(grafiek);
+
          PieDataPersoonModel model = new PieDataPersoonModel()
          {
-            Persoon = berichtMng.GetPersoon(intID).Naam,
+            Persoon = grafiek.Personen[0].Naam,
             Series = new List<string>(),
             Waarden = new List<double>()
          };
 
+         if (grafiek.Series.Count <= 0)
+         {
+            return NotFound();
+         }
+
+         foreach(Data data in grafiek.Series[0].Data)
+         {
+            model.Series.Add(data.Naam);
+            model.Waarden.Add(data.Value);
+         }
+
+         if (grafiek.Series[0].Data.Count > 0)
+         {
+            return Ok(model);
+         }
+
          //List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
-         int intTeller;
+         /*int intTeller;
 
          switch (type)
          {
@@ -374,7 +399,7 @@ namespace MVCIntegratie.Controllers.Api
                return Ok(model);
             case "Trend":
                return NotFound();
-         }
+         }*/
 
          return NotFound();
       }
@@ -396,7 +421,23 @@ namespace MVCIntegratie.Controllers.Api
             case "line":
                LineJson line = JsonConvert.DeserializeObject<LineJson>(data);
                line.ToString();
-               List<Serie> series = new List<Serie>();
+
+               Grafiek grafiek = new Lijn();
+               grafiek.ID = grafiekenMng.NewGrafiek().ID;
+               grafiek.Titel = line.title;
+               grafiek.PointStart = line.pointStart;
+               grafiek.ContentType = line.content;
+               grafiek.AantalSeries = line.aantalWeken;
+               grafiek.Personen = new List<Persoon>();
+               grafiek.TitelYAs = "Aantal Tweets";
+               grafiek.GebruikerId = gebruiker;
+
+               foreach (PersoonJson persoon in line.series)
+               {
+                  Persoon p = grafiekenMng.GetPersoon(int.Parse(persoon.id));
+                  grafiek.Personen.Add(p);
+               }
+               /*List<Serie> series = new List<Serie>();
 
                Grafiek grafiek = new Lijn(grafiekenMng.NewGrafiek().ID,
                   line.title,
@@ -418,7 +459,7 @@ namespace MVCIntegratie.Controllers.Api
                   }
 
                   grafiek.Series.Add(serie);
-               }
+               }*/
 
                grafiekenMng.AddGrafiek(grafiek);
                break;
@@ -426,7 +467,23 @@ namespace MVCIntegratie.Controllers.Api
                BarJson bar = JsonConvert.DeserializeObject<BarJson>(data);
                bar.ToString();
 
-               As xAs = new As()
+               Grafiek grafiek2 = new Bar();
+               grafiek2.Titel = bar.title;
+               grafiek2.TitelYAs = "Aantal Tweets";
+
+               foreach(string categorie in bar.categories)
+               {
+                  grafiek2.Categorieen.Add(new Categorie(categorie));
+               }
+
+               foreach (PersoonJson persoon in bar.series)
+               {
+                  Persoon p = grafiekenMng.GetPersoon(int.Parse(persoon.id));
+                  grafiek2.Personen.Add(p);
+               }
+               grafiek2.GebruikerId = gebruiker;
+
+               /*As xAs = new As()
                {
                   IsUsed = true
                };
@@ -458,21 +515,26 @@ namespace MVCIntegratie.Controllers.Api
                   serie.Data.Add(new Data(aantal));
                   series2.Add(serie);
                }
-
+               2
                Grafiek grafiek2 = new Bar(grafiekenMng.NewGrafiek().ID,
                   bar.title,
                   xAs,
                   series2
                   );
                grafiek2.yAs = yAs;
-               grafiek2.GebruikerId = gebruiker;
+               grafiek2.GebruikerId = gebruiker;*/
                grafiekenMng.AddGrafiek(grafiek2);
                break;
             case "pie":
                PieJson pie = JsonConvert.DeserializeObject<PieJson>(data);
                pie.ToString();
 
-               Serie serie2 = new Serie();
+               Grafiek grafiek3 = new Pie();
+               grafiek3.Titel = pie.title;
+               grafiek3.TitelXAs = pie.serieNaam;
+               grafiek3.ContentType = pie.content;
+               grafiek3.GebruikerId = gebruiker;
+               /*Serie serie2 = new Serie();
                serie2.Naam = pie.serieNaam;
 
                for (int i = 0; i < pie.series.Count; i++)
@@ -488,7 +550,7 @@ namespace MVCIntegratie.Controllers.Api
                Grafiek grafiek3 = new Pie(grafiekenMng.NewGrafiek().ID,
                   pie.title,
                   serie2);
-               grafiek3.GebruikerId = gebruiker;
+               grafiek3.GebruikerId = gebruiker;*/
                grafiekenMng.AddGrafiek(grafiek3);
                break;
          }
@@ -529,8 +591,9 @@ namespace MVCIntegratie.Controllers.Api
       {
          public string title { get; set; }
          public string serieNaam { get; set; }
-         public List<string> series { get; set; }
-         public List<double> waarden { get; set; }
+         /*public List<string> series { get; set; }
+         public List<double> waarden { get; set; }*/
+         public string content { get; set; }
       }
 
       public class SentimentModel

@@ -696,13 +696,21 @@
          }
       }
 
-      class PieClass {
+      /*class PieClass {
          constructor(title, serieNaam, series, waarden) {
             this.title = title;
             this.serieNaam = serieNaam;
             this.series = series;
             this.waarden = waarden;
             this.type = 'pie';
+         }
+      }*/
+      class PieClass {
+         constructor(title, serieNaam, content) {
+            this.title = title;
+            this.serieNaam = serieNaam;
+            this.content = content;
+            this.type = "pie";
          }
       }
 
@@ -737,10 +745,23 @@
                waarden.push(data.y);
             }
 
+            var type;
+
+            switch (document.getElementById("typepie").value) {
+               case "Overzicht":
+                  type = document.getElementById("piePolOptiesData").value;
+                  break;
+               case "Kruising":
+                  type = document.getElementById("pieCrossPolOpties").value;
+                  break;
+            }
+
             graf = new PieClass(pieChart.title.textStr,
                pieChart.series[0].userOptions.name,
-               series,
-               waarden)
+               /*series,
+               waarden*/
+               type
+            )
             break;
       }
 
