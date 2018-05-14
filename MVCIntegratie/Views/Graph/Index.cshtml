@@ -706,11 +706,12 @@
          }
       }*/
       class PieClass {
-         constructor(title, serieNaam, content) {
+         constructor(title, serieNaam, content, persoon) {
             this.title = title;
             this.serieNaam = serieNaam;
             this.content = content;
             this.type = "pie";
+            this.persoon = persoon;
          }
       }
 
@@ -736,14 +737,14 @@
                currentPersonen)
             break;
          case 'pie':
-            var series = [];
+            /*var series = [];
             var waarden = [];
 
             for (var i = 0; i < pieChart.series[0].userOptions.data.length; i++) {
                var data = pieChart.series[0].userOptions.data[i];
                series.push(data.name);
                waarden.push(data.y);
-            }
+            }*/
 
             var type;
 
@@ -755,12 +756,14 @@
                   type = document.getElementById("pieCrossPolOpties").value;
                   break;
             }
+            var id = document.getElementsByClassName('btnPiePersoon')[0].id;
 
             graf = new PieClass(pieChart.title.textStr,
                pieChart.series[0].userOptions.name,
                /*series,
                waarden*/
-               type
+               type,
+               id
             )
             break;
       }
