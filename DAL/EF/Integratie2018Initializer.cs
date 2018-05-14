@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace DAL
 {
 
-   public class Integratie2018Initializer : DropCreateDatabaseIfModelChanges<Integratie2018Context>
+   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
 
    {
       protected override void Seed(Integratie2018Context context)
@@ -29,8 +29,14 @@ namespace DAL
 
          AddFaq(context);
 
+            new Synchronize()
+            {
+                Context = context
+            }.Start();
+
          context.SaveChanges();
       }
+       
 
       private void AddFaq(Integratie2018Context context)
       {

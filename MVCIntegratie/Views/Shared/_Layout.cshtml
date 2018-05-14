@@ -24,10 +24,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
-                    <li>@Html.ActionLink("Over", MVC.FYI.Over())</li>
-                    <li>@Html.ActionLink("Contact", MVC.FYI.Contact())</li>
-                    <li>@Html.ActionLink("FAQ", MVC.FYI.FAQ())</li>
-                    <li>@Html.ActionLink("Rollen", MVC.Role.Index())</li>
+                    <li>@Html.ActionLink(Resources.home_index.Over, MVC.FYI.Over())</li>
+                    <li>@Html.ActionLink(Resources.home_index.Contact, MVC.FYI.Contact())</li>
+                    <li>@Html.ActionLink(Resources.home_index.FAQ, MVC.FYI.FAQ())</li>
+                    <li>@Html.ActionLink(Resources.home_index.Rollen, MVC.Role.Index())</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -41,9 +41,9 @@
             <p>
                 &copy; @DateTime.Now.Year &middot Politieke Barometer &middot; &copy; Bit By Bit
                 &middot <a href="@Url.Action("Index", "Home")">Home</a>
-                &middot <a href="@Url.Action("Over", "FYI")">Over</a>
-                &middot <a href="@Url.Action("Contact", "FYI")">Contact</a>
-                &middot <a href="@Url.Action("FAQ", "FYI")">FAQ</a>
+                &middot <a href="@Url.Action("Over", "FYI")">@Resources.home_index.Over</a>
+                &middot <a href="@Url.Action("Contact", "FYI")">@Resources.home_index.Contact</a>
+                &middot <a href="@Url.Action("FAQ", "FYI")">@Resources.home_index.FAQ</a>
             </p>
             <p><a href="#">Back to top</a></p>
         </footer>

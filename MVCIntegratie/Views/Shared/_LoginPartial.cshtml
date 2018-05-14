@@ -20,5 +20,9 @@ else
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Registreren", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Aanmelden", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+        <li><span></span></li>
+        <a>
+            @Html.ActionLink("Nederlands", "Set", "Language", new { lang = "es" },null) </a>
+        <li> @Html.ActionLink("English", "Set", "Language", new { lang = "en" }, null)</li>
+</ul>
 }
