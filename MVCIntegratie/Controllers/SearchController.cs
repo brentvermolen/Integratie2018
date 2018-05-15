@@ -9,6 +9,7 @@ using BL.Domain;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
 using MVCIntegratie.Models;
+using Microsoft.AspNet.Identity;
 
 
 
@@ -133,8 +134,14 @@ namespace MVCIntegratie.Controllers
                                 }
                                 else
                                 {
-                                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.Titel.ToLower().Contains(wrd.ToLower()))
-                                       .ToList());
+                                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) && g.Titel.ToLower().Contains(wrd.ToLower()))
+                                            .ToList());
+                                    foreach (Persoon persoon in personen)
+                                    {
+                                        grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) && g.Personen.Contains(persoon))
+                                           .ToList());
+
+                                    }
                                 }
                             }
                         };
@@ -165,8 +172,15 @@ namespace MVCIntegratie.Controllers
                             .ToList());
                         urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower()))
                             .ToList());
-                        grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.Titel.ToLower().Contains(wrd.ToLower()))
-                            .ToList());
+                        grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) && g.Titel.ToLower().Contains(wrd.ToLower()))
+                          .ToList());
+                        foreach (Persoon persoon in personen)
+                        {
+                            grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) && g.Personen.Contains(persoon))
+                               .ToList());
+
+                        }
+
                     }
                 }
 
@@ -191,21 +205,21 @@ namespace MVCIntegratie.Controllers
                     }; break;
                 case "Naam":
                     {
-                        zoekResultaat.Woorden.Sort((w1,w2) => w1.Tekst.CompareTo(w2.Tekst));
-                        zoekResultaat.Hashtags.Sort((h1,h2) => h1.Tekst.CompareTo(h2.Tekst));
-                        zoekResultaat.Mentions.Sort((m1,m2) => m1.Tekst.CompareTo(m2.Tekst));
-                        zoekResultaat.Urls.Sort((u1,u2) => u1.Tekst.CompareTo(u2.Tekst));
+                        zoekResultaat.Woorden.Sort((w1, w2) => w1.Tekst.CompareTo(w2.Tekst));
+                        zoekResultaat.Hashtags.Sort((h1, h2) => h1.Tekst.CompareTo(h2.Tekst));
+                        zoekResultaat.Mentions.Sort((m1, m2) => m1.Tekst.CompareTo(m2.Tekst));
+                        zoekResultaat.Urls.Sort((u1, u2) => u1.Tekst.CompareTo(u2.Tekst));
                         zoekResultaat.Personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
 
                     };
                     break;
-                
+
                 default:
                     {
                         zoekResultaat.Woorden.Sort();
                         zoekResultaat.Hashtags.Sort();
                         zoekResultaat.Mentions.Sort();
-                        zoekResultaat.Personen.Sort((p1,p2) => p1.Berichten.Count().CompareTo(p2.Berichten.Count()));
+                        zoekResultaat.Personen.Sort((p1, p2) => p1.Berichten.Count().CompareTo(p2.Berichten.Count()));
                         zoekResultaat.Urls.Sort();
                     };
                     break;
