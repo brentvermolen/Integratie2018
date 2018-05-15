@@ -11,7 +11,7 @@
         <li>
             @Html.ActionLink(naam, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.lang.LogOff</a></li>
     </ul>
     }
 }

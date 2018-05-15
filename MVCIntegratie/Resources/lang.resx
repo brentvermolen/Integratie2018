@@ -156,6 +156,15 @@
   <data name="Zoeken" xml:space="preserve">
     <value>Zoeken..</value>
   </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Aanmelden</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Afmelden</value>
+  </data>
+  <data name="Registreren" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="veranderTaal" xml:space="preserve">
     <value>Wijzig taal</value>
   </data>

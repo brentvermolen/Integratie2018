@@ -133,6 +133,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aanmelden.
+        /// </summary>
+        public static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afmelden.
+        /// </summary>
+        public static string LogOff {
+            get {
+                return ResourceManager.GetString("LogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuwe Grafiek.
         /// </summary>
         public static string NieuweGraf {
@@ -156,6 +174,15 @@ namespace Resources {
         public static string overons {
             get {
                 return ResourceManager.GetString("overons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string Registreren {
+            get {
+                return ResourceManager.GetString("Registreren", resourceCulture);
             }
         }
         
