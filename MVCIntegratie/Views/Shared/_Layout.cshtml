@@ -19,11 +19,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                    <a href="@Url.Action("Index", "Home")" class=" navbar-brand"><img alt="Logo" src="~/Images/dashboard.png" height="30" /></a>
+                <a href="@Url.Action("Index", "Home")" class=" navbar-brand"><img alt="Logo" src="~/Images/dashboard.png" height="30" /></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
+                    <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
                     <li>@Html.ActionLink("Over", MVC.FYI.Over())</li>
                     <li>@Html.ActionLink("Contact", MVC.FYI.Contact())</li>
                     <li>@Html.ActionLink("FAQ", MVC.FYI.FAQ())</li>
@@ -37,6 +37,20 @@
             </div>
         </div>
     </div>
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+    <div data-reactroot="" class="login-notice">
+        <div class="login-notice-bg"></div>
+        <div class="l-text-container">
+            <p class="login-notice-text text">
+                Registreer om van alle voordelen van de site te genieten!
+            </p>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-default login-notice-button">LOGIN &raquo;</a>
+        </div>
+    </div>
+    }   
+
     <div class="container body-content">
         @RenderBody()
 

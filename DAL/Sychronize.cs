@@ -90,7 +90,7 @@ namespace DAL
 
             string responseString; // = await response.Content.ReadAsStringAsync();
 
-            using(StreamReader sr = new StreamReader("C:\\Users\\Brent\\Documents\\School\\KDG\\2017-2018\\IntegratieProject\\MVCIntegratie\\MVCIntegratie\\Content\\alljson.txt"))
+            using(StreamReader sr = new StreamReader("C:\\Users\\jonas\\Desktop\\IntegratieMaster\\MVCIntegratie\\Content\\alljson.txt"))
             {
                responseString = sr.ReadToEnd();
             }

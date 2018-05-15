@@ -11,12 +11,12 @@
    <div class="col-md-4">
       <ul class="list-group help-group">
          <div class="faq-list list-group nav nav-tabs">
-            <a href="#tab1" class="list-group-item active" role="tab" data-toggle="tab">Frequently Asked Questions</a>
-            <a href="#tab2" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-website"></i>De website</a>
-            <a href="#tab3" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-account"></i>Mijn account</a>
-            <a href="#tab4" class="list-group-item" role="tab" data-toggle="tab"><i class="mdi mdi-notificatie"></i>Notificaties</a>
-            <a href="#tab5" class="list-group-item " role="tab" data-toggle="tab"><i class="mdi mdi-overig"></i>Overige problemen</a>
-            <a href="#tab6" class="list-group-item active" role="tab" data-toggle="tab">Stel zelf een vraag</a>
+            <a href="#tab1" class="list-group-item active" role="tab" data-toggle="tab" id="defaultfaq">Frequently Asked Questions</a>
+            <a href="#tab2" class="list-group-item faqlist active" role="tab" data-toggle="tab" id="websitefaq" onclick="website('websitefaq','defaultfaq')"><i class="mdi mdi-website"></i>De website</a>
+            <a href="#tab3" class="list-group-item faqlist" role="tab" data-toggle="tab" id="accountfaq" onclick="account('accountfaq','defaultfaq')"><i class="mdi mdi-account"></i>Mijn account</a>
+            <a href="#tab4" class="list-group-item faqlist" role="tab" data-toggle="tab" id="notiffaq" onclick="notif('notiffaq','defaultfaq')"><i class="mdi mdi-notificatie"></i>Notificaties</a>
+            <a href="#tab5" class="list-group-item faqlist" role="tab" data-toggle="tab" id="overigfaq" onclick="overig('overigfaq','defaultfaq')"><i class="mdi mdi-overig"></i>Overige problemen</a>
+            <a href="#tab6" class="list-group-item faqlist" role="tab" data-toggle="tab" id="vraagfaq" onclick="vraag('vraagfaq','defaultfaq')">Stel zelf een vraag</a>
          </div>
       </ul>
    </div>

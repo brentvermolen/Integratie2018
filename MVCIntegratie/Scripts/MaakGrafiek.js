@@ -4,12 +4,10 @@
         for (var i = 0; i < all.length; i++) {
             all[i].style.display = 'block';
         }
-        document.getElementById(polper).selectedIndex = "0";
         all = document.getElementsByClassName(thema);
         for (var i = 0; i < all.length; i++) {
             all[i].style.display = 'none';
         }
-        document.getElementById(themaper).selectedIndex = "0";
         all = document.getElementsByClassName(evo);
         for (var i = 0; i < all.length; i++) {
             all[i].style.display = 'none';
