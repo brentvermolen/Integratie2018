@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -13,127 +14,133 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class Synchronize
-   {
-      [Key]
-      public int ID { get; set; }
-      public DateTime Latest { get; set; }
-      [NotMapped]
-      public Integratie2018Context Context { get; set; }
+    public class Synchronize
+    {
+        [Key]
+        public int ID { get; set; }
+        public DateTime Latest { get; set; }
+        [NotMapped]
+        public Integratie2018Context Context { get; set; }
 
-      public void Start()
-      {
-         ApiCallAsync(Context);
-      }
+        public async Task StartAsync()
+        {
+            await ApiCallAsync(Context);
+        }
 
-      private string GetMaand(int maand)
-      {
-         switch (maand)
-         {
-            case 1:
-               return "Januari";
-            case 2:
-               return "Februari";
-            case 3:
-               return "Maart";
-            case 4:
-               return "April";
-            case 5:
-               return "Mei";
-            case 6:
-               return "Juni";
-            case 7:
-               return "Juli";
-            case 8:
-               return "Augustus";
-            case 9:
-               return "September";
-            case 10:
-               return "Oktober";
-            case 11:
-               return "November";
-            case 12:
-               return "December";
-         }
-
-         return "";
-      }
-
-      public string GetSince()
-      {
-         return "\"since\":\"" + Latest.Day + " " + GetMaand(Latest.Month) + " " + Latest.Year + " " + Latest.TimeOfDay + "\"";
-      }
-      //TODO: Timer zetten, elk uur inladen
-
-      private static readonly HttpClient client = new HttpClient();
-
-      public async Task ApiCallAsync(Integratie2018Context context)
-      {
-         try
-         {
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+        private string GetMaand(int maand)
+        {
+            switch (maand)
             {
-               CharSet = "utf-8"
-            });
+                case 1:
+                    return "Januari";
+                case 2:
+                    return "Februari";
+                case 3:
+                    return "Maart";
+                case 4:
+                    return "April";
+                case 5:
+                    return "Mei";
+                case 6:
+                    return "Juni";
+                case 7:
+                    return "Juli";
+                case 8:
+                    return "Augustus";
+                case 9:
+                    return "September";
+                case 10:
+                    return "Oktober";
+                case 11:
+                    return "November";
+                case 12:
+                    return "December";
+            }
 
-            StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
-            Latest = DateTime.Now;
+            return "";
+        }
 
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
+        public string GetSince()
+        {
+            return "\"since\":\"" + Latest.Day + " " + GetMaand(Latest.Month) + " " + Latest.Year + " " + Latest.TimeOfDay + "\"";
+        }
+        //TODO: Timer zetten, elk uur inladen
+
+        private static readonly HttpClient client = new HttpClient();
+
+        public async Task ApiCallAsync(Integratie2018Context context)
+        {
+            try
             {
-               CharSet = "utf-8"
-            };
-            content.Headers.Add("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
+                //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                //{
+                //   CharSet = "utf-8"
+                //});
+                //Latest = new DateTime(2018, 3, 1);
+                //StringContent content = new StringContent("{" + GetSince() + "}", System.Text.Encoding.UTF8, "application/json");
+                ////Latest = DateTime.Now;
 
-            HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
+                //content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
+                //{
+                //   CharSet = "utf-8"
+                //};
+                //content.Headers.Add("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
 
-            string responseString = await response.Content.ReadAsStringAsync();
-            responseString.ToString();
+                //HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
 
-            AddBerichten(responseString, context);
-         }
-         catch (Exception e)
-         {
-            e.ToString();
-         }
-      }
+                string responseString; // = await response.Content.ReadAsStringAsync();
 
-      private class BerichtenClass
-      {
-         [JsonProperty("berichten")]
-         public List<Bericht> berichten { get; set; }
-      }
+                using (StreamReader sr = new StreamReader("C:\\Users\\Evelien\\Documents\\GitHub\\kopieSearch\\MVCIntegratie\\Content\\alles.json"))
+                {
+                    responseString = sr.ReadToEnd();
+                }
 
-      public IEnumerable<Bericht> AddBerichten(string json, Integratie2018Context context)
-      {
-         json = "{ \"berichten\": " + json + " }";
-         json = json.Replace("\"geo\": false", "\"geo\": [0, 0]");
-         json = json.Replace("\"geo\": [null, null]", "\"geo\": [0, 0]");
+                responseString.ToString();
 
-         BerichtenClass BerichtenJson;
-         try
-         {
-            BerichtenJson = JsonConvert.DeserializeObject<BerichtenClass>(json);
-         }
-         catch (Exception e)
-         {
-            e.ToString();
-            BerichtenJson = null;
-         }
+                AddBerichten(responseString, context);
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+            }
+        }
 
-         BerichtenJson.ToString();
-         int count = 0;
-         context.Berichten.AddRange(BerichtenJson.berichten/*.Where((b) => count++ < 100000)*/);
+        private class BerichtenClass
+        {
+            [JsonProperty("berichten")]
+            public List<Bericht> Berichten { get; set; }
+        }
 
-         try
-         {
-            context.SaveChanges();
-         }
-         catch (Exception ex)
-         {
-            ex.ToString();
-         }
-         return BerichtenJson.berichten;
-      }
-   }
+        public IEnumerable<Bericht> AddBerichten(string json, Integratie2018Context context)
+        {
+            json = "{ \"berichten\": " + json + " }";
+            json = json.Replace("\"geo\": false", "\"geo\": [0, 0]");
+            json = json.Replace("\"geo\": [null, null]", "\"geo\": [0, 0]");
+
+            BerichtenClass BerichtenJson;
+            try
+            {
+                BerichtenJson = JsonConvert.DeserializeObject<BerichtenClass>(json);
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                BerichtenJson = null;
+            }
+
+            BerichtenJson.ToString();
+            int count = 0;
+            context.Berichten.AddRange(BerichtenJson.Berichten/*.Where((b) => count++ < 1000)*/);
+
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+            return BerichtenJson.Berichten;
+        }
+    }
 }

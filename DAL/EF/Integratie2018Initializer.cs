@@ -33,7 +33,7 @@ namespace DAL
       new Synchronize()
       {
         Context = context
-      }.Start();
+      }.StartAsync();
       context.SaveChanges();
 
     }
