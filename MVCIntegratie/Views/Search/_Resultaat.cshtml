@@ -1,5 +1,6 @@
 ﻿@using BL.Domain.ItemKlassen
-@model BL.Domain.Bericht
+@using MVCIntegratie.Models
+@model MVCIntegratie.Models.ZoekResultaat
 
 @if (Model == null)
 {
@@ -21,7 +22,7 @@ else
                 <td>@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count) </td>
             </tr>
         }
-        
+
         <tr>
             <th>Trefwoorden</th>
             <th>Aantal Berichten</th>

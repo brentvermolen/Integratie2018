@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL.Domain.BerichtKlassen
 {
-   public class Mention : IComparable<Mention>
+   public class Mention : IComparable
    {
       [Key]
       public int ID { get; set; }
@@ -15,10 +15,19 @@ namespace BL.Domain.BerichtKlassen
 
       public virtual ICollection<Bericht> Berichten { get; set; }
 
-       public int CompareTo(Mention other)
+       public int CompareTo(Object obj)
        {
-           throw new NotImplementedException();
-       }
+           
+                if (obj == null) { return 1; }
+                Mention mention = obj as Mention;
+
+                if (mention != null)
+                {
+                    return this.Berichten.Count().CompareTo(mention.Berichten.Count());
+                }
+                else throw new ArgumentException("Dit is geen vermelding");
+            
+        }
 
        public override string ToString()
       {

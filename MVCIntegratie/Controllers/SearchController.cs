@@ -40,7 +40,7 @@ namespace MVCIntegratie.Controllers
             List<Persoon> personen = new List<Persoon>();
             string[] splitSearch = search.Split(' ');
             List<Bericht> berichten = new List<Bericht>();
-            Bericht zoekresultaat = new Bericht();
+            ZoekResultaat zoekResultaat = new ZoekResultaat();
 
 
             if (!filter.IsEmpty())
@@ -50,7 +50,7 @@ namespace MVCIntegratie.Controllers
                     case "Politieker":
                         {
                             personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()))
-.ToList();
+                            .ToList();
                         }
                         break;
                     case "Tag":
@@ -145,17 +145,8 @@ namespace MVCIntegratie.Controllers
             }
             else
             {
-
-
                 personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()))
-             .ToList();
-
-
-
-
-
-
-
+                    .ToList();
 
 
                 foreach (string wrd in splitSearch)
@@ -180,17 +171,49 @@ namespace MVCIntegratie.Controllers
                 }
 
             }
-            zoekresultaat.Woorden = woorden;
-            zoekresultaat.Hashtags = hashtags;
-            zoekresultaat.Mentions = mentions;
-            zoekresultaat.Personen = personen;
-            zoekresultaat.Urls = urls;
 
+            zoekResultaat.Woorden = woorden;
+            zoekResultaat.Hashtags = hashtags;
+            zoekResultaat.Mentions = mentions;
+            zoekResultaat.Personen = personen;
+            zoekResultaat.Urls = urls;
+            zoekResultaat.Grafieken = grafieken;
 
+            switch (sorter)
+            {
+                case "AantalBerichten":
+                    {
+                        zoekResultaat.Woorden.Sort();
+                        zoekResultaat.Hashtags.Sort();
+                        zoekResultaat.Mentions.Sort();
+                        zoekResultaat.Personen.Sort((p1, p2) => p1.Berichten.Count().CompareTo(p2.Berichten.Count()));
+                        zoekResultaat.Urls.Sort();
+                    }; break;
+                case "Naam":
+                    {
+                        zoekResultaat.Woorden.Sort((w1,w2) => w1.Tekst.CompareTo(w2.Tekst));
+                        zoekResultaat.Hashtags.Sort((h1,h2) => h1.Tekst.CompareTo(h2.Tekst));
+                        zoekResultaat.Mentions.Sort((m1,m2) => m1.Tekst.CompareTo(m2.Tekst));
+                        zoekResultaat.Urls.Sort((u1,u2) => u1.Tekst.CompareTo(u2.Tekst));
+                        zoekResultaat.Personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
+
+                    };
+                    break;
+                
+                default:
+                    {
+                        zoekResultaat.Woorden.Sort();
+                        zoekResultaat.Hashtags.Sort();
+                        zoekResultaat.Mentions.Sort();
+                        zoekResultaat.Personen.Sort((p1,p2) => p1.Berichten.Count().CompareTo(p2.Berichten.Count()));
+                        zoekResultaat.Urls.Sort();
+                    };
+                    break;
+            }
 
 
             woorden.ToString();
-            return View(zoekresultaat);
+            return View(zoekResultaat);
         }
 
 

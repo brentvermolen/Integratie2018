@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL.Domain.ItemKlassen
 {
-   public class Persoon : Item
+   public class Persoon : Item 
    {
       public Persoon() { Berichten = new List<Bericht>(); }
 

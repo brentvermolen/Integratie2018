@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL.Domain.BerichtKlassen
 {
-   public class Profiel
+   public class Profiel 
    {
       public Profiel() { }
       
@@ -21,5 +21,7 @@ namespace BL.Domain.BerichtKlassen
       public string Taal { get; set; }
       [JsonProperty("personality")]
       public string Persoonlijkheid { get; set; }
-   }
+
+        
+    }
 }

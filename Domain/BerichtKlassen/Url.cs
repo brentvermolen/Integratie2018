@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL.Domain.BerichtKlassen
 {
-   public class Url
+   public class Url : IComparable
    {
       [Key]
       public int ID { get; set; }
@@ -37,5 +37,19 @@ namespace BL.Domain.BerichtKlassen
 
          return false;
       }
-   }
+
+        public int CompareTo(object obj)
+        {
+            
+                if (obj == null) { return 1; }
+                Url url = obj as Url;
+
+                if (url != null)
+                {
+                    return this.Berichten.Count().CompareTo(url.Berichten.Count());
+                }
+                else throw new ArgumentException("Dit is geen url");
+            
+        }
+    }
 }
