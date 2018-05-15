@@ -1,9 +1,9 @@
 ﻿@model List<BL.Domain.Gebruiker>
 
 @{
-   Layout = "";
+    Layout = "";
 }
-<script  src="~/Scripts/GebruikerSelect.js"></script>
+<script src="~/Scripts/GebruikerSelect.js"></script>
 <link rel="stylesheet" href="~/Content/Config.css">
 <input type="text" name="search" placeholder="Filter op naam" onkeyup="filterGebruiker(this.value)">
 <p></p>
@@ -12,39 +12,149 @@
 
 <h2> Kies een gebruiker</h2>
 <ul class="list-group">
-   @foreach (var gebruiker in Model)
-   {
-      <li class="list-group-item" id="@gebruiker.ID">@gebruiker.Email</li>
-   }
+    @foreach (var gebruiker in Model)
+    {
+        <li class="list-group-item" id="@gebruiker.ID">@gebruiker.Email</li>
+    }
 </ul>
 
-<button type="button" class="btn btn-success">Gegevens toevoegen</button>
-<button type="button" class="btn btn-danger">Gegevens verwijderen</button>
+<button type="button" class="btn btn-success" onclick="gebruikerLaden()">User aanpassen</button>
+<button type="button" class="btn btn-danger">User blokeren</button>
+<div>
+    @{
+        var m = Model[1];
+    }
+    <h2 id="naam">@m.Voornaam</h2>
+    <hr />
+    <div id="wijzigGebruiker">
+        <div>
+            <label id="gebruikerId" style="display:none">@m.ID</label>
+        </div>
+        <div>
+            <label for="Voornaam">Naam:</label>
+            <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="@m.Voornaam" />
+        </div>
+        <div>
+            <label for="Achternaam">Achternaam:</label>
+            <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="@m.Achternaam" />
+        </div>
+        <div>
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" name="Email" value="@m.Email" />
+        </div>
+        <div>
+            <label for="Geboortedatum">Geboortedatum:</label>
+            <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="@m.Geboortedatum" />
+        </div>
+        <div>
+            <label for="Postcode">Postcode:</label>
+            <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="@m.Postcode" />
+        </div>
+        <div>
+            <label class="checkbox-inline"><input type="checkbox" value="" checked="checked" id="isAdmin" name="isAdmin">Admin</label>
+        </div>
+        <div class="row" style="margin:0">
+            <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
+            <input id="antwoordAnnuleren" onclick="" class="btn btn-danger" type="button" value="Annuleren" />
+        </div>
+    </div>
+
+</div>
 
 <script>
-   function filterGebruiker(filter) {
-      var lis = document.getElementsByClassName("list-group-item");
+    function gebruikerLaden() {
+        var id = document.getElementsByClassName("list-group-item active")[0].id;
+        $.ajax("/api/FYI/GetGebruiker/" + id, {
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            document.getElementById("gebruikerId").innerHTML = data["ID"];
+            document.getElementById("Voornaam").value = data["Voornaam"];
+            document.getElementById("Achternaam").value = data["Achternaam"];
+            document.getElementById("Email").value = data["Email"];
+            document.getElementById("Geboortedatum").value = data["Geboortedatum"];
+            document.getElementById("Postcode").value = data["Postcode"];
+            if (data["isAdmin"]) {
+                document.getElementById("isAdmin").checked = true;
+            } else {
+                document.getElementById("isAdmin").checked = false;
+            }
+        }).fail(function () {
+            alert("fail");
+        });
 
-      for (var i = 0; i < lis.length; i++) {
-         var elem = lis[i];
-         if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
-            elem.style.display = "block";
-         } else {
-            elem.style.display = "none";
-         }
-      }
-   }
+    }
 
-   $(function () {
-      console.log('ready');
+    function gebruikerWijzigen() {
 
-      $('.list-group-item').click(function (e) {
-         e.preventDefault()
+        class GebruikerWijzigen {
+            constructor(id, email, isAdmin) {
+                this.id = id;
+                this.email = email;
+                this.isAdmin = isAdmin;
+            }
+        }
+        var id = parseInt(document.getElementById("gebruikerId").innerHTML);
+        var email = document.getElementById("Email").value;
+        var isAdmin;
+        if ($('#isAdmin').is(":checked")) {
+            isAdmin = true;
+        } else {
+            isAdmin = false;
+        }
+        var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
+        var jsonG = JSON.stringify(gewijzigde);
 
-         $that = $(this);
+        var json = '"';
 
-         $that.parent().find('li').removeClass('active');
-         $that.addClass('active');
-      });
-   })
+        for (var i = 0; i < jsonG.length; i++) {
+            var ch = jsonG.charAt(i);
+            if (ch == '"') {
+                json += "'";
+            } else {
+                json += ch;
+            }
+        }
+
+        json += '"';
+
+        $.ajax('/api/FYI/GebruikerWijzigen', {
+            type: 'POST',
+            contentType: "application/json",
+            accepts: 'application/json',
+            data: json
+        }).done(function (data) {
+            window.location.replace("/Home/Index");
+        }).fail(function () {
+            alert('fail');
+            hideLoading();
+        });
+
+    }
+
+    function filterGebruiker(filter) {
+        var lis = document.getElementsByClassName("list-group-item");
+
+        for (var i = 0; i < lis.length; i++) {
+            var elem = lis[i];
+            if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
+                elem.style.display = "block";
+            } else {
+                elem.style.display = "none";
+            }
+        }
+    }
+
+    $(function () {
+        console.log('ready');
+
+        $('.list-group-item').click(function (e) {
+            e.preventDefault()
+
+            $that = $(this);
+
+            $that.parent().find('li').removeClass('active');
+            $that.addClass('active');
+        });
+    })
 </script>

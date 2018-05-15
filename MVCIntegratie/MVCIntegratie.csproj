@@ -459,6 +459,7 @@
     <Content Include="Views\Search\_Resultaat.cshtml" />
     <Content Include="Views\TestLogica\Index.cshtml" />
     <Content Include="Views\Config\_Faq.cshtml" />
+    <Content Include="Views\Config\SuperAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805081055567_role.resx">

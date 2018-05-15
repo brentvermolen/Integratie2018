@@ -19,19 +19,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                    <a href="@Url.Action("Index", "Home")" class=" navbar-brand"><img alt="Logo" src="~/Images/dashboard.png" height="30" /></a>
+                <a href="@Url.Action("Index", "Home")" class=" navbar-brand"><img alt="Logo" src="~/Images/dashboard.png" height="30" /></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
+                    <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
                     <li>@Html.ActionLink("Over", MVC.FYI.Over())</li>
                     <li>@Html.ActionLink("Contact", MVC.FYI.Contact())</li>
                     <li>@Html.ActionLink("FAQ", MVC.FYI.FAQ())</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Rollen", MVC.Role.Index())</li>
-                    }
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
