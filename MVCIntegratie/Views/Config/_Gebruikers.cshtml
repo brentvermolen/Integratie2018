@@ -14,12 +14,17 @@
 <ul class="list-group">
     @foreach (var gebruiker in Model)
     {
-        <li class="list-group-item" id="@gebruiker.ID">@gebruiker.Email</li>
-    }
+    <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
+        @gebruiker.Email
+        @if (gebruiker.LockoutEnabled){
+        <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
+        }else if(!gebruiker.LockoutEnabled){
+        <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
+        }
+    </li>
+}
 </ul>
 
-<button type="button" class="btn btn-success" onclick="gebruikerLaden()">User aanpassen</button>
-<button type="button" class="btn btn-danger">User blokeren</button>
 <div>
     @{
         var m = Model[1];
@@ -62,8 +67,66 @@
 </div>
 
 <script>
-    function gebruikerLaden() {
-        var id = document.getElementsByClassName("list-group-item active")[0].id;
+    function gebruikerActiveren(id) {
+        var gewijzigde = new GebruikerWijzigen(id, "", false);
+        var jsonG = JSON.stringify(gewijzigde);
+
+        var json = '"';
+
+        for (var i = 0; i < jsonG.length; i++) {
+            var ch = jsonG.charAt(i);
+            if (ch == '"') {
+                json += "'";
+            } else {
+                json += ch;
+            }
+        }
+
+        json += '"';
+
+        $.ajax('/api/FYI/GebruikerBlokeren', {
+            type: 'POST',
+            contentType: "application/json",
+            accepts: 'application/json',
+            data: json
+        }).done(function (data) {
+            window.location.reload();
+        }).fail(function () {
+            alert('fail');
+        });
+    }
+
+    function gebruikerBlokeren(id) {
+        var gewijzigde = new GebruikerWijzigen(id, "", false);
+        var jsonG = JSON.stringify(gewijzigde);
+
+        var json = '"';
+
+        for (var i = 0; i < jsonG.length; i++) {
+            var ch = jsonG.charAt(i);
+            if (ch == '"') {
+                json += "'";
+            } else {
+                json += ch;
+            }
+        }
+
+        json += '"';
+
+        $.ajax('/api/FYI/GebruikerActiveren', {
+            type: 'POST',
+            contentType: "application/json",
+            accepts: 'application/json',
+            data: json
+        }).done(function (data) {
+            window.location.reload();
+        }).fail(function () {
+            alert('fail');
+        });
+    }
+
+    function gebruikerLaden(id) {
+        //var id = document.getElementsByClassName("list-group-item active")[0].id;
         $.ajax("/api/FYI/GetGebruiker/" + id, {
             type: 'GET',
             dataType: 'json'
@@ -84,16 +147,14 @@
         });
 
     }
-
-    function gebruikerWijzigen() {
-
-        class GebruikerWijzigen {
-            constructor(id, email, isAdmin) {
-                this.id = id;
-                this.email = email;
-                this.isAdmin = isAdmin;
-            }
+    class GebruikerWijzigen {
+        constructor(id, email, isAdmin) {
+            this.id = id;
+            this.email = email;
+            this.isAdmin = isAdmin;
         }
+    }
+    function gebruikerWijzigen() {
         var id = parseInt(document.getElementById("gebruikerId").innerHTML);
         var email = document.getElementById("Email").value;
         var isAdmin;
@@ -127,7 +188,6 @@
             window.location.replace("/Home/Index");
         }).fail(function () {
             alert('fail');
-            hideLoading();
         });
 
     }

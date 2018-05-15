@@ -121,6 +121,34 @@ namespace MVCIntegratie.Controllers.Api
       
       return Ok(g);
     }
+    [Route("~/api/FYI/GebruikerBlokeren")]
+    public IHttpActionResult PostGebruikerBlokeren([FromBody] string data)
+    {
+      WijzigGebruiker gebruiker = JsonConvert.DeserializeObject<WijzigGebruiker>(data);
+
+      Gebruiker g = gebruikermngr.GetGebruiker(gebruiker.id);
+
+      g.LockoutEnabled = true;
+      g.LockoutEndDateUtc = new DateTime(2150, 1, 1);
+
+      gebruikermngr.ChangeGebruiker(g);
+
+      return Ok();
+    }
+    [Route("~/api/FYI/GebruikerActiveren")]
+    public IHttpActionResult PostGebruikerActiveren([FromBody] string data)
+    {
+      WijzigGebruiker gebruiker = JsonConvert.DeserializeObject<WijzigGebruiker>(data);
+
+      Gebruiker g = gebruikermngr.GetGebruiker(gebruiker.id);
+
+      g.LockoutEnabled = false;
+      g.LockoutEndDateUtc = null;
+
+      gebruikermngr.ChangeGebruiker(g);
+
+      return Ok();
+    }
   }
 }
 
