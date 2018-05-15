@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<BL.Domain.Grafiek>
+
+@{
    ViewBag.Title = "Home";
 }
 
@@ -24,16 +26,16 @@
 
 <div class="container">
    <div class="row">
-      <div class="col-sm-6 col-md-6 content">
+      <div class="col-sm-6 col-md-6 content" data-id="nodeBox">
+         <!--<div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);"></div>-->
          <div id="nodeBox">
             <div>
-               <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
+               <img src="~/Images/nodebox.svg" draggable="false" style="height: 399px; width:100%;" />
             </div>
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
                <ul class="onclick-menu-content">
-                  <li><button>Bewerken</button></li>
-                  <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li>
+                  <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li> <!--In gebruiker klassen een attribuut bool hasNodebox? if true => Show Nodebox-->
                   <li><button>Annuleren</button></li>
                </ul>
             </div>
@@ -42,12 +44,12 @@
 
       @foreach (var grafiek in Model)
       {
-         <div class="col-sm-6 col-md-6 content">
+         <div class="col-sm-6 col-md-6 content grafiek" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);" >
+            <div style="display:none" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);"></div>
             <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
                <ul class="onclick-menu-content">
-
                   <li><a href="/Graph/Wijzig/@grafiek.ID"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
                   <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
                   <li><button>Annuleren</button></li>
@@ -57,6 +59,118 @@
       }
    </div>
 </div>
+
+<div class="row">
+
+   <input type="button" value="Wijzig Volgorde" onclick="enableDisableDragDrop(this);" />
+   <input type="button" id="annuleerVolgorde" onclick="disableDragDrop()" value="Annuleer" style="display:none" />
+</div>
+
+<script>
+   function enableDisableDragDrop(button) {
+      var divs = document.getElementsByClassName("dragger");
+
+      var annuleer = document.getElementById("annuleerVolgorde");
+
+      for (var i = 0; i < divs.length; i++) {
+         if (divs[i].style.display == "none") {
+            divs[i].style.display = "block";
+            button.value = "Volgorde Opslaan";
+            annuleer.style.display = "block";
+         } else {
+            divs[i].style.display = "none";
+            annuleer.style.display = "none";
+            volgordeOpslaan();
+            button.value = "Wijzig Opslaan";
+         }
+      }
+   }
+
+   function disableDragDrop(button) {
+      window.location.reload();
+   }
+
+   function volgordeOpslaan() {
+      class Volgorde {
+         constructor(grafiek, volgorde) {
+            this.grafiek = grafiek;
+            this.volgorde = volgorde;
+         }
+      }
+
+      var divs = document.getElementsByClassName("grafiek");
+      var grafieken = [];
+      var volgorde = [];
+
+      for (var i = 0; i < divs.length; i++) {
+         var id = $(divs[i]).attr("data-id");
+         grafieken.push(id);
+         volgorde.push(i);
+      }
+
+      var volg = new Volgorde(grafieken, volgorde);
+
+      var jsonG = JSON.stringify(volg);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/NieuweGrafiek/WijzigVolgorde', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         window.location.reload();
+      }).fail(function () {
+         alert('Er is iets misgelopen tijdens het opslaan van de volgorde...');
+      });
+   }
+
+   function allowDrop(ev) {
+      ev.preventDefault();
+   }
+
+   function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.title);
+   }
+
+   function drop(ev) {
+      ev.preventDefault();
+      var srcID = ev.dataTransfer.getData("text");
+      var targetID = $(ev.target.parentElement).attr("data-id");
+
+      var target = ev.target.parentElement;
+      var source = document.getElementById(srcID)
+      source = source.parentElement;
+
+      var copy_to = $(target).clone(true);
+      var copy_from = $(source).clone(true);
+      $(target).replaceWith(copy_from);
+      $(source).replaceWith(copy_to);
+   }
+</script>
+<style>
+   .dragger {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      border: solid;
+   }
+</style>
 
 <script type="text/javascript">
    $(document).ready(function () {

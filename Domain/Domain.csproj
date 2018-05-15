@@ -61,7 +61,6 @@
     <Compile Include="GrafiekKlassen\Categorie.cs" />
     <Compile Include="GrafiekKlassen\Chart.cs" />
     <Compile Include="GrafiekKlassen\Data.cs" />
-    <Compile Include="GrafiekKlassen\NieuweGrafiekModel.cs" />
     <Compile Include="GrafiekKlassen\GrafiekPersonen.cs" />
     <Compile Include="GrafiekKlassen\Legende.cs" />
     <Compile Include="GrafiekKlassen\PlotOptions.cs" />

@@ -260,6 +260,7 @@
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NieuweGrafiekModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="PersoonController.generated.cs">
@@ -288,6 +289,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\alljson.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -303,7 +305,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\dashboard.png" />
+    <Content Include="Images\lijn_diagram.png" />
     <Content Include="Images\nodebox.svg" />
+    <Content Include="Images\staaf_diagram.png" />
+    <Content Include="Images\taart_diagram.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chart.js" />

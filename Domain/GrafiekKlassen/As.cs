@@ -24,7 +24,7 @@ namespace BL.Domain.GrafiekKlassen
       public int ID { get; set; }
       public string Titel { get; set; }
       public bool IsUsed { get; set; }
-      public virtual List<Categorie> Categorieen { get; set; }
+      public List<Categorie> Categorieen { get; set; }
 
       public string GetCategorieen()
       {

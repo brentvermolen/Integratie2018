@@ -34,6 +34,8 @@ namespace BL.Domain.ItemKlassen
          return false;
       }
 
+      public List<Grafiek> Grafieken { get; set; }
+
       public override string ToString()
       {
          return Naam;

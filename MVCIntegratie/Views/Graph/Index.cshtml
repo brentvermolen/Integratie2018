@@ -1,4 +1,4 @@
-﻿@model BL.Domain.GrafiekKlassen.NieuweGrafiekModel
+﻿@model MVCIntegratie.Models.NieuweGrafiekModel
 
 @{
    ViewBag.Title = "NieuweGrafiek";
@@ -17,34 +17,49 @@
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
-   $(document).ready(function () {
-      var elem = document.getElementById('selector');
-      wijzigtype(elem, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')
-   })
-</script>
+   $.ajax("/api/NieuweGrafiek/Personen", {
+      type: 'GET',
+      dataType: 'json'
+   }).done(function (data) {
+      var elem = document.getElementById("personenButtons");
+      var loading = document.getElementById("personenLoading");
 
+      var personen = data;
+      for (var i = 0; i < personen.length; i++) {
+         var persoon = personen[i];
+         var button = "<input type='button' style='margin: 1px' class='btnPersoon btn btn-info' id='" + persoon["ID"] + "' onclick='getDataPolitieker(this); ClosePopup();' value='" + persoon["Naam"] + "' />"
+         elem.innerHTML = elem.innerHTML + button;
+      }
+      loading.style.display = "none";
+      elem.style.display = "block";
+   }).fail(function () {
+      document.getElementById("personenLoading").innerHTML = "Oeps, er is iets misgelopen<br />Probeer de pagina te herladen..."
+   });
+</script>
 
 <div class="container">
 
    <div class="row">
-      <div class="col-sm-10 col-md-10" id="typediagram">
-         <select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
+      <div class="col-sm-12 col-md-12" id="typediagram">
+         <!--<select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
             <option value="Lijn Diagram" selected>Lijn Diagram</option>
             <option value="Staaf Diagram">Staaf Diagram</option>
             <option value="Taart Diagram">Taart Diagram</option>
             <option value="Vergelijking">Vergelijking</option>
-
-         </select>
+         </select>-->
+         <a href="javascript:void(0);" onclick="wijzigtype('Lijn Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/lijn_diagram.png" alt="line" style="max-width:100%" /></div></a>
+         <a href="javascript:void(0);" onclick="wijzigtype('Staaf Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/staaf_diagram.png" alt="line" style="max-width:100%" /></div></a>
+         <a href="javascript:void(0);" onclick="wijzigtype('Taart Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/taart_diagram.png" alt="line" style="max-width:100%" /></div></a>
       </div>
    </div>
    <br />
-   <div class="col-sm-10 col-md-10 content" id="grafiekdiv">
+   <div class="col-sm-12 col-md-12 content row" id="grafiekdiv">
       <div id="@Model.Line.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Bar.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <div id="@Model.Pie.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
    </div>
 
-   <div class="col-sm-12 col-md-12 row chartopties">
+   <div class="col-sm-12 col-md-12 content row chartopties">
       <label>Grafiek titel: </label>
       <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value);" />
    </div>
@@ -447,7 +462,7 @@
    var barChart;
    var pieChart;
    var currentChart;
-   var elemToAdd = 'polLine';
+   var elemToAdd = document.getElementById('polLine');
 
    function wijzigTitel(value) {
       grafiekGewijzigd();
@@ -521,66 +536,106 @@
    var personenBar = [];
    var currentPersonen = personenLine;
 
-   function aantalTweetsToevoegen(data, naam, id, cat) {
-      switch (currentChart) {
-         case 'line':
-            var str = [];
-            var d = data["Data"];
-            var dag = data["StartDag"];
-            var maand = data["StartMaand"] - 1;
-            var jaar = data["StartJaart"];
-
-            for (var i = 0; i < d.length; i++) {
-               str.push(d[i]);
+   @if (Model.IsGewijzigd)
+   {
+      <text>
+   $(document).ready(function () {
+            @foreach(var persoon in Model.Line.Personen)
+            {
+               <text>
+      elemToAdd = document.getElementById('polLine');
+      persoonToevoegen('@persoon.Naam', '@persoon.ID', true);
+               </text>
             }
-
-            lineChart.addSeries({ name: naam, data: str });
-            if (currentSeries == -1) {
-               currentSeries = 0;
+      @foreach(var persoon in Model.Bar.Personen)
+            {
+               <text>
+      elemToAdd = document.getElementById('polBar');
+      persoonToevoegen('@persoon.Naam', '@persoon.ID', true);
+               </text>
             }
-            lineChart.series[currentSeries].xAxis.update({
-               type: "datetime"
-            }, false);
-            lineChart.series[currentSeries].update({
-               pointStart: Date.UTC(jaar, maand, dag),
+      @if(Model.Pie.Personen.Count > 0)
+      {
+         <text>
+         var btnPie = document.getElementsByClassName('btnPiePersoon')[0];
+         btnPie.id = '@Model.Pie.Personen[0].ID';
+         btnPie.value = '@Model.Pie.Personen[0].Naam';
+      </text>
+      }
+
+      isGewijzigd = false;
+      checkGrafiek();
+   });
+
+      </text>
+   }
+
+
+      function aantalTweetsToevoegen(data, naam, id, cat) {
+         switch (currentChart) {
+            case 'line':
+               var str = [];
+               var d = data["Data"];
+               var dag = data["StartDag"];
+               var maand = data["StartMaand"] - 1;
+               var jaar = data["StartJaart"];
+
+               for (var i = 0; i < d.length; i++) {
+                  str.push(d[i]);
+               }
+
+               lineChart.addSeries({ name: naam, data: str });
+               if (currentSeries == -1) {
+                  currentSeries = 0;
+               }
+               lineChart.series[currentSeries].xAxis.update({
+                  type: "datetime"
+               }, false);
+               lineChart.series[currentSeries].update({
+                  pointStart: Date.UTC(jaar, maand, dag),
                pointInterval: 24 * 3600 * 1000 * 7
-            }, false);
-            lineChart.series[currentSeries].yAxis.update({
-               title: { text:  cat }
-            }, true);
-            currentSeries++;
-            break;
-         case 'bar':
-            barChart.addSeries({ name: naam, data: [data] });
-            if (currentSeries == -1) {
-               currentSeries = 0;
-            }
-            var categories = barChart.userOptions.xAxis.categories;
-            if (categories.length == 0) {
-               categories.push(cat);
-            } else {
-               categories[0] = cat;
-            }
-            barChart.series[currentSeries].yAxis.update({
-               title: { text: cat }
-            }, true);
-            currentSeries++;
-            break;
-         case 'pie':
-            break;
+               }, false);
+               lineChart.series[currentSeries].yAxis.update({
+                  title: { text:  cat }
+               }, true);
+               currentSeries++;
+               break;
+            case 'bar':
+               barChart.addSeries({ name: naam, data: [data] });
+               if (currentSeries == -1) {
+                  currentSeries = 0;
+               }
+               var categories = barChart.userOptions.xAxis.categories;
+               if (categories.length == 0) {
+                  categories.push(cat);
+               } else {
+                  categories[0] = cat;
+               }
+               barChart.series[currentSeries].yAxis.update({
+                  title: { text: cat }
+               }, true);
+               currentSeries++;
+               break;
+            case 'pie':
+               break;
+         }
+   }
+
+   function persoonToevoegen(naam, id, loaded) {
+      if (loaded == true) {
+         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+         currentPersonen.push(new Persoon(id, naam, true));
+      } else {
+         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+         currentPersonen.push(new Persoon(id, naam, false));
       }
    }
 
-   function persoonToevoegen(naam, id) {
-      elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
-      currentPersonen.push(new Persoon(id, naam));
-   }
-
    class Persoon {
-      constructor(id, naam) {
+      constructor(id, naam, loaded) {
          this.id = id;
          this.naam = naam;
-         this.loaded = false;
+         this.loaded = loaded;
       }
    }
 
@@ -651,33 +706,64 @@
    }
 
    function grafiekOpslaan() {
+
+      var grafiD;
+
+      switch ('@Model.GewijzigdType') {
+         case 'lijn':
+            grafiD = '@Model.Line.ID';
+            break;
+         case 'staaf':
+            grafiD = '@Model.Bar.ID';
+            break;
+         case 'taart':
+            grafiD = '@Model.Pie.ID';
+            break;
+      }
+
       class LineClass {
-         constructor(title, pointStart, content, series, aantalWeken) {
+         constructor(title, pointStart, content, series, aantalWeken, id) {
             this.title = title;
             this.pointStart = pointStart;
             this.type = 'line';
             this.content = content;
             this.series = series;
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
             this.aantalWeken = aantalWeken;
          }
       }
 
       class BarClass {
-         constructor(title, categories, series) {
+         constructor(title, categories, series, id) {
             this.title = title;
             this.categories = categories;
             this.series = series;
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
             this.type = 'bar';
          }
       }
 
-      class PieClass {
+      /*class PieClass {
          constructor(title, serieNaam, series, waarden) {
             this.title = title;
             this.serieNaam = serieNaam;
             this.series = series;
             this.waarden = waarden;
             this.type = 'pie';
+         }
+      }*/
+
+      class PieClass {
+         constructor(title, serieNaam, content, persoon, id) {
+            this.title = title;
+            this.serieNaam = serieNaam;
+            this.content = content;
+            this.type = "pie";
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
+            this.persoon = persoon;
          }
       }
 
@@ -689,7 +775,7 @@
                lineChart.series[0].xAxis.series[0].options.pointStart,
                'politieker',
                currentPersonen,
-               document.getElementById('aantalWekenPolLine').value);
+               document.getElementById('aantalWekenPolLine').value, grafiD);
             break;
          case 'bar':
             var categories = [];
@@ -700,22 +786,37 @@
 
             graf = new BarClass(barChart.title.textStr,
                categories,
-               currentPersonen)
+               currentPersonen, grafiD)
             break;
          case 'pie':
-            var series = [];
+            /*var series = [];
             var waarden = [];
 
             for (var i = 0; i < pieChart.series[0].userOptions.data.length; i++) {
                var data = pieChart.series[0].userOptions.data[i];
                series.push(data.name);
                waarden.push(data.y);
+            }*/
+
+            var type;
+
+            switch (document.getElementById("typepie").value) {
+               case "Overzicht":
+                  type = document.getElementById("piePolOptiesData").value;
+                  break;
+               case "Kruising":
+                  type = document.getElementById("pieCrossPolOpties").value;
+                  break;
             }
+            var id = document.getElementsByClassName('btnPiePersoon')[0].id;
 
             graf = new PieClass(pieChart.title.textStr,
                pieChart.series[0].userOptions.name,
-               series,
-               waarden)
+               /*series,
+               waarden*/
+               type,
+               id, grafiD
+            )
             break;
       }
 
@@ -741,7 +842,6 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         hideLoading();
          window.location.replace("/Home/Index");
       }).fail(function () {
          alert('fail');
@@ -1002,15 +1102,12 @@
                   },
                   </text>
                   }
-
-                  @if (Model.Line.xAs.IsUsed == true)
-                  {
-                     <text>
+                  
                   xAxis: {
-                     categories: @Html.Raw(Model.Line.xAs.GetCategorieen())
+                     type: 'datetime'
                   },
-                  </text>
-                  }
+                  
+
 
 
                   @if (Model.Line.Chart.Type.Equals("column"))
@@ -1058,11 +1155,11 @@
                            {
                               connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
                               }
-                              @if(Model.Line.PlotOptions.PointInterval != null)
+                              @if(Model.Line.PlotOptions.PointStart != null)
                               {
                                  <text>,
                               pointStart: @Model.Line.PlotOptions.PointStart
-                              , pointInterval: @Model.Line.PlotOptions.PointInterval;
+                              , pointInterval: 24 * 3600 * 1000 * 7
                               </text>
                               }
                            }
@@ -1442,10 +1539,28 @@
                });
    })
 
+   @if (Model.IsGewijzigd) {
+         switch (Model.GewijzigdType) {
+            case "lijn":
+               <text>wijzigtype("Lijn Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "staaf":
+               <text>wijzigtype("Staaf Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "taart":
+               <text>wijzigtype("Taart Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+         }
+      }
+      else
+      {
+         <text>wijzigtype("Lijn Diagram", 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');</text>
+      }
+
    function wijzigtype(selectie, id, vergid, barid, lineid, pieid) {
       grafiekGewijzigd();
 
-      if (selectie.value == "Lijn Diagram") {
+      if (selectie/*.value*/ == "Lijn Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "block";
          currentChart = 'line';
          currentPersonen = personenLine;
@@ -1458,7 +1573,7 @@
          document.getElementById(pieid).style.display = "none";
          document.getElementById("grafTitel").value = lineChart.title.textStr;
       }
-      else if (selectie.value == "Staaf Diagram") {
+      else if (selectie/*.value*/ == "Staaf Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "none";
          document.getElementById('@Model.Bar.ID').style.display = "block";
          currentChart = 'bar';
@@ -1469,9 +1584,9 @@
          document.getElementById(vergid).style.display = "none";
          document.getElementById(barid).style.display = "block";
          document.getElementById(pieid).style.display = "none";
-         document.getElementById("grafTitel").value = barChart.title.textStr;
+         //document.getElementById("grafTitel").value = barChart.title.textStr;
       }
-      else if (selectie.value == "Taart Diagram") {
+      else if (selectie/*.value*/ == "Taart Diagram") {
          document.getElementById('@Model.Line.ID').style.display = "none";
          document.getElementById('@Model.Bar.ID').style.display = "none";
          document.getElementById('@Model.Pie.ID').style.display = "block";
@@ -1481,7 +1596,7 @@
          document.getElementById(barid).style.display = "none";
          document.getElementById(pieid).style.display = "block";
          document.getElementById("grafTitel").value = pieChart.title.textStr;
-      } else if (selectie.value == "Vergelijking") {
+      } else if (selectie/*.value*/ == "Vergelijking") {
          document.getElementById('@Model.Line.ID').style.display = "none";
          document.getElementById('@Model.Bar.ID').style.display = "none";
          document.getElementById('@Model.Pie.ID').style.display = "none";
@@ -1510,11 +1625,8 @@
          <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value="" />
       </div>
       <div class="popup-body">
-         <p>
-            @foreach (var persoon in Model.Personen)
-            {
-               <input type="button" class="btnPersoon" id="@persoon.ID" onclick="getDataPolitieker(this); ClosePopup();" value="@persoon.Naam" />
-            }
+         <p id="personenLoading" style="display:block">Personen worden geladen</p>
+         <p id="personenButtons" style="display:none">
          </p>
       </div>
    </div>

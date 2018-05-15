@@ -9,47 +9,66 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BL.Domain
 {
-  public class Grafiek
-  {
-    public Grafiek()
-    {
-      Chart = new Chart() { Type = "normal" };
-      xAs = new As();
-      yAs = new As();
-      Legende = new Legende();
-      PlotOptions = new PlotOptions();
-      Series = new List<Serie>();
-      isDefault = true;
-    }
-
-
-    [Key]
-    public int ID { get; set; }
-    [JsonProperty("chart")]
-    public Chart Chart { get; set; }
-    public string Titel { get; set; }
-    public string Tooltip { get; set; }
-    [JsonProperty("xAxis")]
-    public virtual As xAs { get; set; }
-    public virtual As yAs { get; set; }
-    public bool Credits { get; set; }
-    public Legende Legende { get; set; }
-    public PlotOptions PlotOptions { get; set; }
-    public int GebruikerId { get; set; }
-    public Gebruiker Gebruiker { get; set; }
-
-    public virtual List<Serie> Series { get; set; }
-
-    public bool isDefault { get; set; }
-
-    public string GetBoolString(bool boolean)
-    {
-      if (boolean)
+   public class Grafiek
+   {
+      public Grafiek()
       {
-        return "true";
+         xAs = new As();
+         yAs = new As();
+         Legende = new Legende();
+         PlotOptions = new PlotOptions();
+         Series = new List<Serie>();
+         Personen = new List<Persoon>();
+         isDefault = false;
+         Categorieen = new List<Categorie>();
+         Order = -1;
       }
 
-      return "false";
-    }
-  }
+      [Key]
+      public int ID { get; set; }
+      [JsonProperty("chart")]
+      [NotMapped]
+      public Chart Chart { get; set; }
+      public string Titel { get; set; }
+      [NotMapped]
+      public string Tooltip { get; set; }
+      [JsonProperty("xAxis")]
+      [NotMapped]
+      public virtual As xAs { get; set; }
+      [NotMapped]
+      public virtual As yAs { get; set; }
+      [NotMapped]
+      public bool Credits { get; set; }
+      [NotMapped]
+      public Legende Legende { get; set; }
+      [NotMapped]
+      public PlotOptions PlotOptions { get; set; }
+      public int GebruikerId { get; set; }
+      public Gebruiker Gebruiker { get; set; }
+      
+      [NotMapped]
+      public List<Serie> Series { get; set; }
+      
+      public virtual List<Persoon> Personen { get; set; }
+      public double PointStart { get; set; }
+      public string ContentType { get; set; }
+      public int AantalSeries { get; set; }
+      public virtual List<Categorie> Categorieen { get; set; }
+      public string TitelXAs { get; set; }
+      public string TitelYAs { get; set; }
+
+      public int Order { get; set; }
+
+      public bool isDefault { get; set; }
+
+      public string GetBoolString(bool boolean)
+      {
+         if (boolean)
+         {
+            return "true";
+         }
+
+         return "false";
+      }
+   }
 }
