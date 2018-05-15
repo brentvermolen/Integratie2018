@@ -437,7 +437,6 @@
     <Content Include="Views\FYI\Contact.cshtml" />
     <Content Include="Views\FYI\FAQ.cshtml" />
     <Content Include="Views\Home\Home_Ingelogd.cshtml" />
-    <Content Include="Views\Graph\NieuweGrafiek.cshtml" />
     <Content Include="Views\Home\GrafiekToevoegen.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
     <Content Include="Views\Home\Zoek.cshtml" />

@@ -142,10 +142,16 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         document.location.reload();
+         relocate('faq');
       }).fail(function () {
          alert('fail');
       });
+   }
+
+   function relocate(extra) {
+      var loc = window.location.href.split('#')[0];
+      window.location.replace(loc + "#" + extra);
+      window.location.reload();
    }
 
    function antwoordAnnuleren() {
@@ -177,7 +183,7 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         document.location.reload();
+         relocate('faq');
       }).fail(function () {
          alert('fail');
       });

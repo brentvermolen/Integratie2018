@@ -3,14 +3,16 @@
 @using Microsoft.AspNet.Identity
 @using BL;
 @{
-    var mng = new GebruikerManager();
-    var gebruiker = new BL.Domain.Gebruiker();
-    if (User.Identity.IsAuthenticated)
-    {
-        gebruiker = mng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+   ViewBag.Title = "Gebruiker";
 
-    }
-    var naam = User.Identity.GetUserName().Substring(0, User.Identity.GetUserName().IndexOf("@"));
+   var mng = new GebruikerManager();
+   var gebruiker = new BL.Domain.Gebruiker();
+   if (User.Identity.IsAuthenticated)
+   {
+      gebruiker = mng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+
+   }
+   var naam = User.Identity.GetUserName().Substring(0, User.Identity.GetUserName().IndexOf("@"));
 }
 <link rel="stylesheet" href="~/Content/Layout.css" />
 <script src="~/Scripts/ReadOnly.js"></script>
@@ -18,7 +20,6 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 
 <div>
-
     <h2 id="naam">@naam</h2>
     <hr />
     <div class="col-md-8">
@@ -128,7 +129,7 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input id="wijzig" type="button" class="btn btn-default" value="Wijzig" onclick="invoer(this)" />
-                    <input id="opslaan" type="submit" class="btn btn-default" value="Opslaan" style="display:none"/>
+                    <input id="opslaan" type="submit" class="btn btn-default" value="Opslaan" onclick="opslaan(this)" style="display:none"/>
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@
     @foreach (var gebruiker in Model)
     {
     <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
-        @gebruiker.Email
+        @gebruiker.UserName
         @if (gebruiker.LockoutEnabled){
         <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
         }else if(!gebruiker.LockoutEnabled){
@@ -26,34 +26,31 @@
 </ul>
 
 <div>
-    @{
-        var m = Model[1];
-    }
-    <h2 id="naam">@m.Voornaam</h2>
+    <h2 id="naam"></h2>
     <hr />
     <div id="wijzigGebruiker">
         <div>
-            <label id="gebruikerId" style="display:none">@m.ID</label>
+            <label id="gebruikerId" style="display:none">ID</label>
         </div>
         <div>
             <label for="Voornaam">Naam:</label>
-            <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="@m.Voornaam" />
+            <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="" />
         </div>
         <div>
             <label for="Achternaam">Achternaam:</label>
-            <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="@m.Achternaam" />
+            <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="" />
         </div>
         <div>
             <label for="Email">Email:</label>
-            <input type="text" id="Email" name="Email" value="@m.Email" />
+            <input type="text" id="Email" name="Email" value="" />
         </div>
         <div>
             <label for="Geboortedatum">Geboortedatum:</label>
-            <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="@m.Geboortedatum" />
+            <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="" />
         </div>
         <div>
             <label for="Postcode">Postcode:</label>
-            <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="@m.Postcode" />
+            <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="" />
         </div>
         <div>
             <label class="checkbox-inline"><input type="checkbox" value="" checked="checked" id="isAdmin" name="isAdmin">Admin</label>
@@ -89,10 +86,10 @@
             contentType: "application/json",
             accepts: 'application/json',
             data: json
-        }).done(function (data) {
-            window.location.reload();
+        }).done(function () {
+           relocate("gebruikers");
         }).fail(function () {
-            alert('fail');
+            alert('fail 00000');
         });
     }
 
@@ -118,10 +115,10 @@
             contentType: "application/json",
             accepts: 'application/json',
             data: json
-        }).done(function (data) {
-            window.location.reload();
+        }).done(function () {
+           relocate("gebruikers");
         }).fail(function () {
-            alert('fail');
+            alert('fail 11111111');
         });
     }
 
@@ -142,10 +139,7 @@
             } else {
                 document.getElementById("isAdmin").checked = false;
             }
-        }).fail(function () {
-            alert("fail");
-        });
-
+           });
     }
     class GebruikerWijzigen {
         constructor(id, email, isAdmin) {
@@ -185,12 +179,18 @@
             accepts: 'application/json',
             data: json
         }).done(function (data) {
-            window.location.replace("/Home/Index");
+           relocate("gebruikers");
         }).fail(function () {
-            alert('fail');
+            alert('fail 3333333');
         });
 
-    }
+   }
+
+   function relocate(extra) {
+      var loc = window.location.href.split('#')[0];
+      window.location.replace(loc + "#" + extra);
+      window.location.reload();
+   }
 
     function filterGebruiker(filter) {
         var lis = document.getElementsByClassName("list-group-item");
