@@ -16,9 +16,9 @@ namespace MVCIntegratie.Controllers
    [RequireHttps]
    public partial class HomeController : Controller
    {
-      private IBerichtManager berichtMng = new BerichtManager();
-      private IAlertManager alertMng = new AlertManager();
-      private IGebruikerManager gebruikerMng = new GebruikerManager();
+      private BerichtManager berichtMng = new BerichtManager();
+      private AlertManager alertMng = new AlertManager();
+      private GebruikerManager gebruikerMng = new GebruikerManager();
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
       public virtual ActionResult Index()

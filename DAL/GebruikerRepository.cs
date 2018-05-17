@@ -1,5 +1,4 @@
 ﻿using BL.Domain;
-using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class GebruikerRepository : IGebruikerRepository
+   public class GebruikerRepository
    {
       private Integratie2018Context ctx;
 

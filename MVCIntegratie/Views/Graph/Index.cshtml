@@ -32,6 +32,7 @@
       }
       loading.style.display = "none";
       elem.style.display = "block";
+      filterPersonen(document.getElementById("filter").value);
    }).fail(function () {
       document.getElementById("personenLoading").innerHTML = "Oeps, er is iets misgelopen<br />Probeer de pagina te herladen..."
    });

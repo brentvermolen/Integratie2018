@@ -13,7 +13,7 @@ namespace MVCIntegratie.Controllers
   public partial class ConfigController : Controller
   {
     private FYIManager FyiMng = new FYIManager();
-    private IGebruikerManager GebruikerMng = new GebruikerManager();
+    private GebruikerManager GebruikerMng = new GebruikerManager();
 
     public virtual ActionResult Gebruikers()
     {

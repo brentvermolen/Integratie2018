@@ -7,7 +7,7 @@ using BL.Domain;
 
 namespace DAL
 {
-   public class AlertRepository : IAlertRepository
+   public class AlertRepository
    {
       private Integratie2018Context ctx;
 

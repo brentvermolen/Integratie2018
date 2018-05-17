@@ -1,6 +1,5 @@
 ﻿using BL.Domain;
 using DAL;
-using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-   public class GebruikerManager : IGebruikerManager
+   public class GebruikerManager
    {
-      private IGebruikerRepository repo;
+      private GebruikerRepository repo;
 
       public GebruikerManager()
       {

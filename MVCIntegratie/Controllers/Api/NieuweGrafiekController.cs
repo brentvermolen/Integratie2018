@@ -16,9 +16,9 @@ namespace MVCIntegratie.Controllers.Api
 {
    public class NieuweGrafiekController : ApiController
    {
-      private IBerichtManager berichtMng = new BerichtManager();
-      private IAlertManager alertMng = new AlertManager();
-      private IGebruikerManager gebruikerMng = new GebruikerManager();
+      private BerichtManager berichtMng = new BerichtManager();
+      private AlertManager alertMng = new AlertManager();
+      private GebruikerManager gebruikerMng = new GebruikerManager();
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
       [Route("~/api/NieuweGrafiek/Personen")]
@@ -100,7 +100,7 @@ namespace MVCIntegratie.Controllers.Api
 
       private AantalBerichtenPerWeekModel GetAantalBerichtenPerWeekModel(int intAantalWeken, int intID)
       {
-         int dezeWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Today, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+         /*int dezeWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Today, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
 
          int eersteWeek = dezeWeek - intAantalWeken;
          DateTime datumVandaag = new DateTime(2018, 1, 1).AddDays(dezeWeek * 7 - 7);
@@ -157,6 +157,46 @@ namespace MVCIntegratie.Controllers.Api
          };
 
          for (i = 0; i < lijst.Count; i++)
+         {
+            model.Data.Add(lijst[i].Count);
+         }
+
+         return model;*/
+
+         int dezeWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Today, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+         dezeWeek--;
+
+         int eersteWeek = dezeWeek - intAantalWeken;
+         DateTime datumVandaag = new DateTime(DateTime.Today.Year, 1, 1).AddDays(dezeWeek * 7 - 7);
+         datumVandaag = datumVandaag.AddDays(0 - (intAantalWeken * 7 - 7));
+
+         List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null && b.Datum >= datumVandaag).ToList();
+
+         List<AantalBerichtenPerWeek> lijst = new List<AantalBerichtenPerWeek>();
+
+         while (eersteWeek++ < dezeWeek)
+         {
+            int week = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(datumVandaag, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            lijst.Add(new AantalBerichtenPerWeek() { Week = datumVandaag, Count = berichts.Where(b => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(b.Datum, CalendarWeekRule.FirstDay, DayOfWeek.Monday) == week).Count() });
+            datumVandaag = datumVandaag.AddDays(7);
+         }
+
+         lijst.Sort((m1, m2) => m1.Week.CompareTo(m2.Week));
+
+         DateTime vroegste = lijst.Min(l => l.Week);
+
+         AantalBerichtenPerWeekModel model = new AantalBerichtenPerWeekModel()
+         {
+            ID = intID,
+            Naam = berichtMng.GetPersoon(intID).Naam,
+            StartJaart = vroegste.Year,
+            StartMaand = vroegste.Month,
+            StartDag = vroegste.Day,
+            Data = new List<int>()
+         };
+
+
+         for (int i = 0; i < lijst.Count; i++)
          {
             model.Data.Add(lijst[i].Count);
          }
