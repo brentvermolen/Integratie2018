@@ -15,8 +15,8 @@ namespace MVCIntegratie
 
          routes.MapRoute(
              name: "Default",
-             url: "{language}/{controller}/{action}/{id}",
-             defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, language = "nl-BE" }
+             url: "{controller}/{action}/{id}",
+             defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
          );
       }
    }

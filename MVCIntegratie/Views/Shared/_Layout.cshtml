@@ -52,19 +52,20 @@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
-        </div>
+                 
+</div>
     </div>
     <div class="container body-content">
         @RenderBody()
-
+        
         <footer id="footer" style="float:left">
             <hr />
             <p>
                 &copy; @DateTime.Now.Year &middot Politieke Barometer &middot; &copy; Bit By Bit
                 &middot <a href="@Url.Action("Index", "Home")">Home</a>
-                &middot <a href="@Url.Action("Over", "FYI")">Over</a>
-                &middot <a href="@Url.Action("Contact", "FYI")">Contact</a>
-                &middot <a href="@Url.Action("FAQ", "FYI")">FAQ</a>
+                &middot <a href="@Url.Action("Over", "FYI")">@Resources.lang.Over</a>
+                &middot <a href="@Url.Action("Contact", "FYI")">@Resources.lang.Contact</a>
+                &middot <a href="@Url.Action("FAQ", "FYI")">@Resources.lang.FAQ</a>
             </p>
             <p><a href="#">Back to top</a></p>
         </footer>

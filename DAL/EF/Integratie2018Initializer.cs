@@ -35,6 +35,7 @@ namespace DAL
 
          context.SaveChanges();
       }
+       
 
       private void AddFaq(Integratie2018Context context)
       {

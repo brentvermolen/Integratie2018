@@ -9,7 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-
+using System.Threading;
+using System.Globalization;
+using System.Web;
 
 namespace MVCIntegratie.Controllers
 {
@@ -48,39 +50,49 @@ namespace MVCIntegratie.Controllers
 
       }
 
-      public class AantalTweetsPerWeek
-      {
-         public int Count { get; set; }
-         public DateTime Week { get; set; }
-      }
+        public class AantalTweetsPerWeek
+        {
+            public int Count { get; set; }
+            public DateTime Week { get; set; }
+        }
 
-      public virtual ActionResult Zoek(string search)
-      {
+        public virtual ActionResult Zoek(string search, string language)
 
-         return View();
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
 
-
-      }
-
-      public virtual ActionResult Search(string search)
-      {
+            return View();
 
 
-         return RedirectToAction("Index", "Search");
-      }
+        }
+
+        public virtual ActionResult Search(string search, string language)
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
 
 
-      public virtual ActionResult Toevoegen(string type)
-      {
-         Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieen = new List<Categorie>() }, new List<Serie>());
-         graf.xAs.Categorieen.Add(new Categorie("Objectiviteit"));
-         graf.xAs.Categorieen.Add(new Categorie("Polariteit"));
+            return RedirectToAction("Index", "Search");
+        }
 
-         List<Persoon> personen = berichtMng.GetPersonen().ToList();
-         personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
 
-         return View("GrafiekToevoegen", new GrafiekPersonen() { Grafiek = graf, Personen = personen });
-      }
-   }
+        public virtual ActionResult Toevoegen(string type, string language)
+        {
+            Grafiek graf = new Bar(0, "PREVIEW", new As() { IsUsed = true, Categorieen = new List<Categorie>() }, new List<Serie>());
+            graf.xAs.Categorieen.Add(new Categorie("Objectiviteit"));
+            graf.xAs.Categorieen.Add(new Categorie("Polariteit"));
+
+            List<Persoon> personen = berichtMng.GetPersonen().ToList();
+            personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+
+            return View("GrafiekToevoegen", new GrafiekPersonen() { Grafiek = graf, Personen = personen });
+        }
+       
+    }
 
 }
