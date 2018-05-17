@@ -273,8 +273,9 @@ namespace BL
          public List<double> Waarden { get; set; }
       }
 
-      private AantalBerichtenPerWeekModel GetAantalBerichtenPerWeekModel(int intAantalWeken, int intID)
+      public AantalBerichtenPerWeekModel GetAantalBerichtenPerWeekModel(int intAantalWeken, int intID)
       {
+         //Vanaf Maandag van deze week (Dus als vandaag = woensdag, vanaf afgelopen maandag tot nu woensdag) (Enkel tweets van 3dagen)
          /*int dezeWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Today, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
 
          int eersteWeek = dezeWeek - intAantalWeken;
@@ -338,7 +339,8 @@ namespace BL
 
          return model;*/
 
-         int dezeWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Today, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+         //Vanaf maandag van vorige week (Dus als vandaag = Woensdag, vanaf vorige week maandag tot vorige zondag) (Tweets van deze week niet)
+         /*int dezeWeek = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Today, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
          dezeWeek--;
 
          int eersteWeek = dezeWeek - intAantalWeken;
@@ -376,10 +378,45 @@ namespace BL
             model.Data.Add(lijst[i].Count);
          }
 
+         return model;*/
+
+         //Vanaf vandaag een week geleden (Als vandaag = Donderdag, laatste serie = vorige donerdag tot nu) (Alle tweets)
+         List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
+
+         List<AantalBerichtenPerWeek> lijst = new List<AantalBerichtenPerWeek>();
+         DateTime datumVandaag = DateTime.Today.AddDays(-7);
+         int week = 0;
+         while (week++ < intAantalWeken)
+         {
+            lijst.Add(new AantalBerichtenPerWeek() { Week = datumVandaag, Count = berichts.Where(b => b.Datum >= datumVandaag).Count() });
+            berichts.RemoveAll(b => b.Datum >= datumVandaag);
+            datumVandaag = datumVandaag.AddDays(-7);
+         }
+
+         lijst.Sort((m1, m2) => m1.Week.CompareTo(m2.Week));
+
+         DateTime vroegste = lijst.Min(l => l.Week);
+
+         AantalBerichtenPerWeekModel model = new AantalBerichtenPerWeekModel()
+         {
+            ID = intID,
+            Naam = berichtMng.GetPersoon(intID).Naam,
+            StartJaar = vroegste.Year,
+            StartMaand = vroegste.Month,
+            StartDag = vroegste.Day,
+            Data = new List<int>()
+         };
+
+
+         for (int i = 0; i < lijst.Count; i++)
+         {
+            model.Data.Add(lijst[i].Count);
+         }
+
          return model;
       }
 
-      private class AantalBerichtenPerWeekModel
+      public class AantalBerichtenPerWeekModel
       {
          public int ID { get; set; }
          public string Naam { get; set; }

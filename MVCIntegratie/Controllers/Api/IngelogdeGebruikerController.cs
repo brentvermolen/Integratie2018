@@ -19,6 +19,12 @@ namespace MVCIntegratie.Controllers.Api
       [Route("~/api/IngelogdeGebruiker/VerwijderGrafiek/{id}")]
       public IHttpActionResult GetVerwijderGrafiek(string id)
       {
+         if (id.Equals("nodeBox"))
+         {
+            //Verwijder NodeBox grafiek
+            return Ok(true);
+         }
+
          int intID;
          try
          {
