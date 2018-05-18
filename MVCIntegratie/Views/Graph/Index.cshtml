@@ -1633,7 +1633,7 @@
    </div>
 </div>
 
-<div id="loading" class="loading" style="display:none">
+<div id="loading" class="loading" style="display:block;">
    <div class="loading-content">
       <div class="loading-body">
          <h2>Loading...</h2>
@@ -1661,8 +1661,10 @@
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
    }
 
-      .loading img {
-         width: 50%
+      .loading img 
+      {
+         max-width: 50%;
+         max-height: 50vh;
       }
 
    .loading {
