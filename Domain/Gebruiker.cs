@@ -17,6 +17,8 @@ namespace BL.Domain
          GebruikerLogins = new HashSet<GebruikerLogin>();
          GebruikersClaims = new HashSet<GebruikersClaim>();
          Roles = new HashSet<Role>();
+         isSuperAdmin = false;
+         isAdmin = false;
       }
 
       public int ID { get; set; }
@@ -67,10 +69,12 @@ namespace BL.Domain
       [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
       public virtual ICollection<Role> Roles { get; set; }
 
-      public List<Grafiek> Grafieken { get; set; }
+      public virtual List<Grafiek> Grafieken { get; set; }
 
-
-      IEnumerable<Alert> Alerts { get; set; }
+      public virtual List<Alert> Alerts { get; set; }
+      
+      public bool isAdmin { get; set; }
+      public bool isSuperAdmin { get; set; }
 
       public override string ToString()
       {

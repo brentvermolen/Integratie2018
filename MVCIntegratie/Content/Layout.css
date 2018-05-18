@@ -12,7 +12,7 @@
 
 #naam { text-align: center; }
 
-#invoer .form-control { width: 100%; }
+.invoer .form-control { width: 100%; }
 
 #wijzig { margin-right: 5px; }
 
@@ -291,4 +291,3 @@ input[type="date"] {
     display: inline-block !important;
     visibility: visible !important;
 }
-

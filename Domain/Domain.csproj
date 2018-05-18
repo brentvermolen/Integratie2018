@@ -88,6 +88,7 @@
     <Compile Include="JsonConverters\WoordenConvert.cs" />
     <Compile Include="JsonExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sychronize.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

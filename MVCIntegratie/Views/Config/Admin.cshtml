@@ -17,29 +17,39 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <link rel="stylesheet" href="~/Content/Config.css">
    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+   <script>
+      $(document).ready(function () {
+         var subpage = window.location.href.split('#')[1];
+         if (subpage != undefined) {
+            showPage(subpage);
+         }
+      });
+   </script>
 </head>
 <body>
    <div class="wrapper">
       <nav id="sidebar">
-         <div class="sidebar-header">
-            <h3>Admin</h3>
-            <strong>Ad</strong>
-         </div>
+         <a href="/Home/Index">
+            <div class="sidebar-header">
+               <h3>Admin</h3>
+               <strong>Ad</strong>
+            </div>
+         </a>
          <ul class="list-unstyled components">
             <li class="active sidebar">
-               <a href="javascript:void(0)" data-id="home" onclick="showPage(this)">
+               <a class="subpageRef" href="javascript:void(0)" data-id="home" onclick="showPage('home')">
                   <i class="glyphicon glyphicon-home"></i>
                   Home
                </a>
             </li>
             <li class="sidebar">
-               <a href="javascript:void(0)" data-id="gebruikers" onclick="showPage(this)">
+               <a class="subpageRef" href="javascript:void(0)" data-id="gebruikers" onclick="showPage('gebruikers')">
                   <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
                   Gebruikers
                </a>
             </li>
             <li>
-               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+               <a class="subpageRef" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
                   <i class="glyphicon glyphicon-dashboard"></i>
                   Platformen
                </a>
@@ -50,13 +60,13 @@
                </ul>
             </li>
             <li class="sidebar">
-               <a href="javascript:void(0)" data-id="alerts" onclick="showPage(this)">
+               <a class="subpageRef" href="javascript:void(0)" data-id="alerts" onclick="showPage('alerts')">
                   <i class="glyphicon glyphicon-bell"></i>
                   Alerts
                </a>
             </li>
             <li class="sidebar">
-               <a href="javascript:void(0)" data-id="faq" onclick="showPage(this)">
+               <a class="subpageRef" href="javascript:void(0)" data-id="faq" onclick="showPage('faq')">
                   <i class="glyphicon glyphicon-question-sign"></i>
                   FAQ
                </a>
@@ -147,18 +157,25 @@
       $(document).ready(function () {
          $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
+
          });
+         $('#sidebarCollapse').click();
       });
 
-      function showPage(elem) {
+      function showPage(subpage) {
          var lis = document.getElementsByClassName("sidebar");
          for (var i = 0; i < lis.length; i++) {
             lis[i].className = lis[i].className.replace("active", "");
          }
-         $(elem.parentNode).toggleClass("active");
+         var refs = document.getElementsByClassName("subpageRef");
+         for (var i = 0; i < refs.length; i++) {
+            var dataId = $(refs[i]).attr("data-id");
+            if (dataId == subpage) {
+               $(refs[i]).toggleClass("active");
+            }
+         }
 
-
-         var id = $(elem).attr("data-id");
+         var id = subpage;
          var divs = document.getElementsByClassName("subpage");
 
          for (var i = 0; i < divs.length; i++) {

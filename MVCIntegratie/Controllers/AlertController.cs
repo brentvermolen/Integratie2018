@@ -10,7 +10,7 @@ namespace MVCIntegratie.Controllers
 {
    public partial class AlertController : Controller
    {
-      private IAlertManager mng = new AlertManager();
+      private AlertManager mng = new AlertManager();
 
       public virtual ActionResult Index()
       {

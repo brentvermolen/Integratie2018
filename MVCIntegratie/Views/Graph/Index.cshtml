@@ -32,6 +32,7 @@
       }
       loading.style.display = "none";
       elem.style.display = "block";
+      filterPersonen(document.getElementById("filter").value);
    }).fail(function () {
       document.getElementById("personenLoading").innerHTML = "Oeps, er is iets misgelopen<br />Probeer de pagina te herladen..."
    });
@@ -60,23 +61,23 @@
    </div>
 
    <div class="col-sm-12 col-md-12 content row chartopties">
-      <label>Grafiek titel: </label>
+      <label>@Resources.lang.grafTit : </label>
       <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value);" />
    </div>
 
    <div id="vergelijking">
       <div class="col-sm-6 col-md-6 vergelijkopties">
          <select class="form-control">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
          </select>
       </div>
 
       <div class="col-sm-6 col-md-6 vergelijkopties">
          <select class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
+            <option value="Aantal tweets">@Resources.lang.vrgkAantalTweet</option>
+            <option value="Aantal mentions">@Resources.lang.vrgkAantalMent</option>
+            <option value="Aantal hashtags">@Resources.lang.vrgkAantalHast</option>
          </select>
       </div>
    </div>
@@ -85,22 +86,22 @@
    <div id="barchart">
       <div class="col-sm-12 col-md-12 barchartopties">
          <select class="form-control" onchange="wijzigbar(this, 'barpolopties', 'barthemaopties');">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
          </select>
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barpolopties">
 
-         <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('bar')" />
+         <label>@Resources.lang.politiekers</label>
+         <input type="button" value="@Resources.lang.voegtoe" onclick="politiekerToevoegen('bar')" />
          <div id="polBar" class="row">
 
          </div>
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
-         <label>Aantal Themas</label>
+         <label>@Resources.lang.aantalThema</label>
          <select class="form-control" onchange="barwijzigaantalthema(this, 'baraantalthema')">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -113,76 +114,76 @@
       <div class="col-sm-6 col-md-6 barchartopties barpolopties">
          <label>x-as</label>
          <select class="form-control baraantalpol barstartpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
+            <option value="Politieker1">@Resources.lang.politieker 1</option>
+            <option value="Politieker2">@Resources.lang.politieker 2</option>
+            <option value="Politieker3">@Resources.lang.politieker 3</option>
          </select>
          <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
          </select>
          <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
          </select>
          <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
          </select>
          <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
          </select>
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
          <label>x-as</label>
          <select class="form-control baraantalthema barstartthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
          </select>
          <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
          </select>
          <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
          </select>
          <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
          </select>
          <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
          </select>
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barpolopties">
          <label>y-as</label>
          <select id="barPolY" class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
+            <option value="Aantal tweets">@Resources.lang.vrgkAantalTweet</option>
+            <option value="Aantal mentions">@Resources.lang.vrgkAantalMent</option>
+            <option value="Aantal hashtags">@Resources.lang.vrgkAantalHast</option>
          </select>
       </div>
 
       <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
          <label>y-as</label>
          <select class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
+            <option value="Aantal tweets">@Resources.lang.vrgkAantalTweet</option>
+            <option value="Aantal mentions">@Resources.lang.vrgkAantalMent</option>
+            <option value="Aantal hashtags">@Resources.lang.vrgkAantalHast</option>
          </select>
       </div>
    </div>
@@ -190,9 +191,9 @@
    <div id="linechart">
       <div class="col-sm-12 col-md-12 linechartopties">
          <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties', 'polperline', 'themaperline'); grafiekGewijzigd();">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
-            <option value="Evolutie">Evolutie van aantal tweets</option>
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
+            <option value="Evolutie">@Resources.lang.evTweet</option>
          </select>
       </div>
 
@@ -206,7 +207,7 @@
             <option value="5">5</option>
          </select>-->
          <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line');" />
+         <input type="button" value="@Resources.lang.toevoegen" onclick="politiekerToevoegen('line');" />
          <div id="polLine" class="row">
 
 
@@ -215,7 +216,7 @@
 
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
-         <label>Aantal Themas</label>
+         <label>@Resources.lang.aantalThema</label>
          <select class="form-control" onchange="linewijzigaantalthema(this, 'lineaantalthema')">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -285,76 +286,76 @@
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties">
          <label>Y-As</label>
-         <p>Aantal Tweets</p>
+         <p>@Resources.lang.vrgkAantalTweet</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
          <label>Y-As</label>
-         <p>Aantal Tweets</p>
+         <p>@Resources.lang.vrgkAantalTweet</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties">
          <label>X-As</label>
-         <p>Per Week</p>
+         <p>@Resources.lang.perWeek</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
          <label>X-As</label>
-         <p>Per Week</p>
+         <p>@Resources.lang.perWeek</p>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepoldagen">
-         <label>Aantal weken</label>
+         <label>@Resources.lang.aantalWeken</label>
          <input type="number" id="aantalWekenPolLine" class="form-control" value="5" onchange="grafiekGewijzigd();" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemadagen">
-         <label>Aantal dagen</label>
+         <label>@Resources.lang.aantalDagen</label>
          <input class="form-control" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepolweken">
-         <label>Aantal weken</label>
+         <label>@Resources.lang.aantalWeken</label>
          <input class="form-control" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemaweken">
-         <label>Aantal weken</label>
+         <label>@Resources.lang.aantalWeken</label>
          <input class="form-control" />
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties lineevolutieopties">
          <label>X-As</label>
          <select class="form-control">
-            <option value="per dag">per dag</option>
-            <option value="per week">per week</option>
+            <option value="per dag">@Resources.lang.perDag</option>
+            <option value="per week">@Resources.lang.perWeek</option>
          </select>
       </div>
    </div>
    <div id="piechart">
       <div class="col-sm-12 col-md-12 piechartopties">
          <select class="form-control" onchange="wijzigpie(this, 'soortpie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="typepie">
-            <option value="Kruising">Kruising</option>
-            <option value="Overzicht">Overzicht</option>
+            <option value="Kruising">@Resources.lang.kruising</option>
+            <option value="Overzicht">@Resources.lang.overzicht</option>
          </select>
       </div>
       <div class="col-sm-12 col-md-12 piechartopties">
          <select class="form-control" onchange="wijzigtypepie(this, 'typepie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="soortpie">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties ">
-         <label>Politieker</label>
+         <label>@Resources.lang.politieker</label>
          <!--<select class="form-control">
             <option value="Politieker1">Politieker1</option>
             <option value="Politieker2">Politieker2</option>
             <option value="Politieker3">Politieker3</option>
          </select>-->
-         <input type="button" value="Kies" class="btnPiePersoon" id="" onclick="politiekerKiezen(this)" />
+         <input type="button" value="@Resources.lang.kies" class="btnPiePersoon" id="" onclick="politiekerKiezen(this)" />
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
-         <label>Thema</label>
+         <label>@Resources.lang.thema</label>
          <select class="form-control">
             <option value="Thema1">Thema1</option>
             <option value="Thema2">Thema2</option>
@@ -362,43 +363,43 @@
          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
-         <label>Wat?</label>
+         <label>@Resources.lang.wat ?</label>
          <select class="form-control">
-            <option value="Tweets over">Tweets over</option>
-            <option value="Mentions over">Mentions over</option>
-            <option value="Hashtags over">Hashtags over</option>
+            <option value="Tweets over">@Resources.lang.overTweet</option>
+            <option value="Mentions over">@Resources.lang.overMent</option>
+            <option value="Hashtags over">@Resources.lang.overHast</option>
          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
-         <label>Wat?</label>
-         <select class="form-control">
-            <option value="Tweets over">Tweets over</option>
-            <option value="Mentions over">Mentions over</option>
-            <option value="Hashtags over">Hashtags over</option>
-         </select>
+          <label>@Resources.lang.wat ?</label>
+          <select class="form-control">
+              <option value="Tweets over">@Resources.lang.overTweet</option>
+              <option value="Mentions over">@Resources.lang.overMent</option>
+              <option value="Hashtags over">@Resources.lang.overHast</option>
+          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
-         <label>Kruisen met?</label>
+         <label>@Resources.lang.kruisMet ?</label>
          <select id="pieCrossPolOpties" class="form-control">
-            <option value="Gemeente">Gemeente</option>
-            <option value="Geslacht">Geslacht</option>
-            <option value="Leeftijd">Leeftijd</option>
-            <option value="Opleiding">Opleiding</option>
-            <option value="Taal">Taal</option>
-            <option value="Persoonlijkheid">Persoonlijkheid</option>
-            <option value="Trend">Trend</option>
+            <option value="Gemeente">@Resources.lang.gemeente</option>
+            <option value="Geslacht">@Resources.lang.geslacht</option>
+            <option value="Leeftijd">@Resources.lang.leeftijd</option>
+            <option value="Opleiding">@Resources.lang.opleiding</option>
+            <option value="Taal">@Resources.lang.taal</option>
+            <option value="Persoonlijkheid">@Resources.lang.persoonlijkheid</option>
+            <option value="Trend">@Resources.lang.trend</option>
          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
-         <label>Kruisen met?</label>
+         <label>@Resources.lang.kruisMet ?</label>
          <select class="form-control">
-            <option value="Gemeente">Gemeente</option>
-            <option value="Geslacht">Geslacht</option>
-            <option value="Leeftijd">Leeftijd</option>
-            <option value="Opleiding">Opleiding</option>
-            <option value="Taal">Taal</option>
-            <option value="Persoonlijkheid">Persoonlijkheid</option>
-            <option value="Trend">Trend</option>
+            <option value="Gemeente">@Resources.lang.gemeente</option>
+            <option value="Geslacht">@Resources.lang.geslacht</option>
+            <option value="Leeftijd">@Resources.lang.leeftijd</option>
+            <option value="Opleiding">@Resources.lang.opleiding</option>
+            <option value="Taal">@Resources.lang.taal</option>
+            <option value="Persoonlijkheid">@Resources.lang.persoonlijkheid</option>
+            <option value="Trend">@Resources.lang.trend</option>
          </select>
       </div>
 
@@ -411,11 +412,11 @@
          </select>
       </div>-->
       <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
-         <label>Thema</label>
+         <label>@Resources.lang.thema</label>
          <select class="form-control">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
+            <option value="Thema1">@Resources.lang.thema 1</option>
+            <option value="Thema2">@Resources.lang.thema 2</option>
+            <option value="Thema3">@Resources.lang.thema 3</option>
          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties piepolopties">
@@ -434,25 +435,25 @@
          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties piepolopties">
-         <label>Overzicht van</label>
+         <label>@Resources.lang.overzichtvan</label>
          <select id="piePolOptiesData" class="form-control">
-            <option value="Verhalen">Verhalen</option>
-            <option value="Thema's">Thema's</option>
-            <option value="Woorden">Woorden</option>
+            <option value="Verhalen">@Resources.lang.verhalen</option>
+            <option value="Thema's">@Resources.lang.themas</option>
+            <option value="Woorden">@Resources.lang.woorden</option>
          </select>
       </div>
       <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
-         <label>Overzicht van</label>
+         <label>@Resources.lang.overzichtvan</label>
          <select class="form-control">
-            <option value="Verhalen">Verhalen</option>
-            <option value="Woorden">Woorden</option>
+            <option value="Verhalen">@Resources.lang.verhalen</option>
+            <option value="Woorden">@Resources.lang.woorden</option>
          </select>
       </div>
    </div>
    <div class="form-group maakgrafiek">
       <div class="col-md-6">
-         <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" />
-         <input id="grafiekOpslaan" type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" disabled />
+         <input type="submit" value="@Resources.lang.toonpreview" onclick="toonPreview()" class="btn btn-success" />
+         <input id="grafiekOpslaan" type="submit" value="@Resources.lang.grafiekOpslaan" onclick="grafiekOpslaan()" class="btn btn-success" disabled />
       </div>
    </div>
 </div>
@@ -482,7 +483,7 @@
 
    function politiekerToevoegen(graph) {
       if (currentPersonen.length == 5) {
-         alert('Kan niet meer dan 5 personen toevoegen');
+         alert('@Resources.lang.err5personen');
          return;
       }
 
@@ -578,7 +579,7 @@
                var d = data["Data"];
                var dag = data["StartDag"];
                var maand = data["StartMaand"] - 1;
-               var jaar = data["StartJaart"];
+               var jaar = data["StartJaar"];
 
                for (var i = 0; i < d.length; i++) {
                   str.push(d[i]);
@@ -1102,11 +1103,11 @@
                   },
                   </text>
                   }
-                  
+
                   xAxis: {
                      type: 'datetime'
                   },
-                  
+
 
 
 
@@ -1152,13 +1153,13 @@
                         series:
                         {
                            label:
-                           {
-                              connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
+                              {
+                                 connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
                               }
                               @if(Model.Line.PlotOptions.PointStart != null)
                               {
                                  <text>,
-                              pointStart: @Model.Line.PlotOptions.PointStart
+                           pointStart: @Model.Line.PlotOptions.PointStart
                               , pointInterval: 24 * 3600 * 1000 * 7
                               </text>
                               }
@@ -1320,7 +1321,7 @@
                            {
                               connectorAllowed: @Model.Bar.PlotOptions.getBool(Model.Bar.PlotOptions.SeriesLabelConnector)
                               },
-                        pointStart: @Model.Bar.PlotOptions.PointStart
+                           pointStart: @Model.Bar.PlotOptions.PointStart
                            }
                         </text>
                      }

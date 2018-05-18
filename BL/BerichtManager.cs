@@ -11,9 +11,9 @@ using DAL;
 
 namespace BL
 {
-   public class BerichtManager : IBerichtManager
+   public class BerichtManager
    {
-      private readonly IBerichtRepository repo;
+      private readonly BerichtRepository repo;
 
       public BerichtManager()
       {
@@ -142,6 +142,11 @@ namespace BL
       public IEnumerable<Persoon> GetPersonen(Expression<Func<Persoon, bool>> predicate)
       {
          return repo.ReadPersonen(predicate);
+      }
+
+      public void AddBerichten(List<Bericht> berichten)
+      {
+         repo.CreateBerichten(berichten);
       }
 
       /*  public IEnumerable<Thema> GeThemas()

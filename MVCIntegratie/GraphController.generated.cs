@@ -61,6 +61,12 @@ namespace MVCIntegratie.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Wijzig()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wijzig);
@@ -93,6 +99,14 @@ namespace MVCIntegratie.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string language = "language";
+        }
         static readonly ActionParamsClass_Wijzig s_params_Wijzig = new ActionParamsClass_Wijzig();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Wijzig WijzigParams { get { return s_params_Wijzig; } }
@@ -100,6 +114,7 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_Wijzig
         {
             public readonly string id = "id";
+            public readonly string language = "language";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -123,25 +138,27 @@ namespace MVCIntegratie.Controllers
         public T4MVC_GraphController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Index(string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            IndexOverride(callInfo, language);
             return callInfo;
         }
 
         [NonAction]
-        partial void WijzigOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void WijzigOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Wijzig(int id)
+        public override System.Web.Mvc.ActionResult Wijzig(int id, string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wijzig);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            WijzigOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            WijzigOverride(callInfo, id, language);
             return callInfo;
         }
 

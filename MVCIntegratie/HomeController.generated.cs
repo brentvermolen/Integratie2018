@@ -61,6 +61,12 @@ namespace MVCIntegratie.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Zoek()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
@@ -109,6 +115,14 @@ namespace MVCIntegratie.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string language = "language";
+        }
         static readonly ActionParamsClass_Zoek s_params_Zoek = new ActionParamsClass_Zoek();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Zoek ZoekParams { get { return s_params_Zoek; } }
@@ -116,6 +130,7 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_Zoek
         {
             public readonly string search = "search";
+            public readonly string language = "language";
         }
         static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -124,6 +139,7 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_Search
         {
             public readonly string search = "search";
+            public readonly string language = "language";
         }
         static readonly ActionParamsClass_Toevoegen s_params_Toevoegen = new ActionParamsClass_Toevoegen();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -132,6 +148,7 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_Toevoegen
         {
             public readonly string type = "type";
+            public readonly string language = "language";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -161,49 +178,53 @@ namespace MVCIntegratie.Controllers
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Index(string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            IndexOverride(callInfo, language);
             return callInfo;
         }
 
         [NonAction]
-        partial void ZoekOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
+        partial void ZoekOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Zoek(string search)
+        public override System.Web.Mvc.ActionResult Zoek(string search, string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Zoek, "https");
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
-            ZoekOverride(callInfo, search);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            ZoekOverride(callInfo, search, language);
             return callInfo;
         }
 
         [NonAction]
-        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Search(string search)
+        public override System.Web.Mvc.ActionResult Search(string search, string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search, "https");
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
-            SearchOverride(callInfo, search);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            SearchOverride(callInfo, search, language);
             return callInfo;
         }
 
         [NonAction]
-        partial void ToevoegenOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string type);
+        partial void ToevoegenOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string type, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Toevoegen(string type)
+        public override System.Web.Mvc.ActionResult Toevoegen(string type, string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Toevoegen, "https");
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "type", type);
-            ToevoegenOverride(callInfo, type);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            ToevoegenOverride(callInfo, type, language);
             return callInfo;
         }
 

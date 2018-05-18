@@ -19,7 +19,16 @@
          <td>@faq.Vraag</td>
          <td>@faq.Categorie.ToString()</td>
          <td>@faq.GesteldOp.ToShortDateString() - @faq.GesteldOp.ToShortTimeString()</td>
-         <td>@faq.Beantwoord</td>
+         <td>
+            @if (faq.Beantwoord)
+            {
+               <text>Ja</text>
+            }
+            else
+            {
+               <text>Nee</text>
+            }
+         </td>
          <td><input type="button" class="btn btn-info" value="Wijzig" id="@faq.ID" onclick="wijzigVraag(this.id)" /></td>
       </tr>
    }
@@ -47,7 +56,7 @@
    </div>
    <div>
       <label for="voorbeeld">Voorbeeld:</label>
-      <input id="voorbeeld" name="voorbeeld"  type="text" value="" />
+      <input id="voorbeeld" name="voorbeeld" type="text" value="" />
    </div>
    <div>
       <label for="beantwoord">Beantwoord:</label>
@@ -142,10 +151,16 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         document.location.reload();
+         relocate('faq');
       }).fail(function () {
          alert('fail');
       });
+   }
+
+   function relocate(extra) {
+      var loc = window.location.href.split('#')[0];
+      window.location.replace(loc + "#" + extra);
+      window.location.reload();
    }
 
    function antwoordAnnuleren() {
@@ -177,7 +192,7 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         document.location.reload();
+         relocate('faq');
       }).fail(function () {
          alert('fail');
       });
