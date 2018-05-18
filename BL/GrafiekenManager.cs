@@ -52,18 +52,26 @@ namespace BL
          repo.DeleteGrafiek(ID);
       }
 
+      public static double ConvertToUnixTimestamp(DateTime date)
+      {
+         DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+         TimeSpan diff = date.ToUniversalTime() - origin;
+         return Math.Floor(diff.TotalSeconds);
+      }
+
       public Grafiek CreateGrafiek(Grafiek grafiek)
       {
          switch (grafiek.Chart.Type)
          {
             case "normal":
-               grafiek.PlotOptions.PointStart = grafiek.PointStart.ToString();
                grafiek.Series = new List<Serie>();
                grafiek.yAs = new As() { IsUsed = true, Titel = grafiek.TitelYAs };
 
                foreach (Persoon persoon in grafiek.Personen)
                {
                   AantalBerichtenPerWeekModel model2 = GetAantalBerichtenPerWeekModel(grafiek.AantalSeries, persoon.ID);
+                  DateTime start = new DateTime(model2.StartJaar, model2.StartMaand, model2.StartDag);
+                  grafiek.PointStart = ConvertToUnixTimestamp(start);
                   Serie serie = new Serie();
                   serie.Naam = persoon.Naam;
 
@@ -75,6 +83,7 @@ namespace BL
 
                   grafiek.Series.Add(serie);
                }
+               grafiek.PlotOptions.PointStart = grafiek.PointStart.ToString();
                return grafiek;
             case "column":
                grafiek.xAs = new As() { IsUsed = true, Categorieen = grafiek.Categorieen };
