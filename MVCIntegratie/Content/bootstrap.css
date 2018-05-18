@@ -5288,10 +5288,10 @@ a.list-group-item:focus {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-  z-index: 2;
-  color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
+    z-index: 2;
+    color: #ffffff;
+    background-color: #99CCFF;
+    border-color: #99CCFF;
 }
 
 .list-group-item.active .list-group-item-heading,

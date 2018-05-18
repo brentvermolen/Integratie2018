@@ -418,5 +418,22 @@ input[type="date"] {
     margin-bottom:10px; 
 }
 
+.faqzelfinvullentekstveld {
+    margin-bottom:5px;
+}
+
+#defaultfaq {
+    background-color: #5cb85c;
+    border-color: #dddddd;
+    border-radius: 0px;
+    border: 1px;
+}
+
+#vraagfaq {
+    border-color: #dddddd;
+    border-radius: 0px;
+    
+}
+
 
 
