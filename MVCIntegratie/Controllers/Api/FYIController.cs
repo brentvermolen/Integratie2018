@@ -146,6 +146,7 @@ namespace MVCIntegratie.Controllers.Api
 
          return Ok();
       }
+
       [Route("~/api/FYI/GebruikerActiveren")]
       public IHttpActionResult PostGebruikerActiveren([FromBody] string data)
       {
@@ -160,7 +161,42 @@ namespace MVCIntegratie.Controllers.Api
 
          return Ok();
       }
+
+      [Route("~/api/FYI/ContactOpslaan")]
+      public IHttpActionResult PostContact([FromBody]string data)
+      {
+         ContactJson json = JsonConvert.DeserializeObject<ContactJson>(data);
+
+         Deelplatform platform = platformMng.GetDeelplatform(json.deelplatform);
+
+         if (platform == null)
+         {
+            return NotFound();
+         }
+
+         Contact contact = new Contact()
+         {
+            Email = json.email,
+            Naam = json.naam,
+            Onderwerp = json.onderwerp,
+            Bericht = json.bericht,
+            DeelplatformID = platform.ID
+         };
+
+         FyiMng.AddContact(contact);
+
+         return Ok();
+      }
    }
+}
+
+public class ContactJson
+{
+   public string email { get; set; }
+   public string naam { get; set; }
+   public string onderwerp { get; set; }
+   public string bericht { get; set; }
+   public string deelplatform { get; set; }
 }
 
 public class WijzigGebruiker

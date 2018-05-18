@@ -76,6 +76,11 @@ namespace DAL
             .WithMany(d => d.FAQs)
             .HasForeignKey(f => f.DeelplatformID);
 
+         modelBuilder.Entity<Contact>()
+            .HasRequired(f => f.Deelplatform)
+            .WithMany(d => d.Contacts)
+            .HasForeignKey(f => f.DeelplatformID);
+
          base.OnModelCreating(modelBuilder);
       }
 
@@ -108,5 +113,6 @@ namespace DAL
 
 
       public DbSet<FAQ> FAQ { get; set; }
+      public DbSet<Contact> Contacts { get; set; }
    }
 }

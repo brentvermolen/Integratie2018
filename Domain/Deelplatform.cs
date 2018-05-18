@@ -13,5 +13,6 @@ namespace BL.Domain
 
       public List<Gebruiker> Gebruikers { get; set; }
       public List<FAQ> FAQs { get; set; }
+      public List<Contact> Contacts { get; set; }
    }
 }

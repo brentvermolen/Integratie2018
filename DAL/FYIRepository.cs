@@ -43,6 +43,12 @@ namespace DAL
          ctx.SaveChanges();
       }
 
+      public void CreateContact(Contact contact)
+      {
+         ctx.Contacts.Add(contact);
+         ctx.SaveChanges();
+      }
+
       public void DeleteFaq(int ID)
       {
          FAQ f = ReadFaq(ID);
