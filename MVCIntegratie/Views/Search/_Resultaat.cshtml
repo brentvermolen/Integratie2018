@@ -78,5 +78,18 @@ else
                 <td>@Html.DisplayFor(modelItem => url.Berichten.Count) </td>
             </tr>
         }
+
+        <tr>
+            <th>Grafieken</th>
+        </tr>
+
+        @foreach (var grafiek in Model.Grafieken)
+        {
+        <tr>
+            
+            <td><a href="/Graph/Wijzig/@grafiek.ID">@grafiek.Titel</a></td>
+
+        </tr>
+        }
     </table>
 }
