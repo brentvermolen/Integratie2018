@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCIntegratie", "MVCIntegra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{B4817A46-311C-4C08-ABB4-D5F4944C7BCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CA-SyncDb", "CA\CA-SyncDb.csproj", "{5B27CD87-78EC-4143-A09D-60DACFD6A585}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B4817A46-311C-4C08-ABB4-D5F4944C7BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4817A46-311C-4C08-ABB4-D5F4944C7BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4817A46-311C-4C08-ABB4-D5F4944C7BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B27CD87-78EC-4143-A09D-60DACFD6A585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B27CD87-78EC-4143-A09D-60DACFD6A585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B27CD87-78EC-4143-A09D-60DACFD6A585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B27CD87-78EC-4143-A09D-60DACFD6A585}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

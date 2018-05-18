@@ -59,6 +59,24 @@ namespace MVCIntegratie.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Over()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Over);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FAQ()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FAQ);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Contact()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public FYIController Actions { get { return MVC.FYI; } }
@@ -89,6 +107,30 @@ namespace MVCIntegratie.Controllers
         }
 
 
+        static readonly ActionParamsClass_Over s_params_Over = new ActionParamsClass_Over();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Over OverParams { get { return s_params_Over; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Over
+        {
+            public readonly string language = "language";
+        }
+        static readonly ActionParamsClass_FAQ s_params_FAQ = new ActionParamsClass_FAQ();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_FAQ FAQParams { get { return s_params_FAQ; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_FAQ
+        {
+            public readonly string language = "language";
+        }
+        static readonly ActionParamsClass_Contact s_params_Contact = new ActionParamsClass_Contact();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Contact ContactParams { get { return s_params_Contact; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Contact
+        {
+            public readonly string language = "language";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -115,35 +157,38 @@ namespace MVCIntegratie.Controllers
         public T4MVC_FYIController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void OverOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void OverOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Over()
+        public override System.Web.Mvc.ActionResult Over(string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Over);
-            OverOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            OverOverride(callInfo, language);
             return callInfo;
         }
 
         [NonAction]
-        partial void FAQOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void FAQOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FAQ()
+        public override System.Web.Mvc.ActionResult FAQ(string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FAQ);
-            FAQOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            FAQOverride(callInfo, language);
             return callInfo;
         }
 
         [NonAction]
-        partial void ContactOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ContactOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string language);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Contact()
+        public override System.Web.Mvc.ActionResult Contact(string language)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
-            ContactOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
+            ContactOverride(callInfo, language);
             return callInfo;
         }
 

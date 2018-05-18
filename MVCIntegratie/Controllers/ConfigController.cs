@@ -13,7 +13,7 @@ namespace MVCIntegratie.Controllers
   public partial class ConfigController : Controller
   {
     private FYIManager FyiMng = new FYIManager();
-    private IGebruikerManager GebruikerMng = new GebruikerManager();
+    private GebruikerManager GebruikerMng = new GebruikerManager();
 
     public virtual ActionResult Gebruikers()
     {
@@ -35,7 +35,7 @@ namespace MVCIntegratie.Controllers
         AdminModel model = new AdminModel()
         {
           FAQ = FyiMng.GetFAQs().OrderByDescending(f => f.GesteldOp).ToList(),
-          Gebruikers = GebruikerMng.GetGebruikers().OrderBy(g => g.Email).ToList()
+          Gebruikers = GebruikerMng.GetGebruikers().Where(g => g.isSuperAdmin == false).OrderBy(g => g.UserName).ToList()
         };
         return View(model);
       }
@@ -56,7 +56,7 @@ namespace MVCIntegratie.Controllers
           AdminModel model = new AdminModel()
           {
             FAQ = FyiMng.GetFAQs().OrderByDescending(f => f.GesteldOp).ToList(),
-            Gebruikers = GebruikerMng.GetGebruikers().OrderBy(g => g.Email).ToList()
+            Gebruikers = GebruikerMng.GetGebruikers().Where(g => g.isSuperAdmin == false).OrderBy(g => g.Email).ToList()
           };
           return View(model);
         }

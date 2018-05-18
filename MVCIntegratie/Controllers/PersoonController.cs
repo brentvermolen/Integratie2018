@@ -10,7 +10,7 @@ namespace MVCIntegratie.Controllers
 {
    public partial class PersoonController : Controller
    {
-      private IBerichtManager mng = new BerichtManager();
+      private BerichtManager mng = new BerichtManager();
 
       public virtual ActionResult Index()
       {

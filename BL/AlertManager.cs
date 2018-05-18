@@ -8,9 +8,9 @@ using DAL;
 
 namespace BL
 {
-   public class AlertManager : IAlertManager
+   public class AlertManager
    {
-      private readonly IAlertRepository repo;
+      private readonly AlertRepository repo;
 
       public AlertManager()
       {

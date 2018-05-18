@@ -16,9 +16,9 @@ namespace MVCIntegratie.Controllers
 {
    public partial class GraphController : Controller
    {
-      private IBerichtManager berichtMng = new BerichtManager();
-      private IAlertManager alertMng = new AlertManager();
-      private IGebruikerManager gebruikerMng = new GebruikerManager();
+      private BerichtManager berichtMng = new BerichtManager();
+      private AlertManager alertMng = new AlertManager();
+      private GebruikerManager gebruikerMng = new GebruikerManager();
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
       // GET: Graph

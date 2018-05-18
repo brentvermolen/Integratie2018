@@ -2,7 +2,9 @@
 using BL.Domain;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,19 +15,28 @@ namespace MVCIntegratie.Controllers
       private FYIManager FyiMng = new FYIManager();
 
       // GET: FYI
-      public virtual ActionResult Over()
+      public virtual ActionResult Over(string language)
       {
-         return View();
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            return View();
       }
 
-      public virtual ActionResult FAQ()
+      public virtual ActionResult FAQ(string language)
       {
-         return View(FyiMng.GetFAQs().ToList());
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            return View(FyiMng.GetFAQs().ToList());
       }
 
-      public virtual ActionResult Contact()
+      public virtual ActionResult Contact(string language)
       {
-         return View();
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            return View();
       }
    }
 }

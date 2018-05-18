@@ -11,7 +11,7 @@ namespace MVCIntegratie.Controllers
 {
    public partial class BerichtController : Controller
    {
-      private IBerichtManager mng = new BerichtManager();
+      private BerichtManager mng = new BerichtManager();
 
       public virtual ActionResult Index(string persoon = "")
       {

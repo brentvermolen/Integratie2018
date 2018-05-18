@@ -7,14 +7,9 @@ using System;
 using System.Data.Entity;
 
 namespace DAL
-{
-
+{ 
    public class Integratie2018Context : DbContext
    {
-      public static int Count = 0;
-      public static Synchronize sync;
-
-
       public Integratie2018Context() : base("integratie2018DB")
       {
          Database.SetInitializer(new Integratie2018Initializer());
@@ -27,27 +22,6 @@ namespace DAL
          {
             e.ToString();
          }
-
-         /*if (Count++ == 0)
-         {
-            sync = Sync.Find(0);
-            if (sync == null)
-            {
-               sync = new Synchronize()
-               {
-                  ID = 0,
-                  Latest = new DateTime(2018, 1, 1),
-                  Context = this
-               };
-               Sync.Add(sync);
-               SaveChanges();
-               sync.Start();
-            }
-            else
-            {
-               sync.Start();
-            }
-         }*/
       }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -64,7 +38,6 @@ namespace DAL
          modelBuilder.Entity<Bericht>()
             .HasMany(b => b.Hashtags)
             .WithMany(h => h.Berichten);
-
 
          /*modelBuilder.Entity<Grafiek>()
             .HasMany(g => g.Series)
@@ -101,7 +74,7 @@ namespace DAL
          base.OnModelCreating(modelBuilder);
       }
 
-      public DbSet<Synchronize> Sync { get; set; }
+      public DbSet<Synchronize> Synchronizes { get; set; }
 
       public DbSet<Bericht> Berichten { get; set; }
       public DbSet<Woord> Woorden { get; set; }

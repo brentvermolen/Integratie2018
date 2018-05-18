@@ -32,6 +32,7 @@
       }
       loading.style.display = "none";
       elem.style.display = "block";
+      filterPersonen(document.getElementById("filter").value);
    }).fail(function () {
       document.getElementById("personenLoading").innerHTML = "Oeps, er is iets misgelopen<br />Probeer de pagina te herladen..."
    });
@@ -577,7 +578,7 @@
                var d = data["Data"];
                var dag = data["StartDag"];
                var maand = data["StartMaand"] - 1;
-               var jaar = data["StartJaart"];
+               var jaar = data["StartJaar"];
 
                for (var i = 0; i < d.length; i++) {
                   str.push(d[i]);
@@ -1101,11 +1102,11 @@
                   },
                   </text>
                   }
-                  
+
                   xAxis: {
                      type: 'datetime'
                   },
-                  
+
 
 
 
@@ -1151,13 +1152,13 @@
                         series:
                         {
                            label:
-                           {
-                              connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
+                              {
+                                 connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
                               }
                               @if(Model.Line.PlotOptions.PointStart != null)
                               {
                                  <text>,
-                              pointStart: @Model.Line.PlotOptions.PointStart
+                           pointStart: @Model.Line.PlotOptions.PointStart
                               , pointInterval: 24 * 3600 * 1000 * 7
                               </text>
                               }
@@ -1319,7 +1320,7 @@
                            {
                               connectorAllowed: @Model.Bar.PlotOptions.getBool(Model.Bar.PlotOptions.SeriesLabelConnector)
                               },
-                        pointStart: @Model.Bar.PlotOptions.PointStart
+                           pointStart: @Model.Bar.PlotOptions.PointStart
                            }
                         </text>
                      }

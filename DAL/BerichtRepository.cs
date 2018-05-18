@@ -10,7 +10,7 @@ using BL.Domain.ItemKlassen;
 
 namespace DAL
 {
-   public class BerichtRepository : IBerichtRepository
+   public class BerichtRepository
    {
       private Integratie2018Context ctx;
 
@@ -162,6 +162,12 @@ namespace DAL
             .Include("Mentions")
             .Include("Personen")
             .Where(predicate);
+      }
+
+      public void CreateBerichten(List<Bericht> berichten)
+      {
+         ctx.Berichten.AddRange(berichten);
+         ctx.SaveChanges();
       }
 
       public Hashtag ReadHashtag(string hashtag)

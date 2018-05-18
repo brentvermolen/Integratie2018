@@ -27,13 +27,15 @@ namespace DAL
 
          AddFaq(context);
 
-         new Synchronize()
+         Synchronize sync = new Synchronize()
          {
-            Context = context
-         }.StartAsync();
+            LaatsteSync = new DateTime(2018, 3, 1)
+         };
+         context.Synchronizes.Add(sync);
 
          context.SaveChanges();
       }
+       
 
       private void AddFaq(Integratie2018Context context)
       {
@@ -380,7 +382,7 @@ namespace DAL
          context.SaveChanges();
       }
 
-      private void AddAlerts(Integratie2018Context context)
+      /*private void AddAlerts(Integratie2018Context context)
       {
          Alert a1 = new Alert()
          {
@@ -429,7 +431,7 @@ namespace DAL
             Gebruiker = context.Gebruikers.Find(1)
          };
          context.Alerts.Add(a4);
-      }
+      }*/
 
       private void AddGebruikers(Integratie2018Context context)
       {

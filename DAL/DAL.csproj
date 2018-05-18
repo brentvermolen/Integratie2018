@@ -59,11 +59,8 @@
     <Compile Include="FYIRepository.cs" />
     <Compile Include="GebruikerRepository.cs" />
     <Compile Include="GrafiekRepository.cs" />
-    <Compile Include="Interfaces\IAlertRepository.cs" />
-    <Compile Include="Interfaces\IBerichtRepository.cs" />
-    <Compile Include="Interfaces\IGebruikerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sychronize.cs" />
+    <Compile Include="SyncRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
