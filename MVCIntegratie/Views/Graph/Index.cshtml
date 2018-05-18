@@ -1103,11 +1103,11 @@
                   },
                   </text>
                   }
-                  
+
                   xAxis: {
                      type: 'datetime'
                   },
-                  
+
 
 
 
@@ -1153,13 +1153,13 @@
                         series:
                         {
                            label:
-                           {
-                              connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
+                              {
+                                 connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
                               }
                               @if(Model.Line.PlotOptions.PointStart != null)
                               {
                                  <text>,
-                              pointStart: @Model.Line.PlotOptions.PointStart
+                           pointStart: @Model.Line.PlotOptions.PointStart
                               , pointInterval: 24 * 3600 * 1000 * 7
                               </text>
                               }
@@ -1321,7 +1321,7 @@
                            {
                               connectorAllowed: @Model.Bar.PlotOptions.getBool(Model.Bar.PlotOptions.SeriesLabelConnector)
                               },
-                        pointStart: @Model.Bar.PlotOptions.PointStart
+                           pointStart: @Model.Bar.PlotOptions.PointStart
                            }
                         </text>
                      }
