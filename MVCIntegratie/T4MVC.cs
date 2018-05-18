@@ -38,7 +38,6 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
     public static MVCIntegratie.Controllers.SearchController Search = new MVCIntegratie.Controllers.T4MVC_SearchController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
-    public static T4MVC.TestLogicaController TestLogica = new T4MVC.TestLogicaController();
 }
 
 namespace T4MVC
@@ -188,6 +187,7 @@ namespace Links
         }
     
         public static readonly string WijzigGrafiekType_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/WijzigGrafiekType.min.js") ? Url("WijzigGrafiekType.min.js") : Url("WijzigGrafiekType.js");
+        public static readonly string Zoek_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Zoek.min.js") ? Url("Zoek.min.js") : Url("Zoek.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -195,6 +195,7 @@ namespace Links
         public const string UrlPath = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+        public static readonly string alles_json = Url("alles.json");
         public static readonly string alljson_txt = Url("alljson.txt");
         public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
         public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
@@ -298,6 +299,7 @@ namespace Links
                 public static readonly string series_label_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/series-label.js"); 
                 public static readonly string TypeGeladen_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/TypeGeladen.js"); 
                 public static readonly string WijzigGrafiekType_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/WijzigGrafiekType.js"); 
+                public static readonly string Zoek_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Zoek.js"); 
             }
         }
         public static partial class Content 

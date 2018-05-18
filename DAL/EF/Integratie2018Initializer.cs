@@ -23,7 +23,7 @@ namespace DAL
       {
          AddGebruikers(context);
 
-         //AddGrafieken(context);
+         AddGrafieken(context);
 
          AddFaq(context);
 
