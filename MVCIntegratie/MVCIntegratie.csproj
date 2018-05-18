@@ -230,12 +230,16 @@
     <Compile Include="Controllers\Api\NieuweGrafiekController.cs" />
     <Compile Include="Controllers\BerichtController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\DeelplatformController.cs" />
     <Compile Include="Controllers\FYIController.cs" />
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersoonController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="DeelplatformController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="FYIController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -458,6 +462,7 @@
     <Content Include="Views\TestLogica\Index.cshtml" />
     <Content Include="Views\Config\_Faq.cshtml" />
     <Content Include="Views\Config\SuperAdmin.cshtml" />
+    <Content Include="Views\Deelplatform\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805081055567_role.resx">

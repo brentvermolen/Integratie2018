@@ -54,6 +54,7 @@
     <Compile Include="Bericht.cs" />
     <Compile Include="BerichtKlassen\Profiel.cs" />
     <Compile Include="BerichtKlassen\Thema.cs" />
+    <Compile Include="Deelplatform.cs" />
     <Compile Include="FAQ.cs" />
     <Compile Include="Gebruiker.cs" />
     <Compile Include="Grafiek.cs" />

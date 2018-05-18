@@ -14,6 +14,7 @@ namespace MVCIntegratie.Controllers.Api
    {
       private FYIManager FyiMng = new FYIManager();
       private GebruikerManager gebruikermngr = new GebruikerManager();
+      private DeelplatformManager platformMng = new DeelplatformManager();
 
       [Route("~/api/FYI/GetFAQ/{id}")]
       public IHttpActionResult GetFAQ(string id)
@@ -43,10 +44,18 @@ namespace MVCIntegratie.Controllers.Api
       {
          FAQJson json = JsonConvert.DeserializeObject<FAQJson>(data);
 
+         Deelplatform platform = platformMng.GetDeelplatform(json.deelplatform);
+
+         if (platform == null)
+         {
+            return NotFound();
+         }
+
          FAQ faq = new FAQ()
          {
             Vraag = json.vraag,
-            Categorie = (FAQCategorie)json.categorie
+            Categorie = (FAQCategorie)json.categorie,
+            DeelplatformID = platform.ID
          };
 
          FyiMng.AddFaq(faq);
@@ -165,6 +174,7 @@ public class FAQJson
 {
    public string vraag { get; set; }
    public int categorie { get; set; }
+   public string deelplatform { get; set; }
 }
 
 public class FAQAntwoordJson

@@ -31,6 +31,7 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.AlertController Alert = new MVCIntegratie.Controllers.T4MVC_AlertController();
     public static MVCIntegratie.Controllers.BerichtController Bericht = new MVCIntegratie.Controllers.T4MVC_BerichtController();
     public static MVCIntegratie.Controllers.ConfigController Config = new MVCIntegratie.Controllers.T4MVC_ConfigController();
+    public static MVCIntegratie.Controllers.DeelplatformController Deelplatform = new MVCIntegratie.Controllers.T4MVC_DeelplatformController();
     public static MVCIntegratie.Controllers.FYIController FYI = new MVCIntegratie.Controllers.T4MVC_FYIController();
     public static MVCIntegratie.Controllers.GraphController Graph = new MVCIntegratie.Controllers.T4MVC_GraphController();
     public static MVCIntegratie.Controllers.HomeController Home = new MVCIntegratie.Controllers.T4MVC_HomeController();

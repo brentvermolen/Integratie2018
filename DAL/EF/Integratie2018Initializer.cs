@@ -17,10 +17,12 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
+   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
+         AddDeelplatform(context);
+
          AddGebruikers(context);
 
          //AddGrafieken(context);
@@ -35,7 +37,24 @@ namespace DAL
 
          context.SaveChanges();
       }
-       
+
+      private void AddDeelplatform(Integratie2018Context context)
+      {
+         Deelplatform d1 = new Deelplatform()
+         {
+            Naam = "Politieker Barometer"
+         };
+
+         Deelplatform d2 = new Deelplatform()
+         {
+            Naam = "K3 Zoekt K3"
+         };
+
+         context.Deelplatformen.Add(d1);
+         context.Deelplatformen.Add(d2);
+
+         context.SaveChanges();
+      }
 
       private void AddFaq(Integratie2018Context context)
       {
@@ -46,7 +65,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Website,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(1)
          };
 
          FAQ faq2 = new FAQ()
@@ -56,7 +76,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Website,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(2)
          };
 
          FAQ faq3 = new FAQ()
@@ -66,7 +87,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Website,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(1)
          };
 
          FAQ faq4 = new FAQ()
@@ -76,7 +98,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(2)
          };
 
          FAQ faq5 = new FAQ()
@@ -86,7 +109,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(1)
          };
 
          FAQ faq6 = new FAQ()
@@ -96,7 +120,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(2)
          };
 
          FAQ faq7 = new FAQ()
@@ -106,7 +131,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Account,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(1)
          };
 
          FAQ faq8 = new FAQ()
@@ -116,7 +142,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(2)
          };
 
          FAQ faq9 = new FAQ()
@@ -126,7 +153,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(1)
          };
 
          FAQ faq10 = new FAQ()
@@ -136,7 +164,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(2)
          };
 
          FAQ faq11 = new FAQ()
@@ -146,7 +175,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Notificaties,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(1)
          };
 
 
@@ -157,7 +187,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Overig,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(2)
          };
 
          FAQ faq13 = new FAQ()
@@ -167,7 +198,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Overig,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(1)
          };
 
          FAQ faq14 = new FAQ()
@@ -177,7 +209,8 @@ namespace DAL
             Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
             Categorie = FAQCategorie.Overig,
             Beantwoord = true,
-            BeantwoordOp = DateTime.Now
+            BeantwoordOp = DateTime.Now,
+            Deelplatform = context.Deelplatformen.Find(2)
          };
 
 

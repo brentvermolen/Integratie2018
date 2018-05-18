@@ -71,6 +71,11 @@ namespace DAL
             .HasMany(g => g.Personen)
             .WithMany(p => p.Grafieken);
 
+         modelBuilder.Entity<FAQ>()
+            .HasRequired(f => f.Deelplatform)
+            .WithMany(d => d.FAQs)
+            .HasForeignKey(f => f.DeelplatformID);
+
          base.OnModelCreating(modelBuilder);
       }
 
@@ -98,6 +103,8 @@ namespace DAL
       //public DbSet<Data> Datas { get; set; }
       //public DbSet<As> Assen { get; set; }
       public DbSet<Categorie> Categorieën { get; set; }
+
+      public DbSet<Deelplatform> Deelplatformen { get; set; }
 
 
       public DbSet<FAQ> FAQ { get; set; }

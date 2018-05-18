@@ -122,6 +122,7 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_FAQ
         {
             public readonly string language = "language";
+            public readonly string deelplatform = "deelplatform";
         }
         static readonly ActionParamsClass_Contact s_params_Contact = new ActionParamsClass_Contact();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -169,14 +170,15 @@ namespace MVCIntegratie.Controllers
         }
 
         [NonAction]
-        partial void FAQOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string language);
+        partial void FAQOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string language, string deelplatform);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FAQ(string language)
+        public override System.Web.Mvc.ActionResult FAQ(string language, string deelplatform)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FAQ);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
-            FAQOverride(callInfo, language);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
+            FAQOverride(callInfo, language, deelplatform);
             return callInfo;
         }
 

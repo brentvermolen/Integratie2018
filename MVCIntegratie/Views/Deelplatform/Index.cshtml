@@ -1,0 +1,21 @@
+﻿@model List<BL.Domain.Deelplatform>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Kies hier uw deelplatform</h2>
+
+<table>
+   <tr>
+      <th>Naam</th>
+      <th></th>
+   </tr>
+   @foreach(var platform in Model)
+   {
+      <tr>  
+         <td>@platform.Naam</td>
+         <td><a href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">@platform.Naam</a></td>
+      </tr>
+   }
+</table>

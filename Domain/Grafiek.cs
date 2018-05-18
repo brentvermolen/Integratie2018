@@ -61,6 +61,8 @@ namespace BL.Domain
 
       public bool isDefault { get; set; }
 
+      public Deelplatform Deelplatform { get; set; }
+
       public string GetBoolString(bool boolean)
       {
          if (boolean)

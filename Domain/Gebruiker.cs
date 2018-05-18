@@ -76,6 +76,8 @@ namespace BL.Domain
       public bool isAdmin { get; set; }
       public bool isSuperAdmin { get; set; }
 
+      public Deelplatform Deelplatform { get; set; }
+
       public override string ToString()
       {
          if (Voornaam.Equals("") || Achternaam.Equals(""))
