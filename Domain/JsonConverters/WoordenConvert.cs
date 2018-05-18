@@ -1,4 +1,5 @@
 ﻿using BL.Domain.BerichtKlassen;
+using DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +12,8 @@ namespace BL.Domain.JsonConverters
 {
    public class WoordenConvert : JsonConverter
    {
-      private static List<Woord> Woorden = new List<Woord>();
+      private static BerichtRepository repo = new BerichtRepository();
+      private static List<Woord> Woorden = repo.ReadWoorden().ToList();
 
       public override bool CanConvert(Type objectType)
       {

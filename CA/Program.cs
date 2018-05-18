@@ -31,12 +31,13 @@ namespace CA
 
          Console.WriteLine("Synchronisatie Starten");
          StartAsync().Wait();
-
+         Console.ReadKey();
          Console.WriteLine();
          Console.WriteLine("Alerts");
          Console.WriteLine("========================================");
          Console.WriteLine("Alerts Worden Nagekeken");
          CheckAlerts();
+         Console.ReadKey();
       }
 
       private class AlertResultaat

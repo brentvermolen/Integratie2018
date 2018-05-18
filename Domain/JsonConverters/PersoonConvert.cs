@@ -1,5 +1,6 @@
 ﻿using BL.Domain.BerichtKlassen;
 using BL.Domain.ItemKlassen;
+using DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,7 +13,8 @@ namespace BL.Domain.JsonConverters
 {
    public class PersoonConvert : JsonConverter
    {
-      private static List<Persoon> Personen = new List<Persoon>();
+      private static BerichtRepository repo = new BerichtRepository();
+      private static List<Persoon> Personen = repo.ReadPersonen().ToList();
 
       public override bool CanConvert(Type objectType)
       {

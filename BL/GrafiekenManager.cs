@@ -71,6 +71,7 @@ namespace BL
                {
                   AantalBerichtenPerWeekModel model2 = GetAantalBerichtenPerWeekModel(grafiek.AantalSeries, persoon.ID);
                   DateTime start = new DateTime(model2.StartJaar, model2.StartMaand, model2.StartDag);
+                  start = start.AddHours(2);
                   grafiek.PointStart = ConvertToUnixTimestamp(start);
                   Serie serie = new Serie();
                   serie.Naam = persoon.Naam;
@@ -83,7 +84,7 @@ namespace BL
 
                   grafiek.Series.Add(serie);
                }
-               grafiek.PlotOptions.PointStart = grafiek.PointStart.ToString();
+               grafiek.PlotOptions.PointStart = grafiek.PointStart.ToString() + "000";
                return grafiek;
             case "column":
                grafiek.xAs = new As() { IsUsed = true, Categorieen = grafiek.Categorieen };

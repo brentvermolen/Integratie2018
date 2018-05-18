@@ -162,11 +162,11 @@
                            {
                               connectorAllowed: @grafiek.PlotOptions.getBool(grafiek.PlotOptions.SeriesLabelConnector)
                               },
-                              pointStart: @grafiek.PlotOptions.PointStart
                               @if (grafiek.Chart.Type.Equals("normal"))
                               {
-                                 <text>,
-                              pointInterval: 24 * 3600 * 1000 * 7</text>
+                                 <text>
+                              pointStart: @grafiek.PlotOptions.PointStart
+                              , pointInterval: 24 * 3600 * 1000 * 7</text>
                               }
                            }
                         </text>

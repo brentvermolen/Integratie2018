@@ -1,4 +1,5 @@
 ﻿using BL.Domain.BerichtKlassen;
+using DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,6 +12,7 @@ namespace BL.Domain.JsonConverters
 {
    public class ThemaConvert : JsonConverter
    {
+      private static BerichtRepository repo = new BerichtRepository();
       private static List<Thema> Themas = new List<Thema>();
 
       public override bool CanConvert(Type objectType)

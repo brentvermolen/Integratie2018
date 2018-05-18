@@ -1,4 +1,5 @@
 ﻿using BL.Domain.BerichtKlassen;
+using DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +12,8 @@ namespace BL.Domain.JsonConverters
 {
    public class UrlConvert : JsonConverter
    {
-      private static List<Url> Urls = new List<Url>();
+      private static BerichtRepository repo = new BerichtRepository();
+      private static List<Url> Urls = repo.ReadUrls().ToList();
 
       public override bool CanConvert(Type objectType)
       {
