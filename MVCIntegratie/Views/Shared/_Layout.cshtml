@@ -34,10 +34,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
-                    <li>@Html.ActionLink("Over", MVC.FYI.Over())</li>
-                    <li>@Html.ActionLink("Contact", MVC.FYI.Contact())</li>
-                    <li>@Html.ActionLink("FAQ", MVC.FYI.FAQ())</li>
+                    <li>@Html.ActionLink(Resources.lang.Home, "Index", "Home")</li>
+                    <li>@Html.ActionLink(@Resources.lang.Over, "Over", "FYI")</li>
+                    <li>@Html.ActionLink(@Resources.lang.Contact, "Contact", "FYI")</li>
+                    <li>@Html.ActionLink(@Resources.lang.FAQ, "FAQ", "FYI")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         if (gebruiker.isSuperAdmin)
@@ -62,12 +62,12 @@
             <hr />
             <p>
                 &copy; @DateTime.Now.Year &middot Politieke Barometer &middot; &copy; Bit By Bit
-                &middot <a href="@Url.Action("Index", "Home")">Home</a>
+                &middot <a href="@Url.Action("Index", "Home")">@Resources.lang.Home</a>
                 &middot <a href="@Url.Action("Over", "FYI")">@Resources.lang.Over</a>
                 &middot <a href="@Url.Action("Contact", "FYI")">@Resources.lang.Contact</a>
                 &middot <a href="@Url.Action("FAQ", "FYI")">@Resources.lang.FAQ</a>
             </p>
-            <p><a href="#">Back to top</a></p>
+            <p><a href="#">@Resources.lang.naarBoven</a></p>
         </footer>
     </div>
 

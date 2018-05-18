@@ -168,4 +168,118 @@
   <data name="veranderTaal" xml:space="preserve">
     <value>Change Language</value>
   </data>
+  <data name="aantalDagen" xml:space="preserve">
+    <value>number of Days</value>
+  </data>
+  <data name="aantalThema" xml:space="preserve">
+    <value>Number of themes</value>
+  </data>
+  <data name="aantalWeken" xml:space="preserve">
+    <value>number of Weeks</value>
+  </data>
+  <data name="err5personen" xml:space="preserve">
+    <value>Can't add more than 5 persons</value>
+  </data>
+  <data name="evTweet" xml:space="preserve">
+    <value>Evolution of number of Tweets</value>
+  </data>
+  <data name="gemeente" xml:space="preserve">
+    <value>Town</value>
+  </data>
+  <data name="geslacht" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="grafiekOpslaan" xml:space="preserve">
+    <value>Save Graph</value>
+  </data>
+  <data name="grafTit" xml:space="preserve">
+    <value>Grafiek Title</value>
+  </data>
+  <data name="kies" xml:space="preserve">
+    <value>Choose</value>
+  </data>
+  <data name="kruising" xml:space="preserve">
+    <value>crossing</value>
+  </data>
+  <data name="kruisMet" xml:space="preserve">
+    <value>Cross with</value>
+  </data>
+  <data name="leeftijd" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="naarBoven" xml:space="preserve">
+    <value>Back to top</value>
+  </data>
+  <data name="opleiding" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="overHast" xml:space="preserve">
+    <value>Hashtags about</value>
+  </data>
+  <data name="overMent" xml:space="preserve">
+    <value>Mentions about</value>
+  </data>
+  <data name="overTweet" xml:space="preserve">
+    <value>Tweets about</value>
+  </data>
+  <data name="overzicht" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="overzichtvan" xml:space="preserve">
+    <value>Preview of</value>
+  </data>
+  <data name="perDag" xml:space="preserve">
+    <value>per Day</value>
+  </data>
+  <data name="persoonlijkheid" xml:space="preserve">
+    <value>Personality</value>
+  </data>
+  <data name="perWeek" xml:space="preserve">
+    <value>per Week</value>
+  </data>
+  <data name="politieker" xml:space="preserve">
+    <value>Politician</value>
+  </data>
+  <data name="politiekers" xml:space="preserve">
+    <value>Politicians</value>
+  </data>
+  <data name="taal" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="thema" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="themas" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="toevoegen" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="toonpreview" xml:space="preserve">
+    <value>Show Preview</value>
+  </data>
+  <data name="trend" xml:space="preserve">
+    <value>Trend</value>
+  </data>
+  <data name="verhalen" xml:space="preserve">
+    <value>Stories</value>
+  </data>
+  <data name="voegtoe" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="vrgkAantalHast" xml:space="preserve">
+    <value>number of Hashtags</value>
+  </data>
+  <data name="vrgkAantalMent" xml:space="preserve">
+    <value>number of Mentions</value>
+  </data>
+  <data name="vrgkAantalTweet" xml:space="preserve">
+    <value>number of Tweets</value>
+  </data>
+  <data name="wat" xml:space="preserve">
+    <value>What</value>
+  </data>
+  <data name="woorden" xml:space="preserve">
+    <value>Words</value>
+  </data>
 </root>

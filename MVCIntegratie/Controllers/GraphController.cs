@@ -7,7 +7,9 @@ using Microsoft.AspNet.Identity;
 using MVCIntegratie.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -22,9 +24,12 @@ namespace MVCIntegratie.Controllers
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
       // GET: Graph
-      public virtual ActionResult Index()
+      public virtual ActionResult Index(string language)
       {
-         if (User.Identity.IsAuthenticated == false)
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            if (User.Identity.IsAuthenticated == false)
          {
             return Redirect("/Home/Index");
          }
@@ -41,9 +46,12 @@ namespace MVCIntegratie.Controllers
          return View(types);
       }
 
-      public virtual ActionResult Wijzig(int id)
+      public virtual ActionResult Wijzig(int id, string language)
       {
-         int userID = int.Parse(User.Identity.GetUserId());
+           Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+           Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            int userID = int.Parse(User.Identity.GetUserId());
          Grafiek gr = grafiekenMng.GetGrafieken().FirstOrDefault(g => g.ID == id);
          
          if (gr.Gebruiker.ID != userID)

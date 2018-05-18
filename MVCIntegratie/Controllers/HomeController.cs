@@ -23,14 +23,18 @@ namespace MVCIntegratie.Controllers
       private GebruikerManager gebruikerMng = new GebruikerManager();
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
-      public virtual ActionResult Index()
+      public virtual ActionResult Index(string language)
       {
-         if (User.Identity.IsAuthenticated)
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            if (User.Identity.IsAuthenticated)
          {
             List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.GebruikerId == int.Parse(User.Identity.GetUserId())).ToList();
             graf.Sort((g, g2) => g.Order.CompareTo(g2.Order));
 
-            return View("Home_Ingelogd", graf);
+               
+                return View("Home_Ingelogd", graf);
          }
          else
          {
@@ -39,16 +43,19 @@ namespace MVCIntegratie.Controllers
                int id = int.Parse(User.Identity.GetUserId());
                List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.Gebruiker.ID == id).ToList();
 
-               return View("Home_Ingelogd", graf);
+                    return View("Home_Ingelogd", graf);
             }
             else
             {
                List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.isDefault == true).ToList();
-               return View(graf);
+
+                    return View(graf);
             }
          }
+    
+          
 
-      }
+        }
 
         public class AantalTweetsPerWeek
         {
