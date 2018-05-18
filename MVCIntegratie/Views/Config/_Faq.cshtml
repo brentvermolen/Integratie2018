@@ -4,6 +4,8 @@
    Layout = "";
 }
 
+<link rel="stylesheet" href="~/Content/Config.css">
+
 <h2>FAQ</h2>
 
 <table id="vragen" style="width:100%">
@@ -29,7 +31,7 @@
                <text>Nee</text>
             }
          </td>
-         <td><input type="button" class="btn btn-info" value="Wijzig" id="@faq.ID" onclick="wijzigVraag(this.id)" /></td>
+         <td><input type="button" class="btn btn-info faqadminknop" value="Wijzig" id="@faq.ID" onclick="wijzigVraag(this.id)" /></td>
       </tr>
    }
 </table>

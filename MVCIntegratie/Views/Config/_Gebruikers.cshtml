@@ -2,249 +2,273 @@
 @using Microsoft.AspNet.Identity;
 
 @{
-   Layout = "";
+    Layout = "";
 }
 <script src="~/Scripts/GebruikerSelect.js"></script>
 <link rel="stylesheet" href="~/Content/Config.css">
-<input type="text" name="search" placeholder="Filter op naam" onkeyup="filterGebruiker(this.value)">
+<input type="text" name="search" placeholder="Filter op naam" onkeyup="filterGebruiker(this.value)" class="form-control" style="width:300px;">
 <p></p>
 
 <h2></h2>
 
 <h2> Kies een gebruiker</h2>
 <ul class="list-group">
-   @foreach (var gebruiker in Model)
-   {
-      <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
-         @gebruiker.UserName
-         @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
-         {
-            if (gebruiker.LockoutEnabled)
+    @foreach (var gebruiker in Model)
+    {
+        <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
+            @gebruiker.UserName
+            @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
             {
-               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
+                if (gebruiker.LockoutEnabled)
+                {
+                    <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
+                }
+                else if (!gebruiker.LockoutEnabled)
+                {
+                    <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
+                }
             }
-            else if (!gebruiker.LockoutEnabled)
-            {
-               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
-            }
-         }
-      </li>
-   }
+        </li>
+    }
 </ul>
 
 <div>
-   <div id="wijzigGebruiker" style="display:none">
-      <div>
-         <label id="gebruikerId" style="display:none">ID</label>
-      </div>
-      <div>
-         <label for="Voornaam">Naam:</label>
-         <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="" />
-      </div>
-      <div>
-         <label for="Achternaam">Achternaam:</label>
-         <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="" />
-      </div>
-      <div>
-         <label for="Email">Email:</label>
-         <input type="text" id="Email" name="Email" value="" />
-      </div>
-      <div>
-         <label for="Geboortedatum">Geboortedatum:</label>
-         <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="" />
-      </div>
-      <div>
-         <label for="Postcode">Postcode:</label>
-         <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="" />
-      </div>
-      <div>
-         <label for="isAdmin">Admin:</label>
-         <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
-         <select id="isAdmin" name="isAdmin">
-            <option value="0">Nee</option>
-            <option value="1">Ja</option>
-         </select>
-      </div>
-      <div class="row" style="margin:0">
-         <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
-         <input id="antwoordAnnuleren" onclick="gebruikerAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
-      </div>
-   </div>
+    <div id="wijzigGebruiker" style="display:none">
+        <div>
+            <label id="gebruikerId" style="display:none">ID</label>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Voornaam">Naam:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Achternaam">Achternaam:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Email">Email:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Email" name="Email" value="" class="form-control" />
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Geboortedatum">Geboortedatum:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="" class="form-control" />
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Postcode">Postcode:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label for="isAdmin">Admin:</label>
+                </div>
+                <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
+                <div class="col-md-2 admintekstveldjes">
+                    <select id="isAdmin" name="isAdmin" class="form-control">
+                        <option value="0">Nee</option>
+                        <option value="1">Ja</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="margin:0">
+                <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
+                <input id="antwoordAnnuleren" onclick="gebruikerAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
+            </div>
+        </div>
 
 </div>
 
 <script>
-   function gebruikerAnnuleren() {
-      document.getElementById("wijzigGebruiker").style.display = "none";
-      var items = document.getElementsByClassName("list-group-item");
+    function gebruikerAnnuleren() {
+        document.getElementById("wijzigGebruiker").style.display = "none";
+        var items = document.getElementsByClassName("list-group-item");
 
-      for (var i = 0; i < items.length; i++) {
-         items[i].className = items[i].className.replace("active", "");
-      }
-   }
+        for (var i = 0; i < items.length; i++) {
+            items[i].className = items[i].className.replace("active", "");
+        }
+    }
 
-   function gebruikerActiveren(id) {
-      var gewijzigde = new GebruikerWijzigen(id, "", false);
-      var jsonG = JSON.stringify(gewijzigde);
+    function gebruikerActiveren(id) {
+        var gewijzigde = new GebruikerWijzigen(id, "", false);
+        var jsonG = JSON.stringify(gewijzigde);
 
-      var json = '"';
+        var json = '"';
 
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
+        for (var i = 0; i < jsonG.length; i++) {
+            var ch = jsonG.charAt(i);
+            if (ch == '"') {
+                json += "'";
+            } else {
+                json += ch;
+            }
+        }
 
-      json += '"';
+        json += '"';
 
-      $.ajax('/api/FYI/GebruikerBlokeren', {
-         type: 'POST',
-         contentType: "application/json",
-         accepts: 'application/json',
-         data: json
-      }).done(function () {
-         relocate("gebruikers");
-      }).fail(function () {
-         alert('fail 00000');
-      });
-   }
+        $.ajax('/api/FYI/GebruikerBlokeren', {
+            type: 'POST',
+            contentType: "application/json",
+            accepts: 'application/json',
+            data: json
+        }).done(function () {
+            relocate("gebruikers");
+        }).fail(function () {
+            alert('fail 00000');
+        });
+    }
 
-   function gebruikerBlokeren(id) {
-      var gewijzigde = new GebruikerWijzigen(id, "", false);
-      var jsonG = JSON.stringify(gewijzigde);
+    function gebruikerBlokeren(id) {
+        var gewijzigde = new GebruikerWijzigen(id, "", false);
+        var jsonG = JSON.stringify(gewijzigde);
 
-      var json = '"';
+        var json = '"';
 
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
+        for (var i = 0; i < jsonG.length; i++) {
+            var ch = jsonG.charAt(i);
+            if (ch == '"') {
+                json += "'";
+            } else {
+                json += ch;
+            }
+        }
 
-      json += '"';
+        json += '"';
 
-      $.ajax('/api/FYI/GebruikerActiveren', {
-         type: 'POST',
-         contentType: "application/json",
-         accepts: 'application/json',
-         data: json
-      }).done(function () {
-         relocate("gebruikers");
-      }).fail(function () {
-         alert('fail 11111111');
-      });
-   }
+        $.ajax('/api/FYI/GebruikerActiveren', {
+            type: 'POST',
+            contentType: "application/json",
+            accepts: 'application/json',
+            data: json
+        }).done(function () {
+            relocate("gebruikers");
+        }).fail(function () {
+            alert('fail 11111111');
+        });
+    }
 
-   function gebruikerLaden(id) {
-      //var id = document.getElementsByClassName("list-group-item active")[0].id;
-      $.ajax("/api/FYI/GetGebruiker/" + id, {
-         type: 'GET',
-         dataType: 'json'
-      }).done(function (data) {
-         document.getElementById("gebruikerId").innerHTML = data["ID"];
-         document.getElementById("Voornaam").value = data["Voornaam"];
-         document.getElementById("Achternaam").value = data["Achternaam"];
-         document.getElementById("Email").value = data["Email"];
-         document.getElementById("Geboortedatum").value = data["Geboortedatum"];
-         document.getElementById("Postcode").value = data["Postcode"];
-         /*if (data["isAdmin"]) {
-            document.getElementById("isAdmin").checked = true;
-         } else {
-            document.getElementById("isAdmin").checked = false;
-         }*/
-         if (data["isAdmin"]) {
-            document.getElementById("isAdmin").value = 1;
-         } else {
-            document.getElementById("isAdmin").value = 0;
-         }
-         document.getElementById("wijzigGebruiker").style.display = "block";
-      });
-   }
-   class GebruikerWijzigen {
-      constructor(id, email, isAdmin) {
-         this.id = id;
-         this.email = email;
-         this.isAdmin = isAdmin;
-      }
-   }
-   function gebruikerWijzigen() {
-      var id = parseInt(document.getElementById("gebruikerId").innerHTML);
-      var email = document.getElementById("Email").value;
-      var isAdmin;
-      /*if ($('#isAdmin').is(":checked")) {
-         isAdmin = true;
-      } else {
-         isAdmin = false;
-      }*/
-      if (document.getElementById("isAdmin").value == 1) {
-         isAdmin = true;
-      } else {
-         isAdmin = false;
-      }
-      var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
-      var jsonG = JSON.stringify(gewijzigde);
+    function gebruikerLaden(id) {
+        //var id = document.getElementsByClassName("list-group-item active")[0].id;
+        $.ajax("/api/FYI/GetGebruiker/" + id, {
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            document.getElementById("gebruikerId").innerHTML = data["ID"];
+            document.getElementById("Voornaam").value = data["Voornaam"];
+            document.getElementById("Achternaam").value = data["Achternaam"];
+            document.getElementById("Email").value = data["Email"];
+            document.getElementById("Geboortedatum").value = data["Geboortedatum"];
+            document.getElementById("Postcode").value = data["Postcode"];
+            /*if (data["isAdmin"]) {
+               document.getElementById("isAdmin").checked = true;
+            } else {
+               document.getElementById("isAdmin").checked = false;
+            }*/
+            if (data["isAdmin"]) {
+                document.getElementById("isAdmin").value = 1;
+            } else {
+                document.getElementById("isAdmin").value = 0;
+            }
+            document.getElementById("wijzigGebruiker").style.display = "block";
+        });
+    }
+    class GebruikerWijzigen {
+        constructor(id, email, isAdmin) {
+            this.id = id;
+            this.email = email;
+            this.isAdmin = isAdmin;
+        }
+    }
+    function gebruikerWijzigen() {
+        var id = parseInt(document.getElementById("gebruikerId").innerHTML);
+        var email = document.getElementById("Email").value;
+        var isAdmin;
+        /*if ($('#isAdmin').is(":checked")) {
+           isAdmin = true;
+        } else {
+           isAdmin = false;
+        }*/
+        if (document.getElementById("isAdmin").value == 1) {
+            isAdmin = true;
+        } else {
+            isAdmin = false;
+        }
+        var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
+        var jsonG = JSON.stringify(gewijzigde);
 
-      var json = '"';
+        var json = '"';
 
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
+        for (var i = 0; i < jsonG.length; i++) {
+            var ch = jsonG.charAt(i);
+            if (ch == '"') {
+                json += "'";
+            } else {
+                json += ch;
+            }
+        }
 
-      json += '"';
+        json += '"';
 
-      $.ajax('/api/FYI/GebruikerWijzigen', {
-         type: 'POST',
-         contentType: "application/json",
-         accepts: 'application/json',
-         data: json
-      }).done(function (data) {
-         relocate("gebruikers");
-      }).fail(function () {
-         alert('fail 3333333');
-      });
+        $.ajax('/api/FYI/GebruikerWijzigen', {
+            type: 'POST',
+            contentType: "application/json",
+            accepts: 'application/json',
+            data: json
+        }).done(function (data) {
+            relocate("gebruikers");
+        }).fail(function () {
+            alert('fail 3333333');
+        });
 
-   }
+    }
 
-   function relocate(extra) {
-      var loc = window.location.href.split('#')[0];
-      window.location.replace(loc + "#" + extra);
-      window.location.reload();
-   }
+    function relocate(extra) {
+        var loc = window.location.href.split('#')[0];
+        window.location.replace(loc + "#" + extra);
+        window.location.reload();
+    }
 
-   function filterGebruiker(filter) {
-      var lis = document.getElementsByClassName("list-group-item");
+    function filterGebruiker(filter) {
+        var lis = document.getElementsByClassName("list-group-item");
 
-      for (var i = 0; i < lis.length; i++) {
-         var elem = lis[i];
-         if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
-            elem.style.display = "block";
-         } else {
-            elem.style.display = "none";
-         }
-      }
-   }
+        for (var i = 0; i < lis.length; i++) {
+            var elem = lis[i];
+            if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
+                elem.style.display = "block";
+            } else {
+                elem.style.display = "none";
+            }
+        }
+    }
 
-   $(function () {
-      console.log('ready');
+    $(function () {
+        console.log('ready');
 
-      $('.list-group-item').click(function (e) {
-         e.preventDefault()
+        $('.list-group-item').click(function (e) {
+            e.preventDefault()
 
-         $that = $(this);
+            $that = $(this);
 
-         $that.parent().find('li').removeClass('active');
-         $that.addClass('active');
-      });
-   })
+            $that.parent().find('li').removeClass('active');
+            $that.addClass('active');
+        });
+    })
 </script>

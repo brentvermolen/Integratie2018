@@ -21,9 +21,8 @@ namespace DAL
    {
       protected override void Seed(Integratie2018Context context)
       {
-         AddGebruikers(context);
 
-         AddGrafieken(context);
+         //AddGrafieken(context);
 
          AddFaq(context);
 

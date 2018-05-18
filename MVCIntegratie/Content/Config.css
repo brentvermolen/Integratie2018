@@ -280,3 +280,13 @@ input[type=text] {
     padding-left: 0px;
     padding-right: 0px;
 }
+
+
+.admintekstveldjes {
+    width: 160px;
+    margin: 5px;
+}
+
+.faqadminknop {
+    margin:5px;
+}

@@ -12,12 +12,12 @@
 
 </head>
 @{
-  var mng = new GebruikerManager();
-  var gebruiker = new BL.Domain.Gebruiker();
-  if (User.Identity.IsAuthenticated)
-  {
-      gebruiker = mng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
-  }
+    var mng = new GebruikerManager();
+    var gebruiker = new BL.Domain.Gebruiker();
+    if (User.Identity.IsAuthenticated)
+    {
+        gebruiker = mng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+    }
 }
 
 <body>
@@ -52,12 +52,24 @@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
-                 
-</div>
+
+        </div>
     </div>
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+    <div data-reactroot="" class="login-notice">
+        <div class="login-notice-bg"></div>
+        <div class="l-text-container">
+            <p class="login-notice-text text">Registreer om van alle voordelen van de site te genieten.</p>
+            <a class="login-notice-button btn btn-default" href=@Url.Action("Register", "Account")>Registreer!</a>
+        </div>
+    </div>
+    }
+
     <div class="container body-content">
         @RenderBody()
-        
+
         <footer id="footer" style="float:left">
             <hr />
             <p>
@@ -77,3 +89,7 @@
 
 </body>
 </html>
+
+
+
+
