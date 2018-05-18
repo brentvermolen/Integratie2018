@@ -37,5 +37,11 @@ namespace BL
       {
          repo.DeleteGebruiker(id);
       }
-   }
+
+    public void ChangeGebruiker(Gebruiker g)
+    {
+      repo.UpdateGebruiker(g);
+     
+    }
+  }
 }

@@ -75,19 +75,19 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string AdminConfig = "AdminConfig";
             public readonly string Gebruikers = "Gebruikers";
             public readonly string Deelplatform = "Deelplatform";
             public readonly string Admin = "Admin";
+            public readonly string SuperAdmin = "SuperAdmin";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string AdminConfig = "AdminConfig";
             public const string Gebruikers = "Gebruikers";
             public const string Deelplatform = "Deelplatform";
             public const string Admin = "Admin";
+            public const string SuperAdmin = "SuperAdmin";
         }
 
 
@@ -106,12 +106,14 @@ namespace MVCIntegratie.Controllers
                 public readonly string Admin = "Admin";
                 public readonly string AdminConfig = "AdminConfig";
                 public readonly string Deelplatform = "Deelplatform";
+                public readonly string SuperAdmin = "SuperAdmin";
             }
             public readonly string _Faq = "~/Views/Config/_Faq.cshtml";
             public readonly string _Gebruikers = "~/Views/Config/_Gebruikers.cshtml";
             public readonly string Admin = "~/Views/Config/Admin.cshtml";
             public readonly string AdminConfig = "~/Views/Config/AdminConfig.cshtml";
             public readonly string Deelplatform = "~/Views/Config/Deelplatform.cshtml";
+            public readonly string SuperAdmin = "~/Views/Config/SuperAdmin.cshtml";
         }
     }
 
@@ -119,17 +121,6 @@ namespace MVCIntegratie.Controllers
     public partial class T4MVC_ConfigController : MVCIntegratie.Controllers.ConfigController
     {
         public T4MVC_ConfigController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void AdminConfigOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult AdminConfig()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminConfig);
-            AdminConfigOverride(callInfo);
-            return callInfo;
-        }
 
         [NonAction]
         partial void GebruikersOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
@@ -161,6 +152,17 @@ namespace MVCIntegratie.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Admin);
             AdminOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SuperAdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SuperAdmin()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SuperAdmin);
+            SuperAdminOverride(callInfo);
             return callInfo;
         }
 

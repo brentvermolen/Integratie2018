@@ -233,7 +233,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersoonController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="FYIController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -267,9 +266,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoleController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -453,6 +449,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\_Resultaat.cshtml" />
     <Content Include="Views\Config\_Faq.cshtml" />
+    <Content Include="Views\Config\SuperAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805081055567_role.resx">
