@@ -405,4 +405,13 @@ input[type="date"] {
     line-height: 1.6;
 }
 
+.url {
+    height:60px;
+}
+
+.graphbutton {
+    margin:5px;
+}
+
+
 

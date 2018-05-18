@@ -398,6 +398,7 @@
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Scripts\TypeGeladen.js" />
+    <Content Include="Scripts\Zoek.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -440,11 +441,6 @@
     <Content Include="Views\FYI\Over.cshtml" />
     <Content Include="Views\FYI\Contact.cshtml" />
     <Content Include="Views\FYI\FAQ.cshtml" />
-    <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\Role\Create.cshtml" />
-    <Content Include="Views\Role\Edit.cshtml" />
-    <Content Include="Views\Role\Details.cshtml" />
-    <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Home\Home_Ingelogd.cshtml" />
     <Content Include="Views\Home\GrafiekToevoegen.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />

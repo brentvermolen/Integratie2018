@@ -27,11 +27,7 @@
                     <li>@Html.ActionLink("Over", MVC.FYI.Over())</li>
                     <li>@Html.ActionLink("Contact", MVC.FYI.Contact())</li>
                     <li>@Html.ActionLink("FAQ", MVC.FYI.FAQ())</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Rollen", MVC.Role.Index())</li>
-                    }
-
+                   
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
