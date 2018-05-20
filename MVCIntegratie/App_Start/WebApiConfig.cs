@@ -10,6 +10,9 @@ namespace MVCIntegratie.App_Start
    {
       public static void Register(HttpConfiguration config)
       {
+         config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
+            = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
          config.MapHttpAttributeRoutes();
 
          config.Routes.MapHttpRoute(

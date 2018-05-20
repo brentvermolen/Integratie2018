@@ -21,5 +21,15 @@ namespace BL
       {
          return repo.ReadDeelplatform(deelplatform);
       }
+
+      public Gebruiker GetGebruiker(int id)
+      {
+         return repo.ReadGebruiker(id);
+      }
+
+      public void ChangeObject(object platform)
+      {
+         repo.UpdateDeelplatform(platform);
+      }
    }
 }

@@ -103,12 +103,19 @@ namespace MVCIntegratie.Controllers.Api
       {
          WijzigGebruiker gebruiker = JsonConvert.DeserializeObject<WijzigGebruiker>(data);
 
-         Gebruiker g = gebruikermngr.GetGebruiker(gebruiker.id);
+         Gebruiker g = platformMng.GetGebruiker(gebruiker.id);
 
          g.Email = gebruiker.email;
-         g.isAdmin = gebruiker.isAdmin;
+         if (gebruiker.isAdmin)
+         {
+            g.IsAdmin.Add(platformMng.GetDeelplatform(gebruiker.deelplatform));
+         }
+         else
+         {
+            g.IsAdmin.Remove(platformMng.GetDeelplatform(gebruiker.deelplatform));
+         }
 
-         gebruikermngr.ChangeGebruiker(g);
+         platformMng.ChangeObject(g);
 
          return Ok();
       }
@@ -127,8 +134,6 @@ namespace MVCIntegratie.Controllers.Api
          }
 
          Gebruiker g = gebruikermngr.GetGebruiker(intID);
-         g.Alerts = null;
-         g.Grafieken = null;
 
          return Ok(g);
       }
@@ -204,6 +209,7 @@ public class WijzigGebruiker
    public int id { get; set; }
    public string email { get; set; }
    public bool isAdmin { get; set; }
+   public string deelplatform { get; set; }
 }
 
 public class FAQJson

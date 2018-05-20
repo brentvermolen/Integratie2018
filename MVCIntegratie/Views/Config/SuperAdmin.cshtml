@@ -54,9 +54,10 @@
                   Platformen
                </a>
                <ul class="collapse list-unstyled" id="pageSubmenu">
-                  <li><a href="@Url.Action("Deelplatform", "Config")">Platform1</a></li>
-                  <li><a href="@Url.Action("Deelplatform", "Config")">Platform2</a></li>
-                  <li><a href="@Url.Action("Deelplatform", "Config")">Platform3</a></li>
+                  @foreach (var platform in Model.Deelplatformen)
+                  {
+                     <li><a href="javascript:void(0);" onclick="showPage('@platform.Naam')">@platform.Naam</a></li>
+                  }
                </ul>
             </li>
             <li class="sidebar">
@@ -142,6 +143,13 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
          </div>
 
+         @foreach (var platform in Model.Deelplatformen)
+         {
+            <div id="@platform.Naam" class="subpage" style="display:block">
+               <h2>@platform.Naam</h2>
+            </div>
+         }
+
          <div id="faq" class="subpage" style="display:none">
             @Html.Partial("_Faq", Model.FAQ)
          </div>
@@ -156,10 +164,10 @@
    <script type="text/javascript">
       $(document).ready(function () {
          $('#sidebarCollapse').on('click', function () {
-             $('#sidebar').toggleClass('active');
-              
-          });
-          $('#sidebarCollapse').click();
+            $('#sidebar').toggleClass('active');
+
+         });
+         $('#sidebarCollapse').click();
       });
 
       function showPage(subpage) {

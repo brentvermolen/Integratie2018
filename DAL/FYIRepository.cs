@@ -49,6 +49,11 @@ namespace DAL
          ctx.SaveChanges();
       }
 
+      public List<FAQ> ReadFaqs(bool includeDeelplatform)
+      {
+         return ctx.FAQ.Include("Deelplatform").ToList();
+      }
+
       public void DeleteFaq(int ID)
       {
          FAQ f = ReadFaq(ID);

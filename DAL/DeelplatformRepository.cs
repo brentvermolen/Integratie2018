@@ -20,5 +20,16 @@ namespace DAL
       {
          return ctx.Deelplatformen.FirstOrDefault(d => d.Naam.Equals(deelplatform));
       }
+
+      public Gebruiker ReadGebruiker(int id)
+      {
+         return ctx.Gebruikers.Find(id);
+      }
+
+      public void UpdateDeelplatform(object platform)
+      {
+         ctx.Entry(platform).State = System.Data.Entity.EntityState.Modified;
+         ctx.SaveChanges();
+      }
    }
 }

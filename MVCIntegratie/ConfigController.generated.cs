@@ -59,6 +59,18 @@ namespace MVCIntegratie.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Admin()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Admin);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SuperAdmin()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SuperAdmin);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ConfigController Actions { get { return MVC.Config; } }
@@ -91,6 +103,22 @@ namespace MVCIntegratie.Controllers
         }
 
 
+        static readonly ActionParamsClass_Admin s_params_Admin = new ActionParamsClass_Admin();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Admin AdminParams { get { return s_params_Admin; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Admin
+        {
+            public readonly string deelplatform = "deelplatform";
+        }
+        static readonly ActionParamsClass_SuperAdmin s_params_SuperAdmin = new ActionParamsClass_SuperAdmin();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SuperAdmin SuperAdminParams { get { return s_params_SuperAdmin; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SuperAdmin
+        {
+            public readonly string deelplatform = "deelplatform";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -145,24 +173,26 @@ namespace MVCIntegratie.Controllers
         }
 
         [NonAction]
-        partial void AdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void AdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string deelplatform);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Admin()
+        public override System.Web.Mvc.ActionResult Admin(string deelplatform)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Admin);
-            AdminOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
+            AdminOverride(callInfo, deelplatform);
             return callInfo;
         }
 
         [NonAction]
-        partial void SuperAdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void SuperAdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string deelplatform);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SuperAdmin()
+        public override System.Web.Mvc.ActionResult SuperAdmin(string deelplatform)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SuperAdmin);
-            SuperAdminOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
+            SuperAdminOverride(callInfo, deelplatform);
             return callInfo;
         }
 

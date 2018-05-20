@@ -10,5 +10,6 @@ namespace MVCIntegratie.Models
    {
       public List<FAQ> FAQ { get; set; }
       public List<Gebruiker> Gebruikers { get; set; }
+      public List<Deelplatform> Deelplatformen { get; set; }
    }
 }

@@ -49,15 +49,16 @@
                </a>
             </li>
             <li>
-               <a class="subpageRef" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+               <a class="subpageRef" href="#pageSubmenu" data-id="platform" onclick="showPage('@ViewContext.RouteData.Values["deelplatform"]');" aria-expanded="false">
+                                    <!--data-toggle="collapse"-->
                   <i class="glyphicon glyphicon-dashboard"></i>
-                  Platformen
+                  @ViewContext.RouteData.Values["deelplatform"]
                </a>
-               <ul class="collapse list-unstyled" id="pageSubmenu">
+               <!--<ul class="collapse list-unstyled" id="pageSubmenu">
                   <li><a href="@Url.Action("Deelplatform", "Config")">Platform1</a></li>
                   <li><a href="@Url.Action("Deelplatform", "Config")">Platform2</a></li>
                   <li><a href="@Url.Action("Deelplatform", "Config")">Platform3</a></li>
-               </ul>
+               </ul>-->
             </li>
             <li class="sidebar">
                <a class="subpageRef" href="javascript:void(0)" data-id="alerts" onclick="showPage('alerts')">
@@ -119,6 +120,11 @@
 
          <div id="gebruikers" class="subpage" style="display:none">
             @Html.Partial("_Gebruikers", Model.Gebruikers)
+         </div>
+
+
+         <div id="@ViewContext.RouteData.Values["deelplatform"]" class="subpage" style="display:block">
+            <h2>@ViewContext.RouteData.Values["deelplatform"]</h2>
          </div>
 
          <div id="alerts" class="subpage" style="display:none">

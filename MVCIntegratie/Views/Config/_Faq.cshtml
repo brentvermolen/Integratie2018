@@ -10,6 +10,10 @@
    <tr>
       <th>Vraag</th>
       <th>Categorie</th>
+      @if (ViewBag.SuperAdmin == true)
+      {
+         <th>Deelplatform</th>
+      }
       <th>Gesteld Op</th>
       <th>Beantwoord</th>
    </tr>
@@ -18,6 +22,10 @@
       <tr>
          <td>@faq.Vraag</td>
          <td>@faq.Categorie.ToString()</td>
+         @if (ViewBag.SuperAdmin == true)
+         {
+            <td>@faq.Deelplatform.Naam</td>
+         }
          <td>@faq.GesteldOp.ToShortDateString() - @faq.GesteldOp.ToShortTimeString()</td>
          <td>
             @if (faq.Beantwoord)

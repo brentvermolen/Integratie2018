@@ -185,6 +185,7 @@ namespace MVCIntegratie.Controllers
          if (result.Succeeded)
          {
             var user = await UserManager.FindByIdAsync(int.Parse(User.Identity.GetUserId()));
+            
             if (user != null)
             {
                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

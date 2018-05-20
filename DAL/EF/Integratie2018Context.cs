@@ -7,7 +7,7 @@ using System;
 using System.Data.Entity;
 
 namespace DAL
-{ 
+{
    public class Integratie2018Context : DbContext
    {
       public Integratie2018Context() : base("integratie2018DB")
@@ -60,7 +60,12 @@ namespace DAL
          modelBuilder.Entity<Gebruiker>()
              .HasMany(e => e.Roles)
              .WithMany(e => e.Gebruikers)
-             .Map(m => m.ToTable("GebruikerRoles").MapLeftKey("UserId").MapRightKey("RoleId"));
+             .Map(m =>
+             {
+                m.ToTable("GebruikerRoles");
+                m.MapLeftKey("UserId");
+                m.MapRightKey("RoleId");
+             });
 
          modelBuilder.Entity<Grafiek>()
             .HasRequired(s => s.Gebruiker)
@@ -81,6 +86,16 @@ namespace DAL
             .WithMany(d => d.Contacts)
             .HasForeignKey(f => f.DeelplatformID);
 
+         modelBuilder.Entity<Deelplatform>()
+             .HasMany(d => d.Gebruikers)
+             .WithMany(g => g.Deelplatformen)
+             .Map(m => m.ToTable("DeelplatformGebruikers"));
+
+         modelBuilder.Entity<Deelplatform>()
+            .HasMany(d => d.Admins)
+            .WithMany(g => g.IsAdmin)
+            .Map(m => m.ToTable("DeelplatformAdmins"));
+
          base.OnModelCreating(modelBuilder);
       }
 
@@ -95,13 +110,11 @@ namespace DAL
 
       public DbSet<Persoon> Personen { get; set; }
 
-
       public DbSet<Alert> Alerts { get; set; }
       public virtual DbSet<GebruikerLogin> GebruikerLogins { get; set; }
       public virtual DbSet<Gebruiker> Gebruikers { get; set; }
       public virtual DbSet<GebruikersClaim> GebruikersClaims { get; set; }
       public virtual DbSet<Role> Roles { get; set; }
-
 
       public DbSet<Grafiek> Grafieken { get; set; }
       //public DbSet<Serie> Series { get; set; }

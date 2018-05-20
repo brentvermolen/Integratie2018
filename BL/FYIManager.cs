@@ -46,5 +46,10 @@ namespace BL
       {
          repo.CreateContact(contact);
       }
+
+      public List<FAQ> GetFAQs(bool includeDeelplatform)
+      {
+         return repo.ReadFaqs(includeDeelplatform);
+      }
    }
 }

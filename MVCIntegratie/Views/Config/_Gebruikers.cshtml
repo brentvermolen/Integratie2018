@@ -158,10 +158,12 @@
          } else {
             document.getElementById("isAdmin").checked = false;
          }*/
-         if (data["isAdmin"]) {
-            document.getElementById("isAdmin").value = 1;
-         } else {
-            document.getElementById("isAdmin").value = 0;
+         document.getElementById("isAdmin").value = 0;
+         for (var i = 0; i < data["IsAdmin"].length; i++) {
+            if (data["IsAdmin"][i].Naam == '@ViewContext.RouteData.Values["deelplatform"]') {
+               document.getElementById("isAdmin").value = 1;
+               break;
+            }
          }
          document.getElementById("wijzigGebruiker").style.display = "block";
       });
@@ -171,6 +173,7 @@
          this.id = id;
          this.email = email;
          this.isAdmin = isAdmin;
+         this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
       }
    }
    function gebruikerWijzigen() {

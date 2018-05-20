@@ -106,7 +106,7 @@ namespace CA
 
             foreach(AlertResultaat res in alertResultaats)
             {
-               Console.WriteLine("\t" + res.Alert.ID + " van " + res.Gebruiker.UserName + ": " + res.Alert.Persoon.Naam + " " + res.Info);
+               Console.WriteLine("\t" + res.Alert.ID + " van " + res.Gebruiker.Email + ": " + res.Alert.Persoon.Naam + " " + res.Info);
             }
          }
          catch (Exception e)
