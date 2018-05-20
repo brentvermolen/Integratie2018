@@ -1,14 +1,11 @@
 ﻿using BL;
 using BL.Domain;
-using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
-using BL.Domain.ItemKlassen;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Web.Http;
 

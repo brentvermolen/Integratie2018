@@ -1,5 +1,4 @@
 ﻿using BL.Domain.BerichtKlassen;
-using DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,8 +11,7 @@ namespace BL.Domain
 {
    public class HashtagConvert : JsonConverter
    {
-      private static BerichtRepository repo = new BerichtRepository();
-      private static List<Hashtag> Hashtags = repo.ReadHashtags().ToList();
+      private static List<Hashtag> Hashtags = new List<Hashtag>();
 
       public override bool CanConvert(Type objectType)
       {

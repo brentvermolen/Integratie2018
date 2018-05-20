@@ -4,7 +4,6 @@ using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 
-using BL.Domain.ItemKlassen;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,6 +26,8 @@ namespace DAL
 
          AddFaq(context);
 
+         AddPersonen(context);
+
          Synchronize sync = new Synchronize()
          {
             LaatsteSync = new DateTime(2018, 3, 1)
@@ -34,6 +35,29 @@ namespace DAL
          context.Synchronizes.Add(sync);
 
          context.SaveChanges();
+      }
+
+      private void AddPersonen(Integratie2018Context context)
+      {
+         using (StreamReader sr = new StreamReader("C:\\Users\\Brent\\Documents\\School\\KDG\\2017-2018\\IntegratieProject\\MVCIntegratie\\MVCIntegratie\\Content\\politici.json"))
+         {
+            PersonenJson personen = JsonConvert.DeserializeObject<PersonenJson>("{ \"personen\": " + sr.ReadToEnd() + " }");
+
+            int platformID = 1;
+            foreach (Persoon p in personen.Personen)
+            {
+               p.DeelplatformID = platformID;
+            }
+
+            context.Personen.AddRange(personen.Personen);
+            context.SaveChanges();
+         }
+      }
+
+      public class PersonenJson
+      {
+         [JsonProperty("personen")]
+         public List<Persoon> Personen { get; set; }
       }
 
       private void AddDeelplatform(Integratie2018Context context)

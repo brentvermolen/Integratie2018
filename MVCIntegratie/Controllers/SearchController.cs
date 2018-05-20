@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.WebPages;
-using BL;
+﻿using BL;
 using BL.Domain;
 using BL.Domain.BerichtKlassen;
-using BL.Domain.ItemKlassen;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 
 namespace MVCIntegratie.Controllers
 {
-  public partial class SearchController : Controller
+   public partial class SearchController : Controller
   {
 
     private BerichtManager berichtMng = new BerichtManager();

@@ -1,9 +1,6 @@
 ﻿using BL;
-using BL.Domain.ItemKlassen;
-using System;
+using BL.Domain;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MVCIntegratie.Controllers

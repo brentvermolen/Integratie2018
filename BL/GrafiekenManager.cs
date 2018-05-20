@@ -1,14 +1,10 @@
 ﻿using BL.Domain;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
-using BL.Domain.ItemKlassen;
 using DAL;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {

@@ -25,6 +25,7 @@ namespace MVCIntegratie.Controllers
       }
 
       private DeelplatformManager PlatformMng = new DeelplatformManager();
+      private BerichtManager BerichtMng = new BerichtManager();
 
       public virtual ActionResult Admin(string deelplatform)
       {
@@ -44,7 +45,8 @@ namespace MVCIntegratie.Controllers
          AdminModel model = new AdminModel()
          {
             FAQ = FyiMng.GetFAQs().Where(f => f.DeelplatformID == platform.ID).OrderByDescending(f => f.GesteldOp).ToList(),
-            Gebruikers = gebruikers
+            Gebruikers = gebruikers,
+            Personen = BerichtMng.GetPersonen().Where(p => p.DeelplatformID == platform.ID).OrderBy(p => p.Naam).ToList()
          };
          return View(model);
          /*}*/
@@ -69,7 +71,8 @@ namespace MVCIntegratie.Controllers
                {
                   FAQ = FyiMng.GetFAQs(true).OrderByDescending(f => f.GesteldOp).ToList(),
                   Gebruikers = GebruikerMng.GetGebruikers().Where(g => g.isSuperAdmin == false).OrderBy(g => g.Email).ToList(),
-                  Deelplatformen = PlatformMng.GetDeelplatforms()
+                  Deelplatformen = PlatformMng.GetDeelplatforms(),
+                  Personen = BerichtMng.GetPersonen().OrderBy(p => p.Naam).ToList()
                };
                return View(model);
             }

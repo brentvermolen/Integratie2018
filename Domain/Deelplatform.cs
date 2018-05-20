@@ -28,5 +28,7 @@ namespace BL.Domain
 
       public List<FAQ> FAQs { get; set; }
       public List<Contact> Contacts { get; set; }
+
+      public List<Persoon> Personen { get; set; }
    }
 }

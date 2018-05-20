@@ -1,15 +1,11 @@
 ﻿using BL;
 using BL.Domain;
-using BL.Domain.ItemKlassen;
-using DAL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CA

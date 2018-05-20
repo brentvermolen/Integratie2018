@@ -15,7 +15,7 @@
 <ul class="list-group">
    @foreach (var gebruiker in Model)
    {
-      <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
+      <li class="list-group-item gebruiker" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
          @gebruiker.UserName
          @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
          {
@@ -76,7 +76,7 @@
 <script>
    function gebruikerAnnuleren() {
       document.getElementById("wijzigGebruiker").style.display = "none";
-      var items = document.getElementsByClassName("list-group-item");
+      var items = document.getElementsByClassName("list-group-item").getElementsByClassName("gebruiker");
 
       for (var i = 0; i < items.length; i++) {
          items[i].className = items[i].className.replace("active", "");
@@ -226,7 +226,7 @@
    }
 
    function filterGebruiker(filter) {
-      var lis = document.getElementsByClassName("list-group-item");
+      var lis = document.getElementsByClassName("list-group-item").getElementsByClassName("gebruiker");
 
       for (var i = 0; i < lis.length; i++) {
          var elem = lis[i];

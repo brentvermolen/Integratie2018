@@ -1,8 +1,8 @@
 ﻿using BL.Domain;
 using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
-using BL.Domain.ItemKlassen;
 using BL.Domain.IdentityKlassen;
+using BL.Domain.PersoonKlassen;
 using System;
 using System.Data.Entity;
 
@@ -96,6 +96,11 @@ namespace DAL
             .WithMany(g => g.IsAdmin)
             .Map(m => m.ToTable("DeelplatformAdmins"));
 
+         modelBuilder.Entity<Persoon>()
+            .HasRequired(p => p.Deelplatform)
+            .WithMany(d => d.Personen)
+            .HasForeignKey(p => p.DeelplatformID);
+
          base.OnModelCreating(modelBuilder);
       }
 
@@ -107,7 +112,8 @@ namespace DAL
       public DbSet<Mention> Mentions { get; set; }
       public DbSet<Hashtag> Hashtags { get; set; }
       public DbSet<Thema> Themas { get; set; }
-
+      public DbSet<Organisatie> Organisaties { get; set; }
+      
       public DbSet<Persoon> Personen { get; set; }
 
       public DbSet<Alert> Alerts { get; set; }

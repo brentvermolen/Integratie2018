@@ -1,0 +1,203 @@
+﻿@model List<BL.Domain.Persoon>
+@using Microsoft.AspNet.Identity;
+
+@{
+   Layout = "";
+}
+<script src="~/Scripts/GebruikerSelect.js"></script>
+<link rel="stylesheet" href="~/Content/Config.css">
+<input type="text" name="search" placeholder="Filter op naam" onkeyup="filterPersoon(this.value)">
+<p></p>
+
+<h2></h2>
+
+<h2> Kies een gebruiker</h2>
+<ul class="list-group" style="max-height:400px; overflow:scroll">
+   @foreach (var persoon in Model)
+   {
+      <li class="list-group-item persoon" style="height:55px" id="@persoon.ID" onclick="persoonLaden(@persoon.ID)">
+         @persoon.Naam
+         @if (int.Parse(User.Identity.GetUserId()) != persoon.ID)
+         {
+            if (persoon.Disabled)
+            {
+               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@persoon.ID)">Persoon activeren</button>
+            }
+            else if (!persoon.Disabled)
+            {
+               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@persoon.ID)">Persoon deactiveren</button>
+            }
+         }
+      </li>
+   }
+</ul>
+
+<div>
+   <div id="wijzigPersoon" style="display:none">
+      <div>
+         <label id="persoonId" style="display:none">ID</label>
+      </div>
+      <div>
+         <label for="Voornaam">Naam:</label>
+         <input type="text" id="persoonNaam" name="Voornaam" readonly="readonly" value="" />
+      </div>
+      <div>
+         <label for="Geslacht">Geslacht:</label>
+         <select id="persoonGeslacht" name="Geslacht">
+            <option value="M">Man</option>
+            <option value="V">Vrouw</option>
+         </select>
+      </div>
+      <div>
+         <label for="Geboortedatum">Geboortedatum:</label>
+         <input type="text" id="persoonGeboortedatum" name="Geboortedatum" readonly value="" />
+      </div>
+      <div>
+         <label for="District">District:</label>
+         <input type="text" id="persoonDistrict" name="District" readonly value="" />
+      </div>
+      <div>
+         <label for="Postcode">Postcode:</label>
+         <input type="text" id="persoonPostcode" name="Postcode" readonly="readonly" value="" />
+      </div>
+      <div>
+         <label for="persoonOrganisatie">Organisatie:</label>
+         <a href="#" id="persoonOrganisatie" name="persoonOrganisatie"></a>
+      </div>
+      <div>
+         <label for="persoonWebsite">Website:</label>
+         <a href="#" id="persoonWebsite" target="_blank" name="persoonWebsite"></a>
+      </div>
+      <div>
+         <label for="Twitter">Twitter:</label>
+         <input type="text" id="persoonTwitter" name="Twitter" readonly="readonly" value="" />
+      </div>
+      <div>
+         <label for="Facebook">Facebook:</label>
+         <a href="#" id="persoonFacebook" target="_blank" name="Facebook"></a>
+      </div>
+      <div class="row" style="margin:0">
+         <input id="antwoordAnnuleren" onclick="persoonSluiten();" class="btn btn-danger" type="button" value="Sluiten" />
+      </div>
+   </div>
+
+</div>
+
+<script>
+   function persoonSluiten() {
+      document.getElementById("wijzigPersoon").style.display = "none";
+      var items = document.getElementsByClassName("list-group-item").getElementsByClassName("persoon");
+
+      for (var i = 0; i < items.length; i++) {
+         items[i].className = items[i].className.replace("active", "");
+      }
+   }
+
+   function persoonActiveren(id) {
+      var gewijzigde = new GebruikerWijzigen(id, "", false);
+      var jsonG = JSON.stringify(gewijzigde);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/FYI/GebruikerBlokeren', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function () {
+         relocate("personen");
+      }).fail(function () {
+         alert('fail 00000');
+      });
+   }
+
+   function persoonBlokeren(id) {
+      var gewijzigde = new GebruikerWijzigen(id, "", false);
+      var jsonG = JSON.stringify(gewijzigde);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/FYI/GebruikerActiveren', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function () {
+         relocate("personen");
+      }).fail(function () {
+         alert('fail 11111111');
+      });
+   }
+
+   function persoonLaden(id) {
+      //var id = document.getElementsByClassName("list-group-item active")[0].id;
+      $.ajax("/api/FYI/GetPersoon/" + id, {
+         type: 'GET',
+         dataType: 'json'
+      }).done(function (data) {
+         document.getElementById("persoonId").innerHTML = data["ID"];
+         document.getElementById("persoonNaam").value = data["full_name"];
+         document.getElementById("persoonDistrict").value = data["district"];
+         document.getElementById("persoonGeslacht").value = data["gender"];
+         document.getElementById("persoonGeboortedatum").value = new Date(data["dateOfBirth"]).toDateString();
+         document.getElementById("persoonPostcode").value = data["postal_code"];
+         document.getElementById("persoonWebsite").innerHTML = data["site"];
+         document.getElementById("persoonFacebook").innerHTML = data["facebook"];
+         document.getElementById("persoonWebsite").href = data["site"];
+         document.getElementById("persoonFacebook").href = data["facebook"];
+         document.getElementById("persoonTwitter").value = data["twitter"];
+         document.getElementById("persoonOrganisatie").innerHTML = data["organisation"];
+         document.getElementById("persoonOrganisatie").href = data["organisation"];
+         
+         document.getElementById("wijzigPersoon").style.display = "block";
+      });
+   }
+   
+   function filterPersoon(filter) {
+      var lis = document.getElementsByClassName("list-group-item persoon");
+
+      for (var i = 0; i < lis.length; i++) {
+         var elem = lis[i];
+         if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
+            elem.style.display = "block";
+         } else {
+            elem.style.display = "none";
+         }
+      }
+   }
+
+   $(function () {
+      console.log('ready');
+
+      $('.list-group-item').click(function (e) {
+         e.preventDefault()
+
+         $that = $(this);
+
+         $that.parent().find('li').removeClass('active');
+         $that.addClass('active');
+      });
+   })
+</script>

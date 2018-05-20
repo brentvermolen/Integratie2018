@@ -119,6 +119,7 @@ namespace MVCIntegratie.Controllers.Api
 
          return Ok();
       }
+
       [Route("~/api/FYI/GetGebruiker/{id}")]
       public IHttpActionResult GetGebruiker(string id)
       {
@@ -137,6 +138,28 @@ namespace MVCIntegratie.Controllers.Api
 
          return Ok(g);
       }
+
+      private BerichtManager BerichtMng = new BerichtManager();
+
+      [Route("~/api/FYI/GetPersoon/{id}")]
+      public IHttpActionResult GetPersoon(string id)
+      {
+         int intID;
+
+         try
+         {
+            intID = int.Parse(id);
+         }
+         catch (Exception e)
+         {
+            return NotFound();
+         }
+
+         Persoon p = BerichtMng.GetPersoon(intID);
+
+         return Ok(p);
+      }
+
       [Route("~/api/FYI/GebruikerBlokeren")]
       public IHttpActionResult PostGebruikerBlokeren([FromBody] string data)
       {

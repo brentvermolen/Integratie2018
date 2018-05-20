@@ -1,17 +1,14 @@
 ﻿using BL;
 using BL.Domain;
-using BL.Domain.BerichtKlassen;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
-using BL.Domain.ItemKlassen;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Threading;
 using System.Globalization;
-using System.Web;
+using System.Linq;
+using System.Threading;
+using System.Web.Mvc;
 
 namespace MVCIntegratie.Controllers
 {

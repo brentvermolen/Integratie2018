@@ -1,5 +1,4 @@
 ﻿using BL.Domain.BerichtKlassen;
-using DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,8 +11,7 @@ namespace BL.Domain.JsonConverters
 {
    public class MentionConvert : JsonConverter
    {
-      private static BerichtRepository repo = new BerichtRepository();
-      private static List<Mention> Mentions = repo.ReadMentions().ToList();
+      private static List<Mention> Mentions = new List<Mention>();
 
       public override bool CanConvert(Type objectType)
       {

@@ -1,13 +1,10 @@
-﻿using System;
+﻿using BL.Domain;
+using BL.Domain.BerichtKlassen;
+using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using BL.Domain;
-using BL.Domain.BerichtKlassen;
-using BL.Domain.ItemKlassen;
-using DAL;
 
 namespace BL
 {

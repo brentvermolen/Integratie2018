@@ -49,7 +49,7 @@
                </a>
             </li>
             <li>
-               <a class="subpageRef" href="#pageSubmenu" data-id="platform" onclick="showPage('@ViewContext.RouteData.Values["deelplatform"]');" aria-expanded="false">
+               <a class="subpageRef" href="#@ViewContext.RouteData.Values["deelplatform"]" data-id="@ViewContext.RouteData.Values["deelplatform"]" onclick="showPage('@ViewContext.RouteData.Values["deelplatform"]');" aria-expanded="false">
                                     <!--data-toggle="collapse"-->
                   <i class="glyphicon glyphicon-dashboard"></i>
                   @ViewContext.RouteData.Values["deelplatform"]
@@ -125,6 +125,7 @@
 
          <div id="@ViewContext.RouteData.Values["deelplatform"]" class="subpage" style="display:block">
             <h2>@ViewContext.RouteData.Values["deelplatform"]</h2>
+            @Html.Partial("_Personen", Model.Personen)
          </div>
 
          <div id="alerts" class="subpage" style="display:none">

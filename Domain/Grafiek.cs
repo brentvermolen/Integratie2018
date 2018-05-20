@@ -1,7 +1,4 @@
-﻿using BL.Domain.BerichtKlassen;
-using BL.Domain.GrafiekKlassen;
-using BL.Domain.ItemKlassen;
-using BL.Domain.JsonConverters;
+﻿using BL.Domain.GrafiekKlassen;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
