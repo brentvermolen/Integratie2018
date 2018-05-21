@@ -160,6 +160,14 @@ namespace MVCIntegratie.Controllers.Api
          return Ok(p);
       }
 
+      [Route("~/api/FYI/GetPersoonByName/{name}")]
+      public IHttpActionResult GetPersoonByName(string name)
+      {
+         Persoon p = BerichtMng.GetPersoon(name);
+
+         return Ok(p);
+      }
+
       [Route("~/api/FYI/GebruikerBlokkeren")]
       public IHttpActionResult PostGebruikerBlokkeren([FromBody] string data)
       {

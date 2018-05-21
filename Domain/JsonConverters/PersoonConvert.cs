@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BL.Domain.JsonConverters
 {
@@ -16,12 +15,13 @@ namespace BL.Domain.JsonConverters
 
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
-         Persoon persoon = Personen.FirstOrDefault(p => p.Naam.Equals(reader.Value.ToString()));
+         Persoon persoon = Personen.Find(p => p.Naam == reader.Value.ToString());
          if (persoon == null)
          {
-            persoon = new Persoon() { ID = Personen.Count, Naam = reader.Value.ToString() };
+            persoon = new Persoon() { ID = Personen.Count, Naam = reader.Value.ToString(), Geboortedatum = new DateTime(1900, 1, 1), Disabled = true, DeelplatformID = 1 };
             Personen.Add(persoon);
          }
+         
          return persoon;
       }
 

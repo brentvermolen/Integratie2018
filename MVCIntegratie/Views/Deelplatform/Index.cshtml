@@ -7,9 +7,6 @@
    if (Model.Count == 0)
    {
       <h1>U bent nog niet geregistreerd op een deelplatform, gelieve dit eerst te doen</h1>
-   }
-   else
-   {
       <table>
          <tr>
             <th>Naam</th>
@@ -19,7 +16,21 @@
          {
             <tr>
                <td>@platform.Naam</td>
-               <td><button class="btn btn-success" onclick="registreer(@platform.ID, @platform.Naam)">Registreer</button></td>
+               <td><button class="btn btn-success" onclick="registreer(@platform.ID, '@platform.Naam')">Registreer</button></td>
+            </tr>
+         }
+      </table>
+   }
+   else
+   {
+      <table>
+         <tr>
+            <th>Naam</th>
+         </tr>
+         @foreach (var platform in Model)
+         {
+            <tr>
+               <td>@platform.Naam</td>
             </tr>
          }
       </table>
@@ -44,6 +55,39 @@ else
 
 <script>
    function registreer(id, deelplatform) {
-      window.location.replace("/" + '@ViewContext.RouteData.Values["language"]' + "/" + deelplatform + "/Home/Index");
+      class Deelplatform {
+         constructor(id) {
+            this.id = id;
+         }
+      }
+
+      var platform = new Deelplatform(id);
+
+      var jsonG = JSON.stringify(platform);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/Config/RegistreerDeelplatform', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function () {
+         document.location.href = '/@ViewContext.RouteData.Values["language"]' + "/" + deelplatform + "/Home/Index";
+         //document.location.reload();
+      }).fail(function () {
+         alert('Er is iets misgelopen bij het registreren, probeer later opnieuw');
+      });
    }
 </script>

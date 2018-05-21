@@ -31,5 +31,10 @@ namespace DAL
          ctx.Entry(platform).State = System.Data.Entity.EntityState.Modified;
          ctx.SaveChanges();
       }
+
+      public Deelplatform ReadDeelplatform(int id)
+      {
+         return ctx.Deelplatformen.Find(id);
+      }
    }
 }

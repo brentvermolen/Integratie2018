@@ -29,7 +29,7 @@ namespace MVCIntegratie.Controllers
             }
             else
             {
-               return View(DeelplatformMng.GetDeelplatforms().Where(d => d.Gebruikers.Contains(gebruiker)).ToList());
+               return View(DeelplatformMng.GetDeelplatforms().Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) != null).ToList());
             }
          }
          else

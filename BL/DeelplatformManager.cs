@@ -31,5 +31,10 @@ namespace BL
       {
          repo.UpdateDeelplatform(platform);
       }
+
+      public Deelplatform GetDeelplatform(int id)
+      {
+         return repo.ReadDeelplatform(id);
+      }
    }
 }

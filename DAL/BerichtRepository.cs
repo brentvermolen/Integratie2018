@@ -169,8 +169,25 @@ namespace DAL
 
       public void CreateBerichten(List<Bericht> berichten)
       {
+         foreach(Bericht bericht in berichten)
+         {
+            for(int i = 0; i < bericht.Personen.Count; i++)
+            {
+               Persoon persoon = ReadPersoon(bericht.Personen[i].Naam);
+               if (persoon != null)
+               {
+                  bericht.Personen[i] = persoon;
+               }
+            }
+         }
+
          ctx.Berichten.AddRange(berichten);
          ctx.SaveChanges();
+      }
+
+      public Persoon ReadPersoon(string name)
+      {
+         return ctx.Personen.Include("Berichten").FirstOrDefault(p => p.Naam.Equals(name));
       }
 
       public Hashtag ReadHashtag(string hashtag)

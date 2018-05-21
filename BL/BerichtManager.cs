@@ -161,6 +161,11 @@ namespace BL
          return repo.ReadPersoon(persoon);
       }
 
+      public Persoon GetPersoon(string name)
+      {
+         return repo.ReadPersoon(name);
+      }
+
       public ICollection<Persoon> GetPersoonVanBericht(string berichtID)
       {
          return GetBericht(berichtID).Personen;
