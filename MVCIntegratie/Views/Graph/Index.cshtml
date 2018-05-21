@@ -296,7 +296,10 @@
 
       <div class="col-sm-6 col-md-6 linechartopties linepolopties">
          <label>X-As</label>
-         <p>Per Week</p>
+         <select id="selectXAsLinePol">
+            <option value="dag">Per Dag</option>
+            <option value="week">Per Week</option>
+         </select>
       </div>
 
       <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
@@ -580,6 +583,15 @@
                var dag = data["StartDag"];
                var maand = data["StartMaand"] - 1;
                var jaar = data["StartJaar"];
+               var PI = 0;
+               switch (cat) {
+                  case 'dag':
+                     PI = 24 * 3600 * 1000;
+                     break;
+                  case 'week':
+                     PI = 24 * 3600 * 1000 * 7;
+                     break;
+               }
 
                for (var i = 0; i < d.length; i++) {
                   str.push(d[i]);
@@ -594,7 +606,7 @@
                }, false);
                lineChart.series[currentSeries].update({
                   pointStart: Date.UTC(jaar, maand, dag),
-               pointInterval: 24 * 3600 * 1000 * 7
+                  pointInterval: PI
                }, false);
                lineChart.series[currentSeries].yAxis.update({
                   title: { text:  cat }
@@ -723,7 +735,7 @@
       }
 
       class LineClass {
-         constructor(title, pointStart, content, series, aantalWeken, id) {
+         constructor(title, pointStart, content, series, aantalWeken, id, xAs) {
             this.title = title;
             this.pointStart = pointStart;
             this.type = 'line';
@@ -732,6 +744,8 @@
             this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
             this.graf = id;
             this.aantalWeken = aantalWeken;
+            this.xAs = xAs;
+            this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
          }
       }
 
@@ -743,6 +757,7 @@
             this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
             this.graf = id;
             this.type = 'bar';
+            this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
          }
       }
 
@@ -765,6 +780,7 @@
             this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
             this.graf = id;
             this.persoon = persoon;
+            this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
          }
       }
 
@@ -776,7 +792,8 @@
                lineChart.series[0].xAxis.series[0].options.pointStart,
                'politieker',
                currentPersonen,
-               document.getElementById('aantalWekenPolLine').value, grafiD);
+               document.getElementById('aantalWekenPolLine').value, grafiD,
+               document.getElementById('selectXAsLinePol').value);
             break;
          case 'bar':
             var categories = [];
@@ -843,7 +860,7 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         window.location.replace("/Home/Index");
+         window.location.replace("/" + '@ViewContext.RouteData.Values["language"]' + "/" + '@ViewContext.RouteData.Values["deelplatform"]' + "/Home/Index");
       }).fail(function () {
          alert('fail');
          hideLoading();
@@ -928,6 +945,13 @@
 
    function prevLine() {
       var weken = parseInt(document.getElementById('aantalWekenPolLine').value);
+      var xAs = document.getElementById("selectXAsLinePol").value;
+
+      switch (xAs) {
+         case 'dag':
+            weken = weken * 7;
+            break;
+      }
 
       if (lineChart.series[0] != null) {
          var huidigeWeken = lineChart.series[0].xData.length;
@@ -946,6 +970,12 @@
          }
       }
 
+      switch (xAs) {
+         case 'dag':
+            weken = weken / 7;
+            break;
+      }
+
 
       if (weken == '') {
          weken = 'noLimit';
@@ -958,15 +988,24 @@
             for (let i = 0; i < currentPersonen.length; i++) {
                var id = currentPersonen[i].id;
                var naam = currentPersonen[i].naam;
+               var link = "";
+               switch (xAs) {
+                  case 'dag':
+                     link = 'AantalTweetsVanPersoonPerDag';
+                     break;
+                  case 'week':
+                     link = 'AantalTweetsVanPersoonPerWeek';
+                     break;
+               }
 
                if (currentPersonen[i].loaded == false) {
                   showLoading();
-                  $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
+                  $.ajax('/api/NieuweGrafiek/' + link + '/' + id + '/' + weken,
                      {
                         type: 'GET',
                         dataType: 'json'
                      }).done(function (data) {
-                        aantalTweetsToevoegen(data, data["Naam"], data["ID"]);
+                        aantalTweetsToevoegen(data, data["Naam"], data["ID"], xAs);
                         hideLoading();
                      }).fail(function () {
                         alert('fail');

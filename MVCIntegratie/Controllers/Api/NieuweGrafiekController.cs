@@ -53,6 +53,31 @@ namespace MVCIntegratie.Controllers.Api
          return Ok(grafiekenMng.GetAantalBerichtenPerWeekModel(intAantalWeken, intID));
       }
 
+      [Route("~/api/NieuweGrafiek/AantalTweetsVanPersoonPerDag/{id}/{aantalWeken}")]
+      public IHttpActionResult GetAantalTweetsVanPersoonPerDag(string id, string aantalWeken)
+      {
+         int intID = -1;
+         try
+         {
+            intID = int.Parse(id);
+         }
+         catch
+         {
+            return NotFound();
+         }
+         int intAantalWeken = -1;
+         try
+         {
+            intAantalWeken = int.Parse(aantalWeken);
+         }
+         catch (Exception e)
+         {
+            intAantalWeken = 4;
+         }
+
+         return Ok(grafiekenMng.GetAantalBerichtenPerDagModel(intAantalWeken, intID));
+      }
+
       [Route("~/api/NieuweGrafiek/AantalXVanPersoon/{type}/{id}")]
       public IHttpActionResult GetAantalXVanPersoon(string type, string id)
       {
@@ -99,6 +124,12 @@ namespace MVCIntegratie.Controllers.Api
       {
          public int Count { get; set; }
          public DateTime Week { get; set; }
+      }
+
+      public class AantalBerichtenPerDag
+      {
+         public int Count { get; set; }
+         public DateTime Dag { get; set; }
       }
 
       [Route("~/api/NieuweGrafiek/SentimentVanPersoon/{id}")]
@@ -332,12 +363,15 @@ namespace MVCIntegratie.Controllers.Api
          public List<double> Waarden { get; set; }
       }
 
+      private DeelplatformManager PlatformMng = new DeelplatformManager();
+
       [Route("~/api/NieuweGrafiek/PostGrafiek")]
       public IHttpActionResult Post([FromBody]string data)
       {
          GrafJson json = JsonConvert.DeserializeObject<GrafJson>(data);
          string gewijzigd = json.gewijzigd;
          int id = grafiekenMng.NewGrafiek().ID;
+         Deelplatform deelplatform = PlatformMng.GetDeelplatform(json.deelplatform);
          if (gewijzigd.Equals("true"))
          {
             id = int.Parse(json.graf);
@@ -361,10 +395,12 @@ namespace MVCIntegratie.Controllers.Api
                grafiek.Titel = line.title;
                grafiek.PointStart = line.pointStart;
                grafiek.ContentType = line.content;
+               grafiek.TitelXAs = line.xAs;
                grafiek.AantalSeries = line.aantalWeken;
                grafiek.Personen = new List<Persoon>();
                grafiek.TitelYAs = "Aantal Tweets";
                grafiek.GebruikerId = gebruiker;
+               grafiek.Deelplatform = deelplatform;
 
                foreach (PersoonJson persoon in line.series)
                {
@@ -415,6 +451,7 @@ namespace MVCIntegratie.Controllers.Api
                grafiek2.Titel = bar.title;
                grafiek2.TitelYAs = "Aantal Tweets";
                grafiek2.TitelXAs = "Aantal Tweets";
+               grafiek2.Deelplatform = deelplatform;
 
                foreach (string categorie in bar.categories)
                {
@@ -490,6 +527,7 @@ namespace MVCIntegratie.Controllers.Api
                grafiek3.TitelXAs = pie.serieNaam;
                grafiek3.ContentType = pie.content;
                grafiek3.GebruikerId = gebruiker;
+               grafiek3.Deelplatform = deelplatform;
                grafiek3.Personen.Add(grafiekenMng.GetPersoon(int.Parse(pie.persoon)));
                /*Serie serie2 = new Serie();
                serie2.Naam = pie.serieNaam;
@@ -534,6 +572,7 @@ namespace MVCIntegratie.Controllers.Api
          public string type { get; set; }
          public string gewijzigd { get; set; }
          public string graf { get; set; }
+         public string deelplatform { get; set; }
       }
 
       public class BarJson
@@ -550,6 +589,7 @@ namespace MVCIntegratie.Controllers.Api
          public string content { get; set; }
          public List<PersoonJson> series { get; set; }
          public int aantalWeken { get; set; }
+         public string xAs { get; set; }
       }
 
       public class PieJson

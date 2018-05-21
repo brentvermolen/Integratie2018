@@ -50,7 +50,7 @@
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
                <ul class="onclick-menu-content">
-                  <li><a href="/Graph/Wijzig/@grafiek.ID"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
+                  <li><a href="@Url.Action("Wijzig", "Graph", new { id = grafiek.ID }, null)"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
                   <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
                   <li><button>Annuleren</button></li>
                </ul>
@@ -291,8 +291,18 @@
                               pointStart: @grafiek.PlotOptions.PointStart
                               @if (grafiek.Chart.Type.Equals("normal"))
                               {
-                                 <text>,
-                              pointInterval: 24 * 3600 * 1000 * 7</text>
+                                 var PI = 0;
+                                 switch (grafiek.TitelXAs)
+                                 {
+                                    case "dag":
+                                       PI = 24 * 3600 * 1000;
+                                       break;
+                                    case "week":
+                                       PI = 24 * 3600 * 1000 * 7;
+                                       break;
+                                 }
+                                 <text>
+                              , pointInterval: @PI</text>
                               }
                            }
                         </text>
