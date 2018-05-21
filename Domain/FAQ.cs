@@ -25,6 +25,9 @@ namespace BL.Domain
       public bool Beantwoord { get; set; }
       public DateTime GesteldOp { get; set; }
       public DateTime BeantwoordOp { get; set; }
+
+      public int DeelplatformID { get; set; }
+      public Deelplatform Deelplatform { get; set; }
    }
 
    public enum FAQCategorie

@@ -188,6 +188,7 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_Register
         {
             public readonly string model = "model";
+            public readonly string deelplatform = "deelplatform";
         }
         static readonly ActionParamsClass_ConfirmEmail s_params_ConfirmEmail = new ActionParamsClass_ConfirmEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -250,6 +251,7 @@ namespace MVCIntegratie.Controllers
         {
             public readonly string model = "model";
             public readonly string returnUrl = "returnUrl";
+            public readonly string deelplatform = "deelplatform";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -357,14 +359,15 @@ namespace MVCIntegratie.Controllers
         }
 
         [NonAction]
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVCIntegratie.Models.RegisterViewModel model);
+        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVCIntegratie.Models.RegisterViewModel model, string deelplatform);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(MVCIntegratie.Models.RegisterViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(MVCIntegratie.Models.RegisterViewModel model, string deelplatform)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            RegisterOverride(callInfo, model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
+            RegisterOverride(callInfo, model, deelplatform);
             return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
         }
 
@@ -501,15 +504,16 @@ namespace MVCIntegratie.Controllers
         }
 
         [NonAction]
-        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVCIntegratie.Models.ExternalLoginConfirmationViewModel model, string returnUrl);
+        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVCIntegratie.Models.ExternalLoginConfirmationViewModel model, string returnUrl, string deelplatform);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(MVCIntegratie.Models.ExternalLoginConfirmationViewModel model, string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(MVCIntegratie.Models.ExternalLoginConfirmationViewModel model, string returnUrl, string deelplatform)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ExternalLoginConfirmationOverride(callInfo, model, returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
+            ExternalLoginConfirmationOverride(callInfo, model, returnUrl, deelplatform);
             return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
         }
 

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AlertRepository.cs" />
     <Compile Include="BerichtRepository.cs" />
+    <Compile Include="DeelplatformRepository.cs" />
     <Compile Include="EF\Integratie2018Context.cs" />
     <Compile Include="EF\Integratie2018Initializer.cs" />
     <Compile Include="FYIRepository.cs" />

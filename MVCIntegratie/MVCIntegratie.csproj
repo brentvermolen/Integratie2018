@@ -225,17 +225,22 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlertController.cs" />
+    <Compile Include="Controllers\Api\ConfigController.cs" />
     <Compile Include="Controllers\Api\FYIController.cs" />
     <Compile Include="Controllers\Api\IngelogdeGebruikerController.cs" />
     <Compile Include="Controllers\Api\NieuweGrafiekController.cs" />
     <Compile Include="Controllers\BerichtController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\DeelplatformController.cs" />
     <Compile Include="Controllers\FYIController.cs" />
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersoonController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="DeelplatformController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="FYIController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -263,7 +268,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NieuweGrafiekModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
-    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="PersoonController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -290,6 +294,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="TestLogicaController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\alljson.txt" />
@@ -307,7 +314,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\blue.jpg" />
     <Content Include="Images\dashboard.png" />
     <Content Include="Images\flag-be.png" />
     <Content Include="Images\Flag-en.png" />
@@ -350,7 +356,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Content\alles.json" />
+    <Content Include="Content\politici.json" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\Over.js" />
     <Content Include="Scripts\faq.js" />
@@ -397,11 +403,11 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Scripts\TypeGeladen.js" />
-    <Content Include="Scripts\Zoek.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -455,8 +461,11 @@
     <Content Include="Views\Alert\ManageAlerts.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\_Resultaat.cshtml" />
+    <Content Include="Views\TestLogica\Index.cshtml" />
     <Content Include="Views\Config\_Faq.cshtml" />
     <Content Include="Views\Config\SuperAdmin.cshtml" />
+    <Content Include="Views\Deelplatform\Index.cshtml" />
+    <Content Include="Views\Config\_Personen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805081055567_role.resx">

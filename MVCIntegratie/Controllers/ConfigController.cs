@@ -10,62 +10,78 @@ using System.Web.Mvc;
 
 namespace MVCIntegratie.Controllers
 {
-  public partial class ConfigController : Controller
-  {
-    private FYIManager FyiMng = new FYIManager();
-    private GebruikerManager GebruikerMng = new GebruikerManager();
+   public partial class ConfigController : Controller
+   {
+      private FYIManager FyiMng = new FYIManager();
+      private GebruikerManager GebruikerMng = new GebruikerManager();
 
-    public virtual ActionResult Gebruikers()
-    {
-      return View();
-    }
-    public virtual ActionResult Deelplatform()
-    {
-      return View();
-    }
-    public virtual ActionResult Admin()
-    {
-      Gebruiker gr = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
-      if (gr.isAdmin == false)
+      public virtual ActionResult Gebruikers()
       {
-        return Redirect("/home/index");
+         return View();
       }
-      else
+      public virtual ActionResult Deelplatform()
       {
-        AdminModel model = new AdminModel()
-        {
-          FAQ = FyiMng.GetFAQs().OrderByDescending(f => f.GesteldOp).ToList(),
-          Gebruikers = GebruikerMng.GetGebruikers().Where(g => g.isSuperAdmin == false).OrderBy(g => g.UserName).ToList()
-        };
-        return View(model);
+         return View();
       }
 
-    }
+      private DeelplatformManager PlatformMng = new DeelplatformManager();
+      private BerichtManager BerichtMng = new BerichtManager();
 
-    public virtual ActionResult SuperAdmin()
-    {
-      if (!User.Identity.IsAuthenticated)
+      public virtual ActionResult Admin(string deelplatform)
       {
-        return Redirect("/home/index");
+         Gebruiker gr = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+         Deelplatform platform = PlatformMng.GetDeelplatform(deelplatform);
+
+         ViewBag.SuperAdmin = false;
+         /*if (gr.isAdmin == false)
+         {
+           return Redirect("/home/index");
+         }
+         else
+         {*/
+         var gebruikers = GebruikerMng.GetGebruikers().ToList();
+         gebruikers = gebruikers.Where(g => g.Deelplatformen.FirstOrDefault(p => p.ID == platform.ID) != null && g.isSuperAdmin == false).ToList();
+
+         AdminModel model = new AdminModel()
+         {
+            FAQ = FyiMng.GetFAQs().Where(f => f.DeelplatformID == platform.ID).OrderByDescending(f => f.GesteldOp).ToList(),
+            Gebruikers = gebruikers,
+            Personen = BerichtMng.GetPersonen(true).Where(p => p.DeelplatformID == platform.ID).OrderBy(p => p.Naam).ToList()
+         };
+         return View(model);
+         /*}*/
+
       }
-      else if (User.Identity.IsAuthenticated)
+
+      public virtual ActionResult SuperAdmin(string deelplatform)
       {
-        Gebruiker gebruiker = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
-        if (gebruiker.isSuperAdmin)
-        {
-          AdminModel model = new AdminModel()
-          {
-            FAQ = FyiMng.GetFAQs().OrderByDescending(f => f.GesteldOp).ToList(),
-            Gebruikers = GebruikerMng.GetGebruikers().Where(g => g.isSuperAdmin == false).OrderBy(g => g.Email).ToList()
-          };
-          return View(model);
-        }
-        else
-        {
-          return Redirect("/home/index");
-        }
+         if (!User.Identity.IsAuthenticated)
+         {
+            return Redirect("/home/index");
+         }
+         else if (User.Identity.IsAuthenticated)
+         {
+            Gebruiker gebruiker = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+            Deelplatform platform = PlatformMng.GetDeelplatform(deelplatform);
+            ViewBag.SuperAdmin = true;
+
+            if (gebruiker.isSuperAdmin)
+            {
+               AdminModel model = new AdminModel()
+               {
+                  FAQ = FyiMng.GetFAQs(true).OrderByDescending(f => f.GesteldOp).ToList(),
+                  Gebruikers = GebruikerMng.GetGebruikers().Where(g => g.isSuperAdmin == false).OrderBy(g => g.Email).ToList(),
+                  Deelplatformen = PlatformMng.GetDeelplatforms(),
+                  Personen = BerichtMng.GetPersonen(true).OrderBy(p => p.Naam).ToList()
+               };
+               return View(model);
+            }
+            else
+            {
+               return Redirect("/home/index");
+            }
+         }
+         return Redirect("/home/index");
       }
-      return Redirect("/home/index");
-    }
-  }
+   }
 }

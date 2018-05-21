@@ -41,5 +41,15 @@ namespace BL
       {
          repo.DeleteFaq(ID);
       }
+
+      public void AddContact(Contact contact)
+      {
+         repo.CreateContact(contact);
+      }
+
+      public List<FAQ> GetFAQs(bool includeDeelplatform)
+      {
+         return repo.ReadFaqs(includeDeelplatform);
+      }
    }
 }

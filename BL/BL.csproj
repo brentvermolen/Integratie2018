@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AlertManager.cs" />
     <Compile Include="BerichtManager.cs" />
+    <Compile Include="DeelplatformManager.cs" />
     <Compile Include="FYIManager.cs" />
     <Compile Include="GebruikerManager.cs" />
     <Compile Include="GrafiekenManager.cs" />

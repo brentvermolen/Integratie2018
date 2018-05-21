@@ -1,13 +1,10 @@
-﻿using System;
+﻿using BL.Domain;
+using BL.Domain.BerichtKlassen;
+using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using BL.Domain;
-using BL.Domain.BerichtKlassen;
-using BL.Domain.ItemKlassen;
-using DAL;
 
 namespace BL
 {
@@ -139,6 +136,11 @@ namespace BL
          return repo.ReadPersonen();
       }
 
+      public IEnumerable<Persoon> GetPersonen(bool all)
+      {
+         return repo.ReadPersonen(all);
+      }
+
       public IEnumerable<Persoon> GetPersonen(Expression<Func<Persoon, bool>> predicate)
       {
          return repo.ReadPersonen(predicate);
@@ -157,6 +159,11 @@ namespace BL
       public Persoon GetPersoon(int persoon)
       {
          return repo.ReadPersoon(persoon);
+      }
+
+      public Persoon GetPersoon(string name)
+      {
+         return repo.ReadPersoon(name);
       }
 
       public ICollection<Persoon> GetPersoonVanBericht(string berichtID)
@@ -187,6 +194,11 @@ namespace BL
       public void RemoveBericht(string berichtID)
       {
          repo.DeleteBericht(berichtID);
+      }
+
+      public void ChangePersoon(Persoon p)
+      {
+         repo.UpdatePersoon(p);
       }
    }
 }

@@ -1,15 +1,11 @@
 ﻿using BL;
 using BL.Domain;
-using BL.Domain.ItemKlassen;
-using DAL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CA
@@ -31,12 +27,13 @@ namespace CA
 
          Console.WriteLine("Synchronisatie Starten");
          StartAsync().Wait();
-
+         Console.ReadKey();
          Console.WriteLine();
          Console.WriteLine("Alerts");
          Console.WriteLine("========================================");
          Console.WriteLine("Alerts Worden Nagekeken");
          CheckAlerts();
+         Console.ReadKey();
       }
 
       private class AlertResultaat
@@ -105,7 +102,7 @@ namespace CA
 
             foreach(AlertResultaat res in alertResultaats)
             {
-               Console.WriteLine("\t" + res.Alert.ID + " van " + res.Gebruiker.UserName + ": " + res.Alert.Persoon.Naam + " " + res.Info);
+               Console.WriteLine("\t" + res.Alert.ID + " van " + res.Gebruiker.Email + ": " + res.Alert.Persoon.Naam + " " + res.Info);
             }
          }
          catch (Exception e)

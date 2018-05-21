@@ -1,5 +1,4 @@
 ﻿using BL.Domain.BerichtKlassen;
-using BL.Domain.ItemKlassen;
 using BL.Domain.JsonConverters;
 using Newtonsoft.Json;
 using System;

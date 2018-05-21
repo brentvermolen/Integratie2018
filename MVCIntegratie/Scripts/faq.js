@@ -7,7 +7,7 @@
    });
 });
 
-function verzendVraag() {
+function verzendVraag(deelplatform) {
    var divError = document.getElementById("divError");
    var divVerzonden = document.getElementById("divVerzonden");
    var divVraag = document.getElementById("divVraag");
@@ -21,6 +21,7 @@ function verzendVraag() {
          constructor(vraag, categorie) {
             this.vraag = vraag;
             this.categorie = categorie;
+            this.deelplatform = deelplatform;
          }
       }
 

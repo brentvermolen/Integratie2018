@@ -1,12 +1,9 @@
-﻿using System;
+﻿using BL.Domain;
+using BL.Domain.BerichtKlassen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using BL.Domain;
-using BL.Domain.BerichtKlassen;
-using BL.Domain.ItemKlassen;
 
 namespace DAL
 {
@@ -153,6 +150,12 @@ namespace DAL
             .Include("Personen");
       }
 
+      public IEnumerable<Persoon> ReadPersonen(bool all)
+      {
+         return ctx.Personen
+            .Include("Berichten");
+      }
+
       public IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
       {
          return ctx.Berichten
@@ -166,8 +169,25 @@ namespace DAL
 
       public void CreateBerichten(List<Bericht> berichten)
       {
+         foreach(Bericht bericht in berichten)
+         {
+            for(int i = 0; i < bericht.Personen.Count; i++)
+            {
+               Persoon persoon = ReadPersoon(bericht.Personen[i].Naam);
+               if (persoon != null)
+               {
+                  bericht.Personen[i] = persoon;
+               }
+            }
+         }
+
          ctx.Berichten.AddRange(berichten);
          ctx.SaveChanges();
+      }
+
+      public Persoon ReadPersoon(string name)
+      {
+         return ctx.Personen.Include("Berichten").FirstOrDefault(p => p.Naam.Equals(name));
       }
 
       public Hashtag ReadHashtag(string hashtag)
@@ -195,6 +215,12 @@ namespace DAL
          return ctx.Mentions.Find(mention);
       }
 
+      public void UpdatePersoon(Persoon p)
+      {
+         ctx.Entry(p).State = System.Data.Entity.EntityState.Modified;
+         ctx.SaveChanges();
+      }
+
       public IEnumerable<Mention> ReadMentions()
       {
          return ctx.Mentions.Include("Berichten");
@@ -213,14 +239,14 @@ namespace DAL
       public IEnumerable<Persoon> ReadPersonen()
       {
          return ctx.Personen
-            .Include("Berichten");
+            .Include("Berichten").Where(p => p.Disabled == false);
       }
 
       public IEnumerable<Persoon> ReadPersonen(Expression<Func<Persoon, bool>> predicate)
       {
          return ctx.Personen
             .Include("Berichten")
-            .Where(predicate);
+            .Where(predicate).Where(p => p.Disabled == false);
       }
 
       public Persoon ReadPersoon(int id)

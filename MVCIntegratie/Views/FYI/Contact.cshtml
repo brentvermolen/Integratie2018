@@ -1,54 +1,94 @@
 ﻿@using MVCIntegratie.Models
 @model ContactModel
 @{
-    ViewBag.Title = "Contact";
+   ViewBag.Title = "Contact";
 }
 <link rel="stylesheet" href="~/Content/Layout.css">
 <link rel="stylesheet" href="~/Content/Site.css">
 
 <div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Contact", "FYI", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {@Html.AntiForgeryToken()
+   <div class="col-md-8">
+      <section id="loginForm">
+         <div class="form-horizontal">
             <h2>Contact</h2>
             <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                </div>
+               <label class="col-md-2 control-label" for="email">Email:</label>
+               <div class="col-md-10">
+                  <input type="text" id="email" name="email" class="form-control" />
+               </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Naam, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Naam, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Naam, "", new { @class = "text-danger" })
-                </div>
+               <label class="col-md-2 control-label" for="naam">Naam:</label>
+               <div class="col-md-10">
+                  <input type="text" id="naam" name="naam" class="form-control" />
+               </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Onderwerp, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Onderwerp, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Onderwerp, "", new { @class = "text-danger" })
-                </div>
+               <label class="col-md-2 control-label" for="onderwerp">Onderwerp:</label>
+               <div class="col-md-10">
+                  <input type="text" id="onderwerp" name="onderwerp" class="form-control" />
+               </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Bericht, new { @class = "col-md-2 control-label"})
-                <div class="col-md-10" id="berichtbox">
-                    @Html.TextAreaFor(m => m.Bericht, new { @class = "form-control"})
-                    @Html.ValidationMessageFor(m => m.Bericht, "", new { @class = "text-danger" })
-                </div>
+               <label class="col-md-2 control-label" for="bericht">Bericht:</label>
+               <div class="col-md-10" id="berichtbox">
+                  <textarea cols="20" rows="2" id="bericht" name="bericht" class="form-control"></textarea>
+               </div>
             </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Verzend" class="btn btn-success" />
-                </div>
+               <div class="col-md-offset-2 col-md-10">
+                  <input type="button" value="Verzenden" onclick="verzendContact('@ViewContext.RouteData.Values["deelplatform"]');" class="btn btn-success" />
+               </div>
             </div>
-            }
-        </section>
-    </div>
+         </div>
+      </section>
+   </div>
+</div>
 
+<script>
+   function verzendContact(deelplatform) {
+      var email = document.getElementById("email").value;
+      var naam = document.getElementById("naam").value;
+      var onderwerp = document.getElementById("onderwerp").value;
+      var bericht = document.getElementById("bericht").value;
 
+      class ContactJson {
+         constructor(email, naam, onderwerp, bericht) {
+            this.email = email;
+            this.naam = naam;
+            this.onderwerp = onderwerp;
+            this.bericht = bericht;
+            this.deelplatform = deelplatform;
+         }
+      }
+
+      var contact = new ContactJson(email, naam, onderwerp, bericht);
+
+      var jsonG = JSON.stringify(contact);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      $.ajax('/api/FYI/ContactOpslaan', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function () {
+         alert('done');
+      }).fail(function () {
+         alert('fail');
+      });
+   }
+</script>

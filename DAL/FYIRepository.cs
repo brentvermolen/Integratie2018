@@ -43,6 +43,17 @@ namespace DAL
          ctx.SaveChanges();
       }
 
+      public void CreateContact(Contact contact)
+      {
+         ctx.Contacts.Add(contact);
+         ctx.SaveChanges();
+      }
+
+      public List<FAQ> ReadFaqs(bool includeDeelplatform)
+      {
+         return ctx.FAQ.Include("Deelplatform").ToList();
+      }
+
       public void DeleteFaq(int ID)
       {
          FAQ f = ReadFaq(ID);
