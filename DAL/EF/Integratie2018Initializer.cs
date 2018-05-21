@@ -1,5 +1,4 @@
 ﻿using BL.Domain;
-using BL.Domain.BerichtKlassen;
 
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
@@ -9,14 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
-   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
+   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {

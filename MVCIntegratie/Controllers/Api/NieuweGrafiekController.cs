@@ -363,15 +363,13 @@ namespace MVCIntegratie.Controllers.Api
          public List<double> Waarden { get; set; }
       }
 
-      private DeelplatformManager PlatformMng = new DeelplatformManager();
-
       [Route("~/api/NieuweGrafiek/PostGrafiek")]
       public IHttpActionResult Post([FromBody]string data)
       {
          GrafJson json = JsonConvert.DeserializeObject<GrafJson>(data);
          string gewijzigd = json.gewijzigd;
          int id = grafiekenMng.NewGrafiek().ID;
-         Deelplatform deelplatform = PlatformMng.GetDeelplatform(json.deelplatform);
+         Deelplatform deelplatform = grafiekenMng.GetDeelplatform(json.deelplatform);
          if (gewijzigd.Equals("true"))
          {
             id = int.Parse(json.graf);

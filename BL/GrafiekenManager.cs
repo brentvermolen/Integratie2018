@@ -432,6 +432,11 @@ namespace BL
          return model;
       }
 
+      public Deelplatform GetDeelplatform(string deelplatform)
+      {
+         return repo.ReadDeelplatform(deelplatform);
+      }
+
       public AantalBerichtenPerWeekModel GetAantalBerichtenPerDagModel(int intAantalWeken, int intID)
       {
          List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
