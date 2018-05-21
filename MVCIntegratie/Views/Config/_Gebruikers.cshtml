@@ -12,7 +12,7 @@
 <h2></h2>
 
 <h2> Kies een gebruiker</h2>
-<ul class="list-group coll-md-8" style="max-height:400px;overflow-x:scroll">
+<ul class="list-group col-md-8" style="max-height:400px;overflow-y:scroll">
    @foreach (var gebruiker in Model)
    {
       <li class="list-group-item gebruiker" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
