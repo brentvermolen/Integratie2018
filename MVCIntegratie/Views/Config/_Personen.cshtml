@@ -6,34 +6,32 @@
 }
 <script src="~/Scripts/GebruikerSelect.js"></script>
 <link rel="stylesheet" href="~/Content/Config.css">
-<input type="text" name="search" placeholder="Filter op naam" onkeyup="filterPersoon(this.value)">
+<input id="filterPersoon" type="text" name="search" placeholder="Filter op naam" onkeyup="filterPersoon(this.value)">
 <p></p>
 
 <h2></h2>
 
 <h2>Personen</h2>
-<ul class="list-group" style="max-height:400px; overflow:scroll">
+<ul class="list-group col-md-8" style="max-height:400px; overflow-y:scroll">
    @foreach (var persoon in Model)
    {
       <li class="list-group-item persoon" style="height:55px" id="@persoon.ID" onclick="persoonLaden(@persoon.ID)">
          @persoon.Naam
-         @if (int.Parse(User.Identity.GetUserId()) != persoon.ID)
+         @if (persoon.Disabled)
          {
-            if (persoon.Disabled)
-            {
-               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@persoon.ID)">Persoon activeren</button>
-            }
-            else if (!persoon.Disabled)
-            {
-               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@persoon.ID)">Persoon deactiveren</button>
-            }
+            <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="persoonBlokkeren(@persoon.ID)">Persoon activeren</button>
          }
+         else
+         {
+            <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="persoonActiveren(@persoon.ID)">Persoon deactiveren</button>
+         }
+
       </li>
    }
 </ul>
 
-<div>
-   <div id="wijzigPersoon" style="display:none">
+<div class="col-md-4">
+   <div id="wijzigPersoon" style="display:none; margin-left:10px">
       <div>
          <label id="persoonId" style="display:none">ID</label>
       </div>
@@ -93,8 +91,16 @@
       }
    }
 
+   class PersoonWijzigen {
+      constructor(id, email) {
+         this.id = id;
+         this.email = email;
+         this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
+      }
+   }
+
    function persoonActiveren(id) {
-      var gewijzigde = new GebruikerWijzigen(id, "", false);
+      var gewijzigde = new GebruikerWijzigen(id, "");
       var jsonG = JSON.stringify(gewijzigde);
 
       var json = '"';
@@ -110,19 +116,19 @@
 
       json += '"';
 
-      $.ajax('/api/FYI/GebruikerBlokeren', {
+      $.ajax('/api/FYI/PersoonBlokkeren', {
          type: 'POST',
          contentType: "application/json",
          accepts: 'application/json',
          data: json
       }).done(function () {
-         relocate("personen");
+         relocate("@ViewContext.RouteData.Values["deelplatform"]");
       }).fail(function () {
          alert('fail 00000');
       });
    }
 
-   function persoonBlokeren(id) {
+   function persoonBlokkeren(id) {
       var gewijzigde = new GebruikerWijzigen(id, "", false);
       var jsonG = JSON.stringify(gewijzigde);
 
@@ -139,13 +145,13 @@
 
       json += '"';
 
-      $.ajax('/api/FYI/GebruikerActiveren', {
+      $.ajax('/api/FYI/PersoonActiveren', {
          type: 'POST',
          contentType: "application/json",
          accepts: 'application/json',
          data: json
       }).done(function () {
-         relocate("personen");
+         relocate("@ViewContext.RouteData.Values["deelplatform"]");
       }).fail(function () {
          alert('fail 11111111');
       });
@@ -170,11 +176,11 @@
          document.getElementById("persoonTwitter").value = data["twitter"];
          document.getElementById("persoonOrganisatie").innerHTML = data["organisation"];
          document.getElementById("persoonOrganisatie").href = data["organisation"];
-         
+
          document.getElementById("wijzigPersoon").style.display = "block";
       });
    }
-   
+
    function filterPersoon(filter) {
       var lis = document.getElementsByClassName("list-group-item persoon");
 

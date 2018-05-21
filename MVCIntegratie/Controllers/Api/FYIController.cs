@@ -160,8 +160,8 @@ namespace MVCIntegratie.Controllers.Api
          return Ok(p);
       }
 
-      [Route("~/api/FYI/GebruikerBlokeren")]
-      public IHttpActionResult PostGebruikerBlokeren([FromBody] string data)
+      [Route("~/api/FYI/GebruikerBlokkeren")]
+      public IHttpActionResult PostGebruikerBlokkeren([FromBody] string data)
       {
          WijzigGebruiker gebruiker = JsonConvert.DeserializeObject<WijzigGebruiker>(data);
 
@@ -186,6 +186,34 @@ namespace MVCIntegratie.Controllers.Api
          g.LockoutEndDateUtc = null;
 
          gebruikermngr.ChangeGebruiker(g);
+
+         return Ok();
+      }
+
+      [Route("~/api/FYI/PersoonBlokkeren")]
+      public IHttpActionResult PostPersoonBlokkeren([FromBody] string data)
+      {
+         WijzigPersoon persoon = JsonConvert.DeserializeObject<WijzigPersoon>(data);
+
+         Persoon p = BerichtMng.GetPersoon(persoon.id);
+
+         p.Disabled = true;
+
+         BerichtMng.ChangePersoon(p);
+
+         return Ok();
+      }
+
+      [Route("~/api/FYI/PersoonActiveren")]
+      public IHttpActionResult PostPersoonActiveren([FromBody] string data)
+      {
+         WijzigPersoon persoon = JsonConvert.DeserializeObject<WijzigPersoon>(data);
+
+         Persoon p = BerichtMng.GetPersoon(persoon.id);
+
+         p.Disabled = false;
+
+         BerichtMng.ChangePersoon(p);
 
          return Ok();
       }
@@ -232,6 +260,12 @@ public class WijzigGebruiker
    public int id { get; set; }
    public string email { get; set; }
    public bool isAdmin { get; set; }
+   public string deelplatform { get; set; }
+}
+
+public class WijzigPersoon
+{
+   public int id { get; set; }
    public string deelplatform { get; set; }
 }
 

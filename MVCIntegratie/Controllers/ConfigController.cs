@@ -40,13 +40,13 @@ namespace MVCIntegratie.Controllers
          else
          {*/
          var gebruikers = GebruikerMng.GetGebruikers().ToList();
-         gebruikers = gebruikers.Where(g => g.Deelplatformen.FirstOrDefault(p => p.ID == platform.ID) != null).ToList();
+         gebruikers = gebruikers.Where(g => g.Deelplatformen.FirstOrDefault(p => p.ID == platform.ID) != null && g.isSuperAdmin == false).ToList();
 
          AdminModel model = new AdminModel()
          {
             FAQ = FyiMng.GetFAQs().Where(f => f.DeelplatformID == platform.ID).OrderByDescending(f => f.GesteldOp).ToList(),
             Gebruikers = gebruikers,
-            Personen = BerichtMng.GetPersonen().Where(p => p.DeelplatformID == platform.ID).OrderBy(p => p.Naam).ToList()
+            Personen = BerichtMng.GetPersonen(true).Where(p => p.DeelplatformID == platform.ID).OrderBy(p => p.Naam).ToList()
          };
          return View(model);
          /*}*/
@@ -72,7 +72,7 @@ namespace MVCIntegratie.Controllers
                   FAQ = FyiMng.GetFAQs(true).OrderByDescending(f => f.GesteldOp).ToList(),
                   Gebruikers = GebruikerMng.GetGebruikers().Where(g => g.isSuperAdmin == false).OrderBy(g => g.Email).ToList(),
                   Deelplatformen = PlatformMng.GetDeelplatforms(),
-                  Personen = BerichtMng.GetPersonen().OrderBy(p => p.Naam).ToList()
+                  Personen = BerichtMng.GetPersonen(true).OrderBy(p => p.Naam).ToList()
                };
                return View(model);
             }

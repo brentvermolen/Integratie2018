@@ -6,7 +6,7 @@
 }
 <script src="~/Scripts/GebruikerSelect.js"></script>
 <link rel="stylesheet" href="~/Content/Config.css">
-<input type="text" name="search" placeholder="Filter op naam" onkeyup="filterGebruiker(this.value)">
+<input id="filterGebruiker" type="text" name="search" placeholder="Filter op naam" onkeyup="filterGebruiker(this.value)">
 <p></p>
 
 <h2></h2>
@@ -21,11 +21,11 @@
          {
             if (gebruiker.LockoutEnabled)
             {
-               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
+               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokkeren(@gebruiker.ID)">User activeren</button>
             }
             else if (!gebruiker.LockoutEnabled)
             {
-               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
+               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokkeren</button>
             }
          }
       </li>
@@ -76,7 +76,7 @@
 <script>
    function gebruikerAnnuleren() {
       document.getElementById("wijzigGebruiker").style.display = "none";
-      var items = document.getElementsByClassName("list-group-item").getElementsByClassName("gebruiker");
+      var items = document.getElementsByClassName("list-group-item gebruikers");
 
       for (var i = 0; i < items.length; i++) {
          items[i].className = items[i].className.replace("active", "");
@@ -100,7 +100,7 @@
 
       json += '"';
 
-      $.ajax('/api/FYI/GebruikerBlokeren', {
+      $.ajax('/api/FYI/GebruikerBlokkeren', {
          type: 'POST',
          contentType: "application/json",
          accepts: 'application/json',
@@ -112,7 +112,7 @@
       });
    }
 
-   function gebruikerBlokeren(id) {
+   function gebruikerBlokkeren(id) {
       var gewijzigde = new GebruikerWijzigen(id, "", false);
       var jsonG = JSON.stringify(gewijzigde);
 
@@ -226,7 +226,7 @@
    }
 
    function filterGebruiker(filter) {
-      var lis = document.getElementsByClassName("list-group-item").getElementsByClassName("gebruiker");
+      var lis = document.getElementsByClassName("list-group-item gebruiker");
 
       for (var i = 0; i < lis.length; i++) {
          var elem = lis[i];

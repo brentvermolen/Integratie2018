@@ -27,7 +27,7 @@
       var personen = data;
       for (var i = 0; i < personen.length; i++) {
          var persoon = personen[i];
-         var button = "<input type='button' style='margin: 1px' class='btnPersoon btn btn-info' id='" + persoon["ID"] + "' onclick='getDataPolitieker(this); ClosePopup();' value='" + persoon["Naam"] + "' />"
+         var button = "<input type='button' style='margin: 1px' class='btnPersoon btn btn-info' id='" + persoon["ID"] + "' onclick='getDataPolitieker(this); ClosePopup();' value='" + persoon["full_name"] + "' />"
          elem.innerHTML = elem.innerHTML + button;
       }
       loading.style.display = "none";
@@ -1633,7 +1633,7 @@
    </div>
 </div>
 
-<div id="loading" class="loading" style="display:block;">
+<div id="loading" class="loading" style="display:none;">
    <div class="loading-content">
       <div class="loading-body">
          <h2>Loading...</h2>

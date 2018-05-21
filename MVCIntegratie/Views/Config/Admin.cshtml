@@ -19,17 +19,19 @@
    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
    <script>
       $(document).ready(function () {
-         var subpage = window.location.href.split('#')[1];
+         var subpage = window.location.href.split('#')[1].replace("%20", " ");
          if (subpage != undefined) {
             showPage(subpage);
          }
+         filterPersoon(document.getElementById("filterPersoon").value);
+         filterGebruiker(document.getElementById("filterGebruiker").value);
       });
    </script>
 </head>
 <body>
    <div class="wrapper">
       <nav id="sidebar">
-         <a href="/Home/Index">
+         <a href="@Url.Action("Index", "Home")">
             <div class="sidebar-header">
                <h3>Admin</h3>
                <strong>Ad</strong>

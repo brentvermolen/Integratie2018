@@ -150,6 +150,12 @@ namespace DAL
             .Include("Personen");
       }
 
+      public IEnumerable<Persoon> ReadPersonen(bool all)
+      {
+         return ctx.Personen
+            .Include("Berichten");
+      }
+
       public IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)
       {
          return ctx.Berichten
@@ -192,6 +198,12 @@ namespace DAL
          return ctx.Mentions.Find(mention);
       }
 
+      public void UpdatePersoon(Persoon p)
+      {
+         ctx.Entry(p).State = System.Data.Entity.EntityState.Modified;
+         ctx.SaveChanges();
+      }
+
       public IEnumerable<Mention> ReadMentions()
       {
          return ctx.Mentions.Include("Berichten");
@@ -210,14 +222,14 @@ namespace DAL
       public IEnumerable<Persoon> ReadPersonen()
       {
          return ctx.Personen
-            .Include("Berichten");
+            .Include("Berichten").Where(p => p.Disabled == false);
       }
 
       public IEnumerable<Persoon> ReadPersonen(Expression<Func<Persoon, bool>> predicate)
       {
          return ctx.Personen
             .Include("Berichten")
-            .Where(predicate);
+            .Where(predicate).Where(p => p.Disabled == false);
       }
 
       public Persoon ReadPersoon(int id)

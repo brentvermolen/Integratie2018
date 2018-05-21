@@ -136,6 +136,11 @@ namespace BL
          return repo.ReadPersonen();
       }
 
+      public IEnumerable<Persoon> GetPersonen(bool all)
+      {
+         return repo.ReadPersonen(all);
+      }
+
       public IEnumerable<Persoon> GetPersonen(Expression<Func<Persoon, bool>> predicate)
       {
          return repo.ReadPersonen(predicate);
@@ -184,6 +189,11 @@ namespace BL
       public void RemoveBericht(string berichtID)
       {
          repo.DeleteBericht(berichtID);
+      }
+
+      public void ChangePersoon(Persoon p)
+      {
+         repo.UpdatePersoon(p);
       }
    }
 }

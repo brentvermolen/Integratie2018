@@ -17,6 +17,8 @@ namespace MVCIntegratie.Controllers
       // GET: Deelplatform
       public virtual ActionResult Index()
       {
+         ViewBag.Title = "Deelplatformen";
+
          if (User.Identity.IsAuthenticated)
          {
             Gebruiker gebruiker = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
@@ -34,6 +36,15 @@ namespace MVCIntegratie.Controllers
          {
             return View(DeelplatformMng.GetDeelplatforms());
          }
+      }
+
+      public virtual ActionResult Registreer()
+      {
+         ViewBag.Title = "Registreer Deelplatform";
+
+         Gebruiker gebruiker = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+
+         return View("Index", DeelplatformMng.GetDeelplatforms().Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) == null).ToList());
       }
    }
 }
