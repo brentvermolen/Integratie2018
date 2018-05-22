@@ -1,5 +1,6 @@
 ﻿@using BL.Domain.ItemKlassen
-@model BL.Domain.Bericht
+@using MVCIntegratie.Models
+@model MVCIntegratie.Models.ZoekResultaat
 
 @if (Model == null)
 {
@@ -21,7 +22,7 @@ else
                 <td>@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count) </td>
             </tr>
         }
-        
+
         <tr>
             <th>Trefwoorden</th>
             <th>Aantal Berichten</th>
@@ -76,6 +77,19 @@ else
                 </td>
                 <td>@Html.DisplayFor(modelItem => url.Berichten.Count) </td>
             </tr>
+        }
+
+        <tr>
+            <th>Grafieken</th>
+        </tr>
+
+        @foreach (var grafiek in Model.Grafieken)
+        {
+        <tr>
+            
+            <td><a href="/Graph/Wijzig/@grafiek.ID">@grafiek.Titel</a></td>
+
+        </tr>
         }
     </table>
 }

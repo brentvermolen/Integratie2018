@@ -65,12 +65,6 @@ namespace MVCIntegratie.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Search()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SearchController Actions { get { return MVC.Search; } }
@@ -88,14 +82,12 @@ namespace MVCIntegratie.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string Search = "Search";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string Search = "Search";
         }
 
 
@@ -105,15 +97,7 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index
         {
-            public readonly string search = "search";
-        }
-        static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Search
-        {
-            public readonly string search = "search";
+            public readonly string formCollection = "formCollection";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -139,26 +123,14 @@ namespace MVCIntegratie.Controllers
         public T4MVC_SearchController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Web.Mvc.FormCollection formCollection);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string search)
+        public override System.Web.Mvc.ActionResult Index(System.Web.Mvc.FormCollection formCollection)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
-            IndexOverride(callInfo, search);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string search);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Search(string search)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
-            SearchOverride(callInfo, search);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "formCollection", formCollection);
+            IndexOverride(callInfo, formCollection);
             return callInfo;
         }
 
