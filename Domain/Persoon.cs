@@ -43,6 +43,8 @@ namespace BL.Domain
 
       public ICollection<Bericht> Berichten { get; set; }
 
+      public double Trending { get; set; }
+
       public override bool Equals(object obj)
       {
          if (obj.GetType() != GetType())

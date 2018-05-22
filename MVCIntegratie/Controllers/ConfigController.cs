@@ -55,7 +55,7 @@ namespace MVCIntegratie.Controllers
       }
 
       [HttpPost]
-      public ActionResult PostUploadFile(string deelplatform, HttpPostedFileBase file)
+      public virtual ActionResult PostUploadFile(string deelplatform, HttpPostedFileBase file)
       {
          using (StreamReader sr = new StreamReader(file.InputStream))
          {
@@ -65,23 +65,27 @@ namespace MVCIntegratie.Controllers
             foreach (Persoon p in personen.Personen)
             {
                Persoon persoonDb = PlatformMng.GetPersoon(p.Naam);
-               if (p.Naam.Equals(persoonDb.Naam) && p.Disabled == true)
+               if (persoonDb != null)
                {
-                  p.ID = persoonDb.ID;
-                  p.DeelplatformID = platformID;
-                  p.Disabled = false;
-                  PlatformMng.ChangeObject(p);
+                  if (persoonDb.Disabled == true)
+                  {
+                     persoonDb.District = p.District;
+                     persoonDb.Facebook = p.Facebook;
+                     persoonDb.Geboortedatum = p.Geboortedatum;
+                     persoonDb.Geslacht = p.Geslacht;
+                     persoonDb.Organisatie = p.Organisatie;
+                     persoonDb.Postcode = p.Postcode;
+                     persoonDb.Trending = p.Trending;
+                     persoonDb.Twitter = p.Twitter;
+                     persoonDb.Website = p.Website;
+                     persoonDb.Disabled = false;
+                     PlatformMng.ChangeObject(persoonDb);
+                  }
                }
             }
          }
 
          return RedirectToAction("SuperAdmin");
-      }
-
-      public class FileJson
-      {
-         public string inhoud { get; set; }
-         public string deelplatform { get; set; }
       }
 
       public class PersonenJson

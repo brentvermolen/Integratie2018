@@ -67,6 +67,12 @@ namespace MVCIntegratie.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PostUploadFile()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PostUploadFile);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SuperAdmin()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SuperAdmin);
@@ -90,6 +96,7 @@ namespace MVCIntegratie.Controllers
             public readonly string Gebruikers = "Gebruikers";
             public readonly string Deelplatform = "Deelplatform";
             public readonly string Admin = "Admin";
+            public readonly string PostUploadFile = "PostUploadFile";
             public readonly string SuperAdmin = "SuperAdmin";
         }
 
@@ -99,6 +106,7 @@ namespace MVCIntegratie.Controllers
             public const string Gebruikers = "Gebruikers";
             public const string Deelplatform = "Deelplatform";
             public const string Admin = "Admin";
+            public const string PostUploadFile = "PostUploadFile";
             public const string SuperAdmin = "SuperAdmin";
         }
 
@@ -110,6 +118,15 @@ namespace MVCIntegratie.Controllers
         public class ActionParamsClass_Admin
         {
             public readonly string deelplatform = "deelplatform";
+        }
+        static readonly ActionParamsClass_PostUploadFile s_params_PostUploadFile = new ActionParamsClass_PostUploadFile();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PostUploadFile PostUploadFileParams { get { return s_params_PostUploadFile; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PostUploadFile
+        {
+            public readonly string deelplatform = "deelplatform";
+            public readonly string file = "file";
         }
         static readonly ActionParamsClass_SuperAdmin s_params_SuperAdmin = new ActionParamsClass_SuperAdmin();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -131,6 +148,7 @@ namespace MVCIntegratie.Controllers
             {
                 public readonly string _Faq = "_Faq";
                 public readonly string _Gebruikers = "_Gebruikers";
+                public readonly string _Personen = "_Personen";
                 public readonly string Admin = "Admin";
                 public readonly string AdminConfig = "AdminConfig";
                 public readonly string Deelplatform = "Deelplatform";
@@ -138,6 +156,7 @@ namespace MVCIntegratie.Controllers
             }
             public readonly string _Faq = "~/Views/Config/_Faq.cshtml";
             public readonly string _Gebruikers = "~/Views/Config/_Gebruikers.cshtml";
+            public readonly string _Personen = "~/Views/Config/_Personen.cshtml";
             public readonly string Admin = "~/Views/Config/Admin.cshtml";
             public readonly string AdminConfig = "~/Views/Config/AdminConfig.cshtml";
             public readonly string Deelplatform = "~/Views/Config/Deelplatform.cshtml";
@@ -181,6 +200,19 @@ namespace MVCIntegratie.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Admin);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
             AdminOverride(callInfo, deelplatform);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void PostUploadFileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string deelplatform, System.Web.HttpPostedFileBase file);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PostUploadFile(string deelplatform, System.Web.HttpPostedFileBase file)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PostUploadFile);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "file", file);
+            PostUploadFileOverride(callInfo, deelplatform, file);
             return callInfo;
         }
 

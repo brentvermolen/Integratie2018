@@ -264,9 +264,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\ContactModel.cs" />
+    <Compile Include="Models\DeelplatformModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NieuweGrafiekModel.cs" />
+    <Compile Include="Models\PersoonModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="PersoonController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -292,9 +294,6 @@
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestLogicaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -444,9 +443,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Bericht\Index.cshtml" />
     <Content Include="Views\Bericht\Details.cshtml" />
-    <Content Include="Views\Persoon\Details.cshtml" />
-    <Content Include="Views\Alert\Index.cshtml" />
     <Content Include="Views\Persoon\Index.cshtml" />
+    <Content Include="Views\Alert\Index.cshtml" />
     <Content Include="Views\FYI\Over.cshtml" />
     <Content Include="Views\FYI\Contact.cshtml" />
     <Content Include="Views\FYI\FAQ.cshtml" />

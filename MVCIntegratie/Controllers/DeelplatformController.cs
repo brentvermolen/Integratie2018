@@ -1,6 +1,7 @@
 ﻿using BL;
 using BL.Domain;
 using Microsoft.AspNet.Identity;
+using MVCIntegratie.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +18,37 @@ namespace MVCIntegratie.Controllers
       // GET: Deelplatform
       public virtual ActionResult Index()
       {
-         ViewBag.Title = "Deelplatformen";
+         ViewBag.Title = "Deelplatformen"; List<Deelplatform> Deelplatformen = DeelplatformMng.GetDeelplatforms();
+
 
          if (User.Identity.IsAuthenticated)
          {
             Gebruiker gebruiker = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
-
+            
             if (gebruiker.Deelplatformen.Count == 1)
             {
                return RedirectToAction("Index", "Home", new { deelplatform = gebruiker.Deelplatformen[0].Naam });
             }
             else
             {
-               return View(DeelplatformMng.GetDeelplatforms().Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) != null).ToList());
+               DeelplatformModel model = new DeelplatformModel()
+               {
+                  AndereDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) == null).ToList(),
+                  MijnDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID != d.ID) == null).ToList()
+               };
+
+               return View(model);
             }
          }
          else
          {
-            return View(DeelplatformMng.GetDeelplatforms());
+            DeelplatformModel model = new DeelplatformModel()
+            {
+               AndereDeelplatformen = Deelplatformen,
+               MijnDeelplatformen = new List<Deelplatform>()
+            };
+
+            return View(model);
          }
       }
 
@@ -43,8 +57,15 @@ namespace MVCIntegratie.Controllers
          ViewBag.Title = "Registreer Deelplatform";
 
          Gebruiker gebruiker = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+         List<Deelplatform> Deelplatformen = DeelplatformMng.GetDeelplatforms();
 
-         return View("Index", DeelplatformMng.GetDeelplatforms().Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) == null).ToList());
+         DeelplatformModel model = new DeelplatformModel()
+         {
+            AndereDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) == null).ToList(),
+            MijnDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID != d.ID) == null).ToList()
+         };
+
+         return View("Index", model);
       }
    }
 }

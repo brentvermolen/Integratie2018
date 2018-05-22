@@ -39,7 +39,6 @@ public static partial class MVC
     public static MVCIntegratie.Controllers.PersoonController Persoon = new MVCIntegratie.Controllers.T4MVC_PersoonController();
     public static MVCIntegratie.Controllers.SearchController Search = new MVCIntegratie.Controllers.T4MVC_SearchController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
-    public static T4MVC.TestLogicaController TestLogica = new T4MVC.TestLogicaController();
 }
 
 namespace T4MVC
@@ -204,6 +203,7 @@ namespace Links
         public static readonly string Config_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Config.min.css") ? Url("Config.min.css") : Url("Config.css");
         public static readonly string faq_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/faq.min.css") ? Url("faq.min.css") : Url("faq.css");
         public static readonly string Layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Layout.min.css") ? Url("Layout.min.css") : Url("Layout.css");
+        public static readonly string politici_json = Url("politici.json");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
     }
 
