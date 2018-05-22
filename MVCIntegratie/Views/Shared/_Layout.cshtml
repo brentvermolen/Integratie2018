@@ -1,24 +1,27 @@
 ﻿@using BL
 @using Microsoft.AspNet.Identity
+
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="utf-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>@ViewBag.Title - Politieke barometer</title>
-   <link rel="stylesheet" href="~/Content/Layout.css">
-   <script src="~/Scripts/jquery-3.0.0.min.js"></script>
-   @Styles.Render("~/Content/css")
-   @Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Politieke barometer</title>
+    <link rel="stylesheet" href="~/Content/Layout.css">
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
 
 </head>
 @{
-    var mng = new GebruikerManager();
-    var gebruiker = new BL.Domain.Gebruiker();
-    if (User.Identity.IsAuthenticated)
-    {
-        gebruiker = mng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
-    }
+  var mng = new GebruikerManager();
+  var gebruiker = new BL.Domain.Gebruiker();
+  if (User.Identity.IsAuthenticated)
+  {
+      gebruiker = mng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+  }
+
 }
 
 <body>
@@ -45,10 +48,6 @@
                         {
                             <li>@Html.ActionLink("Adminpage", MVC.Config.SuperAdmin())</li>
                         }
-                        else if (gebruiker.isAdmin)
-                        {
-                            <li>@Html.ActionLink("Adminpage", MVC.Config.Admin())</li>
-                        }
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -59,13 +58,13 @@
 
     @if (!User.Identity.IsAuthenticated)
     {
-    <div data-reactroot="" class="login-notice">
-        <div class="login-notice-bg"></div>
-        <div class="l-text-container">
-            <p class="login-notice-text text">Registreer om van alle voordelen van de site te genieten.</p>
-            <a class="login-notice-button btn btn-default" href=@Url.Action("Register", "Account")>Registreren</a>
+        <div data-reactroot="" id="inlogPromoter" class="login-notice">
+            <div class="login-notice-bg"></div>
+            <div class="l-text-container">
+                <p class="login-notice-text text">Registreer om van alle voordelen van de site te genieten.</p>
+                <a class="login-notice-button btn btn-default" href=@Url.Action("Register", "Account")>Registreren</a>
+            </div>
         </div>
-    </div>
     }
 
     <div class="container body-content">
