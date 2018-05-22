@@ -65,3 +65,33 @@ function verzendVraag(deelplatform) {
       divVerzonden.style.display = "none";
    }
 }
+
+function website(id, id2) {
+    $("a").removeClass("active");
+    $("#" + id).addClass("active");
+    $("#" + id2).addClass("active");
+}
+
+function account(id, id2) {
+    $("a").removeClass("active");
+    $("#" + id).addClass("active");
+    $("#" + id2).addClass("active");
+}
+
+function notif(id, id2) {
+    $("a").removeClass("active");
+    $("#" + id).addClass("active");
+    $("#" + id2).addClass("active");
+}
+
+function overig(id, id2) {
+    $("a").removeClass("active");
+    $("#" + id).addClass("active");
+    $("#" + id2).addClass("active");
+}
+
+function vraag(id, id2) {
+    $("a").removeClass("active");
+    $("#" + id).addClass("active");
+    $("#" + id2).addClass("active");
+}

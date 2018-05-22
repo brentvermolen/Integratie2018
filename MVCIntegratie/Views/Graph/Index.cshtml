@@ -61,8 +61,7 @@
    </div>
 
    <div class="col-sm-12 col-md-12 content row chartopties">
-      <label>Grafiek titel: </label>
-      <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value);" />
+      <input id="grafTitel" type="text" value="Grafiek Titel" onkeyup="wijzigTitel(this.value);" class="form-control" />
    </div>
 
    <div id="vergelijking">
@@ -94,7 +93,7 @@
       <div class="col-sm-6 col-md-6 barchartopties barpolopties">
 
          <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('bar')" />
+         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('bar')" class="btn btn-default  graphbutton" />
          <div id="polBar" class="row">
 
          </div>
@@ -207,10 +206,10 @@
             <option value="5">5</option>
          </select>-->
          <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line');" />
+         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line');" class="btn btn-default graphbutton" />
          <div id="polLine" class="row">
 
-
+                
          </div>
       </div>
 
@@ -355,7 +354,7 @@
             <option value="Politieker2">Politieker2</option>
             <option value="Politieker3">Politieker3</option>
          </select>-->
-         <input type="button" value="Kies" class="btnPiePersoon" id="" onclick="politiekerKiezen(this)" />
+         <input type="button" value="Kies" class="btnPiePersoon btn btn-default graphbutton" onclick="politiekerKiezen(this)" />
       </div>
       <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
          <label>Thema</label>
@@ -636,10 +635,10 @@
 
    function persoonToevoegen(naam, id, loaded) {
       if (loaded == true) {
-         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+          elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success graphbutton' />";
          currentPersonen.push(new Persoon(id, naam, true));
       } else {
-         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+          elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success graphbutton' />";
          currentPersonen.push(new Persoon(id, naam, false));
       }
    }
@@ -1649,7 +1648,7 @@
       <div class="popup-header">
          <span class="close" onclick="ClosePopup()">×</span>
          <h2>Politiekers</h2>
-         <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value="" />
+         <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value="" class="form-control"/>
       </div>
       <div class="popup-body">
          <p id="personenLoading" style="display:block">Personen worden geladen</p>
@@ -1663,7 +1662,7 @@
    <div class="loading-content">
       <div class="loading-body">
          <h2>Loading...</h2>
-         <img src="~/Images/dashboard.png" />
+         <img src="~/Images/dashboard.png" style="width:750px; height:750px;" />
       </div>
    </div>
 </div>

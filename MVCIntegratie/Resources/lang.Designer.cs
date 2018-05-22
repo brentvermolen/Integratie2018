@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onze groepsleden zijn: Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauqiuer en Daan Schokkaert..
+        ///   Looks up a localized string similar to Onze groepsleden zijn: Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauquier en Daan Schokkaert..
         /// </summary>
         public static string groepsleden {
             get {

@@ -291,3 +291,149 @@ input[type="date"] {
     display: inline-block !important;
     visibility: visible !important;
 }
+
+@media (min-width: 576px){
+    .login-notice {
+        padding: 30px;
+    }
+}
+
+.login-notice {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 10px;
+}
+
+@media (min-width: 576px){
+    .login-notice-bg {
+        width: 450px;
+        height: 450px;
+    }
+}
+
+.login-notice-bg {
+    width: 0;
+    height: 0;
+    width: 0;
+    height: 0;
+    border-top: 400px solid transparent;
+    border-left: 450px solid #5cb85c;
+}
+
+.login-notice-bg {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
+    background-position: 0 100%;
+    background-size: 100%;
+    pointer-events: none;
+}
+
+.login-notice .l-text-container {
+    display: block;
+    width: 240px;
+    margin: auto auto 0 0;
+}
+
+.l-text-container {
+    width: 100%;
+    max-width: 710px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 768px){
+    .login-notice-text {
+        font-size: 18px;
+    }
+}
+
+.login-notice-text {
+    margin-bottom: 1em;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Oswald,-apple-system,blinkmacsystemfont,Segoe UI,roboto,oxygen-sans,ubuntu,cantarell,Helvetica Neue,sans-serif;
+}
+
+.login-notice-button {
+    position: relative;
+    z-index: 10;
+    background-color: white;
+    border-color:black;
+}
+
+.login-notice-button:focus {
+    position: relative;
+    z-index: 10;
+    background-color: darkgray;
+    border-color: black;
+}
+
+.login-notice-button:hover {
+    position: relative;
+    z-index: 10;
+    background-color: darkgray;
+    border-color: black;
+}
+
+.login-notice-text {
+    position: relative;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .text {
+        font-size: 18px;
+        line-height: 1.7;
+    }
+}
+
+.text {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.url {
+    height:60px;
+}
+
+.graphbutton {
+    margin:5px;
+}
+
+#filter {
+    width:100%;
+    margin-bottom:10px; 
+}
+
+.faqzelfinvullentekstveld {
+    margin-bottom:5px;
+}
+
+#defaultfaq {
+    background-color: #5cb85c;
+    border-color: #dddddd;
+    border-radius: 0px;
+    border: 1px;
+}
+
+#vraagfaq {
+    border-color: #dddddd;
+    border-radius: 0px;
+    
+}
+
+
+

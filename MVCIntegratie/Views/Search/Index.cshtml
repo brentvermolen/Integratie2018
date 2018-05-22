@@ -1,4 +1,5 @@
 ﻿@model BL.Domain.Bericht
+@using MVCIntegratie.Models
 
 @{
     ViewBag.Title = "Search page";
@@ -9,80 +10,55 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
 
-<div id="zoekdiv"><form action="/Search/Index" method="post"> <input type="text" id="zoekbar2" name="search" class="form-control" placeholder="Zoeken.."></form></div>
+<!-- plakken vanaf hier -->
+<div id="zoekdiv">
+    <form action="/Search/Index" method="post">
+        <input type="text" id="zoekbar2" name="search" class="form-control" placeholder="Zoeken..">
 
-<div class="container">
-    
-    <form>
-        <div class="row">
-            <div class="col-md-3">
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="" />Trending
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="">Extra filter
-                </label>
-            </div>
 
-            <div class="col-md-2 input-group">
-                <input type="text" class="form-control" placeholder="Postcode" id="zoekbar3" />
+        <div class="container">
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="" />Trending
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">Extra filter
+                    </label>
+                </div>
+
+                <div class="col-md-2 form-group">
+                    <input type="text" class="form-control" placeholder="Postcode" id="zoekbar3" />
+                </div>
+                <div class="col-md-3 dropdown"> 
+                    @Html.DropDownList("Filter", new SelectList(Enum.GetValues(typeof(ZoekFilter))), "Select Filter", new { @class = "form-control" })
+                </div>
+                <div class="col-md-3 dropdown">
+                    @Html.DropDownList("Sorteren", new SelectList(Enum.GetValues(typeof(ZoekSorteren))), "Sorteren op", new { @class = "form-control" })
+                </div>
             </div>
-            <div class="col-md-2 dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    Extra filters
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">filter1</a>
-                    </li>
-                    <li>
-                        <a href="#">filter2</a>
-                    </li>
-                    <li>
-                        <a href="#">filter3...</a>
-                    </li>
-                </ul>
+            <br />
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Van:</label>
+                    <input type="date" />
+                </div>
+                <div class="col-md-3">
+                    <label>Tot:</label>
+                    <input type="date" />
+                </div>
             </div>
-            <div class="col-md-2 dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    Sorteren op
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">Naam</a>
-                    </li>
-                    <li>
-                        <a href="#">Datum</a>
-                    </li>
-                    <li>
-                        <a href="#">...</a>
-                    </li>
-                </ul>
+            <br />
+            <div class="row">
+                <input type="submit" value="Zoek" class="btn btn-success" id="btnzoek" />
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-3">
-                <label>Van:</label>
-                <input type="date" />
-            </div>
-            <div class="col-md-3">
-                <label>Tot:</label>
-                <input type="date" />
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <input type="submit" value="Zoek" class="btn btn-success" id="btnzoek" />
         </div>
     </form>
-    <div class="col-md-12">
-    </div>
-    </div>
-    @Html.Partial("_Resultaat", Model)
-    <div class="row">
-        <input type="submit" value="Opslaan" class="btn btn-success" id="btnzoek" />
-        <input type="submit" value="Annuleren" class="btn btn-success" />
 </div>
+<div class="col-md-12">
+</div>
+
+@Html.Partial("_Resultaat", Model)
+
