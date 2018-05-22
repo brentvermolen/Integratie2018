@@ -34,7 +34,7 @@ namespace MVCIntegratie.Controllers
                DeelplatformModel model = new DeelplatformModel()
                {
                   AndereDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) == null).ToList(),
-                  MijnDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID != d.ID) == null).ToList()
+                  MijnDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) != null).ToList()
                };
 
                return View(model);
@@ -67,7 +67,7 @@ namespace MVCIntegratie.Controllers
          DeelplatformModel model = new DeelplatformModel()
          {
             AndereDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) == null).ToList(),
-            MijnDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID != d.ID) == null).ToList()
+            MijnDeelplatformen = Deelplatformen.Where(d => gebruiker.Deelplatformen.FirstOrDefault(g => g.ID == d.ID) != null).ToList()
          };
 
          return View("Index", model);
