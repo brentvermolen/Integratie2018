@@ -7,7 +7,6 @@ using System.Web.WebPages;
 using BL;
 using BL.Domain;
 using BL.Domain.BerichtKlassen;
-using BL.Domain.ItemKlassen;
 using MVCIntegratie.Models;
 
 

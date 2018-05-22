@@ -11,7 +11,7 @@ namespace MVCIntegratie
       {
          ConfigureAuth(app);
 
-         Process.Start("C:\\Users\\Brent\\Documents\\School\\KDG\\2017-2018\\IntegratieProject\\MVCIntegratie\\CA\\bin\\Debug\\CA.exe");
+         //Process.Start("C:\\Users\\jonas\\Desktop\\IntegratieMaster\\CA\\bin\\Debug\\CA.exe");
       }
    }
 }

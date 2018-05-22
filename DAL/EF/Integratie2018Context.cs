@@ -13,7 +13,7 @@ namespace DAL
       public Integratie2018Context() : base("integratie2018DB")
       {
          Database.SetInitializer(new Integratie2018Initializer());
-
+         
          try
          {
             Database.Initialize(false);

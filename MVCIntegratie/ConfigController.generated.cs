@@ -131,6 +131,7 @@ namespace MVCIntegratie.Controllers
             {
                 public readonly string _Faq = "_Faq";
                 public readonly string _Gebruikers = "_Gebruikers";
+                public readonly string _Personen = "_Personen";
                 public readonly string Admin = "Admin";
                 public readonly string AdminConfig = "AdminConfig";
                 public readonly string Deelplatform = "Deelplatform";
@@ -138,6 +139,7 @@ namespace MVCIntegratie.Controllers
             }
             public readonly string _Faq = "~/Views/Config/_Faq.cshtml";
             public readonly string _Gebruikers = "~/Views/Config/_Gebruikers.cshtml";
+            public readonly string _Personen = "~/Views/Config/_Personen.cshtml";
             public readonly string Admin = "~/Views/Config/Admin.cshtml";
             public readonly string AdminConfig = "~/Views/Config/AdminConfig.cshtml";
             public readonly string Deelplatform = "~/Views/Config/Deelplatform.cshtml";
