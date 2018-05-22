@@ -2,8 +2,10 @@
 using BL.Domain;
 using Microsoft.AspNet.Identity;
 using MVCIntegratie.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,31 +35,66 @@ namespace MVCIntegratie.Controllers
          Deelplatform platform = PlatformMng.GetDeelplatform(deelplatform);
 
          ViewBag.SuperAdmin = false;
-         /*if (gr.isAdmin == false)
+         if (gr.IsAdmin.FirstOrDefault(a => a.ID == platform.ID) != null)
          {
-           return Redirect("/home/index");
+            return Redirect("/home/index");
          }
          else
-         {*/
-         var gebruikers = GebruikerMng.GetGebruikers().ToList();
-         gebruikers = gebruikers.Where(g => g.Deelplatformen.FirstOrDefault(p => p.ID == platform.ID) != null && g.isSuperAdmin == false).ToList();
-
-         AdminModel model = new AdminModel()
          {
-            FAQ = FyiMng.GetFAQs().Where(f => f.DeelplatformID == platform.ID).OrderByDescending(f => f.GesteldOp).ToList(),
-            Gebruikers = gebruikers,
-            Personen = BerichtMng.GetPersonen(true).Where(p => p.DeelplatformID == platform.ID).OrderBy(p => p.Naam).ToList()
-         };
-         return View(model);
-         /*}*/
+            var gebruikers = GebruikerMng.GetGebruikers().ToList();
+            gebruikers = gebruikers.Where(g => g.Deelplatformen.FirstOrDefault(p => p.ID == platform.ID) != null && g.isSuperAdmin == false).ToList();
 
+            AdminModel model = new AdminModel()
+            {
+               FAQ = FyiMng.GetFAQs().Where(f => f.DeelplatformID == platform.ID).OrderByDescending(f => f.GesteldOp).ToList(),
+               Gebruikers = gebruikers,
+               Personen = BerichtMng.GetPersonen(true).Where(p => p.DeelplatformID == platform.ID).OrderBy(p => p.Naam).ToList()
+            };
+            return View(model);
+         }
+      }
+
+      [HttpPost]
+      public ActionResult PostUploadFile(string deelplatform, HttpPostedFileBase file)
+      {
+         using (StreamReader sr = new StreamReader(file.InputStream))
+         {
+            PersonenJson personen = JsonConvert.DeserializeObject<PersonenJson>("{ \"personen\": " + sr.ReadToEnd() + " }");
+
+            int platformID = PlatformMng.GetDeelplatform(deelplatform).ID;
+            foreach (Persoon p in personen.Personen)
+            {
+               Persoon persoonDb = PlatformMng.GetPersoon(p.Naam);
+               if (p.Naam.Equals(persoonDb.Naam) && p.Disabled == true)
+               {
+                  p.ID = persoonDb.ID;
+                  p.DeelplatformID = platformID;
+                  p.Disabled = false;
+                  PlatformMng.ChangeObject(p);
+               }
+            }
+         }
+
+         return RedirectToAction("SuperAdmin");
+      }
+
+      public class FileJson
+      {
+         public string inhoud { get; set; }
+         public string deelplatform { get; set; }
+      }
+
+      public class PersonenJson
+      {
+         [JsonProperty("personen")]
+         public List<Persoon> Personen { get; set; }
       }
 
       public virtual ActionResult SuperAdmin(string deelplatform)
       {
          if (!User.Identity.IsAuthenticated)
          {
-            return Redirect("/home/index");
+            return Redirect("/Home/Index");
          }
          else if (User.Identity.IsAuthenticated)
          {
@@ -78,10 +115,10 @@ namespace MVCIntegratie.Controllers
             }
             else
             {
-               return Redirect("/home/index");
+               return Redirect("/Config/Admin");
             }
          }
-         return Redirect("/home/index");
+         return Redirect("/Home/Index");
       }
    }
 }

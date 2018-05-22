@@ -138,20 +138,7 @@
 
       var antwoord = new AntwoordJson(id, inpVraag.value, inpAntwoord.value, inpCategorie.value, inpVoorbeeld.value, beantwoord);
 
-      var jsonG = JSON.stringify(antwoord);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(antwoord);
 
       $.ajax('/api/FYI/VraagWijzigen', {
          type: 'POST',
@@ -179,20 +166,7 @@
 
    function vraagVerwijderen() {
       var f = new AntwoordJson(lblID.innerHTML, "", "", 0, "", false);
-      var jsonG = JSON.stringify(f);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(f);
 
       $.ajax('/api/FYI/VraagVerwijderen', {
          type: 'POST',

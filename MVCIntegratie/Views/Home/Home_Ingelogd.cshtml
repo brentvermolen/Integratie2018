@@ -110,20 +110,7 @@
 
       var volg = new Volgorde(grafieken, volgorde);
 
-      var jsonG = JSON.stringify(volg);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(volg);
 
       $.ajax('/api/NieuweGrafiek/WijzigVolgorde', {
          type: 'POST',

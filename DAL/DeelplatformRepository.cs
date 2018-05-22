@@ -36,5 +36,10 @@ namespace DAL
       {
          return ctx.Deelplatformen.Find(id);
       }
+
+      public Persoon GetPersoon(string naam)
+      {
+         return ctx.Personen.FirstOrDefault(p => p.Naam.Equals(naam));
+      }
    }
 }

@@ -461,7 +461,6 @@
     <Content Include="Views\Alert\ManageAlerts.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\_Resultaat.cshtml" />
-    <Content Include="Views\TestLogica\Index.cshtml" />
     <Content Include="Views\Config\_Faq.cshtml" />
     <Content Include="Views\Config\SuperAdmin.cshtml" />
     <Content Include="Views\Deelplatform\Index.cshtml" />

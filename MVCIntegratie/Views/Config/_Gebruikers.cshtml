@@ -85,20 +85,7 @@
 
    function gebruikerActiveren(id) {
       var gewijzigde = new GebruikerWijzigen(id, "", false);
-      var jsonG = JSON.stringify(gewijzigde);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(gewijzigde);
 
       $.ajax('/api/FYI/GebruikerBlokkeren', {
          type: 'POST',
@@ -114,20 +101,7 @@
 
    function gebruikerBlokkeren(id) {
       var gewijzigde = new GebruikerWijzigen(id, "", false);
-      var jsonG = JSON.stringify(gewijzigde);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(gewijzigde);
 
       $.ajax('/api/FYI/GebruikerActiveren', {
          type: 'POST',
@@ -191,20 +165,7 @@
          isAdmin = false;
       }
       var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
-      var jsonG = JSON.stringify(gewijzigde);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(gewijzigde);
 
       $.ajax('/api/FYI/GebruikerWijzigen', {
          type: 'POST',

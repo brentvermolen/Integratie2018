@@ -21,7 +21,7 @@ namespace DAL
 
          AddFaq(context);
 
-         AddPersonen(context);
+         //AddPersonen(context);
 
          Synchronize sync = new Synchronize()
          {
