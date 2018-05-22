@@ -17,7 +17,7 @@
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
-   $.ajax("/api/NieuweGrafiek/Personen", {
+   $.ajax("/api/NieuweGrafiek/Personen/" + "@ViewContext.RouteData.Values["deelplatform"]", {
       type: 'GET',
       dataType: 'json'
    }).done(function (data) {

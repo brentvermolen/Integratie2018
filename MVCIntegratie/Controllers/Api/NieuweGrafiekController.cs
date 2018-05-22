@@ -18,10 +18,11 @@ namespace MVCIntegratie.Controllers.Api
       private GebruikerManager gebruikerMng = new GebruikerManager();
       private GrafiekenManager grafiekenMng = new GrafiekenManager();
 
-      [Route("~/api/NieuweGrafiek/Personen")]
-      public IHttpActionResult GetPersonen()
+      [Route("~/api/NieuweGrafiek/Personen/{deelplatform}")]
+      public IHttpActionResult GetPersonen(string deelplatform)
       {
-         List<Persoon> personen = berichtMng.GetPersonen().ToList();
+         Deelplatform platform = grafiekenMng.GetDeelplatform(deelplatform);
+         List<Persoon> personen = berichtMng.GetPersonen(p => p.DeelplatformID == platform.ID).ToList();
          personen.ForEach((p) => { p.Berichten = null; p.Grafieken = null; });
          personen.Sort((p1, p2) => p1.Naam.CompareTo(p2.Naam));
 

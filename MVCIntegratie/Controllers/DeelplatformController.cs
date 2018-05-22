@@ -56,6 +56,11 @@ namespace MVCIntegratie.Controllers
       {
          ViewBag.Title = "Registreer Deelplatform";
 
+         if (User.Identity.IsAuthenticated == false)
+         {
+            return RedirectToRoute("Default", new { action = "Index" });
+         }
+
          Gebruiker gebruiker = GebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
          List<Deelplatform> Deelplatformen = DeelplatformMng.GetDeelplatforms();
 
