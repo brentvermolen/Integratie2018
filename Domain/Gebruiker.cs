@@ -18,6 +18,7 @@ namespace BL.Domain
          GebruikersClaims = new HashSet<GebruikersClaim>();
          Roles = new HashSet<Role>();
          isSuperAdmin = false;
+         ShowNodebox = true;
          Deelplatformen = new List<Deelplatform>();
          IsAdmin = new List<Deelplatform>();
       }
@@ -74,6 +75,7 @@ namespace BL.Domain
       public List<Alert> Alerts { get; set; }
 
       public bool isSuperAdmin { get; set; }
+      public bool ShowNodebox { get; set; }
 
       public virtual List<Deelplatform> Deelplatformen { get; set; }
       public virtual List<Deelplatform> IsAdmin { get; set; }

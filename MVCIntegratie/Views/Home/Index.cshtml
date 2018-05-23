@@ -1,7 +1,7 @@
 @model List<BL.Domain.Grafiek>
 
 @{
-    ViewBag.Title = "Home Page";
+   ViewBag.Title = "Home Page";
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -18,30 +18,30 @@
 
 
 <div>
-    <div id="zoekdiv" class="row">
+   <div id="zoekdiv" class="row">
 
-        <form action=@Url.Action("Index","Search") method="post">
-            <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
-        </form>
-    </div>
+      <form action="/Search/Index" method="post">
+         <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
+      </form>
+   </div>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-6 content" id="nodeBox">
+   <div class="row">
+      <div class="col-sm-6 col-md-6 content" id="nodeBox">
+         <div>
             <div>
-                <div>
-                    <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
-                </div>
+               <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
             </div>
-        </div>
-        @foreach (var grafiek in Model)
-        {
-            <div class="col-sm-6 col-md-6">
-                <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-            </div>
-        }
-    </div>
+         </div>
+      </div>
+      @foreach (var grafiek in Model)
+      {
+         <div class="col-sm-6 col-md-6">
+            <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+         </div>
+      }
+   </div>
 </div>
 
 
@@ -164,9 +164,19 @@
                               },
                               @if (grafiek.Chart.Type.Equals("normal"))
                               {
+                                 var PI = 0;
+                                 switch (grafiek.TitelXAs)
+                                 {
+                                    case "dag":
+                                       PI = 24 * 3600 * 1000;
+                                       break;
+                                    case "week":
+                                       PI = 24 * 3600 * 1000 * 7;
+                                       break;
+                                 }
                                  <text>
                               pointStart: @grafiek.PlotOptions.PointStart
-                              , pointInterval: 24 * 3600 * 1000 * 7</text>
+                              , pointInterval: @PI</text>
                               }
                            }
                         </text>

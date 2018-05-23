@@ -36,5 +36,10 @@ namespace BL
       {
          return repo.ReadDeelplatform(id);
       }
+
+      public Persoon GetPersoon(string naam)
+      {
+         return repo.GetPersoon(naam);
+      }
    }
 }

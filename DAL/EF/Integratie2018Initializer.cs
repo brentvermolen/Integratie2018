@@ -1,5 +1,4 @@
 ﻿using BL.Domain;
-using BL.Domain.BerichtKlassen;
 
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
@@ -9,10 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -26,7 +21,7 @@ namespace DAL
 
          AddFaq(context);
 
-         AddPersonen(context);
+         //AddPersonen(context);
 
          Synchronize sync = new Synchronize()
          {

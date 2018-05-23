@@ -25,8 +25,13 @@ namespace CA
          Console.WriteLine("Klaarmaken Voor Synchronisatie");
          sync = syncMng.GetSync();
 
-         Console.WriteLine("Synchronisatie Starten");
+         /*Console.WriteLine("Synchronisatie Starten");
          StartAsync().Wait();
+         Console.ReadKey();
+         Console.WriteLine();*/
+         Console.WriteLine("Berichten Analyseren");
+         AnalyseerBerichten();
+         Console.WriteLine("Geanalyseerd");
          Console.ReadKey();
          Console.WriteLine();
          Console.WriteLine("Alerts");
@@ -34,6 +39,37 @@ namespace CA
          Console.WriteLine("Alerts Worden Nagekeken");
          CheckAlerts();
          Console.ReadKey();
+      }
+
+      private static void AnalyseerBerichten()
+      {
+         List<Persoon> Personen = berichtMng.GetPersonen(true).ToList();
+         DateTime dateVandaag = DateTime.Now.AddDays(-2);
+         DateTime dateGisteren = DateTime.Now.AddDays(-4);
+
+         List<Bericht> AlleBerichten = berichtMng.GetBerichten(b => b.Datum >= dateGisteren).ToList();
+
+         foreach (Persoon persoon in Personen)
+         {
+            List<Bericht> berichtenGisteren = AlleBerichten.Where(b => b.Personen.FirstOrDefault(p => p.ID == persoon.ID) != null && b.Datum >= dateGisteren).ToList();
+            List<Bericht> berichtenVandaag = berichtenGisteren.Where(b => b.Datum >= dateVandaag).ToList();
+
+            int nieuw = berichtenVandaag.Count;
+            int oud = berichtenGisteren.Count - nieuw;
+            if (oud == 0)
+            {
+               oud = 1;
+            }
+
+            double percentage = ((double)(nieuw - oud) / oud) * 100;
+
+            if (persoon.Trending != percentage)
+            {
+               persoon.Trending = percentage;
+
+               berichtMng.ChangePersoon(persoon);
+            }
+         }
       }
 
       private class AlertResultaat
@@ -60,8 +96,9 @@ namespace CA
                {
                   case Alert.AlertType.DALING:
                   case Alert.AlertType.STIJGING:
-                     DateTime date = DateTime.Today;
-                     date = date.AddDays(-7);
+
+                     DateTime date = DateTime.Now;
+                     date = date.AddDays(-2);
                      List<Bericht> berichtenPersoon = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == persoon.ID) != null && b.Datum >= date).ToList();
                      List<int> berichtenPerDag = new List<int>();
 
@@ -84,7 +121,8 @@ namespace CA
                            Info = "Daling",
                            Resultaat = Zscore.ToString()
                         });
-                     }else if (Zscore > 1)
+                     }
+                     else if (Zscore > 1)
                      {
                         alertResultaats.Add(new AlertResultaat()
                         {

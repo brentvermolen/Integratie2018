@@ -12,6 +12,15 @@
 <h2></h2>
 
 <h2>Personen</h2>
+<input type="button" onclick="toonUpload();" value="Importeer" class="btn btn-info" />
+<form id="form1" method="post" action="@Url.Action("PostUploadFile", "Config")" style="display:none" enctype="multipart/form-data">
+
+  <label for="file">Filename:</label>
+  <input type="file" name="file" id="file" />
+
+  <input type="submit" class="btn btn-success" value="Ok" />
+</form>
+
 <ul class="list-group col-md-8" style="max-height:400px; overflow-y:scroll">
    @foreach (var persoon in Model)
    {
@@ -19,11 +28,11 @@
          @persoon.Naam
          @if (persoon.Disabled)
          {
-            <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="persoonBlokkeren(@persoon.ID)">Persoon activeren</button>
+            <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="persoonBlokkeren(@persoon.ID)">Activeer</button>
          }
          else
          {
-            <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="persoonActiveren(@persoon.ID)">Persoon deactiveren</button>
+            <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="persoonActiveren(@persoon.ID)">Deactiveer</button>
          }
 
       </li>
@@ -82,6 +91,10 @@
 </div>
 
 <script>
+   function toonUpload() {
+      document.getElementById("form1").style.display = "block";
+   }
+
    function persoonSluiten() {
       document.getElementById("wijzigPersoon").style.display = "none";
       var items = document.getElementsByClassName("list-group-item").getElementsByClassName("persoon");
@@ -101,20 +114,7 @@
 
    function persoonActiveren(id) {
       var gewijzigde = new GebruikerWijzigen(id, "");
-      var jsonG = JSON.stringify(gewijzigde);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(gewijzigde);
 
       $.ajax('/api/FYI/PersoonBlokkeren', {
          type: 'POST',
@@ -130,20 +130,7 @@
 
    function persoonBlokkeren(id) {
       var gewijzigde = new GebruikerWijzigen(id, "", false);
-      var jsonG = JSON.stringify(gewijzigde);
-
-      var json = '"';
-
-      for (var i = 0; i < jsonG.length; i++) {
-         var ch = jsonG.charAt(i);
-         if (ch == '"') {
-            json += "'";
-         } else {
-            json += ch;
-         }
-      }
-
-      json += '"';
+      var json = naarJsonFormaat(gewijzigde);
 
       $.ajax('/api/FYI/PersoonActiveren', {
          type: 'POST',

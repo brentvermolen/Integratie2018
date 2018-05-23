@@ -43,6 +43,8 @@ namespace BL.Domain
 
       public ICollection<Bericht> Berichten { get; set; }
 
+      public double Trending { get; set; }
+
       public override bool Equals(object obj)
       {
          if (obj.GetType() != GetType())
@@ -52,7 +54,7 @@ namespace BL.Domain
 
          Persoon p = (Persoon)obj;
 
-         if (p.Naam.Equals(Naam))
+         if (p.ID.Equals(ID))
          {
             return true;
          }

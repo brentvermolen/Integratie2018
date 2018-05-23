@@ -21,7 +21,7 @@ namespace BL
       public IEnumerable<Grafiek> GetGrafieken()
       {
          List<Grafiek> gs = repo.ReadGrafieken().ToList();
-         for(int i = 0; i < gs.Count; i++)
+         for (int i = 0; i < gs.Count; i++)
          {
             gs[i] = CreateGrafiek(gs[i]);
          }
@@ -65,8 +65,18 @@ namespace BL
 
                foreach (Persoon persoon in grafiek.Personen)
                {
-                  AantalBerichtenPerWeekModel model2 = GetAantalBerichtenPerWeekModel(grafiek.AantalSeries, persoon.ID);
-                  DateTime start = new DateTime(model2.StartJaar, model2.StartMaand, model2.StartDag);
+                  AantalBerichtenPerWeekModel model2 = new AantalBerichtenPerWeekModel();
+                  switch (grafiek.TitelXAs)
+                  {
+                     case "dag":
+                        model2 = GetAantalBerichtenPerDagModel(grafiek.AantalSeries, persoon.ID);
+                        break;
+                     case "week":
+                        model2 = GetAantalBerichtenPerWeekModel(grafiek.AantalSeries, persoon.ID);
+                        break;
+                  }
+                  DateTime start = start = new DateTime(model2.StartJaar, model2.StartMaand, model2.StartDag);
+
                   start = start.AddHours(2);
                   grafiek.PointStart = ConvertToUnixTimestamp(start);
                   Serie serie = new Serie();
@@ -107,7 +117,7 @@ namespace BL
                   Series = new List<string>(),
                   Waarden = new List<double>()
                };
-               
+
                int intID = model.Persoon.ID;
 
                switch (grafiek.ContentType)
@@ -422,6 +432,49 @@ namespace BL
          return model;
       }
 
+      public Deelplatform GetDeelplatform(string deelplatform)
+      {
+         return repo.ReadDeelplatform(deelplatform);
+      }
+
+      public AantalBerichtenPerWeekModel GetAantalBerichtenPerDagModel(int intAantalWeken, int intID)
+      {
+         List<Bericht> berichts = berichtMng.GetBerichten(b => b.Personen.FirstOrDefault(p => p.ID == intID) != null).ToList();
+
+         List<AantalBerichtenPerDag> lijst = new List<AantalBerichtenPerDag>();
+         DateTime datumVandaag = DateTime.Today/*.AddDays(-1)*/;
+         int dag = 0;
+         int intAantalDagen = intAantalWeken * 7;
+         while (dag++ < intAantalDagen)
+         {
+            lijst.Add(new AantalBerichtenPerDag() { Dag = datumVandaag, Count = berichts.Where(b => b.Datum >= datumVandaag).Count() });
+            berichts.RemoveAll(b => b.Datum >= datumVandaag);
+            datumVandaag = datumVandaag.AddDays(-1);
+         }
+
+         lijst.Sort((m1, m2) => m1.Dag.CompareTo(m2.Dag));
+
+         DateTime vroegste = lijst.Min(l => l.Dag);
+
+         AantalBerichtenPerWeekModel model = new AantalBerichtenPerWeekModel()
+         {
+            ID = intID,
+            Naam = berichtMng.GetPersoon(intID).Naam,
+            StartJaar = vroegste.Year,
+            StartMaand = vroegste.Month,
+            StartDag = vroegste.Day,
+            Data = new List<int>()
+         };
+
+
+         for (int i = 0; i < lijst.Count; i++)
+         {
+            model.Data.Add(lijst[i].Count);
+         }
+
+         return model;
+      }
+
       public class AantalBerichtenPerWeekModel
       {
          public int ID { get; set; }
@@ -436,6 +489,12 @@ namespace BL
       {
          public int Count { get; set; }
          public DateTime Week { get; set; }
+      }
+
+      private class AantalBerichtenPerDag
+      {
+         public int Count { get; set; }
+         public DateTime Dag { get; set; }
       }
 
       public void ChangeGrafiek(Grafiek grafiek)

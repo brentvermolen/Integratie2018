@@ -17,7 +17,8 @@ namespace DAL
       public IEnumerable<Grafiek> ReadGrafieken()
       {
          return ctx.Grafieken
-               .Include("Gebruiker");
+               .Include("Gebruiker")
+               .Include("Deelplatform");
       }
 
       public Grafiek CreateGrafiek()
@@ -61,6 +62,11 @@ namespace DAL
       {
          ctx.Entry(grafiek).State = System.Data.Entity.EntityState.Modified;
          ctx.SaveChanges();
+      }
+
+      public Deelplatform ReadDeelplatform(string deelplatform)
+      {
+         return ctx.Deelplatformen.FirstOrDefault(d => d.Naam.Equals(deelplatform));
       }
 
       /*public int GetSerieID()

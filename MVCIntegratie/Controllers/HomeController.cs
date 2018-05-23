@@ -32,7 +32,7 @@ namespace MVCIntegratie.Controllers
          if (User.Identity.IsAuthenticated)
          {
             int id = int.Parse(User.Identity.GetUserId());
-            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.Gebruiker.ID == id && g.Deelplatform == platform).ToList();
+            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.Gebruiker.ID == id && g.Deelplatform.ID == platform.ID).ToList();
 
             return View("Home_Ingelogd", graf);
          }

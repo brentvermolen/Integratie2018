@@ -1,33 +1,244 @@
-﻿@model IEnumerable<BL.Domain.ItemKlassen.Persoon>
+﻿@model MVCIntegratie.Models.PersoonModel
 
 @{
-    ViewBag.Title = "Index";
+   ViewBag.Title = Model.Persoon.Naam;
 }
+
+<link href="~/Content/bootstrap.min.css">
 <link rel="stylesheet" href="~/Content/Layout.css">
-<h2>Index</h2>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<!--<script src="~/Scripts/Chart.js"></script>-->
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<!--
+<script>
+   $(document).ready(function () {
+      @if (Model.Persoon.Facebook != "")
+      {
+         <text>
+         var fbId = '@Model.Persoon.Facebook.Substring(Model.Persoon.Facebook.LastIndexOf("/"))';
+         var img = document.getElementById("profielfoto");
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-       <th>@Html.DisplayNameFor(model => model.Naam)</th>
-       <th>@Html.DisplayNameFor(model => model.Berichten)</th>
-    </tr>
+      var http = new XMLHttpRequest();
+      http.open("GET", "", false);
+      http.send(null);
+      var string = http.responseText;
+      string.toString();
 
-@foreach (var item in Model) {
-    <tr>
-       <td>@Html.DisplayFor(modelItem => item.Naam)</td>
-       @{ 
-          var count = item.Berichten.Count.ToString();
-       }
-       <td>@Html.DisplayFor(modelItem => count)</td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Naam }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Naam }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Naam })
-        </td>
-    </tr>
-}
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function () {
+         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            function(xmlHttp.responseText) {
+               alert('done');
+            }
+      }
+      xmlHttp.open("GET", "graph.facebook.com/v3.0/Annick.DeRidder10/picture?height=500", true); // true for asynchronous
+      xmlHttp.send(null);
 
-</table>
+      </text>
+         }
+      });
+</script> -->
+
+<h2>Details</h2>
+
+<div>
+   <h4>@Model.Persoon.Naam</h4>
+   <img id="profielfoto" alt="profielfoto" />
+   <hr />
+</div>
+
+<div class="col-sm-12 col-md-12">
+   <div id="@Model.Grafiek.ID" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
+</div>
+
+<script>
+         var elem = document.getElementById('@Model.Grafiek.ID');
+         if (elem != null) {
+            var chart = Highcharts.chart('@Model.Grafiek.ID',
+               {
+                  @if (!(Model.Grafiek.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                           @if(Model.Grafiek.Chart.Type.Equals("pie"))
+                           {
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @Model.Grafiek.GetBoolString(Model.Grafiek.Chart.PlotShadow),
+                        </text>
+                     }
+/**/
+                        type: '@Model.Grafiek.Chart.Type'
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@Model.Grafiek.Titel'
+                  },
+
+                  @if (Model.Grafiek.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@Html.Raw(Model.Grafiek.Tooltip)'
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Grafiek.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@Model.Grafiek.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Grafiek.xAs.IsUsed == true)
+                  {
+                     <text>
+                  xAxis: {
+                     categories: @Html.Raw(Model.Grafiek.xAs.GetCategorieen())
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Grafiek.Chart.Type.Equals("normal"))
+                  {
+                     <text>
+                  xAxis: {
+                     type: 'datetime'
+                  },
+                  </text>
+                  }
+
+
+                  @if (Model.Grafiek.Chart.Type.Equals("column"))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @Model.Grafiek.GetBoolString(Model.Grafiek.Credits)
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Grafiek.Legende.Layout != null){
+                     <text>
+                  legend: {
+                     layout: '@Model.Grafiek.Legende.Layout',
+                     align: '@Model.Grafiek.Legende.Alignment',
+                     verticalAlign: '@Model.Grafiek.Legende.VerticalAlign'
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Grafiek.PlotOptions.PointStart != null || Model.Grafiek.PlotOptions.Cursor != null)
+                  {
+                     <text>
+                  plotOptions: {
+                     @if (Model.Grafiek.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                           allowPointSelect: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.AllowPointSelect),
+                        cursor: '@Model.Grafiek.PlotOptions.Cursor',
+                        dataLabels: {
+                              enabled: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @Model.Grafiek.GetBoolString(Model.Grafiek.PlotOptions.ShowInLegend)
+                     }
+                     </text>
+                     }
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                           {
+                              connectorAllowed: @Model.Grafiek.PlotOptions.getBool(Model.Grafiek.PlotOptions.SeriesLabelConnector)
+                              },
+                              @if (Model.Grafiek.Chart.Type.Equals("normal"))
+                              {
+                                 var PI = 0;
+                                 switch (Model.Grafiek.TitelXAs)
+                                 {
+                                    case "dag":
+                                       PI = 24 * 3600 * 1000;
+                                       break;
+                                    case "week":
+                                       PI = 24 * 3600 * 1000 * 7;
+                                       break;
+                                 }
+                                 <text>
+                              pointStart: @Model.Grafiek.PlotOptions.PointStart
+                              , pointInterval: @PI</text>
+                              }
+                           }
+                        </text>
+                     }
+                  },
+                  </text>
+                  }
+
+                  series: [
+                     @for(int i = 0; i < Model.Grafiek.Series.Count; i++)
+                     {
+                     var serie = Model.Grafiek.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (Model.Grafiek.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @Model.Grafiek.GetBoolString(serie.ColorByPoint),
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @Model.Grafiek.GetBoolString(data.Sliced),
+                              selected: @Model.Grafiek.GetBoolString(data.Selected)
+                           }
+                        </text>
+                           if (j != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>] }</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                     @if(i != Model.Grafiek.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+         };
+</script>
