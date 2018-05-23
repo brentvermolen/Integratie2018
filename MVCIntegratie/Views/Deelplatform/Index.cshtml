@@ -1,5 +1,7 @@
 ﻿@model List<BL.Domain.Deelplatform>
 
+<link rel="stylesheet" href="~/Content/Layout.css">
+
 @if (User.Identity.IsAuthenticated)
 {
    <h2>Registreer op andere deelplatformen</h2>
@@ -38,19 +40,21 @@
 }
 else
 {
-   <h2>Kies hier een deelplatform</h2>
+   <h1>Kies hier een deelplatform</h1>
 
-   <table>
-      <tr>
-         <th>Naam</th>
-      </tr>
-      @foreach (var platform in Model)
+   <hr />
+      
+      foreach (var platform in Model)
       {
-         <tr>
-            <td><a href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">@platform.Naam</a></td>
-         </tr>
+            
+          <div class="row">
+              <div class="col-md-3"><h4>@platform.Naam</h4></div>
+              <div class="col-md-1"><a class="btn btn-success deelplatformkiesknop" href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">Kies</a></div>
+          </div>
+          <hr />
+         
       }
-   </table>
+   
 }
 
 <script>
