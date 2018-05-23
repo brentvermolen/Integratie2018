@@ -54,7 +54,7 @@ namespace BL.Domain
 
          Persoon p = (Persoon)obj;
 
-         if (p.Naam.Equals(Naam))
+         if (p.ID.Equals(ID))
          {
             return true;
          }

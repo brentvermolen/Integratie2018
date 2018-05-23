@@ -141,5 +141,18 @@ namespace BL.Domain
       {
          return ID;
       }
+
+      public bool HasPersoon(int intID)
+      {
+         foreach(Persoon p in Personen)
+         {
+            if (p.ID == intID)
+            {
+               return true;
+            }
+         }
+
+         return false;
+      }
    }
 }

@@ -28,11 +28,11 @@
          @persoon.Naam
          @if (persoon.Disabled)
          {
-            <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="persoonBlokkeren(@persoon.ID)">Persoon activeren</button>
+            <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="persoonBlokkeren(@persoon.ID)">Activeer</button>
          }
          else
          {
-            <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="persoonActiveren(@persoon.ID)">Persoon deactiveren</button>
+            <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="persoonActiveren(@persoon.ID)">Deactiveer</button>
          }
 
       </li>

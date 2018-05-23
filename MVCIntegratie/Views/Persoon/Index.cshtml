@@ -13,10 +13,41 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <!--<script src="~/Scripts/Chart.js"></script>-->
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<!--
+<script>
+   $(document).ready(function () {
+      @if (Model.Persoon.Facebook != "")
+      {
+         <text>
+         var fbId = '@Model.Persoon.Facebook.Substring(Model.Persoon.Facebook.LastIndexOf("/"))';
+         var img = document.getElementById("profielfoto");
+
+      var http = new XMLHttpRequest();
+      http.open("GET", "", false);
+      http.send(null);
+      var string = http.responseText;
+      string.toString();
+
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function () {
+         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            function(xmlHttp.responseText) {
+               alert('done');
+            }
+      }
+      xmlHttp.open("GET", "graph.facebook.com/v3.0/Annick.DeRidder10/picture?height=500", true); // true for asynchronous
+      xmlHttp.send(null);
+
+      </text>
+         }
+      });
+</script> -->
+
 <h2>Details</h2>
 
 <div>
    <h4>@Model.Persoon.Naam</h4>
+   <img id="profielfoto" alt="profielfoto" />
    <hr />
 </div>
 
