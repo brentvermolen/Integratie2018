@@ -21,7 +21,7 @@ namespace DAL
 
          AddFaq(context);
 
-         //AddPersonen(context);
+         AddPersonen(context);
 
          Synchronize sync = new Synchronize()
          {
@@ -34,7 +34,7 @@ namespace DAL
 
       private void AddPersonen(Integratie2018Context context)
       {
-            using (StreamReader sr = new StreamReader("C:\\Users\\jonas\\Desktop\\IntegratieMaster\\MVCIntegratie\\Content\\Politici.json"))
+            using (StreamReader sr = new StreamReader("C:\\Users\\Evelien\\Documents\\GitHub\\Integratie2018\\MVCIntegratie\\Content\\politici.json"))
          {
             PersonenJson personen = JsonConvert.DeserializeObject<PersonenJson>("{ \"personen\": " + sr.ReadToEnd() + " }");
 

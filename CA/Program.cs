@@ -276,8 +276,8 @@ namespace CA
             };
             content.Headers.Add("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
 
-            /*HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://kdg.textgain.com/query");
-            requestMessage.Content = content*/
+           /* HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://kdg.textgain.com/query");
+                requestMessage.Content = content;*/
             HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
             //HttpResponseMessage response = await client.SendAsync(requestMessage);
 
