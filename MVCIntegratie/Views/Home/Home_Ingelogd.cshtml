@@ -106,7 +106,7 @@
             divs[i].style.display = "none";
             annuleer.style.display = "none";
             volgordeOpslaan();
-            button.value = "Wijzig Opslaan";
+            button.value = "Wijzig Volgorde";
          }
       }
    }
@@ -143,7 +143,7 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         window.location.reload();
+         //window.location.reload();
       }).fail(function () {
          alert('Er is iets misgelopen tijdens het opslaan van de volgorde...');
       });
