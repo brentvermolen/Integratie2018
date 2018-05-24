@@ -17,7 +17,7 @@
 
 
 <div id="zoekdiv" class="row">
-   <form action="/Search/Index" method="post">
+   <form action="@Url.Action("Index", "Search")" method="post">
       <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
       <a href="@Url.Action("Index", "Graph")" id="newgraph" class="btn btn-success">Nieuwe Grafiek &raquo;</a>
    </form>

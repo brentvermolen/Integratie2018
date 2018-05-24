@@ -14,7 +14,7 @@ else
             <div class="tab-pane active" id="tab2">
                 <div class="panel-group">
                     <div class="panel panel-default panel-help">
-                        <a href="#web1" data-toggle="collapse" onclick="politiekerklik('aantalpolitiekers')" >
+                        <a href="#web1" data-toggle="collapse" onclick="politiekerklik('aantalpolitiekers')">
                             <div class="panel-heading row">
                                 <div class="col-md-6"><h2>Politiekers</h2></div><div class="col-md-6"><h2 id="aantalpolitiekers" style="display:none">Aantal berichten</h2></div>
                             </div>
@@ -22,9 +22,9 @@ else
                         <div id="web1" class="row collapse">
                             <div class="panel-body">
                                 @foreach (var dingskePersoon in Model.Personen)
-    {
-                                <div class="col-md-6">@Html.ActionLink(dingskePersoon.Naam, MVC.Persoon.Details(dingskePersoon.ID))</div>
-                                <div class="col-md-6">@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count)</div>
+                {
+                    <div class="col-md-6">@Html.ActionLink(dingskePersoon.Naam, MVC.Persoon.Index(dingskePersoon.ID))</div>
+                    <div class="col-md-6">@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count)</div>
 }
                             </div>
                         </div>
@@ -32,31 +32,31 @@ else
                     <div class="panel panel-default panel-help">
                         <a href="#web2" data-toggle="collapse" onclick="woordenklik('aantalwoorden')">
                             <div class="panel-heading row">
-                                <div class="col-md-6"><h2>Woorden</h2></div><div class="col-md-6"><h2 id="aantalwoorden"  style="display:none">Aantal berichten</h2></div>
+                                <div class="col-md-6"><h2>Woorden</h2></div><div class="col-md-6"><h2 id="aantalwoorden" style="display:none">Aantal berichten</h2></div>
                             </div>
                         </a>
                         <div id="web2" class="row collapse">
                             <div class="panel-body">
                                 @foreach (var woord in Model.Woorden)
-    {
-                                <div class="col-md-6">@Html.DisplayFor(ModelItem => woord.Tekst)</div>
-                                <div class="col-md-6">@Html.DisplayFor(modelItem => woord.Berichten.Count)</div>
+                {
+                    <div class="col-md-6">@Html.DisplayFor(ModelItem => woord.Tekst)</div>
+                    <div class="col-md-6">@Html.DisplayFor(modelItem => woord.Berichten.Count)</div>
 }
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default panel-help">
-                        <a href="#web3" data-toggle="collapse"onclick="mentionklik('aantalmentions')">
+                        <a href="#web3" data-toggle="collapse" onclick="mentionklik('aantalmentions')">
                             <div class="panel-heading row">
-                                <div class="col-md-6"><h2>Mentions</h2></div><div class="col-md-6"><h2 id="aantalmentions"  style="display:none">Aantal berichten</h2></div>
+                                <div class="col-md-6"><h2>Mentions</h2></div><div class="col-md-6"><h2 id="aantalmentions" style="display:none">Aantal berichten</h2></div>
                             </div>
                         </a>
                         <div id="web3" class="row collapse">
                             <div class="panel-body">
                                 @foreach (var mention in Model.Mentions)
-    {
-                                <div class="col-md-6">@Html.DisplayFor(ModelItem => mention.Tekst)</div>
-                                <div class="col-md-6">@Html.DisplayFor(modelItem => mention.Berichten.Count)</div>
+                {
+                    <div class="col-md-6">@Html.DisplayFor(ModelItem => mention.Tekst)</div>
+                    <div class="col-md-6">@Html.DisplayFor(modelItem => mention.Berichten.Count)</div>
 }
                             </div>
                         </div>
@@ -64,15 +64,31 @@ else
                     <div class="panel panel-default panel-help">
                         <a href="#web4" data-toggle="collapse" onclick="urlklik('aantalurls')">
                             <div class="panel-heading row">
-                                <div class="col-md-8"><h2>Urls</h2></div><div class="col-md-4"><h2 id="aantalurls"  style="display:none">Aantal berichten</h2></div>
+                                <div class="col-md-8"><h2>Urls</h2></div><div class="col-md-4"><h2 id="aantalurls" style="display:none">Aantal berichten</h2></div>
                             </div>
                         </a>
                         <div id="web4" class="row collapse">
                             <div class="panel-body">
                                 @foreach (var url in Model.Urls)
-    {
-                            <div class="col-md-10 url"><a href="@url.Tekst"> @url.Tekst</a></div>
-                            <div class="col-md-2 url">@Html.DisplayFor(modelItem => url.Berichten.Count)</div>
+                {
+                    <div class="col-md-10 url"><a href="@url.Tekst"> @url.Tekst</a></div>
+                    <div class="col-md-2 url">@Html.DisplayFor(modelItem => url.Berichten.Count)</div>
+}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-help">
+                        <a href="#web5" data-toggle="collapse" onclick="urlklik('aantalurls')">
+                            <div class="panel-heading row">
+                                <div class="col-md-8"><h2>Urls</h2></div><div class="col-md-4"><h2 id="aantalurls" style="display:none">Aantal berichten</h2></div>
+                            </div>
+                        </a>
+                        <div id="web4" class="row collapse">
+                            <div class="panel-body">
+                                @foreach (var url in Model.Urls)
+                {
+                    <div class="col-md-10 url"><a href="@url.Tekst"> @url.Tekst</a></div>
+                    <div class="col-md-2 url">@Html.DisplayFor(modelItem => url.Berichten.Count)</div>
 }
                             </div>
                         </div>

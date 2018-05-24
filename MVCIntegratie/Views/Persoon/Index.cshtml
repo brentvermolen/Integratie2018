@@ -40,8 +40,8 @@
             @woord.Tekst</tr>
         <tr>
             <td>@woord.Berichten.Where(b => b.Mentions.Where(m => m.Tekst.Contains(Model.Persoon.Naam)) != null).Count();</td>
-            <td>@woord.Berichten.SingleOrDefault(b => b.Sentiment !=null)</td>
-        
+            <!-- <td>woord.Berichten.SingleOrDefault(b => b.Sentiment !=null)</td>-->
+
         </tr>
         
 
