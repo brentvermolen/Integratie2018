@@ -39,7 +39,7 @@ namespace DAL
 
       private void AddPersonen(Integratie2018Context context)
       {
-         using (StreamReader sr = new StreamReader("C:\\Users\\Brent\\Documents\\School\\KDG\\2017-2018\\IntegratieProject\\MVCIntegratie\\MVCIntegratie\\Content\\politici.json"))
+         using (StreamReader sr = new StreamReader("C:\\Users\\natha\\Desktop\\Git_IntegratieProject\\MVCIntegratie\\Content\\politici.json"))
          {
             PersonenJson personen = JsonConvert.DeserializeObject<PersonenJson>("{ \"personen\": " + sr.ReadToEnd() + " }");
 
