@@ -72,7 +72,7 @@ namespace BL.Domain
 
       public List<Grafiek> Grafieken { get; set; }
 
-      public List<Alert> Alerts { get; set; }
+      public virtual List<Alert> Alerts { get; set; }
 
       public bool isSuperAdmin { get; set; }
       public bool ShowNodebox { get; set; }

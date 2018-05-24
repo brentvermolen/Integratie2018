@@ -1,7 +1,8 @@
 @model List<BL.Domain.Grafiek>
-
+@using BL;
+@using BL.Domain;
 @{
-   ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home Page";
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -15,38 +16,64 @@
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
 
 
-
-
 <div>
-   <div id="zoekdiv" class="row">
+    <div id="zoekdiv" class="row">
 
-      <form action="/nl-Be/Politieke Barometer/Search/Index" method="post">
-         <input type="text" id="zoekbar" name="search" class="form-control" placeholder="@Resources.lang.Zoeken">
-      </form>
-   </div>
+        <form action="/nl-Be/Politieke Barometer/Search/Index" method="post">
+            <input type="text" id="zoekbar" name="search" class="form-control" placeholder="@Resources.lang.Zoeken">
+        </form>
+    </div>
 </div>
+@{
+    BerichtManager berichtmng = new BerichtManager();
+    Persoon bart = berichtmng.GetPersoon("Bart De Wever");
+    Persoon guy = berichtmng.GetPersoon("Guy Verhofstadt");
+    Persoon theo = berichtmng.GetPersoon("Theo Francken");
+    Persoon sven = berichtmng.GetPersoon("Sven Gatz");
 
+    List<Persoon> personen = new List<Persoon>();
+    personen.Add(guy);
+    personen.Add(bart);
+    personen.Add(sven);
+    personen.Add(theo);
+
+}
 <div class="container">
-   <div class="row">
-      <div class="col-sm-6 col-md-6 content" id="nodeBox">
-         <div>
-            <div>
-               <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
+    <div class="row" style="text-align:center">
+        @foreach (Persoon p in personen)
+        {
+            <div class="col-md-2 trend">
+                <h4>@p.Naam</h4>
+                @if (p.Trending < 0)
+                {
+                    <h2 style="color:red">@Math.Round(p.Trending, 2)%</h2>
+                }
+                else
+                {
+                    <h2 style="color:green">@Math.Round(p.Trending, 2)%</h2>
+                }
+                </div>
+            }
             </div>
-         </div>
-      </div>
-      @foreach (var grafiek in Model)
-      {
-         <div class="col-sm-6 col-md-6">
-            <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-         </div>
-      }
-   </div>
-</div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 content" id="nodeBox">
+                    <div>
+                        <div>
+                            <img src="~/Images/nodebox.svg" style="height: 399px; width:100%;" />
+                        </div>
+                    </div>
+                </div>
+                @foreach (var grafiek in Model)
+                {
+                    <div class="col-sm-6 col-md-6">
+                        <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    </div>
+                }
+            </div>
+        </div>
 
 
-
-<script type="text/javascript">
+        <script type="text/javascript">
    $(document).ready(function () {
       @foreach(var grafiek in Model)
       {
@@ -241,4 +268,4 @@
    });
 
 
-</script>
+        </script>

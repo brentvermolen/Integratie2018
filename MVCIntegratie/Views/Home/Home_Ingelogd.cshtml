@@ -15,7 +15,6 @@
 <script src="~/Scripts/Chart.js"></script>
 <script src="~/Scripts/IngelogdeGebruiker.js"></script>
 
-
 <div id="zoekdiv" class="row">
    <form action="@Url.Action("Index", "Search")" method="post">
       <input type="text" id="zoekbar" name="search" class="form-control" placeholder="Zoeken..">
@@ -50,9 +49,10 @@
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
                <ul class="onclick-menu-content">
-                  <li><a href="@Url.Action("Wijzig", "Graph", new { id = grafiek.ID }, null)"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
-                  <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
-                  <li><button>Annuleren</button></li>
+                   <li><a href="@Url.Action("Wijzig", "Graph", new { id = grafiek.ID }, null)" style="color:white"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
+                   <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
+                   <li><button onclick="alerttoevoegen('@grafiek.ID')">Alert toevoegen</button></li>
+                   <li><button>Annuleren</button></li>
                </ul>
             </div>
          </div>
@@ -67,6 +67,31 @@
 </div>
 
 <script>
+
+    function alerttoevoegen(id) {
+        class Alert {
+            constructor(id) {
+                this.id = id;
+            }
+        }
+
+        var alert = new Alert(id);
+
+        var json = naarJsonFormaat(alert);
+
+        $.ajax('/api/IngelogdeGebruiker/alerttoevoegen', {
+            type: 'POST',
+            contentType: "application/json",
+            accepts: 'application/json',
+            data: json
+        }).done(function (data) {
+            window.location.reload();
+        }).fail(function () {
+            alert('Er is iets misgelopen tijdens het opslaan van de volgorde...');
+        });
+    }
+
+
    function enableDisableDragDrop(button) {
       var divs = document.getElementsByClassName("dragger");
 

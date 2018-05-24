@@ -75,7 +75,7 @@ namespace MVCIntegratie.Controllers
                      persoonDb.Geslacht = p.Geslacht;
                      persoonDb.Organisatie = p.Organisatie;
                      persoonDb.Postcode = p.Postcode;
-                     persoonDb.Trending = p.Trending;
+                     //persoonDb.Trending = p.Trending;
                      persoonDb.Twitter = p.Twitter;
                      persoonDb.Website = p.Website;
                      persoonDb.Disabled = false;

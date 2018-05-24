@@ -440,4 +440,9 @@ input[type="date"] {
 }
 
 
+.trend {
+    border: solid 1px black;
+    border-radius: 15px;
+    margin: 3%;
+}
 
