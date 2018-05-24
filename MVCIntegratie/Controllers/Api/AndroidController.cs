@@ -13,10 +13,10 @@ namespace MVCIntegratie.Controllers.Api
    {
       private GrafiekenManager GrafiekenMng = new GrafiekenManager();
 
-      [Route("~/api/Android/Grafieken/{id}")]
-      public IHttpActionResult GetGrafieken(string id)
+      [Route("~/api/Android/Grafieken/{userid}")]
+      public IHttpActionResult GetGrafieken(string userid)
       {
-         return Ok(GrafiekenMng.GetGrafieken().Where(g => g.GebruikerId == int.Parse(id)));
+         return Ok(GrafiekenMng.GetGrafieken().Where(g => g.GebruikerId == int.Parse(userid)));
       }
    }
 }
