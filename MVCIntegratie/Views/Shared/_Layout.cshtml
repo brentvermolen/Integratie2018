@@ -41,11 +41,14 @@
                     <li>@Html.ActionLink("FAQ", MVC.FYI.FAQ())</li>
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li>@Html.ActionLink("Deelplatform", MVC.Deelplatform.Index())</li>
                         if (gebruiker.isSuperAdmin)
                         {
                             <li>@Html.ActionLink("Adminpage", MVC.Config.SuperAdmin())</li>
-                        }
+                         }
+
                                            }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -55,7 +58,7 @@
 
     @if (!User.Identity.IsAuthenticated)
     {
-    <div data-reactroot="" class="login-notice">
+    <div data-reactroot="" class="login-notice" id="login-notice-id">
         <div class="login-notice-bg"></div>
         <div class="l-text-container">
             <p class="login-notice-text text">Registreer om van alle voordelen van de site te genieten.</p>
@@ -89,4 +92,14 @@
 
 
 
-
+<script>
+    $(document).ready(function () {
+        if (document.URL.includes("Account")
+        ) {
+            document.getElementById('login-notice-id').style.display = "none";
+        }
+        else {
+            document.getElementById('login-notice-id').style.display = "block;";
+        }
+    });
+</script>

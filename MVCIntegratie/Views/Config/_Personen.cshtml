@@ -6,7 +6,7 @@
 }
 <script src="~/Scripts/GebruikerSelect.js"></script>
 <link rel="stylesheet" href="~/Content/Config.css">
-<input id="filterPersoon" type="text" name="search" placeholder="Filter op naam" onkeyup="filterPersoon(this.value)">
+<input class="form-control" id="filterPersoon" type="text" name="search" placeholder="Filter op naam" onkeyup="filterPersoon(this.value)">
 <p></p>
 
 <h2></h2>
@@ -16,7 +16,7 @@
 <form id="form1" method="post" action="@Url.Action("PostUploadFile", "Config")" style="display:none" enctype="multipart/form-data">
 
   <label for="file">Filename:</label>
-  <input type="file" name="file" id="file" />
+  <input type="file" name="file" id="file" />   
 
   <input type="submit" class="btn btn-success" value="Ok" />
 </form>

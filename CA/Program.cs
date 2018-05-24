@@ -25,10 +25,10 @@ namespace CA
          Console.WriteLine("Klaarmaken Voor Synchronisatie");
          sync = syncMng.GetSync();
 
-         /*Console.WriteLine("Synchronisatie Starten");
+         Console.WriteLine("Synchronisatie Starten");
          StartAsync().Wait();
          Console.ReadKey();
-         Console.WriteLine();*/
+         Console.WriteLine();
          Console.WriteLine("Berichten Analyseren");
          AnalyseerBerichten();
          Console.WriteLine("Geanalyseerd");

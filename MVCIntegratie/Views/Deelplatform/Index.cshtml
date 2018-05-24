@@ -1,60 +1,64 @@
 ﻿@model MVCIntegratie.Models.DeelplatformModel
 
+@{ Layout = ""; }
+<link rel="stylesheet" href="~/Content/Layout.css">
+
 @if (User.Identity.IsAuthenticated)
 {
-   if (Model.MijnDeelplatformen.Count != 0)
-   {
-      <div class="row">
-         <h2>Open één van uw platformen</h2>
-         <table>
-            <tr>
-               <th>Naam</th>
-            </tr>
-            @foreach (var platform in Model.MijnDeelplatformen)
-            {
-               <tr>
-                  <td><a href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">@platform.Naam</a></td>
-               </tr>
-            }
-         </table>
-      </div>
-   }
+    if (Model.MijnDeelplatformen.Count != 0)
+    {
+        <div class="row">
+            <h2>Open één van uw platformen</h2>
+            <table>
+                <tr>
+                    <th>Naam</th>
+                </tr>
+                @foreach (var platform in Model.MijnDeelplatformen)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">@platform.Naam</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
 
-   if (Model.AndereDeelplatformen.Count != 0)
-   {
-      <div class="row">
-         <h2>Registreer op een deelplatform</h2>
-         <table>
-            <tr>
-               <th>Naam</th>
-               <th></th>
-            </tr>
-            @foreach (var platform in Model.AndereDeelplatformen)
-            {
-               <tr>
-                  <td>@platform.Naam</td>
-                  <td><button class="btn btn-success" onclick="registreer(@platform.ID, '@platform.Naam')">Registreer</button></td>
-               </tr>
-            }
-         </table>
-      </div>
-   }
+    if (Model.AndereDeelplatformen.Count != 0)
+    {
+        <div class="row">
+            <h2>Registreer op een deelplatform</h2>
+            <table>
+                <tr>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+                @foreach (var platform in Model.AndereDeelplatformen)
+                {
+                    <tr>
+                        <td>@platform.Naam</td>
+                        <td><button class="btn btn-success" onclick="registreer(@platform.ID, '@platform.Naam')">Registreer</button></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
 }
 else
 {
-   <h2>Selecteer een deelplatform</h2>
+    <h1>Kies hier een deelplatform</h1>
 
-   <table>
-      <tr>
-         <th>Naam</th>
-      </tr>
-      @foreach (var platform in Model.AndereDeelplatformen)
-      {
-         <tr>
-            <td><a href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">@platform.Naam</a></td>
-         </tr>
-      }
-   </table>
+    <hr />
+
+    foreach (var platform in Model.AndereDeelplatformen)
+    {
+
+        <div class="row">
+            <div class="col-md-3"><h4>@platform.Naam</h4></div>
+            <div class="col-md-1"><a class="btn btn-success deelplatformkiesknop" href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">Kies</a></div>
+        </div>
+        <hr />
+
+    }
 }
 
 <script>
