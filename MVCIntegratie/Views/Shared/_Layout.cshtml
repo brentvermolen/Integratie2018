@@ -44,10 +44,7 @@
                         {
                             <li>@Html.ActionLink("Adminpage", MVC.Config.SuperAdmin())</li>
                         }
-                        else if (gebruiker.isAdmin)
-                        {
-                            <li>@Html.ActionLink("Adminpage", MVC.Config.Admin())</li>
-                        }
+    
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
