@@ -1,5 +1,5 @@
-﻿@model MVCIntegratie.Models.ZoekResultaat
-   @using MVCIntegratie.Models
+﻿@model BL.Domain.ZoekResultaat
+@using BL.Domain;
 
 
 @{
@@ -13,8 +13,8 @@
 
 <!-- plakken vanaf hier -->
 <div id="zoekdiv">
-    <form action="/Search/Index" method="post">
-        <input type="text" id="zoekbar2" name="search" class="form-control" placeholder="Zoeken..">
+    <form action="/nl-BE/Politieker%20Barometer/Search/Index" method="post">
+        <input type="text" id="zoekbar2" name="search" class="form-control" placeholder="@Resources.lang.Zoeken">
 
 
         <div class="container">
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-md-2 input-group">
-                    <input type="text" class="form-control" placeholder="Postcode" id="zoekbar3" />
+                    <input type="text" class="form-control" placeholder="Postcode" id="zoekbar3" name="postcode" />
                 </div>
                 <div class="col-md-2 dropdown">
                     @Html.DropDownList("Filter", new SelectList(Enum.GetValues(typeof(ZoekFilter))), "Select Filter", new { @class = "form-control" })

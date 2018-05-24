@@ -49,22 +49,16 @@ namespace MVCIntegratie.Controllers
          public DateTime Week { get; set; }
       }
 
-      public virtual ActionResult Zoek(string search, string language)
+    
 
+      public virtual ActionResult Search(string search,string language, string deelplatform)
       {
          Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
          Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
-
-         return View();
-      }
-
-      public virtual ActionResult Search(string search, string language)
-      {
-         Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
-         Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+            Deelplatform platform = platformMng.GetDeelplatform(deelplatform);
 
 
-         return RedirectToAction("Index", "Search");
+            return RedirectToAction("Index", "Search");
       }
 
 

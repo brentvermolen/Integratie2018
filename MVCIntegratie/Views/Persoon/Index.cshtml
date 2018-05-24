@@ -1,7 +1,8 @@
 ﻿@model MVCIntegratie.Models.PersoonModel
+@using BL.Domain.BerichtKlassen;
 
 @{
-   ViewBag.Title = Model.Persoon.Naam;
+    ViewBag.Title = Model.Persoon.Naam;
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -16,12 +17,49 @@
 <h2>Details</h2>
 
 <div>
-   <h4>@Model.Persoon.Naam</h4>
-   <hr />
+    <h4>@Model.Persoon.Naam</h4>
+    <h1>@Model.Persoon.Berichten.Count</h1>
+    <h5>Politieke Partij</h5>
+    <h6>@Model.Persoon.Organisatie.Naam</h6>
+    <h5>District</h5>
+    <h6>@Model.Persoon.District</h6>
+    <h5>Sociale Media</h5>
+    <p>
+        @Model.Persoon.Twitter<br />
+        @Model.Persoon.Facebook<br />
+    </p>
+    <table>
+        <tr>
+            <th>Vermeldingen per keywoord</th>
+            <th>Trend per keywoord</th>
+        </tr>
+        @foreach (Woord woord in Model.Keywoorden)
+    {
+        
+        <tr>
+            @woord.Tekst</tr>
+        <tr>
+            <td>@woord.Berichten.Where(b => b.Mentions.Where(m => m.Tekst.Contains(Model.Persoon.Naam)) != null).Count();</td>
+            <td>@woord.Berichten.SingleOrDefault(b => b.Sentiment !=null)</td>
+        
+        </tr>
+        
+
+}
+    </table>
+
+    <h5>Links</h5>
+    <p>
+        @foreach (Url url in Model.Urls)
+        {
+        <a href="@url.Tekst"> @url.Tekst</a><br/>
+        }
+    </p>
+    <hr />
 </div>
 
 <div class="col-sm-12 col-md-12">
-   <div id="@Model.Grafiek.ID" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
+    <div id="@Model.Grafiek.ID" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
 </div>
 
 <script>
@@ -211,3 +249,4 @@
                });
          };
 </script>
+

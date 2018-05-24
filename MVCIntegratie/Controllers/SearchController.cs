@@ -33,80 +33,154 @@ namespace MVCIntegratie.Controllers
             string sorter = formCollection["Sorteren"];
             string startDate = formCollection["startDate"];
             string endDate = formCollection["endDate"];
+            string postcode = formCollection["postcode"];
 
             List<Bericht> berichten = new List<Bericht>();
             ZoekResultaat zoekResultaat = new ZoekResultaat();
+            
             if (startDate.IsEmpty() || startDate == null)
             {
-                startDate = "2017-01-01";
+                startDate = "2015-01-01";
             }
             if (endDate.IsEmpty() || endDate == null)
             {
                 endDate = DateTime.Now.ToShortDateString();
             }
 
-
-
-
-
-            switch (filter)
+            if (search == null)
             {
-                case "Politieker":
-                    {
+                search = "";
+            }
+            if (postcode.IsEmpty())
+            {
+                postcode = null;
+            }
+            if (postcode != null)
+            {
+                switch (filter)
+                {
+                    case "Politieker":
+                        {
 
-                        zoekResultaat.Personen = zoekPersonen(search, startDate, endDate);
-
-
-                    }
-                    break;
-                case "Tag":
-                    {
-
-                        zoekResultaat.Hashtags = zoekHashtags(search, startDate, endDate);
-
-                    }
-                    break;
-                case "Trefwoord":
-                    {
-                        zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate);
+                            zoekResultaat.Personen = zoekPersonen(search, startDate, endDate, postcode);
 
 
-                    }
-                    break;
-                case "Mention":
-                    {
+                        }
+                        break;
+                    case "Tag":
+                        {
 
-                        zoekResultaat.Mentions = zoekMentions(search, startDate, endDate);
+                            zoekResultaat.Hashtags = zoekHashtags(search, startDate, endDate, postcode);
 
-
-
-                    };
-                    break;
-                case "Link":
-                    {
-
-                        zoekResultaat.Urls = zoekUrls(search, startDate, endDate);
+                        }
+                        break;
+                    case "Trefwoord":
+                        {
+                            zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate, postcode);
 
 
-                    };
-                    break;
-                case "Grafiek":
-                    {
+                        }
+                        break;
+                    case "Mention":
+                        {
 
-                        zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate);
+                            zoekResultaat.Mentions = zoekMentions(search, startDate, endDate , postcode);
 
-                    };
-                    break;
-                default:
-                    {
-                        zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate);
-                        zoekResultaat.Hashtags = zoekHashtags(search, startDate, endDate);
-                        zoekResultaat.Mentions = zoekMentions(search, startDate, endDate);
-                        zoekResultaat.Personen = zoekPersonen(search, startDate, endDate);
-                        zoekResultaat.Urls = zoekUrls(search, startDate, endDate);
-                        zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate);
-                    }
-                    break;
+
+
+                        };
+                        break;
+                    case "Link":
+                        {
+
+                            zoekResultaat.Urls = zoekUrls(search, startDate, endDate, postcode);
+
+
+                        };
+                        break;
+                    case "Grafiek":
+                        {
+
+                            zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate, postcode);
+
+                        };
+                        break;
+                    default:
+                        {
+                            zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate, postcode);
+                            zoekResultaat.Hashtags = zoekHashtags(search, startDate, endDate, postcode);
+                            zoekResultaat.Mentions = zoekMentions(search, startDate, endDate, postcode);
+                            zoekResultaat.Personen = zoekPersonen(search, startDate, endDate, postcode);
+                            zoekResultaat.Urls = zoekUrls(search, startDate, endDate, postcode);
+                            zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate, postcode);
+                        }
+                        break;
+                }
+            }
+            else 
+            {
+
+
+
+                switch (filter)
+                {
+                    case "Politieker":
+                        {
+
+                            zoekResultaat.Personen = zoekPersonen(search, startDate, endDate);
+
+
+                        }
+                        break;
+                    case "Tag":
+                        {
+
+                            zoekResultaat.Hashtags = zoekHashtags(search, startDate, endDate);
+
+                        }
+                        break;
+                    case "Trefwoord":
+                        {
+                            zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate);
+
+
+                        }
+                        break;
+                    case "Mention":
+                        {
+
+                            zoekResultaat.Mentions = zoekMentions(search, startDate, endDate);
+
+
+
+                        };
+                        break;
+                    case "Link":
+                        {
+
+                            zoekResultaat.Urls = zoekUrls(search, startDate, endDate);
+
+
+                        };
+                        break;
+                    case "Grafiek":
+                        {
+
+                            zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate);
+
+                        };
+                        break;
+                    default:
+                        {
+                            zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate);
+                            zoekResultaat.Hashtags = zoekHashtags(search, startDate, endDate);
+                            zoekResultaat.Mentions = zoekMentions(search, startDate, endDate);
+                            zoekResultaat.Personen = zoekPersonen(search, startDate, endDate);
+                            zoekResultaat.Urls = zoekUrls(search, startDate, endDate);
+                            zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate);
+                        }
+                        break;
+                }
             }
 
             switch (sorter)
@@ -275,7 +349,156 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public List<Persoon> zoekPersonen(String search, String startDate, String endDate)
         {
-            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()) && p.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null)
+            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()) /*&& p.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null*/)
+                          .ToList();
+
+            return personen;
+        }
+
+        [NonAction]
+        public List<Woord> zoekWoorden(String search, string startDate, string endDate, string postcode)
+        {
+            string[] splitSearch = search.Split(' ');
+            List<Woord> woorden = new List<Woord>();
+            foreach (string wrd in splitSearch)
+            {
+                if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
+                {
+                    continue;
+                }
+                else
+                {
+
+                    woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()) && w.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null
+                    && w.Berichten.Where(b => b.Personen.Where(p => p.Postcode.Equals(postcode)) !=null)!=null)
+                         .ToList());
+
+
+
+                }
+            }
+
+
+
+            return woorden;
+        }
+        [NonAction]
+        public List<Hashtag> zoekHashtags(String search, String startDate, String endDate, string postcode)
+        {
+            string[] splitSearch = search.Split(' ');
+            List<Hashtag> hashtags = new List<Hashtag>();
+            foreach (string wrd in splitSearch)
+            {
+                if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
+                {
+                    continue;
+                }
+                else
+                {
+                    hashtags.AddRange(berichtMng.GetHashtags().Where(h => h.Tekst.ToLower().Contains(wrd.ToLower()) && h.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null
+                    && h.Berichten.Where(b => b.Personen.Where(p => p.Postcode.Equals(postcode)) != null) != null)
+                          .ToList());
+                }
+            }
+
+            return hashtags;
+        }
+
+        [NonAction]
+        public List<Mention> zoekMentions(String search, String startDate, String endDate, string postcode)
+        {
+            string[] splitSearch = search.Split(' ');
+            List<Mention> mentions = new List<Mention>();
+            foreach (string wrd in splitSearch)
+            {
+                if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
+                {
+                    continue;
+                }
+                else
+                {
+
+                    mentions.AddRange(berichtMng.GetMentions().Where(m => m.Tekst.ToLower().Contains(wrd.ToLower()) && m.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null
+                    && m.Berichten.Where(b => b.Personen.Where(p => p.Postcode.Equals(postcode)) != null) != null)
+                          .ToList());
+
+
+                }
+            }
+            return mentions;
+        }
+        [NonAction]
+        public List<Url> zoekUrls(String search, String startDate, String endDate, string postcode)
+        {
+            string[] splitSearch = search.Split(' ');
+            List<Url> urls = new List<Url>();
+            foreach (string wrd in splitSearch)
+            {
+                if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
+                {
+                    continue;
+                }
+                else
+                {
+
+                    urls.AddRange(berichtMng.GetUrls().Where(u => u.Tekst.ToLower().Contains(wrd.ToLower()) && u.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null
+                    && u.Berichten.Where(b => b.Personen.Where(p => p.Postcode.Equals(postcode)) != null) != null)
+                          .ToList());
+                }
+            }
+            return urls;
+        }
+        [NonAction]
+        public List<Grafiek> zoekGrafieken(String search, String startDate, String endDate, string postcode)
+        {
+            string[] splitSearch = search.Split(' ');
+            List<Grafiek> grafieken = new List<Grafiek>();
+            foreach (string wrd in splitSearch)
+            {
+                if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
+                {
+                    continue;
+                }
+                else
+                {
+                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) 
+                    && g.Titel.ToLower().Contains(wrd.ToLower()) 
+                    && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
+                    && b.Datum < DateTime.Parse(endDate)) != null) != null
+                    && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
+                          .ToList());
+                    List<Persoon> personen = zoekPersonen(search, startDate, endDate, postcode);
+                    foreach (Persoon persoon in personen)
+                    {
+                        List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) 
+                        && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
+                        && b.Datum < DateTime.Parse(endDate)) != null) != null
+                        && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
+                          .ToList();
+                        foreach (Grafiek gr in grafiekTussen)
+                        {
+                            if (grafieken.Contains(gr))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                grafieken.Add(gr);
+                            }
+                        }
+
+
+
+                    }
+                }
+            }
+            return grafieken;
+        }
+        [NonAction]
+        public List<Persoon> zoekPersonen(String search, String startDate, String endDate, string postcode)
+        {
+            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()) && p.Postcode.Equals(postcode))
+            /*&& p.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null*/
                           .ToList();
 
             return personen;
