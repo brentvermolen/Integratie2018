@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Over";
+}
+<link rel="stylesheet" href="~/Content/Layout.css">
+<script src="~/Scripts/Over.js"></script>
+<div class="container">
+    <ul class="nav nav-tabs" id="tabbar">
+        <li class="active">
+            <a data-toggle="tab" href="#home">@Resources.lang.overons</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#menu1">@Resources.lang.Doel</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>@Resources.lang.overons</h3>
+            <p>
+               @Resources.lang.info_groep
+                <br/>@Resources.lang.groepsnaam
+                <br/>@Resources.lang.groepsleden
+            </p>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>@Resources.lang.Doel</h3>
+            <p>@Resources.lang.Doel_Uitleg</p>
+        </div>
+    </div>
+</div>

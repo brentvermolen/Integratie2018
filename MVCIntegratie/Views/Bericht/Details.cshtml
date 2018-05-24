@@ -1,0 +1,137 @@
+﻿@model BL.Domain.Bericht
+
+@{
+    ViewBag.Title = "Details";
+}
+<link rel="stylesheet" href="~/Content/Layout.css">
+<h2>Details</h2>
+
+<div>
+    <h4>Bericht</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       <dt>
+          @Html.DisplayNameFor(model => model.ID)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.ID)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Datum)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Datum)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Longtitude)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Longtitude)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Latitude)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Latitude)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Retweet)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Retweet)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Bron)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Bron)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Polariteit)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Polariteit)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Objectiviteit)
+       </dt>
+
+       <dd>
+          @Html.DisplayFor(model => model.Objectiviteit)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Personen)
+       </dt>
+
+       <dd>
+          @foreach (var persoon in Model.Personen)
+      {
+       @Html.ActionLink(persoon.Naam, MVC.Persoon.Details(persoon.Naam))<br />
+}
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Woorden)
+       </dt>
+
+       <dd>
+          @{
+         var woorden = string.Join(" - ", Model.Woorden);
+          }
+          @Html.DisplayFor(model => woorden)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Hashtags)
+       </dt>
+
+       <dd>
+          @{
+         var hastags = string.Join(" - ", Model.Hashtags);
+          }
+          @Html.DisplayFor(model => hastags)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Mentions)
+       </dt>
+
+       <dd>
+          @{
+         var mentions = string.Join(" - ", Model.Mentions);
+          }
+          @Html.DisplayFor(model => mentions)
+       </dd>
+
+       <dt>
+          @Html.DisplayNameFor(model => model.Urls)
+       </dt>
+
+       <dd>
+          @foreach (var url in Model.Urls)
+      {
+       <a href='@url' target='_blank'>@url</a><br />
+}
+       </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

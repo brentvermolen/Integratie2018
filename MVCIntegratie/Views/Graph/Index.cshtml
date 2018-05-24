@@ -1,0 +1,1749 @@
+﻿@model MVCIntegratie.Models.NieuweGrafiekModel
+
+@{
+   ViewBag.Title = "NieuweGrafiek";
+}
+
+<link href="~/Content/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/Layout.css">
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="~/Scripts/Chart.js"></script>
+<!--<script src="~/Scripts/TypeGeladen.js"></script>-->
+<script src="~/Scripts/MaakGrafiek.js"></script>
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+   $.ajax("/api/NieuweGrafiek/Personen", {
+      type: 'GET',
+      dataType: 'json'
+   }).done(function (data) {
+      var elem = document.getElementById("personenButtons");
+      var loading = document.getElementById("personenLoading");
+
+      var personen = data;
+      for (var i = 0; i < personen.length; i++) {
+         var persoon = personen[i];
+         var button = "<input type='button' style='margin: 1px' class='btnPersoon btn btn-info' id='" + persoon["ID"] + "' onclick='getDataPolitieker(this); ClosePopup();' value='" + persoon["Naam"] + "' />"
+         elem.innerHTML = elem.innerHTML + button;
+      }
+      loading.style.display = "none";
+      elem.style.display = "block";
+      filterPersonen(document.getElementById("filter").value);
+   }).fail(function () {
+      document.getElementById("personenLoading").innerHTML = "Oeps, er is iets misgelopen<br />Probeer de pagina te herladen..."
+   });
+</script>
+
+<div class="container">
+
+   <div class="row">
+      <div class="col-sm-12 col-md-12" id="typediagram">
+         <!--<select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
+            <option value="Lijn Diagram" selected>Lijn Diagram</option>
+            <option value="Staaf Diagram">Staaf Diagram</option>
+            <option value="Taart Diagram">Taart Diagram</option>
+            <option value="Vergelijking">Vergelijking</option>
+         </select>-->
+         <a href="javascript:void(0);" onclick="wijzigtype('Lijn Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/lijn_diagram.png" alt="line" style="max-width:100%" /></div></a>
+         <a href="javascript:void(0);" onclick="wijzigtype('Staaf Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/staaf_diagram.png" alt="line" style="max-width:100%" /></div></a>
+         <a href="javascript:void(0);" onclick="wijzigtype('Taart Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/taart_diagram.png" alt="line" style="max-width:100%" /></div></a>
+      </div>
+   </div>
+   <br />
+   <div class="col-sm-12 col-md-12 content row" id="grafiekdiv">
+      <div id="@Model.Line.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      <div id="@Model.Bar.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      <div id="@Model.Pie.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+   </div>
+
+   <div class="col-sm-12 col-md-12 content row chartopties">
+      <label>@Resources.lang.grafTit : </label>
+      <input id="grafTitel" type="text" value="@Model.Line.Titel" onkeyup="wijzigTitel(this.value);" />
+   </div>
+
+   <div id="vergelijking">
+      <div class="col-sm-6 col-md-6 vergelijkopties">
+         <select class="form-control">
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 vergelijkopties">
+         <select class="form-control">
+            <option value="Aantal tweets">@Resources.lang.vrgkAantalTweet</option>
+            <option value="Aantal mentions">@Resources.lang.vrgkAantalMent</option>
+            <option value="Aantal hashtags">@Resources.lang.vrgkAantalHast</option>
+         </select>
+      </div>
+   </div>
+
+
+   <div id="barchart">
+      <div class="col-sm-12 col-md-12 barchartopties">
+         <select class="form-control" onchange="wijzigbar(this, 'barpolopties', 'barthemaopties');">
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 barchartopties barpolopties">
+
+         <label>@Resources.lang.politiekers</label>
+         <input type="button" value="@Resources.lang.voegtoe" onclick="politiekerToevoegen('bar')" />
+         <div id="polBar" class="row">
+
+         </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
+         <label>@Resources.lang.aantalThema</label>
+         <select class="form-control" onchange="barwijzigaantalthema(this, 'baraantalthema')">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 barchartopties barpolopties">
+         <label>x-as</label>
+         <select class="form-control baraantalpol barstartpol">
+            <option value="Politieker1">@Resources.lang.politieker 1</option>
+            <option value="Politieker2">@Resources.lang.politieker 2</option>
+            <option value="Politieker3">@Resources.lang.politieker 3</option>
+         </select>
+         <select class="form-control baraantalpol">
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
+         </select>
+         <select class="form-control baraantalpol">
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
+         </select>
+         <select class="form-control baraantalpol">
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
+         </select>
+         <select class="form-control baraantalpol">
+             <option value="Politieker1">@Resources.lang.politieker 1</option>
+             <option value="Politieker2">@Resources.lang.politieker 2</option>
+             <option value="Politieker3">@Resources.lang.politieker 3</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
+         <label>x-as</label>
+         <select class="form-control baraantalthema barstartthema">
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
+         </select>
+         <select class="form-control baraantalthema">
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
+         </select>
+         <select class="form-control baraantalthema">
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
+         </select>
+         <select class="form-control baraantalthema">
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
+         </select>
+         <select class="form-control baraantalthema">
+             <option value="Politieker1">@Resources.lang.thema 1</option>
+             <option value="Politieker2">@Resources.lang.thema 2</option>
+             <option value="Politieker3">@Resources.lang.thema 3</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 barchartopties barpolopties">
+         <label>y-as</label>
+         <select id="barPolY" class="form-control">
+            <option value="Aantal tweets">@Resources.lang.vrgkAantalTweet</option>
+            <option value="Aantal mentions">@Resources.lang.vrgkAantalMent</option>
+            <option value="Aantal hashtags">@Resources.lang.vrgkAantalHast</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
+         <label>y-as</label>
+         <select class="form-control">
+            <option value="Aantal tweets">@Resources.lang.vrgkAantalTweet</option>
+            <option value="Aantal mentions">@Resources.lang.vrgkAantalMent</option>
+            <option value="Aantal hashtags">@Resources.lang.vrgkAantalHast</option>
+         </select>
+      </div>
+   </div>
+
+   <div id="linechart">
+      <div class="col-sm-12 col-md-12 linechartopties">
+         <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties', 'polperline', 'themaperline'); grafiekGewijzigd();">
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
+            <option value="Evolutie">@Resources.lang.evTweet</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linepolopties">
+         <!--<label>Aantal politiekers</label>
+         <select class="form-control" onchange="linewijzigaantalpol(this, 'lineaantalpol')">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         </select>-->
+         <label>Politiekers</label>
+         <input type="button" value="@Resources.lang.toevoegen" onclick="politiekerToevoegen('line');" />
+         <div id="polLine" class="row">
+
+
+         </div>
+      </div>
+
+
+      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+         <label>@Resources.lang.aantalThema</label>
+         <select class="form-control" onchange="linewijzigaantalthema(this, 'lineaantalthema')">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         </select>
+      </div>
+
+      <!--<div class="col-sm-6 col-md-6 linechartopties linepolopties">
+         <label>lines</label>
+         <select class="form-control lineaantalpol linestartpol">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>
+         <select class="form-control lineaantalpol">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>
+         <select class="form-control lineaantalpol">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>
+         <select class="form-control lineaantalpol">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>
+         <select class="form-control lineaantalpol">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+         <label>lines</label>
+         <select class="form-control lineaantalthema linestartthema">
+            <option value="Thema1">Thema1</option>
+            <option value="Thema2">Thema2</option>
+            <option value="Thema3">Thema3</option>
+         </select>
+         <select class="form-control lineaantalthema">
+            <option value="Thema1">Thema1</option>
+            <option value="Thema2">Thema2</option>
+            <option value="Thema3">Thema3</option>
+         </select>
+         <select class="form-control lineaantalthema">
+            <option value="Thema1">Thema1</option>
+            <option value="Thema2">Thema2</option>
+            <option value="Thema3">Thema3</option>
+         </select>
+         <select class="form-control lineaantalthema">
+            <option value="Thema1">Thema1</option>
+            <option value="Thema2">Thema2</option>
+            <option value="Thema3">Thema3</option>
+         </select>
+         <select class="form-control lineaantalthema">
+            <option value="Thema1">Thema1</option>
+            <option value="Thema2">Thema2</option>
+            <option value="Thema3">Thema3</option>
+         </select>
+      </div>-->
+
+      <div class="col-sm-6 col-md-6 linechartopties linepolopties">
+         <label>Y-As</label>
+         <p>@Resources.lang.vrgkAantalTweet</p>
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+         <label>Y-As</label>
+         <p>@Resources.lang.vrgkAantalTweet</p>
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linepolopties">
+         <label>X-As</label>
+         <p>@Resources.lang.perWeek</p>
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+         <label>X-As</label>
+         <p>@Resources.lang.perWeek</p>
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepoldagen">
+         <label>@Resources.lang.aantalWeken</label>
+         <input type="number" id="aantalWekenPolLine" class="form-control" value="5" onchange="grafiekGewijzigd();" />
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemadagen">
+         <label>@Resources.lang.aantalDagen</label>
+         <input class="form-control" />
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepolweken">
+         <label>@Resources.lang.aantalWeken</label>
+         <input class="form-control" />
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemaweken">
+         <label>@Resources.lang.aantalWeken</label>
+         <input class="form-control" />
+      </div>
+
+      <div class="col-sm-6 col-md-6 linechartopties lineevolutieopties">
+         <label>X-As</label>
+         <select class="form-control">
+            <option value="per dag">@Resources.lang.perDag</option>
+            <option value="per week">@Resources.lang.perWeek</option>
+         </select>
+      </div>
+   </div>
+   <div id="piechart">
+      <div class="col-sm-12 col-md-12 piechartopties">
+         <select class="form-control" onchange="wijzigpie(this, 'soortpie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="typepie">
+            <option value="Kruising">@Resources.lang.kruising</option>
+            <option value="Overzicht">@Resources.lang.overzicht</option>
+         </select>
+      </div>
+      <div class="col-sm-12 col-md-12 piechartopties">
+         <select class="form-control" onchange="wijzigtypepie(this, 'typepie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="soortpie">
+            <option value="Politieker">@Resources.lang.politieker</option>
+            <option value="Thema">@Resources.lang.thema</option>
+         </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties ">
+         <label>@Resources.lang.politieker</label>
+         <!--<select class="form-control">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>-->
+         <input type="button" value="@Resources.lang.kies" class="btnPiePersoon" id="" onclick="politiekerKiezen(this)" />
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
+         <label>@Resources.lang.thema</label>
+         <select class="form-control">
+            <option value="Thema1">Thema1</option>
+            <option value="Thema2">Thema2</option>
+            <option value="Thema3">Thema3</option>
+         </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
+         <label>@Resources.lang.wat ?</label>
+         <select class="form-control">
+            <option value="Tweets over">@Resources.lang.overTweet</option>
+            <option value="Mentions over">@Resources.lang.overMent</option>
+            <option value="Hashtags over">@Resources.lang.overHast</option>
+         </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
+          <label>@Resources.lang.wat ?</label>
+          <select class="form-control">
+              <option value="Tweets over">@Resources.lang.overTweet</option>
+              <option value="Mentions over">@Resources.lang.overMent</option>
+              <option value="Hashtags over">@Resources.lang.overHast</option>
+          </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
+         <label>@Resources.lang.kruisMet ?</label>
+         <select id="pieCrossPolOpties" class="form-control">
+            <option value="Gemeente">@Resources.lang.gemeente</option>
+            <option value="Geslacht">@Resources.lang.geslacht</option>
+            <option value="Leeftijd">@Resources.lang.leeftijd</option>
+            <option value="Opleiding">@Resources.lang.opleiding</option>
+            <option value="Taal">@Resources.lang.taal</option>
+            <option value="Persoonlijkheid">@Resources.lang.persoonlijkheid</option>
+            <option value="Trend">@Resources.lang.trend</option>
+         </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
+         <label>@Resources.lang.kruisMet ?</label>
+         <select class="form-control">
+            <option value="Gemeente">@Resources.lang.gemeente</option>
+            <option value="Geslacht">@Resources.lang.geslacht</option>
+            <option value="Leeftijd">@Resources.lang.leeftijd</option>
+            <option value="Opleiding">@Resources.lang.opleiding</option>
+            <option value="Taal">@Resources.lang.taal</option>
+            <option value="Persoonlijkheid">@Resources.lang.persoonlijkheid</option>
+            <option value="Trend">@Resources.lang.trend</option>
+         </select>
+      </div>
+
+      <!--<div class="col-sm-6 col-md-6 piechartopties piepolopties">
+         <label>Politieker</label>
+         <select class="form-control">
+            <option value="Politieker1">Politieker1</option>
+            <option value="Politieker2">Politieker2</option>
+            <option value="Politieker3">Politieker3</option>
+         </select>
+      </div>-->
+      <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
+         <label>@Resources.lang.thema</label>
+         <select class="form-control">
+            <option value="Thema1">@Resources.lang.thema 1</option>
+            <option value="Thema2">@Resources.lang.thema 2</option>
+            <option value="Thema3">@Resources.lang.thema 3</option>
+         </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties piepolopties">
+         <label>Type</label>
+         <select id="piePolOptiesTop" class="form-control">
+            <option value="Top5">Top5</option>
+            <option value="Top10">Top10</option>
+         </select>
+      </div>
+
+      <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
+         <label>Type</label>
+         <select class="form-control">
+            <option value="Top5">Top5</option>
+            <option value="Top10">Top10</option>
+         </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties piepolopties">
+         <label>@Resources.lang.overzichtvan</label>
+         <select id="piePolOptiesData" class="form-control">
+            <option value="Verhalen">@Resources.lang.verhalen</option>
+            <option value="Thema's">@Resources.lang.themas</option>
+            <option value="Woorden">@Resources.lang.woorden</option>
+         </select>
+      </div>
+      <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
+         <label>@Resources.lang.overzichtvan</label>
+         <select class="form-control">
+            <option value="Verhalen">@Resources.lang.verhalen</option>
+            <option value="Woorden">@Resources.lang.woorden</option>
+         </select>
+      </div>
+   </div>
+   <div class="form-group maakgrafiek">
+      <div class="col-md-6">
+         <input type="submit" value="@Resources.lang.toonpreview" onclick="toonPreview()" class="btn btn-success" />
+         <input id="grafiekOpslaan" type="submit" value="@Resources.lang.grafiekOpslaan" onclick="grafiekOpslaan()" class="btn btn-success" disabled />
+      </div>
+   </div>
+</div>
+
+<script type="text/javascript">
+   var lineChart;
+   var barChart;
+   var pieChart;
+   var currentChart;
+   var elemToAdd = document.getElementById('polLine');
+
+   function wijzigTitel(value) {
+      grafiekGewijzigd();
+
+      switch (currentChart) {
+         case 'line':
+            lineChart.setTitle({ text: value });
+            break;
+         case 'bar':
+            barChart.setTitle({ text: value });
+            break;
+         case 'pie':
+            pieChart.setTitle({ text: value });
+            break;
+      }
+   }
+
+   function politiekerToevoegen(graph) {
+      if (currentPersonen.length == 5) {
+         alert('@Resources.lang.err5personen');
+         return;
+      }
+
+      switch (graph) {
+         case 'line':
+            elemToAdd = document.getElementById('polLine');
+            break;
+         case 'bar':
+            elemToAdd = document.getElementById('polBar');
+            break;
+      }
+
+      ShowPopup();
+   }
+
+   function politiekerKiezen(elem) {
+
+      /*if (elem.id != '') {
+         while (pieChart.series.length > 0) {
+            pieChart.series[0].remove(true);
+         }
+      }*/
+
+      ShowPopup();
+   }
+
+   function getDataPolitieker(elem) {
+      var naam = elem.value;
+      var id = elem.id;
+
+      var cat;
+
+      persoonToevoegen(naam, id);
+
+      switch (currentChart) {
+         case 'line':
+            break;
+         case 'bar':
+            break;
+         case 'pie':
+            var btn = document.getElementsByClassName('btnPiePersoon')[0];
+            btn.id = id;
+            btn.value = naam;
+      }
+
+      grafiekGewijzigd();
+   }
+
+   var currentSeries = 0;
+   var personenLine = [];
+   var personenBar = [];
+   var currentPersonen = personenLine;
+
+   @if (Model.IsGewijzigd)
+   {
+      <text>
+   $(document).ready(function () {
+            @foreach(var persoon in Model.Line.Personen)
+            {
+               <text>
+      elemToAdd = document.getElementById('polLine');
+      persoonToevoegen('@persoon.Naam', '@persoon.ID', true);
+               </text>
+            }
+      @foreach(var persoon in Model.Bar.Personen)
+            {
+               <text>
+      elemToAdd = document.getElementById('polBar');
+      persoonToevoegen('@persoon.Naam', '@persoon.ID', true);
+               </text>
+            }
+      @if(Model.Pie.Personen.Count > 0)
+      {
+         <text>
+         var btnPie = document.getElementsByClassName('btnPiePersoon')[0];
+         btnPie.id = '@Model.Pie.Personen[0].ID';
+         btnPie.value = '@Model.Pie.Personen[0].Naam';
+      </text>
+      }
+
+      isGewijzigd = false;
+      checkGrafiek();
+   });
+
+      </text>
+   }
+
+
+      function aantalTweetsToevoegen(data, naam, id, cat) {
+         switch (currentChart) {
+            case 'line':
+               var str = [];
+               var d = data["Data"];
+               var dag = data["StartDag"];
+               var maand = data["StartMaand"] - 1;
+               var jaar = data["StartJaar"];
+
+               for (var i = 0; i < d.length; i++) {
+                  str.push(d[i]);
+               }
+
+               lineChart.addSeries({ name: naam, data: str });
+               if (currentSeries == -1) {
+                  currentSeries = 0;
+               }
+               lineChart.series[currentSeries].xAxis.update({
+                  type: "datetime"
+               }, false);
+               lineChart.series[currentSeries].update({
+                  pointStart: Date.UTC(jaar, maand, dag),
+               pointInterval: 24 * 3600 * 1000 * 7
+               }, false);
+               lineChart.series[currentSeries].yAxis.update({
+                  title: { text:  cat }
+               }, true);
+               currentSeries++;
+               break;
+            case 'bar':
+               barChart.addSeries({ name: naam, data: [data] });
+               if (currentSeries == -1) {
+                  currentSeries = 0;
+               }
+               var categories = barChart.userOptions.xAxis.categories;
+               if (categories.length == 0) {
+                  categories.push(cat);
+               } else {
+                  categories[0] = cat;
+               }
+               barChart.series[currentSeries].yAxis.update({
+                  title: { text: cat }
+               }, true);
+               currentSeries++;
+               break;
+            case 'pie':
+               break;
+         }
+   }
+
+   function persoonToevoegen(naam, id, loaded) {
+      if (loaded == true) {
+         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+         currentPersonen.push(new Persoon(id, naam, true));
+      } else {
+         elemToAdd.innerHTML = elemToAdd.innerHTML + "<input type='button' onclick='verwijderSerieByName(this.id, this.name, this);' value='Verwijder " + naam + "' id='" + naam + "' name='" + id + "' class='btn btn-success' />";
+         currentPersonen.push(new Persoon(id, naam, false));
+      }
+   }
+
+   class Persoon {
+      constructor(id, naam, loaded) {
+         this.id = id;
+         this.naam = naam;
+         this.loaded = loaded;
+      }
+   }
+
+   function verwijderSerieByName(naam, id, element) {
+      currentSeries--;
+      for (var i = 0; i < currentPersonen.length; i++) {
+         var persoon = currentPersonen[i];
+         if (persoon.id == id) {
+            currentPersonen.splice(i, 1);
+            break;
+         }
+      }
+
+      if (element != null) {
+         element.remove(true);
+      }
+
+      var c;
+
+      switch (currentChart) {
+         case 'line':
+            c = lineChart;
+            break;
+         case 'bar':
+            c = barChart;
+            break;
+         case 'pie':
+            c = pieChart;
+            break;
+      }
+
+      for (var i = 0; i < c.series.length; i++) {
+         var serie = c.series[i];
+         if (serie.name == naam) {
+            c.series[i].remove();
+
+            if (element != null) {
+               element.remove();
+            }
+
+            break;
+         }
+      }
+
+      grafiekGewijzigd();
+   }
+
+   var isGewijzigd = true;
+
+   function grafiekGewijzigd() {
+      isGewijzigd = true;
+   }
+
+   function checkGrafiek() {
+      var canSave = false;
+
+      if (currentPersonen.length > 0) {
+         canSave = true;
+      }
+
+      var element = $("#grafiekOpslaan");
+
+      if (canSave && !isGewijzigd) {
+         element.removeAttr("disabled");
+      } else {
+         element.attr("disabled", "true");
+      }
+   }
+
+   function grafiekOpslaan() {
+
+      var grafiD;
+
+      switch ('@Model.GewijzigdType') {
+         case 'lijn':
+            grafiD = '@Model.Line.ID';
+            break;
+         case 'staaf':
+            grafiD = '@Model.Bar.ID';
+            break;
+         case 'taart':
+            grafiD = '@Model.Pie.ID';
+            break;
+      }
+
+      class LineClass {
+         constructor(title, pointStart, content, series, aantalWeken, id) {
+            this.title = title;
+            this.pointStart = pointStart;
+            this.type = 'line';
+            this.content = content;
+            this.series = series;
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
+            this.aantalWeken = aantalWeken;
+         }
+      }
+
+      class BarClass {
+         constructor(title, categories, series, id) {
+            this.title = title;
+            this.categories = categories;
+            this.series = series;
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
+            this.type = 'bar';
+         }
+      }
+
+      /*class PieClass {
+         constructor(title, serieNaam, series, waarden) {
+            this.title = title;
+            this.serieNaam = serieNaam;
+            this.series = series;
+            this.waarden = waarden;
+            this.type = 'pie';
+         }
+      }*/
+
+      class PieClass {
+         constructor(title, serieNaam, content, persoon, id) {
+            this.title = title;
+            this.serieNaam = serieNaam;
+            this.content = content;
+            this.type = "pie";
+            this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
+            this.graf = id;
+            this.persoon = persoon;
+         }
+      }
+
+      var graf;
+
+      switch (currentChart) {
+         case 'line':
+            graf = new LineClass(lineChart.title.textStr,
+               lineChart.series[0].xAxis.series[0].options.pointStart,
+               'politieker',
+               currentPersonen,
+               document.getElementById('aantalWekenPolLine').value, grafiD);
+            break;
+         case 'bar':
+            var categories = [];
+
+            for (var i = 0; i < barChart.xAxis[0].categories.length; i++) {
+               categories.push(barChart.xAxis[0].categories[i]);
+            }
+
+            graf = new BarClass(barChart.title.textStr,
+               categories,
+               currentPersonen, grafiD)
+            break;
+         case 'pie':
+            /*var series = [];
+            var waarden = [];
+
+            for (var i = 0; i < pieChart.series[0].userOptions.data.length; i++) {
+               var data = pieChart.series[0].userOptions.data[i];
+               series.push(data.name);
+               waarden.push(data.y);
+            }*/
+
+            var type;
+
+            switch (document.getElementById("typepie").value) {
+               case "Overzicht":
+                  type = document.getElementById("piePolOptiesData").value;
+                  break;
+               case "Kruising":
+                  type = document.getElementById("pieCrossPolOpties").value;
+                  break;
+            }
+            var id = document.getElementsByClassName('btnPiePersoon')[0].id;
+
+            graf = new PieClass(pieChart.title.textStr,
+               pieChart.series[0].userOptions.name,
+               /*series,
+               waarden*/
+               type,
+               id, grafiD
+            )
+            break;
+      }
+
+      var jsonG = JSON.stringify(graf);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
+
+      showLoading();
+      $.ajax('/api/NieuweGrafiek/PostGrafiek', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         window.location.replace("/Home/Index");
+      }).fail(function () {
+         alert('fail');
+         hideLoading();
+      });
+   }
+
+   function toonPreview(data) {
+      switch (currentChart) {
+         case 'pie':
+            prevPie(data);
+            break;
+         case 'line':
+            prevLine(data);
+            break;
+         case 'bar':
+            prevBar(data);
+            break;
+      }
+
+      isGewijzigd = false;
+      checkGrafiek();
+   }
+
+   function prevBar(){
+      var cat = document.getElementById('barPolY');
+      cat = cat[cat.selectedIndex].label;
+
+      if (barChart.xAxis[0].categories[0] != null) {
+         var currentCat = barChart.xAxis[0].categories[0];
+
+         if (currentCat != cat) {
+            for (var i = 0; i < currentPersonen.length; i++) {
+               currentPersonen[i].loaded = false;
+            }
+
+            var lengte = barChart.series.length;
+            for (var i = 0; i < lengte; i++) {
+               barChart.series[0].remove();
+            }
+
+            currentSeries
+               = 0;
+         }
+      }
+
+      var type;
+
+      switch (cat) {
+         case 'Aantal tweets':
+            type = "tweets";
+            break;
+         case 'Aantal mentions':
+            type = "mentions";
+            break;
+         case 'Aantal hashtags':
+            type = "hashtags";
+            break;
+      }
+
+      for (let i = 0; i < currentPersonen.length; i++) {
+         var id = currentPersonen[i].id;
+         var naam = currentPersonen[i].naam;
+
+         if (currentPersonen[i].loaded == false) {
+            showLoading();
+            $.ajax('/api/NieuweGrafiek/AantalXVanPersoon/' + type + '/' + id,
+               {
+                  type: 'GET',
+                  dataType: 'json'
+               }).done(function (data) {
+                  aantalTweetsToevoegen(data["Data"], data["Naam"], data["ID"], cat);
+                  hideLoading();
+               }).fail(function () {
+                  alert('fail');
+                  hideLoading();
+               });
+
+            currentPersonen[i].loaded = true;
+         }
+      }
+   }
+
+   function prevLine() {
+      var weken = parseInt(document.getElementById('aantalWekenPolLine').value);
+
+      if (lineChart.series[0] != null) {
+         var huidigeWeken = lineChart.series[0].xData.length;
+
+         if (weken != huidigeWeken) {
+            for (var i = 0; i < currentPersonen.length; i++) {
+               currentPersonen[i].loaded = false;
+            }
+
+            var lengte = lineChart.series.length;
+            for (var i = 0; i < lengte; i++) {
+               lineChart.series[0].remove();
+            }
+
+            currentSeries = 0;
+         }
+      }
+
+
+      if (weken == '') {
+         weken = 'noLimit';
+      }
+
+      cat = 'Aantal tweets'
+
+      switch (cat) {
+         case 'Aantal tweets':
+            for (let i = 0; i < currentPersonen.length; i++) {
+               var id = currentPersonen[i].id;
+               var naam = currentPersonen[i].naam;
+
+               if (currentPersonen[i].loaded == false) {
+                  showLoading();
+                  $.ajax('/api/NieuweGrafiek/AantalTweetsVanPersoonPerWeek/' + id + '/' + weken,
+                     {
+                        type: 'GET',
+                        dataType: 'json'
+                     }).done(function (data) {
+                        aantalTweetsToevoegen(data, data["Naam"], data["ID"]);
+                        hideLoading();
+                     }).fail(function () {
+                        alert('fail');
+                        hideLoading();
+                     });
+
+                  currentPersonen[i].loaded = true;
+               }
+            }
+            break;
+      }
+   }
+
+   function prevPie() {
+      var id = document.getElementsByClassName('btnPiePersoon')[0].id;
+      var type;
+
+      switch (document.getElementById("typepie").value) {
+         case "Overzicht":
+            type = document.getElementById("piePolOptiesData").value;
+            break;
+         case "Kruising":
+            type = document.getElementById("pieCrossPolOpties").value;
+            break;
+      }
+
+      var top = document.getElementById("piePolOptiesTop").value;
+
+      showLoading();
+      $.ajax('/api/NieuweGrafiek/PieDataPersoon/' + id + '/' + type + '/' + top,
+         {
+            type: 'GET',
+            dataType: 'json'
+         }).done(function (data) {
+            dataToevoegenAanPie(data, type, top)
+            hideLoading();
+         }).fail(function () {
+            alert('fail');
+            hideLoading();
+         });
+   }
+
+   function dataToevoegenAanPie(data, type, top) {
+      var titel;
+
+      switch (document.getElementById("typepie").value) {
+         case "Overzicht":
+            titel = data["Persoon"] + " - " + type + " - " + top
+            break;
+         case "Kruising":
+            titel = data["Persoon"] + " - " + type
+            break;
+      }
+
+      pieChart.setTitle({ text: titel });
+      document.getElementById("grafTitel").value = titel;
+
+      var namen = data["Series"];
+      var waarden = data["Waarden"];
+
+      var serieData = [];
+
+      for (var i = 0; i < namen.length; i++) {
+         var naam = namen[i];
+         var waarde = waarden[i];
+         var sliced = false;
+         var selected = false;
+         if (i == 0) {
+            sliced = true;
+            selected = true;
+         }
+         serieData.push({
+            name: naam,
+            y: waarde,
+            sliced: sliced,
+            selected: selected
+         });
+      }
+      pieChart.series[0].remove(true);
+      pieChart.addSeries({
+         name: data["Persoon"],
+         colorByPoint: true,
+         data: serieData
+      });
+   }
+
+
+
+
+
+
+   $(document).ready(function () {
+   lineChart = Highcharts.chart('@Model.Line.ID',
+               {
+                  @if (!(Model.Line.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                           @if(Model.Line.Chart.Type.Equals("pie"))
+                           {
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @Model.Line.GetBoolString(Model.Line.Chart.PlotShadow),
+                        </text>
+                     }
+/**/
+                        type: '@Model.Line.Chart.Type'
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@Model.Line.Titel'
+                  },
+
+                  @if (Model.Line.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@Html.Raw(Model.Line.Tooltip)'
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Line.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@Model.Line.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  xAxis: {
+                     type: 'datetime'
+                  },
+
+
+
+
+                  @if (Model.Line.Chart.Type.Equals("column"))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @Model.Line.GetBoolString(Model.Line.Credits)
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Line.Legende.Layout != null){
+                     <text>
+                  legend: {
+                     layout: '@Model.Line.Legende.Layout',
+                     align: '@Model.Line.Legende.Alignment',
+                     verticalAlign: '@Model.Line.Legende.VerticalAlign'
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Line.PlotOptions.PointStart != null || Model.Line.PlotOptions.Cursor != null)
+                  {
+                     <text>
+                  plotOptions: {
+                     @if (Model.Line.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                           allowPointSelect: @Model.Line.GetBoolString(Model.Line.PlotOptions.AllowPointSelect),
+                        cursor: '@Model.Line.PlotOptions.Cursor',
+                        dataLabels: {
+                              enabled: @Model.Line.GetBoolString(Model.Line.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @Model.Line.GetBoolString(Model.Line.PlotOptions.ShowInLegend)
+                     }
+                     </text>
+                     }
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                              {
+                                 connectorAllowed: @Model.Line.PlotOptions.getBool(Model.Line.PlotOptions.SeriesLabelConnector)
+                              }
+                              @if(Model.Line.PlotOptions.PointStart != null)
+                              {
+                                 <text>,
+                           pointStart: @Model.Line.PlotOptions.PointStart
+                              , pointInterval: 24 * 3600 * 1000 * 7
+                              </text>
+                              }
+                           }
+                        </text>
+                     }
+                  },
+                  </text>
+                  }
+
+                  series: [
+                     @for(int i = 0; i < Model.Line.Series.Count; i++)
+                     {
+                     var serie = Model.Line.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (Model.Line.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @Model.Line.GetBoolString(serie.ColorByPoint),
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @Model.Line.GetBoolString(data.Sliced),
+                              selected: @Model.Line.GetBoolString(data.Selected)
+                           }
+                        </text>
+                           if (j != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>] }</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                     @if(i != Model.Line.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+
+   barChart = Highcharts.chart('@Model.Bar.ID',
+               {
+                  @if (!(Model.Bar.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                           @if(Model.Bar.Chart.Type.Equals("pie"))
+                           {
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @Model.Bar.GetBoolString(Model.Bar.Chart.PlotShadow),
+                        </text>
+                     }
+/**/
+                        type: '@Model.Bar.Chart.Type'
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@Model.Bar.Titel'
+                  },
+
+                  @if (Model.Bar.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@Html.Raw(Model.Bar.Tooltip)'
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Bar.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@Model.Bar.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Bar.xAs.IsUsed == true)
+                  {
+                     <text>
+                  xAxis: {
+                     categories: @Html.Raw(Model.Bar.xAs.GetCategorieen())
+                  },
+                  </text>
+                  }
+
+
+                  @if (Model.Bar.Chart.Type.Equals("column"))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @Model.Bar.GetBoolString(Model.Bar.Credits)
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Bar.Legende.Layout != null){
+                     <text>
+                  legend: {
+                     layout: '@Model.Bar.Legende.Layout',
+                     align: '@Model.Bar.Legende.Alignment',
+                     verticalAlign: '@Model.Bar.Legende.VerticalAlign'
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Bar.PlotOptions.PointStart != null || Model.Bar.PlotOptions.Cursor != null)
+                  {
+                     <text>
+                  plotOptions: {
+                     @if (Model.Bar.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                           allowPointSelect: @Model.Bar.GetBoolString(Model.Bar.PlotOptions.AllowPointSelect),
+                        cursor: '@Model.Bar.PlotOptions.Cursor',
+                        dataLabels: {
+                              enabled: @Model.Bar.GetBoolString(Model.Bar.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @Model.Bar.GetBoolString(Model.Bar.PlotOptions.ShowInLegend)
+                     }
+                     </text>
+                     }
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                           {
+                              connectorAllowed: @Model.Bar.PlotOptions.getBool(Model.Bar.PlotOptions.SeriesLabelConnector)
+                              },
+                           pointStart: @Model.Bar.PlotOptions.PointStart
+                           }
+                        </text>
+                     }
+                  },
+                  </text>
+                  }
+
+                  series: [
+                     @for(int i = 0; i < Model.Bar.Series.Count; i++)
+                     {
+                     var serie = Model.Bar.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (Model.Bar.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @Model.Bar.GetBoolString(serie.ColorByPoint),
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @Model.Bar.GetBoolString(data.Sliced),
+                              selected: @Model.Bar.GetBoolString(data.Selected)
+                           }
+                        </text>
+                           if (j != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>] }</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                     @if(i != Model.Bar.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+
+   pieChart = Highcharts.chart('@Model.Pie.ID',
+               {
+                  @if (!(Model.Pie.Chart.Type.Equals("normal")))
+                  {
+                     <text>
+                     chart:
+                     {
+                           @if(Model.Pie.Chart.Type.Equals("pie"))
+                           {
+                        <text>
+                           plotBackgroundColor: null,
+                           plotBorderWidth: null,
+                     plotShadow: @Model.Pie.GetBoolString(Model.Pie.Chart.PlotShadow),
+                        </text>
+                     }
+/**/
+                        type: '@Model.Pie.Chart.Type'
+                     },
+                     </text>
+                  }
+
+                  title: {
+                     text: '@Model.Pie.Titel'
+                  },
+
+                  @if (Model.Pie.Chart.Type.Equals("pie"))
+                  {
+                     <text>
+                  tooltip: {
+                     pointFormat: '@Html.Raw(Model.Pie.Tooltip)'
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Pie.yAs.IsUsed == true)
+                  {
+                     <text>
+                  yAxis: {
+                     title: {
+                        text: '@Model.Pie.yAs.Titel'
+                     }
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Pie.xAs.IsUsed == true)
+                  {
+                     <text>
+                  xAxis: {
+                     categories: @Html.Raw(Model.Pie.xAs.GetCategorieen())
+                  },
+                  </text>
+                  }
+
+
+                  @if (Model.Pie.Chart.Type.Equals("column"))
+                  {
+                     <text>
+                  credits: {
+                     enabled: @Model.Pie.GetBoolString(Model.Pie.Credits)
+                  },
+                     </text>
+                  }
+
+                  @if (Model.Pie.Legende.Layout != null){
+                     <text>
+                  legend: {
+                     layout: '@Model.Pie.Legende.Layout',
+                     align: '@Model.Pie.Legende.Alignment',
+                     verticalAlign: '@Model.Pie.Legende.VerticalAlign'
+                  },
+                  </text>
+                  }
+
+                  @if (Model.Pie.PlotOptions.PointStart != null || Model.Pie.PlotOptions.Cursor != null)
+                  {
+                     <text>
+                  plotOptions: {
+                     @if (Model.Pie.Chart.Type.Equals("pie"))
+                     {
+                        <text>
+                     pie: {
+                           allowPointSelect: @Model.Pie.GetBoolString(Model.Pie.PlotOptions.AllowPointSelect),
+                        cursor: '@Model.Pie.PlotOptions.Cursor',
+                        dataLabels: {
+                              enabled: @Model.Pie.GetBoolString(Model.Pie.PlotOptions.DataLabels)
+                        },
+                           showInLegend: @Model.Pie.GetBoolString(Model.Pie.PlotOptions.ShowInLegend)
+                     }
+                     </text>
+                     }
+                     else
+                     {
+                        <text>
+                        series:
+                        {
+                           label:
+                           {
+                              connectorAllowed: @Model.Pie.PlotOptions.getBool(Model.Pie.PlotOptions.SeriesLabelConnector)
+                              },
+                        pointStart: @Model.Pie.PlotOptions.PointStart
+                           }
+                        </text>
+                     }
+                  },
+                  </text>
+                  }
+
+                  series: [
+                     @for(int i = 0; i < Model.Pie.Series.Count; i++)
+                     {
+                     var serie = Model.Pie.Series[i];
+                           <text>
+                     {
+                        name: '@serie.Naam',
+                        @if (Model.Pie.Chart.Type.Equals("pie"))
+                        {
+                           <text>
+                        colorByPoint: @Model.Pie.GetBoolString(serie.ColorByPoint),
+                        data: [
+                           </text>
+                           for(int j = 0; j < serie.Data.Count; j++)
+                           {
+                              var data = serie.Data[j];
+                           <text>
+                           {
+                              name: '@data.Naam',
+                              y: @data.Value.ToString().Replace(",", "."),
+                              sliced: @Model.Pie.GetBoolString(data.Sliced),
+                              selected: @Model.Pie.GetBoolString(data.Selected)
+                           }
+                        </text>
+                           if (j != serie.Data.Count - 1)
+                              {
+                                 <text> , </text>
+                              }
+                           }
+                           <text>] }</text>
+                        }
+                        else
+                        {
+                           <text>
+                        data: @serie.GetDataString()
+                           }
+                           </text>
+                        }
+
+                     @if(i != Model.Pie.Series.Count - 1)
+                              {
+                                 <text>
+                                 ,
+                                 </text>
+                              }
+/**/
+                        </text>
+                     }
+                  ]
+               });
+   })
+
+   @if (Model.IsGewijzigd) {
+         switch (Model.GewijzigdType) {
+            case "lijn":
+               <text>wijzigtype("Lijn Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "staaf":
+               <text>wijzigtype("Staaf Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+            case "taart":
+               <text>wijzigtype("Taart Diagram", "grafiekdiv", "vergelijking", "barchart", "linechart", "piechart");</text>
+               break;
+         }
+      }
+      else
+      {
+         <text>wijzigtype("Lijn Diagram", 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');</text>
+      }
+
+   function wijzigtype(selectie, id, vergid, barid, lineid, pieid) {
+      grafiekGewijzigd();
+
+      if (selectie/*.value*/ == "Lijn Diagram") {
+         document.getElementById('@Model.Line.ID').style.display = "block";
+         currentChart = 'line';
+         currentPersonen = personenLine;
+         currentSeries = personenLine.length;
+         document.getElementById('@Model.Bar.ID').style.display = "none";
+         document.getElementById('@Model.Pie.ID').style.display = "none";
+         document.getElementById(lineid).style.display = "block";
+         document.getElementById(vergid).style.display = "none";
+         document.getElementById(barid).style.display = "none";
+         document.getElementById(pieid).style.display = "none";
+         document.getElementById("grafTitel").value = lineChart.title.textStr;
+      }
+      else if (selectie/*.value*/ == "Staaf Diagram") {
+         document.getElementById('@Model.Line.ID').style.display = "none";
+         document.getElementById('@Model.Bar.ID').style.display = "block";
+         currentChart = 'bar';
+         currentPersonen = personenBar;
+         currentSeries = personenBar.length;
+         document.getElementById('@Model.Pie.ID').style.display = "none";
+         document.getElementById(lineid).style.display = "none";
+         document.getElementById(vergid).style.display = "none";
+         document.getElementById(barid).style.display = "block";
+         document.getElementById(pieid).style.display = "none";
+         //document.getElementById("grafTitel").value = barChart.title.textStr;
+      }
+      else if (selectie/*.value*/ == "Taart Diagram") {
+         document.getElementById('@Model.Line.ID').style.display = "none";
+         document.getElementById('@Model.Bar.ID').style.display = "none";
+         document.getElementById('@Model.Pie.ID').style.display = "block";
+         currentChart = 'pie';
+         document.getElementById(lineid).style.display = "none";
+         document.getElementById(vergid).style.display = "none";
+         document.getElementById(barid).style.display = "none";
+         document.getElementById(pieid).style.display = "block";
+         document.getElementById("grafTitel").value = pieChart.title.textStr;
+      } else if (selectie/*.value*/ == "Vergelijking") {
+         document.getElementById('@Model.Line.ID').style.display = "none";
+         document.getElementById('@Model.Bar.ID').style.display = "none";
+         document.getElementById('@Model.Pie.ID').style.display = "none";
+         document.getElementById(lineid).style.display = "none";
+         document.getElementById(vergid).style.display = "block";
+         document.getElementById(barid).style.display = "none";
+         document.getElementById(pieid).style.display = "none";
+      }
+   }
+
+   function showLoading() {
+      document.getElementById("loading").style.display = "block";
+   }
+
+   function hideLoading() {
+      document.getElementById("loading").style.display = "none";
+      window.location.replace("#typediagram");
+   }
+</script>
+
+<div class="popup" onclick="/*ClosePopup()*/" style="display: none;">
+   <div class="popup-content">
+      <div class="popup-header">
+         <span class="close" onclick="ClosePopup()">×</span>
+         <h2>Politiekers</h2>
+         <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value="" />
+      </div>
+      <div class="popup-body">
+         <p id="personenLoading" style="display:block">Personen worden geladen</p>
+         <p id="personenButtons" style="display:none">
+         </p>
+      </div>
+   </div>
+</div>
+
+<div id="loading" class="loading" style="display:none">
+   <div class="loading-content">
+      <div class="loading-body">
+         <h2>Loading...</h2>
+         <img src="~/Images/dashboard.png" />
+      </div>
+   </div>
+</div>
+
+
+<style>
+   /*popup
+   ------------------------------------------------------------------*/
+
+   .popup, .loading {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 80px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+   }
+
+      .loading img {
+         width: 50%
+      }
+
+   .loading {
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+      color: white;
+   }
+
+   .popup-content {
+      background-color: #fefefe;
+      margin: auto;
+      border: 1px solid #888;
+      width: 60%;
+      max-width: 500px;
+      border-radius: 6px;
+   }
+
+   .popup-header {
+      border-bottom: solid black 1px;
+   }
+
+   .popup-body, .loading-body {
+      margin: 10px;
+      text-align: center;
+   }
+
+   .popup h2 {
+      font-weight: bold;
+      text-align: center;
+      margin: 20px;
+      margin-bottom: 10px;
+   }
+
+   /* The Close Button */
+   .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+   }
+
+      .close:hover,
+      .close:focus {
+         color: #000;
+         text-decoration: none;
+         cursor: pointer;
+      }
+</style>
+
+<script>
+   $('a.popup-button').click(function (event) {
+      event.preventDefault();
+   });
+
+   function filterPersonen(filter) {
+      var btns = document.getElementsByClassName("btnPersoon");
+
+      for (var i = 0; i < btns.length; i++) {
+         var btn = btns[i];
+         var val = btn.value.toLowerCase();
+         if (val.includes(filter.toLowerCase())) {
+            btn.style.display = 'inline';
+         } else {
+            btn.style.display = 'none';
+         }
+      }
+   }
+
+   function ShowPopup() {
+      var popups = document.getElementsByClassName('popup');
+
+      popups[0].style.display = 'block';
+   }
+
+   function ClosePopup(event) {
+      filterPersonen("");
+      document.getElementById('filter').value = '';
+      var popups = document.getElementsByClassName('popup');
+
+      for (var i = 0; i < popups.length; i++) {
+         popups[i].style.display = 'none';
+      }
+   }
+</script>

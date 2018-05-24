@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Configuratie" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="gebruik" xml:space="preserve">
+    <value>How do you use our site?</value>
+  </data>
+  <data name="groepsleden" xml:space="preserve">
+    <value>Our groupmembers are:  Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauqiuer and Daan Schokkaert.</value>
+  </data>
+  <data name="groepsnaam" xml:space="preserve">
+    <value>Our groupname is: "Bit by Bit"</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="info_groep" xml:space="preserve">
+    <value>We are a group of IT students from the KDG in Antwerp.</value>
+  </data>
+  <data name="NieuweGraf" xml:space="preserve">
+    <value>New Graph</value>
+  </data>
+  <data name="Over" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="overons" xml:space="preserve">
+    <value>About us</value>
+  </data>
+  <data name="Rollen" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Zoeken" xml:space="preserve">
+    <value>Search..</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="Registreren" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="veranderTaal" xml:space="preserve">
+    <value>Change Language</value>
+  </data>
+  <data name="aantalDagen" xml:space="preserve">
+    <value>number of Days</value>
+  </data>
+  <data name="aantalThema" xml:space="preserve">
+    <value>Number of themes</value>
+  </data>
+  <data name="aantalWeken" xml:space="preserve">
+    <value>number of Weeks</value>
+  </data>
+  <data name="err5personen" xml:space="preserve">
+    <value>Can't add more than 5 persons</value>
+  </data>
+  <data name="evTweet" xml:space="preserve">
+    <value>Evolution of number of Tweets</value>
+  </data>
+  <data name="gemeente" xml:space="preserve">
+    <value>Town</value>
+  </data>
+  <data name="geslacht" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="grafiekOpslaan" xml:space="preserve">
+    <value>Save Graph</value>
+  </data>
+  <data name="grafTit" xml:space="preserve">
+    <value>Grafiek Title</value>
+  </data>
+  <data name="kies" xml:space="preserve">
+    <value>Choose</value>
+  </data>
+  <data name="kruising" xml:space="preserve">
+    <value>crossing</value>
+  </data>
+  <data name="kruisMet" xml:space="preserve">
+    <value>Cross with</value>
+  </data>
+  <data name="leeftijd" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="naarBoven" xml:space="preserve">
+    <value>Back to top</value>
+  </data>
+  <data name="opleiding" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="overHast" xml:space="preserve">
+    <value>Hashtags about</value>
+  </data>
+  <data name="overMent" xml:space="preserve">
+    <value>Mentions about</value>
+  </data>
+  <data name="overTweet" xml:space="preserve">
+    <value>Tweets about</value>
+  </data>
+  <data name="overzicht" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="overzichtvan" xml:space="preserve">
+    <value>Preview of</value>
+  </data>
+  <data name="perDag" xml:space="preserve">
+    <value>per Day</value>
+  </data>
+  <data name="persoonlijkheid" xml:space="preserve">
+    <value>Personality</value>
+  </data>
+  <data name="perWeek" xml:space="preserve">
+    <value>per Week</value>
+  </data>
+  <data name="politieker" xml:space="preserve">
+    <value>Politician</value>
+  </data>
+  <data name="politiekers" xml:space="preserve">
+    <value>Politicians</value>
+  </data>
+  <data name="taal" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="thema" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="themas" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="toevoegen" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="toonpreview" xml:space="preserve">
+    <value>Show Preview</value>
+  </data>
+  <data name="trend" xml:space="preserve">
+    <value>Trend</value>
+  </data>
+  <data name="verhalen" xml:space="preserve">
+    <value>Stories</value>
+  </data>
+  <data name="voegtoe" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="vrgkAantalHast" xml:space="preserve">
+    <value>number of Hashtags</value>
+  </data>
+  <data name="vrgkAantalMent" xml:space="preserve">
+    <value>number of Mentions</value>
+  </data>
+  <data name="vrgkAantalTweet" xml:space="preserve">
+    <value>number of Tweets</value>
+  </data>
+  <data name="wat" xml:space="preserve">
+    <value>What</value>
+  </data>
+  <data name="woorden" xml:space="preserve">
+    <value>Words</value>
+  </data>
+  <data name="Doel" xml:space="preserve">
+    <value>What's the purpose of this website?</value>
+  </data>
+  <data name="Doel_Uitleg" xml:space="preserve">
+    <value>The goal of the website is to make a live dashboard 
+for citizens about what's happening on social media around a certain social facet.</value>
+  </data>
+</root>

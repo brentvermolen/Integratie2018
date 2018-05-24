@@ -1,0 +1,138 @@
+﻿@model MVCIntegratie.Models.IndexViewModel
+
+@{
+   ViewBag.Title = "Gebruiker";
+
+   var gebruiker = new BL.Domain.Gebruiker();
+   var naam = "";
+
+   if (User.Identity.IsAuthenticated)
+   {
+      gebruiker = Model.Gebruiker;
+
+      naam = gebruiker.UserName.Substring(0, gebruiker.UserName.IndexOf("@"));
+
+      ViewBag.Title = naam;
+   }
+}
+<link rel="stylesheet" href="~/Content/Layout.css" />
+<script src="~/Scripts/ReadOnly.js"></script>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+
+<div>
+   <h1 id="naam">@naam</h1>
+   <hr />
+   <div class="col-md-8">
+      <div class="form-group form-horizontal">
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Email</label>
+            </div>
+            <div class="col-md-8 invoer">
+               <input id="email" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Email" />
+            </div>
+         </div>
+
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Password</label>
+            </div>
+            <div class="col-md-8">
+
+               @if (Model.HasPassword)
+            {
+               @Html.ActionLink("Change your password", "ChangePassword")
+         }
+         else
+         {
+            @Html.ActionLink("Create", "SetPassword")
+      }
+            </div>
+         </div>
+
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Voornaam</label>
+            </div>
+            <div class="col-md-8 invoer">
+               <input id="voornaam" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Voornaam" />
+            </div>
+         </div>
+
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Achternaam</label>
+            </div>
+            <div class="col-md-8 invoer">
+               <input id="achternaam" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Achternaam" />
+            </div>
+         </div>
+
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Geboortedatum</label>
+            </div>
+            <div class="col-md-8 invoer">
+               <input id="geboortedatum" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Geboortedatum" />
+            </div>
+         </div>
+
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Postcode</label>
+            </div>
+            <div class="col-md-8 invoer" id="">
+               <input id="postcode" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Postcode" />
+            </div>
+         </div>
+
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Veiligheidsvraag</label>
+            </div>
+            <div class="col-md-8 invoer">
+               <select id="veiligheidsvraag" class="form-control invoerdropdown" disabled>
+                  <option value="0">
+                     Wat is de geboorteplaats van je moeder?
+                  </option>
+                  <option value="1">
+                     Wat is de geboorteplaats van je vader?
+                  </option>
+                  <option value="2">
+                     Wat was het merk van je eerste auto?
+                  </option>
+                  <option value="3">
+                     Wat is de naam van je beste jeugdvriend?
+                  </option>
+                  <option value="4">
+                     Met wie was je eerste kus?
+                  </option>
+                  <option value="5">
+                     In welke straat stond je eerste eigen huis?
+                  </option>
+                  <option value="6">
+                     Wat is de naam van je eerste huisdier?
+                  </option>
+               </select>
+            </div>
+         </div>
+
+         <div class="row form-group">
+            <div class="col-md-2">
+               <label>Antwoord</label>
+            </div>
+            <div class="col-md-8 invoer">
+               <input id="antwoord" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Antwoord" />
+            </div>
+         </div>
+
+         <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+               <input id="wijzig" type="button" class="btn btn-default" value="Wijzig" onclick="invoer(this)" />
+               <input id="opslaan" type="submit" class="btn btn-default" value="Opslaan" onclick="opslaan(this)" style="display:none" />
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

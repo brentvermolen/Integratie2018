@@ -1,0 +1,81 @@
+﻿@using BL.Domain.ItemKlassen
+@model BL.Domain.Bericht
+
+@if (Model == null)
+{
+    <p> Geen resultaten gevonden. </p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Politiekers</th>
+            <th>Aantal Berichten</th>
+        </tr>
+
+        @foreach (var dingskePersoon in Model.Personen)
+        {
+            <tr>
+
+                <td>@Html.ActionLink(dingskePersoon.Naam, MVC.Persoon.Details(dingskePersoon.ID))</td>
+                <td>@Html.DisplayFor(modelItem => dingskePersoon.Berichten.Count) </td>
+            </tr>
+        }
+        
+        <tr>
+            <th>Trefwoorden</th>
+            <th>Aantal Berichten</th>
+        </tr>
+
+        @foreach (var woord in Model.Woorden)
+        {
+            <tr>
+
+                <td>@Html.DisplayFor(ModelItem => woord.Tekst)</td>
+                <td>@Html.DisplayFor(modelItem => woord.Berichten.Count) </td>
+            </tr>
+        }
+        <tr>
+
+            <th>Mentions</th>
+            <th>Aantal Berichten</th>
+
+        </tr>
+
+        @foreach (var mention in Model.Mentions)
+        {
+            <tr>
+
+                <td>@Html.DisplayFor(ModelItem => mention.Tekst)</td>
+                <td>@Html.DisplayFor(modelItem => mention.Berichten.Count) </td>
+            </tr>
+        }
+        <tr>
+            <th>Hashtags</th>
+            <th>Aantal Berichten</th>
+        </tr>
+
+        @foreach (var hashtag in Model.Hashtags)
+        {
+            <tr>
+
+                <td>@Html.DisplayFor(ModelItem => hashtag.Tekst)</td>
+                <td>@Html.DisplayFor(modelItem => hashtag.Berichten.Count) </td>
+            </tr>
+        }
+        <tr>
+            <th>Urls</th>
+            <th>Aantal Berichten</th>
+        </tr>
+
+        @foreach (var url in Model.Urls)
+        {
+            <tr>
+                <td>
+                    <a href="@url.Tekst"> @url.Tekst</a>
+                </td>
+                <td>@Html.DisplayFor(modelItem => url.Berichten.Count) </td>
+            </tr>
+        }
+    </table>
+}

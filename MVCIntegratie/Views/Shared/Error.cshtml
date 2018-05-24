@@ -1,0 +1,34 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "404";
+    Layout = "";
+}
+<style>
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+    .button_terug {
+        height:50px;
+        width: 250px;
+        position: relative;
+        top: 50%;
+       margin-left:40%;
+    
+    }
+</style>
+<img src="~/Images/error.jpg" alt="" class="center">
+<audio autoplay loop>
+   <source src="~/Audio/Elevator Music 1 hour.mp3">
+</audio>
+<button id="myButton" class="button_terug">Ga terug naar home page</button>
+
+<script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "https://localhost:44391";
+    };
+</script>
+

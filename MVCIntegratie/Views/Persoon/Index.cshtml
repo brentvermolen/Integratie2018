@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BL.Domain.ItemKlassen.Persoon>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" href="~/Content/Layout.css">
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       <th>@Html.DisplayNameFor(model => model.Naam)</th>
+       <th>@Html.DisplayNameFor(model => model.Berichten)</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       <td>@Html.DisplayFor(modelItem => item.Naam)</td>
+       @{ 
+          var count = item.Berichten.Count.ToString();
+       }
+       <td>@Html.DisplayFor(modelItem => count)</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Naam }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Naam }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Naam })
+        </td>
+    </tr>
+}
+
+</table>
