@@ -17,6 +17,7 @@ namespace BL.Domain.JsonConverters
       public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
       {
          Organisatie organisatie = Organisaties.Find(m => m.Naam.Equals(reader.Value.ToString()));
+
          if (organisatie == null)
          {
             organisatie = new Organisatie() { Naam = reader.Value.ToString() };

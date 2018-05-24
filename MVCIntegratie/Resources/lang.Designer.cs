@@ -61,6 +61,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aantal Dagen.
+        /// </summary>
+        public static string aantalDagen {
+            get {
+                return ResourceManager.GetString("aantalDagen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal Thema&apos;s.
+        /// </summary>
+        public static string aantalThema {
+            get {
+                return ResourceManager.GetString("aantalThema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal Weken.
+        /// </summary>
+        public static string aantalWeken {
+            get {
+                return ResourceManager.GetString("aantalWeken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuratie.
         /// </summary>
         public static string Configuratie {
@@ -75,6 +102,24 @@ namespace Resources {
         public static string Contact {
             get {
                 return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet meer dan 5 personen toevoegen.
+        /// </summary>
+        public static string err5personen {
+            get {
+                return ResourceManager.GetString("err5personen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evolutie van het aantal tweets.
+        /// </summary>
+        public static string evTweet {
+            get {
+                return ResourceManager.GetString("evTweet", resourceCulture);
             }
         }
         
@@ -97,7 +142,43 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onze groepsleden zijn: Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauquier en Daan Schokkaert..
+        ///   Looks up a localized string similar to Gemeente.
+        /// </summary>
+        public static string gemeente {
+            get {
+                return ResourceManager.GetString("gemeente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geslacht.
+        /// </summary>
+        public static string geslacht {
+            get {
+                return ResourceManager.GetString("geslacht", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grafiek opslaan.
+        /// </summary>
+        public static string grafiekOpslaan {
+            get {
+                return ResourceManager.GetString("grafiekOpslaan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grafiek Titel.
+        /// </summary>
+        public static string grafTit {
+            get {
+                return ResourceManager.GetString("grafTit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onze groepsleden zijn: Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauqiuer en Daan Schokkaert..
         /// </summary>
         public static string groepsleden {
             get {
@@ -133,6 +214,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kies.
+        /// </summary>
+        public static string kies {
+            get {
+                return ResourceManager.GetString("kies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kruising.
+        /// </summary>
+        public static string kruising {
+            get {
+                return ResourceManager.GetString("kruising", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kruis met.
+        /// </summary>
+        public static string kruisMet {
+            get {
+                return ResourceManager.GetString("kruisMet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leeftijd.
+        /// </summary>
+        public static string leeftijd {
+            get {
+                return ResourceManager.GetString("leeftijd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aanmelden.
         /// </summary>
         public static string LogIn {
@@ -151,11 +268,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ga terug naar boven.
+        /// </summary>
+        public static string naarBoven {
+            get {
+                return ResourceManager.GetString("naarBoven", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuwe Grafiek.
         /// </summary>
         public static string NieuweGraf {
             get {
                 return ResourceManager.GetString("NieuweGraf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opleiding.
+        /// </summary>
+        public static string opleiding {
+            get {
+                return ResourceManager.GetString("opleiding", resourceCulture);
             }
         }
         
@@ -169,6 +304,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hashtags over.
+        /// </summary>
+        public static string overHast {
+            get {
+                return ResourceManager.GetString("overHast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mentions over.
+        /// </summary>
+        public static string overMent {
+            get {
+                return ResourceManager.GetString("overMent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Over ons.
         /// </summary>
         public static string overons {
@@ -178,7 +331,79 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registreren.
+        ///   Looks up a localized string similar to Tweets over.
+        /// </summary>
+        public static string overTweet {
+            get {
+                return ResourceManager.GetString("overTweet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overzicht.
+        /// </summary>
+        public static string overzicht {
+            get {
+                return ResourceManager.GetString("overzicht", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overzicht van.
+        /// </summary>
+        public static string overzichtvan {
+            get {
+                return ResourceManager.GetString("overzichtvan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to per Dag.
+        /// </summary>
+        public static string perDag {
+            get {
+                return ResourceManager.GetString("perDag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Persoonlijkheid.
+        /// </summary>
+        public static string persoonlijkheid {
+            get {
+                return ResourceManager.GetString("persoonlijkheid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to per Week.
+        /// </summary>
+        public static string perWeek {
+            get {
+                return ResourceManager.GetString("perWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Politieker.
+        /// </summary>
+        public static string politieker {
+            get {
+                return ResourceManager.GetString("politieker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Politiekers.
+        /// </summary>
+        public static string politiekers {
+            get {
+                return ResourceManager.GetString("politiekers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string Registreren {
             get {
@@ -196,11 +421,128 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Taal.
+        /// </summary>
+        public static string taal {
+            get {
+                return ResourceManager.GetString("taal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thema.
+        /// </summary>
+        public static string thema {
+            get {
+                return ResourceManager.GetString("thema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thema&apos;s.
+        /// </summary>
+        public static string themas {
+            get {
+                return ResourceManager.GetString("themas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toevoegen.
+        /// </summary>
+        public static string toevoegen {
+            get {
+                return ResourceManager.GetString("toevoegen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toon Preview.
+        /// </summary>
+        public static string toonpreview {
+            get {
+                return ResourceManager.GetString("toonpreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trend.
+        /// </summary>
+        public static string trend {
+            get {
+                return ResourceManager.GetString("trend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wijzig taal.
         /// </summary>
         public static string veranderTaal {
             get {
                 return ResourceManager.GetString("veranderTaal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verhalen.
+        /// </summary>
+        public static string verhalen {
+            get {
+                return ResourceManager.GetString("verhalen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg toe.
+        /// </summary>
+        public static string voegtoe {
+            get {
+                return ResourceManager.GetString("voegtoe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal Hashtags.
+        /// </summary>
+        public static string vrgkAantalHast {
+            get {
+                return ResourceManager.GetString("vrgkAantalHast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal Mentions.
+        /// </summary>
+        public static string vrgkAantalMent {
+            get {
+                return ResourceManager.GetString("vrgkAantalMent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal Tweets.
+        /// </summary>
+        public static string vrgkAantalTweet {
+            get {
+                return ResourceManager.GetString("vrgkAantalTweet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wat.
+        /// </summary>
+        public static string wat {
+            get {
+                return ResourceManager.GetString("wat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Woorden.
+        /// </summary>
+        public static string woorden {
+            get {
+                return ResourceManager.GetString("woorden", resourceCulture);
             }
         }
         

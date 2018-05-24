@@ -100,6 +100,9 @@ namespace DAL
             .HasRequired(p => p.Deelplatform)
             .WithMany(d => d.Personen)
             .HasForeignKey(p => p.DeelplatformID);
+            modelBuilder.Entity<Organisatie>()
+                .HasMany(o => o.Personen);
+                
 
          base.OnModelCreating(modelBuilder);
       }

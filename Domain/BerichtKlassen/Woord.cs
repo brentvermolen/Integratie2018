@@ -7,45 +7,57 @@ using System.Threading.Tasks;
 
 namespace BL.Domain.BerichtKlassen
 {
-   public class Woord
-   {
-      [Key]
-      public int ID { get; set; }
-      public string Tekst { get; set; }
-      
-      public virtual ICollection<Bericht> Berichten { get; set; }
+    public class Woord : IComparable
+    {
+        [Key]
+        public int ID { get; set; }
+        public string Tekst { get; set; }
 
-      public override string ToString()
-      {
-         return Tekst;
-      }
+        public virtual ICollection<Bericht> Berichten { get; set; }
 
-      public override bool Equals(object obj)
-      {
-         if (obj.GetType() != GetType())
-         {
-            if (obj.GetType() == typeof(string))
+        public override string ToString()
+        {
+            return Tekst;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType())
             {
-               string woord = (string)obj;
-               if (woord.Equals(Tekst))
-               {
-                  return true;
-               }
+                if (obj.GetType() == typeof(string))
+                {
+                    string woord = (string)obj;
+                    if (woord.Equals(Tekst))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+
+            Woord o = (Woord)obj;
+
+            if (o.Tekst.Equals(Tekst))
             {
-               return false;
+                return true;
             }
-         }
 
-         Woord o = (Woord)obj;
+            return false;
+        }
 
-         if (o.Tekst.Equals(Tekst))
-         {
-            return true;
-         }
+        public int CompareTo(object obj)
+        {
+            if(obj == null) { return 1; }
+            Woord woord = obj as Woord;
 
-         return false;
-      }
-   }
+            if (woord != null)
+            {
+                return this.Berichten.Count().CompareTo(woord.Berichten.Count());
+            }
+            else throw new ArgumentException("Dit is geen woord");
+        }
+    }
 }

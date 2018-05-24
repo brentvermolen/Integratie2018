@@ -1,34 +1,16 @@
-﻿using BL.Domain;
-using BL.Domain.BerichtKlassen;
-using BL.Domain.ItemKlassen;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BL.Domain;
+using BL.Domain.BerichtKlassen;
+
 using System.Web;
 
-namespace MVCIntegratie.Models
+namespace BL.Domain
 {
-    public class SearchModel
-    {
-
-
-    }
-    public enum ZoekFilter
-    {
-        Politieker,
-        Trefwoord,
-        Mention,
-        Tag,
-        Link,
-        Grafiek
-
-    }
-
-    public enum ZoekSorteren
-    {
-        AantalBerichten,
-        Naam
-    }
+    
     public class ZoekResultaat
     {
         public ZoekResultaat()
@@ -49,5 +31,22 @@ namespace MVCIntegratie.Models
         public List<Url> Urls { get; set; }
         public List<Grafiek> Grafieken { get; set; }
         public List<Persoon> Personen { get; set; }
+    }
+
+    public enum ZoekFilter
+    {
+        Politieker,
+        Trefwoord,
+        Mention,
+        Tag,
+        Link,
+        Grafiek
+
+    }
+
+    public enum ZoekSorteren
+    {
+        AantalBerichten,
+        Naam
     }
 }
