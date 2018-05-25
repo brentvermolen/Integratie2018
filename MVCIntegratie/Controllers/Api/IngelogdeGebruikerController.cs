@@ -58,7 +58,32 @@ namespace MVCIntegratie.Controllers.Api
 
          return Ok();
       }
-   }
+        private AlertManager Alertmng = new AlertManager();
+        [Route("~/api/IngelogdeGebruiker/alerttoevoegen")]
+        public IHttpActionResult Postalerttoevoegen([FromBody] string data)
+        {
+            AlertJson alert = JsonConvert.DeserializeObject<AlertJson>(data);
+            Gebruiker g = Alertmng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+
+            Grafiek grafiek = Alertmng.GetGrafiek(int.Parse(alert.id));
+
+            foreach (Persoon p in grafiek.Personen){
+                Alert a = new Alert()
+                {
+                    Gebruiker = g,
+                    Type = Alert.AlertType.BEIDE,
+                    Persoon = p,
+                    Ingeschakeld = true,
+                    VerzendBrowser = true,
+                    VerzendMail = true
+                };
+
+                Alertmng.AddAlert(a);
+            }
+
+            return Ok();
+        }
+    }
 }
 
 public class GebruikerJson
@@ -70,4 +95,9 @@ public class GebruikerJson
    public string postcode { get; set; }
    public string vraag { get; set; }
    public string antwoord { get; set; }
+}
+
+public class AlertJson
+{
+    public string id { get; set; }
 }

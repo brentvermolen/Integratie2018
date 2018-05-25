@@ -42,7 +42,17 @@ namespace DAL
             .Include("Gebruiker");
       }
 
-      public void UpdateAlert(Alert alert)
+        public Gebruiker GetGebruiker(int ID)
+        {
+            return ctx.Gebruikers.Find(ID);
+        }
+
+        public Grafiek GetGrafiek(int ID)
+        {
+            return ctx.Grafieken.Find(ID);
+        }
+
+        public void UpdateAlert(Alert alert)
       {
          ctx.Entry(alert).State = System.Data.Entity.EntityState.Modified;
          ctx.SaveChanges();
