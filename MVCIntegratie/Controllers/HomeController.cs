@@ -13,7 +13,6 @@ using System.Web.Mvc;
 
 namespace MVCIntegratie.Controllers
 {
-   [RequireHttps]
    public partial class HomeController : Controller
    {
       private BerichtManager berichtMng = new BerichtManager();
