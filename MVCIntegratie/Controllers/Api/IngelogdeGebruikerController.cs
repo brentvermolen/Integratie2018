@@ -21,7 +21,10 @@ namespace MVCIntegratie.Controllers.Api
       {
          if (id.Equals("nodeBox"))
          {
-            //Verwijder NodeBox grafiek
+            var gebruiker = gebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+            gebruiker.NoNodebox = true;
+
+            gebruikerMng.ChangeGebruiker(gebruiker);
             return Ok(true);
          }
 
@@ -58,32 +61,103 @@ namespace MVCIntegratie.Controllers.Api
 
          return Ok();
       }
-        private AlertManager Alertmng = new AlertManager();
-        [Route("~/api/IngelogdeGebruiker/alerttoevoegen")]
-        public IHttpActionResult Postalerttoevoegen([FromBody] string data)
-        {
-            AlertJson alert = JsonConvert.DeserializeObject<AlertJson>(data);
-            Gebruiker g = Alertmng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+      private AlertManager Alertmng = new AlertManager();
+      [Route("~/api/IngelogdeGebruiker/alerttoevoegen")]
+      public IHttpActionResult Postalerttoevoegen([FromBody] string data)
+      {
+         AlertJson alert = JsonConvert.DeserializeObject<AlertJson>(data);
+         Gebruiker g = Alertmng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
 
-            Grafiek grafiek = Alertmng.GetGrafiek(int.Parse(alert.id));
+         Grafiek grafiek = Alertmng.GetGrafiek(int.Parse(alert.id));
 
-            foreach (Persoon p in grafiek.Personen){
-                Alert a = new Alert()
-                {
-                    Gebruiker = g,
-                    Type = Alert.AlertType.BEIDE,
-                    Persoon = p,
-                    Ingeschakeld = true,
-                    VerzendBrowser = true,
-                    VerzendMail = true
-                };
+         foreach (Persoon p in grafiek.Personen)
+         {
+            Alert a = new Alert()
+            {
+               Gebruiker = g,
+               Type = Alert.AlertType.BEIDE,
+               Persoon = p,
+               Ingeschakeld = true,
+               VerzendBrowser = true,
+               VerzendMail = true
+            };
 
-                Alertmng.AddAlert(a);
+            Alertmng.AddAlert(a);
+         }
+
+         return Ok();
+      }
+      
+      [Route("~/api/IngelogdeGebruiker/Nodebox/{ingeschakeld}")]
+      public IHttpActionResult PutNodebox(string ingeschakeld)
+      {
+         Gebruiker gebruiker = gebruikerMng.GetGebruiker(int.Parse(User.Identity.GetUserId()));
+
+         if (ingeschakeld.Equals("true"))
+         {
+            gebruiker.NoNodebox = false;
+         }
+         else
+         {
+            gebruiker.NoNodebox = true;
+         }
+
+         gebruikerMng.ChangeGebruiker(gebruiker);
+
+         return Ok(true);
+      }
+
+      [Route("~/api/IngelogdeGebruiker/EnableAlert/{enabled}/{id}")]
+      public IHttpActionResult PutEnableAlert(string enabled, string id)
+      {
+         Alert alert = Alertmng.GetAlert(int.Parse(id));
+
+         if (enabled.Equals("true"))
+         {
+            alert.Ingeschakeld = true;
+         }
+         else if(enabled.Equals("false"))
+         {
+            alert.Ingeschakeld = false;
+         }
+
+         Alertmng.ChangeAlert(alert);
+
+         return Ok(true);
+      }
+
+      [Route("~/api/IngelogdeGebruiker/ChangeVerzendWijze/{wijze}/{enabled}/{id}")]
+      public IHttpActionResult PutEnableAlert(string wijze, string enabled, string id)
+      {
+         Alert alert = Alertmng.GetAlert(int.Parse(id));
+
+         if (enabled.Equals("true"))
+         {
+            if (wijze.Equals("mail"))
+            {
+               alert.VerzendMail = true;
+            }else if (wijze.Equals("browser"))
+            {
+               alert.VerzendBrowser = true;
             }
+         }
+         else if(enabled.Equals("false"))
+         {
+            if (wijze.Equals("mail"))
+            {
+               alert.VerzendMail = false;
+            }
+            else if (wijze.Equals("browser"))
+            {
+               alert.VerzendBrowser = false;
+            }
+         }
 
-            return Ok();
-        }
-    }
+         Alertmng.ChangeAlert(alert);
+
+         return Ok(true);
+      }
+   }
 }
 
 public class GebruikerJson
@@ -99,5 +173,5 @@ public class GebruikerJson
 
 public class AlertJson
 {
-    public string id { get; set; }
+   public string id { get; set; }
 }

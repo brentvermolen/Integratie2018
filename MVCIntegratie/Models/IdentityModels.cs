@@ -15,7 +15,7 @@ namespace MVCIntegratie.Models
          var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
          // Add custom user claims here
          isSuperAdmin = false;
-         ShowNodebox = true;
+         NoNodebox = false;
          return userIdentity;
       }
 
@@ -32,7 +32,7 @@ namespace MVCIntegratie.Models
       public string Antwoord { get; set; }
 
       public bool isSuperAdmin { get; set; }
-      public bool ShowNodebox { get; set; }
+      public bool NoNodebox { get; set; }
    }
    public class MyUserRole : IdentityUserRole<int> { }
 

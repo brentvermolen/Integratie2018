@@ -771,7 +771,7 @@
       }*/
 
       class PieClass {
-         constructor(title, serieNaam, content, persoon, id) {
+         constructor(title, serieNaam, content, persoon, id, aantal) {
             this.title = title;
             this.serieNaam = serieNaam;
             this.content = content;
@@ -779,6 +779,7 @@
             this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
             this.graf = id;
             this.persoon = persoon;
+            this.aantal = aantal;
             this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
          }
       }
@@ -806,14 +807,12 @@
                currentPersonen, grafiD)
             break;
          case 'pie':
-            /*var series = [];
-            var waarden = [];
+            var series = [];
 
             for (var i = 0; i < pieChart.series[0].userOptions.data.length; i++) {
                var data = pieChart.series[0].userOptions.data[i];
-               series.push(data.name);
-               waarden.push(data.y);
-            }*/
+               series.push(i);
+            }
 
             var type;
 
@@ -829,10 +828,8 @@
 
             graf = new PieClass(pieChart.title.textStr,
                pieChart.series[0].userOptions.name,
-               /*series,
-               waarden*/
                type,
-               id, grafiD
+               id, grafiD, series.length
             )
             break;
       }
