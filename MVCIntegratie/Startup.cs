@@ -11,7 +11,7 @@ namespace MVCIntegratie
       {
          ConfigureAuth(app);
 
-         Process.Start("C:\\Users\\Evelien\\Documents\\GitHub\\Integratie2018\\CA\\bin\\Debug");
+         //Process.Start("C:\\Users\\Evelien\\Documents\\GitHub\\Integratie2018\\CA\\bin\\Debug");
       }
    }
 }

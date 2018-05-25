@@ -297,7 +297,7 @@ namespace CA
             //HttpResponseMessage response = await client.SendAsync(requestMessage);
 
 
-                responseString.ToString();*/
+                responseString.ToString();
 
                 AddBerichten(responseString, date);
 

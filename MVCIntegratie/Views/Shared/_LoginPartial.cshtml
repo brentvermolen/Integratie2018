@@ -2,19 +2,7 @@
 @using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "nl-BE" })'>
-                <img src='@Url.Content("~/images/flag-be.png")' width="25px" height="25px" />
-            </a>
-
-        </li>
-        <li>
-            <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "en-US" })'>
-                <img src='@Url.Content("~/images/flag-en.png")' width="25px" height="25px" />
-            </a>
-        </li>
-    </ul>
+    
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
