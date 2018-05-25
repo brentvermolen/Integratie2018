@@ -11,7 +11,7 @@ using System.IO;
 
 namespace DAL
 {
-   public class Integratie2018Initializer : DropCreateDatabaseAlways<Integratie2018Context>
+   public class Integratie2018Initializer : CreateDatabaseIfNotExists<Integratie2018Context>
    {
       protected override void Seed(Integratie2018Context context)
       {
@@ -34,7 +34,7 @@ namespace DAL
 
       private void AddPersonen(Integratie2018Context context)
       {
-            using (StreamReader sr = new StreamReader("..\\..\\MVCIntegratie\\Content\\politici.json"))
+            using (StreamReader sr = new StreamReader("C:\\Users\\Daan\\Desktop\\Integratie\\IntegratieMaster\\MVCIntegratie\\Content\\politici.json"))
          {
             PersonenJson personen = JsonConvert.DeserializeObject<PersonenJson>("{ \"personen\": " + sr.ReadToEnd() + " }");
 

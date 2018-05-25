@@ -130,7 +130,7 @@
     <value>Hoe gebruik je onze site?</value>
   </data>
   <data name="groepsleden" xml:space="preserve">
-    <value>Onze groepsleden zijn: Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauquier en Daan Schokkaert.</value>
+    <value>Onze groepsleden zijn: Evelien Hullebroeck, Brent Vermolen, Jonas Hofmans, Nathan Van Hof, Jos Hauqiuer en Daan Schokkaert.</value>
   </data>
   <data name="groepsnaam" xml:space="preserve">
     <value>Onze groepsnaam is: "Bit By Bit".</value>
@@ -163,7 +163,7 @@
     <value>Afmelden</value>
   </data>
   <data name="Registreren" xml:space="preserve">
-    <value>Registreren</value>
+    <value>Register</value>
   </data>
   <data name="veranderTaal" xml:space="preserve">
     <value>Wijzig taal</value>
@@ -281,5 +281,12 @@
   </data>
   <data name="woorden" xml:space="preserve">
     <value>Woorden</value>
+  </data>
+  <data name="Doel" xml:space="preserve">
+    <value>Wat is het doel van deze website?</value>
+  </data>
+  <data name="Doel_Uitleg" xml:space="preserve">
+    <value>Het doel van het project is om een live dashboard inzichtelijk te maken
+voor burgers wat er op social media draait rond een bepaald maatschappelijk facet</value>
   </data>
 </root>

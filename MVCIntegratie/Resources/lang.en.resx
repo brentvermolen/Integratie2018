@@ -282,4 +282,11 @@
   <data name="woorden" xml:space="preserve">
     <value>Words</value>
   </data>
+  <data name="Doel" xml:space="preserve">
+    <value>What's the purpose of this website?</value>
+  </data>
+  <data name="Doel_Uitleg" xml:space="preserve">
+    <value>The goal of the website is to make a live dashboard 
+for citizens about what's happening on social media around a certain social facet.</value>
+  </data>
 </root>

@@ -106,6 +106,25 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wat is het doel van deze website?.
+        /// </summary>
+        public static string Doel {
+            get {
+                return ResourceManager.GetString("Doel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het doel van het project is om een live dashboard inzichtelijk te maken
+        ///voor burgers wat er op social media draait rond een bepaald maatschappelijk facet.
+        /// </summary>
+        public static string Doel_Uitleg {
+            get {
+                return ResourceManager.GetString("Doel_Uitleg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan niet meer dan 5 personen toevoegen.
         /// </summary>
         public static string err5personen {

@@ -2,37 +2,49 @@
 @using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    
+
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
         var naam = User.Identity.GetUserName().Substring(0, User.Identity.GetUserName().IndexOf("@"));
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink(naam, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.lang.LogOff</a></li>
-    </ul>
-
-        }
-        }
-        else
-        {
         <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink(Resources.lang.Registreren, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            <li>@Html.ActionLink(Resources.lang.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-            <li><span></span></li>
+
             <li>
-                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "nl-BE" })'>
+                @Html.ActionLink(naam, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.lang.LogOff</a></li>
+            <li>
+                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(),new { language="en-US", deelplatform = ViewContext.RouteData.Values["deelplatform"]})'>
                     <img src='@Url.Content("~/images/flag-be.png")' width="25px" height="25px" />
                 </a>
 
             </li>
             <li>
-                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "en-US" })'>
+                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language="en-US", deelplatform = ViewContext.RouteData.Values["deelplatform"]})'>
                     <img src='@Url.Content("~/images/flag-en.png")' width="25px" height="25px" />
                 </a>
             </li>
         </ul>
-        }
+
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink(Resources.lang.Registreren, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(Resources.lang.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li><span></span></li>
+        <li>
+            <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(),new { language="en-US", deelplatform = ViewContext.RouteData.Values["deelplatform"]})'>
+                <img src='@Url.Content("~/images/flag-be.png")' width="25px" height="25px" />
+            </a>
+
+        </li>
+        <li>
+            <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language="en-US", deelplatform = ViewContext.RouteData.Values["deelplatform"]})'>
+                <img src='@Url.Content("~/images/flag-en.png")' width="25px" height="25px" />
+            </a>
+        </li>
+    </ul>
+}
