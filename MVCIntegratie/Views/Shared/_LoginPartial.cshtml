@@ -36,13 +36,13 @@
             <li>@Html.ActionLink(Resources.lang.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
             <li><span></span></li>
             <li>
-                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "nl-BE" })'>
+                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "nl-BE", deelplatform = ViewContext.RouteData.Values["deelplatform"] })'>
                     <img src='@Url.Content("~/images/flag-be.png")' width="25px" height="25px" />
                 </a>
 
             </li>
             <li>
-                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "en-US" })'>
+                <a href='@Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { language = "en-US", deelplatform = ViewContext.RouteData.Values["deelplatform"] })'>
                     <img src='@Url.Content("~/images/flag-en.png")' width="25px" height="25px" />
                 </a>
             </li>
