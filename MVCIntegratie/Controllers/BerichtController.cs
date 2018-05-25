@@ -36,5 +36,5 @@ namespace MVCIntegratie.Controllers
 
          return View(bericht);
       }
-   }
+  }
 }
