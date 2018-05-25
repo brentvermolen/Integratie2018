@@ -289,12 +289,7 @@ namespace CA
                 //HttpResponseMessage response = await client.SendAsync(requestMessage);
 
                 string responseString = await response.Content.ReadAsStringAsync();
-
-
-           /* HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://kdg.textgain.com/query");
-                requestMessage.Content = content;*/
-            HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
-            //HttpResponseMessage response = await client.SendAsync(requestMessage);
+        
 
 
                 responseString.ToString();
