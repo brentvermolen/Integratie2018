@@ -190,6 +190,10 @@ namespace BL
         {
             return repo.ReadOrganisatie(organId);
         }
+        public IEnumerable<Organisatie> getOrganisaties()
+        {
+            return repo.ReadOrganisaties();
+        }
 
         public IEnumerable<Url> GetUrls()
         {

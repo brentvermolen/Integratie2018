@@ -14,10 +14,53 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <!--<script src="~/Scripts/Chart.js"></script>-->
 <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    //initialiaze and setup facebook js sdk
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '906366716198237',
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+
+        } ;
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    var userId = "'" + @Model.Persoon.Facebook.Split('/').Last() +"'";
+
+    FB.api('/' + userId, function (response) {
+        fbinfo = new Array();
+        fbinfo[0] = response.id;
+        fbinfo[1] = response.first_name;
+        fbinfo[2] = response.last_name;
+        fbinfo[3] = response.email;
+
+        var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=normal");
+    });
+
+        /* FB.api(
+         '/userId/picture',
+         'GET',
+         {},
+         function (response) {
+             var fotoUrl = response.picture.data.url;
+             document.getElementById('foto').innerHTML = "<img src='" + fotoUrl + "'>";
+         }
+                );*/
+</script>
 <h2>Details</h2>
 
 <div>
+
     <h4>@Model.Persoon.Naam</h4>
+    <div id="foto"></div>
     <h1>@Model.Persoon.Berichten.Count</h1>
     <h5>Politieke Partij</h5>
     <h6>@Model.Persoon.Organisatie.Naam</h6>
@@ -28,33 +71,32 @@
         @Model.Persoon.Twitter<br />
         @Model.Persoon.Facebook<br />
     </p>
-    <table>
-        <tr>
-            <th>Vermeldingen per keywoord</th>
-            <th>Trend per keywoord</th>
-        </tr>
+    <hr />
+    <div>
+        <div class="col-md-12"><h5>Vermeldingen per keywoord</h5></div>
+
         @foreach (Woord woord in Model.Keywoorden)
-    {
-        
-        <tr>
-            @woord.Tekst</tr>
-        <tr>
-            <td>@woord.Berichten.Where(b => b.Mentions.Where(m => m.Tekst.Contains(Model.Persoon.Naam)) != null).Count();</td>
-            <!-- <td>woord.Berichten.SingleOrDefault(b => b.Sentiment !=null)</td>-->
-
-        </tr>
-        
-
-}
-    </table>
-
-    <h5>Links</h5>
-    <p>
-        @foreach (Url url in Model.Urls)
         {
-        <a href="@url.Tekst"> @url.Tekst</a><br/>
+
+            <div class="col-md-3">
+                @woord
+                @woord.Berichten.Where(b => b.Mentions.Where(m => m.Tekst.Contains(Model.Persoon.Naam)) != null).Count()
+            </div>
         }
-    </p>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <hr />
+        <h5>Links</h5>
+        <p>
+            @foreach (Url url in Model.Urls)
+            {
+                <a href="@url.Tekst"> @url.Tekst</a><br />
+            }
+        </p>
+    </div>
     <hr />
 </div>
 
@@ -80,7 +122,7 @@
                      plotShadow: @Model.Grafiek.GetBoolString(Model.Grafiek.Chart.PlotShadow),
                         </text>
                      }
-/**/
+
                         type: '@Model.Grafiek.Chart.Type'
                      },
                      </text>
