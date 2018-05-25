@@ -25,10 +25,10 @@ namespace CA
             Console.WriteLine("Klaarmaken Voor Synchronisatie");
             sync = syncMng.GetSync();
 
-            /*Console.WriteLine("Synchronisatie Starten");
+            Console.WriteLine("Synchronisatie Starten");
             StartAsync().Wait();
             Console.ReadKey();
-            Console.WriteLine();*/
+            Console.WriteLine();
             Console.WriteLine("Berichten Analyseren");
             AnalyseerBerichten();
             Console.WriteLine("Geanalyseerd");
@@ -290,10 +290,12 @@ namespace CA
 
                 string responseString = await response.Content.ReadAsStringAsync();
 
-                /*using (StreamReader sr = new StreamReader("C:\\Users\\Daan\\Desktop\\Integratie\\IntegratieMaster\\MVCIntegratie\\Content\\alljson.txt"))
-                {
-                   responseString = sr.ReadToEnd();
-                }
+
+           /* HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://kdg.textgain.com/query");
+                requestMessage.Content = content;*/
+            HttpResponseMessage response = await client.PostAsync("https://kdg.textgain.com/query", content);
+            //HttpResponseMessage response = await client.SendAsync(requestMessage);
+
 
                 responseString.ToString();*/
 

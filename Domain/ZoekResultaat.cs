@@ -7,6 +7,7 @@ using BL.Domain;
 using BL.Domain.BerichtKlassen;
 
 using System.Web;
+using BL.Domain.PersoonKlassen;
 
 namespace BL.Domain
 {
@@ -21,6 +22,8 @@ namespace BL.Domain
             Hashtags = new List<Hashtag>();
             Personen = new List<Persoon>();
             Grafieken = new List<Grafiek>();
+            Organisaties = new List<Organisatie>();
+
 
         }
 
@@ -31,11 +34,13 @@ namespace BL.Domain
         public List<Url> Urls { get; set; }
         public List<Grafiek> Grafieken { get; set; }
         public List<Persoon> Personen { get; set; }
+        public List<Organisatie> Organisaties { get; set; }
     }
 
     public enum ZoekFilter
     {
         Politieker,
+        Organisatie,
         Trefwoord,
         Mention,
         Tag,

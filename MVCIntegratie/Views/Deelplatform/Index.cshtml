@@ -1,74 +1,65 @@
 ﻿@model MVCIntegratie.Models.DeelplatformModel
+ 
+    <link rel="stylesheet" href="~/Content/Layout.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
-@{ Layout = ""; }
 
-<script src="~/Scripts/jquery-3.0.0.min.js"></script>
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-
-<div class="container">
     @if (User.Identity.IsAuthenticated)
     {
-        if (Model.MijnDeelplatformen.Count != 0)
-        {
-            <div class="row">
-                <h2>Open één van uw platformen</h2>
-                <table>
-                    <tr>
-                        <th>Naam</th>
-                    </tr>
-                    @foreach (var platform in Model.MijnDeelplatformen)
-                    {
-                        <tr>
-                            <td><a href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">@platform.Naam</a></td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        }
+        <h2>Registreer op andere deelplatformen</h2>
 
-        if (Model.AndereDeelplatformen.Count != 0)
+        if (Model.MijnDeelplatformen.Count == 0)
         {
-            <div class="row">
-                <h2>Registreer op een deelplatform</h2>
-                <table>
+            <h1>U bent nog niet geregistreerd op een deelplatform, gelieve dit eerst te doen</h1>
+            <table>
+                <tr>
+                    <th>Naam</th>
+                    <th></th>
+                </tr>
+                @foreach (var platform in Model.AndereDeelplatformen)
+                {
                     <tr>
-                        <th>Naam</th>
-                        <th></th>
+                        <td>@platform.Naam</td>
+                        <td><button class="btn btn-success" onclick="registreer(@platform.ID, '@platform.Naam')">Registreer</button></td>
                     </tr>
-                    @foreach (var platform in Model.AndereDeelplatformen)
-                    {
-                        <tr>
-                            <td>@platform.Naam</td>
-                            <td><button class="btn btn-success" onclick="registreer(@platform.ID, '@platform.Naam')">Registreer</button></td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                }
+            </table>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <th>Naam</th>
+                </tr>
+                @foreach (var platform in Model.MijnDeelplatformen)
+                {
+                    <tr>
+                        <td>@platform.Naam</td>
+                    </tr>
+                }
+            </table>
         }
     }
     else
     {
-        <h1>Kies hier een deelplatform</h1>
 
-        <hr />
+        <h2>Kies hier een deelplatform</h2>
 
-        foreach (var platform in Model.AndereDeelplatformen)
-        {
-
-            <div class="row">
-                <div class="col-md-3"><h4>@platform.Naam</h4></div>
-                <div class="col-md-1"><a class="btn btn-success deelplatformkiesknop" href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">Kies</a></div>
-            </div>
-            <hr />
-
-        }
+        <table>
+            <tr>
+                <th>Naam</th>
+            </tr>
+            @foreach (var platform in Model.AndereDeelplatformen)
+            {
+                <tr>
+                    <td><a href="@Url.Action("Index", "Home", new { deelplatform = platform.Naam }, null)">@platform.Naam</a></td>
+                </tr>
+            }
+        </table>
     }
-</div>
 
-<script>
+    <script>
    function registreer(id, deelplatform) {
       class Deelplatform {
          constructor(id) {
@@ -78,7 +69,20 @@
 
       var platform = new Deelplatform(id);
 
-      var json = naarJsonFormaat(platform);
+      var jsonG = JSON.stringify(platform);
+
+      var json = '"';
+
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
+
+      json += '"';
 
       $.ajax('/api/Config/RegistreerDeelplatform', {
          type: 'POST',
@@ -92,4 +96,4 @@
          alert('Er is iets misgelopen bij het registreren, probeer later opnieuw');
       });
    }
-</script>
+    </script>
