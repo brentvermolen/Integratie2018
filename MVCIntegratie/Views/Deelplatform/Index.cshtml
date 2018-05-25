@@ -8,6 +8,8 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 
+
+<img src="~/Images/banner.jpg" style="width:100%; height:30%;"/>
 <div class="container">
     @if (User.Identity.IsAuthenticated)
     {
@@ -52,11 +54,10 @@
     else
     {
         <h1>Kies hier een deelplatform</h1>
-
+    
         <hr />
-
-        foreach (var platform in Model.AndereDeelplatformen)
-        {
+            foreach (var platform in Model.AndereDeelplatformen)
+            {
 
             <div class="row">
                 <div class="col-md-3"><h4>@platform.Naam</h4></div>
@@ -64,7 +65,7 @@
             </div>
             <hr />
 
-        }
+            }
     }
 </div>
 
