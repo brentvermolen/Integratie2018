@@ -1,4 +1,4 @@
-﻿@model List<BL.Domain.Grafiek>
+﻿@model MVCIntegratie.Models.HomeIngelogdModel
 
 @{
    ViewBag.Title = "Home";
@@ -23,36 +23,45 @@
 
 </div>
 
+@using BL
+@{ 
+   var mng = new GrafiekenManager();
+}
+
 <div class="container">
    <div class="row">
-      <div class="col-sm-6 col-md-6 content" data-id="nodeBox">
-         <!--<div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);"></div>-->
-         <div id="nodeBox">
-            <div>
-               <img src="~/Images/nodebox.svg" draggable="false" style="height: 399px; width:100%;" />
-            </div>
-            <div tabindex="0" class="onclick-menu">
-               <span class="glyphicon glyphicon-pencil"></span>
-               <ul class="onclick-menu-content">
-                  <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li> <!--In gebruiker klassen een attribuut bool hasNodebox? if true => Show Nodebox-->
-                  <li><button>Annuleren</button></li>
-               </ul>
+      @if (Model.Gebruiker.NoNodebox == false)
+      {
+         <div class="col-sm-6 col-md-6 content" data-id="nodeBox">
+            <!--<div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);"></div>-->
+            <div id="nodeBox">
+               <div>
+                  <img src="~/Images/nodebox.svg" draggable="false" style="height: 399px; width:100%;" />
+               </div>
+               <div tabindex="0" class="onclick-menu">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <ul class="onclick-menu-content">
+                     <li><button onclick="verwijder('nodeBox')">Verwijderen</button></li> <!--In gebruiker klassen een attribuut bool hasNodebox? if true => Show Nodebox-->
+                     <li><button>Annuleren</button></li>
+                  </ul>
+               </div>
             </div>
          </div>
-      </div>
-
-      @foreach (var grafiek in Model)
+      }
+      
+      @foreach (var grafiek in Model.Grafieken)
       {
-         <div class="col-sm-6 col-md-6 content grafiek" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);" >
+         mng.CreateGrafiek(grafiek);
+         <div class="col-sm-6 col-md-6 content grafiek" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);">
             <div style="display:none" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);"></div>
             <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div tabindex="0" class="onclick-menu">
                <span class="glyphicon glyphicon-pencil"></span>
                <ul class="onclick-menu-content">
-                   <li><a href="@Url.Action("Wijzig", "Graph", new { id = grafiek.ID }, null)" style="color:white"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
-                   <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
-                   <li><button onclick="alerttoevoegen('@grafiek.ID')">Alert toevoegen</button></li>
-                   <li><button>Annuleren</button></li>
+                  <li><a href="@Url.Action("Wijzig", "Graph", new { id = grafiek.ID }, null)" style="color:white"><button onclick="bewerkGrafiek('@grafiek.ID')">Bewerken</button></a></li>
+                  <li><button onclick="verwijder('@grafiek.ID')">Verwijderen</button></li>
+                  <li><button onclick="alerttoevoegen('@grafiek.ID')">Alert toevoegen</button></li>
+                  <li><button>Annuleren</button></li>
                </ul>
             </div>
          </div>
@@ -62,40 +71,41 @@
 
 <div class="row">
 
-   <input type="button" value="Wijzig Volgorde" onclick="enableDisableDragDrop(this);" class="btn btn-success"/>
-   <input type="button" id="annuleerVolgorde" onclick="disableDragDrop()" value="Annuleer" style="display:none" class="btn btn-success"/>
+   <input type="button" value="Wijzig Volgorde" onclick="enableDisableDragDrop(this);" class="btn btn-success" />
+   <input type="button" id="annuleerVolgorde" onclick="disableDragDrop()" value="Annuleer" style="display:none" class="btn btn-success" />
 </div>
 
 <script>
 
-    function alerttoevoegen(id) {
-        class Alert {
-            constructor(id) {
-                this.id = id;
-            }
-        }
+   function alerttoevoegen(id) {
+      class Alert {
+         constructor(id) {
+            this.id = id;
+         }
+      }
 
-        var alert = new Alert(id);
+      var alert = new Alert(id);
 
-        var json = naarJsonFormaat(alert);
+      var json = naarJsonFormaat(alert);
 
-        $.ajax('/api/IngelogdeGebruiker/alerttoevoegen', {
-            type: 'POST',
-            contentType: "application/json",
-            accepts: 'application/json',
-            data: json
-        }).done(function (data) {
-            window.location.reload();
-        }).fail(function () {
-            alert('Er is iets misgelopen tijdens het opslaan van de volgorde...');
-        });
-    }
+      $.ajax('/api/IngelogdeGebruiker/alerttoevoegen', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         window.location.reload();
+      }).fail(function () {
+         alert('Er is iets misgelopen tijdens het opslaan van de volgorde...');
+      });
+   }
 
 
    function enableDisableDragDrop(button) {
       var divs = document.getElementsByClassName("dragger");
 
       var annuleer = document.getElementById("annuleerVolgorde");
+      var volgOpslaan = false;
 
       for (var i = 0; i < divs.length; i++) {
          if (divs[i].style.display == "none") {
@@ -103,11 +113,15 @@
             button.value = "Volgorde Opslaan";
             annuleer.style.display = "block";
          } else {
+            volgOpslaan = true;
             divs[i].style.display = "none";
             annuleer.style.display = "none";
-            volgordeOpslaan();
             button.value = "Wijzig Volgorde";
          }
+      }
+
+      if (volgOpslaan) {
+         volgordeOpslaan();
       }
    }
 
@@ -143,7 +157,7 @@
          accepts: 'application/json',
          data: json
       }).done(function (data) {
-         //window.location.reload();
+
       }).fail(function () {
          alert('Er is iets misgelopen tijdens het opslaan van de volgorde...');
       });
@@ -186,7 +200,7 @@
 
 <script type="text/javascript">
    $(document).ready(function () {
-      @foreach(var grafiek in Model)
+      @foreach(var grafiek in Model.Grafieken)
       {
          <text>
          var elem = document.getElementById('@grafiek.ID');

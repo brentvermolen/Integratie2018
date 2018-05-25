@@ -3,6 +3,7 @@ using BL.Domain;
 using BL.Domain.GrafiekKlassen;
 using BL.Domain.GrafiekTypes;
 using Microsoft.AspNet.Identity;
+using MVCIntegratie.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -32,14 +33,40 @@ namespace MVCIntegratie.Controllers
          if (User.Identity.IsAuthenticated)
          {
             int id = int.Parse(User.Identity.GetUserId());
-            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.Gebruiker.ID == id && g.Deelplatform.ID == platform.ID).ToList();
+            List<Grafiek> graf = grafiekenMng.GetGrafieken(false).Where(g => g.Gebruiker.ID == id && g.Deelplatform.ID == platform.ID).ToList();
+            graf.Sort((g1, g2) => g1.Order.CompareTo(g2.Order));
 
-            return View("Home_Ingelogd", graf);
+            HomeIngelogdModel model = new HomeIngelogdModel()
+            {
+               Grafieken = graf,
+               Gebruiker = gebruikerMng.GetGebruiker(id)
+            };
+
+            return View("Home_Ingelogd", model);
          }
          else
          {
             List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.isDefault == true && g.Deelplatform == platform).ToList();
-            return View(graf);
+
+            Random rand = new Random();
+            int max = berichtMng.GetPersonen().ToList().Count;
+            List<Persoon> pers = new List<Persoon>();
+            
+            if (max > 0)
+            {
+               for (int i = 0; i < 4; i++)
+               {
+                  pers.Add(berichtMng.GetPersoon(rand.Next(max)));
+               }
+            }
+
+            HomeModel model = new HomeModel()
+            {
+               Grafieken = graf,
+               Personen = pers
+            };
+
+            return View(model);
          }
       }
 

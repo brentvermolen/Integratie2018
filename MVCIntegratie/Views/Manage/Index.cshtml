@@ -1,19 +1,19 @@
 ﻿@model MVCIntegratie.Models.IndexViewModel
 @using BL.Domain;
 @{
-    ViewBag.Title = "Gebruiker";
+   ViewBag.Title = "Gebruiker";
 
-    var gebruiker = new BL.Domain.Gebruiker();
-    var naam = "";
+   var gebruiker = new BL.Domain.Gebruiker();
+   var naam = "";
 
-    if (User.Identity.IsAuthenticated)
-    {
-        gebruiker = Model.Gebruiker;
+   if (User.Identity.IsAuthenticated)
+   {
+      gebruiker = Model.Gebruiker;
 
-        naam = gebruiker.UserName.Substring(0, gebruiker.UserName.IndexOf("@"));
+      naam = gebruiker.UserName.Substring(0, gebruiker.UserName.IndexOf("@"));
 
-        ViewBag.Title = naam;
-    }
+      ViewBag.Title = naam;
+   }
 }
 <link rel="stylesheet" href="~/Content/Layout.css" />
 <script src="~/Scripts/ReadOnly.js"></script>
@@ -21,175 +21,211 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 
 <ul class="nav nav-tabs" id="tabbar">
-    <li class="active">
-        <a data-toggle="tab" href="#home">Profiel wijzigen</a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#menu1">Alerts instellen</a>
-    </li>
+   <li class="active">
+      <a data-toggle="tab" href="#home">Profiel wijzigen</a>
+   </li>
+   <li>
+      <a data-toggle="tab" href="#menu1">Alerts instellen</a>
+   </li>
+   <li>
+      <a data-toggle="tab" href="#menu2">NodeBox</a>
+   </li>
 </ul>
 
 <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-        <div>
-            <h1 id="naam">@naam</h1>
-            <hr />
-            <div class="col-md-8">
-                <div class="form-group form-horizontal">
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Email</label>
-                        </div>
-                        <div class="col-md-8 invoer">
-                            <input id="email" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Email" />
-                        </div>
-                    </div>
+   <div id="home" class="tab-pane fade in active">
+      <div>
+         <h1 id="naam">@naam</h1>
+         <hr />
+         <div class="col-md-8">
+            <div class="form-group form-horizontal">
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Email</label>
+                  </div>
+                  <div class="col-md-8 invoer">
+                     <input id="email" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Email" />
+                  </div>
+               </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Password</label>
-                        </div>
-                        <div class="col-md-8">
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Password</label>
+                  </div>
+                  <div class="col-md-8">
 
-                            @if (Model.HasPassword)
-                            {
-                                @Html.ActionLink("Change your password", "ChangePassword")
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Create", "SetPassword")
-                            }
-                        </div>
-                    </div>
+                     @if (Model.HasPassword)
+                     {
+                        @Html.ActionLink("Change your password", "ChangePassword")
+                     }
+                     else
+                     {
+                        @Html.ActionLink("Create", "SetPassword")
+                     }
+                  </div>
+               </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Voornaam</label>
-                        </div>
-                        <div class="col-md-8 invoer">
-                            <input id="voornaam" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Voornaam" />
-                        </div>
-                    </div>
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Voornaam</label>
+                  </div>
+                  <div class="col-md-8 invoer">
+                     <input id="voornaam" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Voornaam" />
+                  </div>
+               </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Achternaam</label>
-                        </div>
-                        <div class="col-md-8 invoer">
-                            <input id="achternaam" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Achternaam" />
-                        </div>
-                    </div>
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Achternaam</label>
+                  </div>
+                  <div class="col-md-8 invoer">
+                     <input id="achternaam" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Achternaam" />
+                  </div>
+               </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Geboortedatum</label>
-                        </div>
-                        <div class="col-md-8 invoer">
-                            <input id="geboortedatum" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Geboortedatum" />
-                        </div>
-                    </div>
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Geboortedatum</label>
+                  </div>
+                  <div class="col-md-8 invoer">
+                     <input id="geboortedatum" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Geboortedatum" />
+                  </div>
+               </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Postcode</label>
-                        </div>
-                        <div class="col-md-8 invoer" id="">
-                            <input id="postcode" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Postcode" />
-                        </div>
-                    </div>
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Postcode</label>
+                  </div>
+                  <div class="col-md-8 invoer" id="">
+                     <input id="postcode" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Postcode" />
+                  </div>
+               </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Veiligheidsvraag</label>
-                        </div>
-                        <div class="col-md-8 invoer">
-                            <select id="veiligheidsvraag" class="form-control invoerdropdown" disabled>
-                                <option value="0">
-                                    Wat is de geboorteplaats van je moeder?
-                                </option>
-                                <option value="1">
-                                    Wat is de geboorteplaats van je vader?
-                                </option>
-                                <option value="2">
-                                    Wat was het merk van je eerste auto?
-                                </option>
-                                <option value="3">
-                                    Wat is de naam van je beste jeugdvriend?
-                                </option>
-                                <option value="4">
-                                    Met wie was je eerste kus?
-                                </option>
-                                <option value="5">
-                                    In welke straat stond je eerste eigen huis?
-                                </option>
-                                <option value="6">
-                                    Wat is de naam van je eerste huisdier?
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Veiligheidsvraag</label>
+                  </div>
+                  <div class="col-md-8 invoer">
+                     <select id="veiligheidsvraag" class="form-control invoerdropdown" disabled>
+                        <option value="0">
+                           Wat is de geboorteplaats van je moeder?
+                        </option>
+                        <option value="1">
+                           Wat is de geboorteplaats van je vader?
+                        </option>
+                        <option value="2">
+                           Wat was het merk van je eerste auto?
+                        </option>
+                        <option value="3">
+                           Wat is de naam van je beste jeugdvriend?
+                        </option>
+                        <option value="4">
+                           Met wie was je eerste kus?
+                        </option>
+                        <option value="5">
+                           In welke straat stond je eerste eigen huis?
+                        </option>
+                        <option value="6">
+                           Wat is de naam van je eerste huisdier?
+                        </option>
+                     </select>
+                  </div>
+               </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-2">
-                            <label>Antwoord</label>
-                        </div>
-                        <div class="col-md-8 invoer">
-                            <input id="antwoord" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Antwoord" />
-                        </div>
-                    </div>
+               <div class="row form-group">
+                  <div class="col-md-2">
+                     <label>Antwoord</label>
+                  </div>
+                  <div class="col-md-8 invoer">
+                     <input id="antwoord" class="form-control invoerveld" readonly="readonly" type="text" value="@gebruiker.Antwoord" />
+                  </div>
+               </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input id="wijzig" type="button" class="btn btn-default" value="Wijzig" onclick="invoer(this)" />
-                            <input id="opslaan" type="submit" class="btn btn-default" value="Opslaan" onclick="opslaan(this)" style="display:none" />
-                        </div>
-                    </div>
-                </div>
+               <div class="form-group">
+                  <div class="col-md-offset-2 col-md-10">
+                     <input id="wijzig" type="button" class="btn btn-default" value="Wijzig" onclick="invoer(this)" />
+                     <input id="opslaan" type="submit" class="btn btn-default" value="Opslaan" onclick="opslaan(this)" style="display:none" />
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-        @foreach (Alert alert in Model.Gebruiker.Alerts)
-    {
-        <div class="row" id="row1">
+         </div>
+      </div>
+   </div>
+   <div id="menu1" class="tab-pane fade">
+      @foreach (Alert alert in Model.Gebruiker.Alerts)
+      {
+         <div class="row" id="row1">
             <div class="col-md-4">
-                <div class="checkbox">
-                    @{ 
-                        var check = "";
-                        if (alert.Ingeschakeld)
-                        {
-                            check = "checked";
-                        }
-                        var browser = "";
-                        if (alert.VerzendBrowser)
-                        {
-                            browser = "checked";
-                        }
-                        var mail = "";
-                        if (alert.VerzendMail)
-                        {
-                            mail = "checked";
-                        }
-                    }
-                    <label><input type="checkbox" @check value="">@alert.Persoon.Naam</label>
-                </div>
+               <div class="checkbox">
+                  @{
+                     var check = "";
+                     if (alert.Ingeschakeld)
+                     {
+                        check = "checked";
+                     }
+                     var browser = "";
+                     if (alert.VerzendBrowser)
+                     {
+                        browser = "checked";
+                     }
+                     var mail = "";
+                     if (alert.VerzendMail)
+                     {
+                        mail = "checked";
+                     }
+                  }
+                  <label><input type="checkbox" @check value="">@alert.Persoon.Naam</label>
+               </div>
             </div>
 
             <div class="col-md-4">
-                <div class="checkbox">
-                    <label><input type="checkbox" @browser value="">Webbrowser alert</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" @mail value="">Mail</label>
-                </div>
+               <div class="checkbox">
+                  <label><input type="checkbox" @browser value="">Webbrowser alert</label>
+               </div>
+               <div class="checkbox">
+                  <label><input type="checkbox" @mail value="">Mail</label>
+               </div>
 
             </div>
-        </div>
-        <hr />
-}
-        <button class="btn btn-success" style="margin-top:5px">Opslaan</button>
-    </div>
-    
-    </div>
+         </div>
+         <hr />
+      }
+      <button class="btn btn-success" style="margin-top:5px">Opslaan</button>
+   </div>
+
+   <div id="menu2" class="tab-pane fade">
+      <h2>NodeBox Grafiek</h2>
+
+      <div class="col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 content" data-id="nodeBox">
+         <!--<div style="display:none" class="dragger" title="nodeBox" draggable="true" ondragstart="drag(event);"></div>-->
+         <div id="nodeBox">
+            <div>
+               <img src="~/Images/nodebox.svg" draggable="false" style="height: 399px; width:100%;" />
+            </div>
+         </div>
+      </div>
+
+      @if (Model.Gebruiker.NoNodebox == true)
+      {
+         <button class="btn btn-success" style="margin-top:5px" onclick="nodeboxGrafiekWijzigen('true');">Inschakelen</button>
+      }
+      else
+      {
+         <button class="btn btn-danger" style="margin-top:5px" onclick="nodeboxGrafiekWijzigen('false');">Uitschakelen</button>
+      }
+
+   </div>
+</div>
 
 
+<script>
+   function nodeboxGrafiekWijzigen(inschakelen) {
+      $.ajax("/api/IngelogdeGebruiker/Nodebox/" + inschakelen, {
+         method: "PUT"
+      }).done(function () {
+         window.location.reload();
+      }).fail(function () {
+         alert('Oeps, er ging iets mis, probeer later opnieuw');
+      });
+   }
+</script>

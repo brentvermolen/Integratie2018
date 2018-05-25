@@ -527,6 +527,7 @@ namespace MVCIntegratie.Controllers.Api
                grafiek3.ContentType = pie.content;
                grafiek3.GebruikerId = gebruiker;
                grafiek3.Deelplatform = deelplatform;
+               grafiek3.AantalSeries = int.Parse(pie.aantal);
                grafiek3.Personen.Add(grafiekenMng.GetPersoon(int.Parse(pie.persoon)));
                /*Serie serie2 = new Serie();
                serie2.Naam = pie.serieNaam;
@@ -599,6 +600,7 @@ namespace MVCIntegratie.Controllers.Api
          public List<double> waarden { get; set; }*/
          public string content { get; set; }
          public string persoon { get; set; }
+         public string aantal { get; set; }
       }
 
       public class SentimentModel
