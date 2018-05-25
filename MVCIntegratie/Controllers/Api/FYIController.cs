@@ -136,7 +136,31 @@ namespace MVCIntegratie.Controllers.Api
 
          Gebruiker g = gebruikermngr.GetGebruiker(intID);
 
+         foreach(Deelplatform platform in g.Deelplatformen)
+         {
+            platform.Gebruikers = null;
+            platform.Admins = null;
+         }
+         foreach(Deelplatform platform in g.IsAdmin)
+         {
+            platform.Gebruikers = null;
+            platform.Admins = null;
+         }
+
          return Ok(g);
+      }
+
+      [Route("~/api/FYI/UpdateAdmin/{platform}/{id}/{enabled}")]
+      public IHttpActionResult PutUpdateAdmin(string platform, string id, string enabled)
+      {
+         Deelplatform dp = platformMng.GetDeelplatform(platform);
+         Gebruiker gebruiker = platformMng.GetGebruiker(int.Parse(id));
+
+         gebruiker.IsAdmin.Add(dp);
+
+         platformMng.ChangeObject(gebruiker);
+
+         return Ok();
       }
 
       private BerichtManager BerichtMng = new BerichtManager();

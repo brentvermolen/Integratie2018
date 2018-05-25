@@ -66,7 +66,7 @@ namespace DAL
 
       public Deelplatform ReadDeelplatform(string deelplatform)
       {
-         return ctx.Deelplatformen.FirstOrDefault(d => d.Naam.Equals(deelplatform));
+         return ctx.Deelplatformen.Include("Gebruikers").Include("Admins").FirstOrDefault(d => d.Naam.Equals(deelplatform));
       }
 
       /*public int GetSerieID()
