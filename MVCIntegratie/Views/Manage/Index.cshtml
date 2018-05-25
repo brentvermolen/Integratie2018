@@ -154,22 +154,22 @@
         <div class="row" id="row1">
             <div class="col-md-4">
                 <div class="checkbox">
-                    @{ 
-                        var check = "";
-                        if (alert.Ingeschakeld)
-                        {
-                            check = "checked";
-                        }
-                        var browser = "";
-                        if (alert.VerzendBrowser)
-                        {
-                            browser = "checked";
-                        }
-                        var mail = "";
-                        if (alert.VerzendMail)
-                        {
-                            mail = "checked";
-                        }
+                    @{
+                    var check = "";
+                    if (alert.Ingeschakeld)
+                    {
+                        check = "checked";
+                    }
+                    var browser = "";
+                    if (alert.VerzendBrowser)
+                    {
+                        browser = "checked";
+                    }
+                    var mail = "";
+                    if (alert.VerzendMail)
+                    {
+                        mail = "checked";
+                    }
                     }
                     <label><input type="checkbox" @check value="">@alert.Persoon.Naam</label>
                 </div>

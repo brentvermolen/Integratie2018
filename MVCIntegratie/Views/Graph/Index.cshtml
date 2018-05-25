@@ -1,7 +1,7 @@
 ﻿@model MVCIntegratie.Models.NieuweGrafiekModel
 
 @{
-   ViewBag.Title = "NieuweGrafiek";
+    ViewBag.Title = "NieuweGrafiek";
 }
 
 <link href="~/Content/bootstrap.min.css">
@@ -40,424 +40,424 @@
 
 <div class="container">
 
-   <div class="row">
-      <div class="col-sm-12 col-md-12" id="typediagram">
-         <!--<select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
-            <option value="Lijn Diagram" selected>Lijn Diagram</option>
-            <option value="Staaf Diagram">Staaf Diagram</option>
-            <option value="Taart Diagram">Taart Diagram</option>
-            <option value="Vergelijking">Vergelijking</option>
-         </select>-->
-         <a href="javascript:void(0);" onclick="wijzigtype('Lijn Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/lijn_diagram.png" alt="line" style="max-width:100%" /></div></a>
-         <a href="javascript:void(0);" onclick="wijzigtype('Staaf Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/staaf_diagram.png" alt="line" style="max-width:100%" /></div></a>
-         <a href="javascript:void(0);" onclick="wijzigtype('Taart Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/taart_diagram.png" alt="line" style="max-width:100%" /></div></a>
-      </div>
-   </div>
-   <br />
-   <div class="col-sm-12 col-md-12 content row" id="grafiekdiv">
-      <div id="@Model.Line.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-      <div id="@Model.Bar.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-      <div id="@Model.Pie.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-   </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12" id="typediagram">
+            <!--<select id="selector" class="form-control" style="margin:15px;display:block" onchange="wijzigtype(this, 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart');">
+               <option value="Lijn Diagram" selected>Lijn Diagram</option>
+               <option value="Staaf Diagram">Staaf Diagram</option>
+               <option value="Taart Diagram">Taart Diagram</option>
+               <option value="Vergelijking">Vergelijking</option>
+            </select>-->
+            <a href="javascript:void(0);" onclick="wijzigtype('Lijn Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/lijn_diagram.png" alt="line" style="max-width:100%" /></div></a>
+            <a href="javascript:void(0);" onclick="wijzigtype('Staaf Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/staaf_diagram.png" alt="line" style="max-width:100%" /></div></a>
+            <a href="javascript:void(0);" onclick="wijzigtype('Taart Diagram', 'grafiekdiv', 'vergelijking', 'barchart', 'linechart', 'piechart')"><div style="width:20%; float:left; margin:0 6%"><img src="~/Images/taart_diagram.png" alt="line" style="max-width:100%" /></div></a>
+        </div>
+    </div>
+    <br />
+    <div class="col-sm-12 col-md-12 content row" id="grafiekdiv">
+        <div id="@Model.Line.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div id="@Model.Bar.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div id="@Model.Pie.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
 
-   <div class="col-sm-12 col-md-12 content row chartopties">
-      <input id="grafTitel" type="text" value="Grafiek Titel" onkeyup="wijzigTitel(this.value);" class="form-control" />
-   </div>
+    <div class="col-sm-12 col-md-12 content row chartopties">
+        <input id="grafTitel" type="text" value="Grafiek Titel" onkeyup="wijzigTitel(this.value);" class="form-control" />
+    </div>
 
-   <div id="vergelijking">
-      <div class="col-sm-6 col-md-6 vergelijkopties">
-         <select class="form-control">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
-         </select>
-      </div>
+    <div id="vergelijking">
+        <div class="col-sm-6 col-md-6 vergelijkopties">
+            <select class="form-control">
+                <option value="Politieker">Politieker</option>
+                <option value="Thema">Thema</option>
+            </select>
+        </div>
 
-      <div class="col-sm-6 col-md-6 vergelijkopties">
-         <select class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
-         </select>
-      </div>
-   </div>
-
-
-   <div id="barchart">
-      <div class="col-sm-12 col-md-12 barchartopties">
-         <select class="form-control" onchange="wijzigbar(this, 'barpolopties', 'barthemaopties');">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
-         </select>
-      </div>
-
-      <div class="col-sm-6 col-md-6 barchartopties barpolopties">
-
-         <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('bar')" class="btn btn-default  graphbutton" />
-         <div id="polBar" class="row">
-
-         </div>
-      </div>
-
-      <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
-         <label>Aantal Themas</label>
-         <select class="form-control" onchange="barwijzigaantalthema(this, 'baraantalthema')">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-         </select>
-      </div>
-
-      <div class="col-sm-6 col-md-6 barchartopties barpolopties">
-         <label>x-as</label>
-         <select class="form-control baraantalpol barstartpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control baraantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-      </div>
-
-      <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
-         <label>x-as</label>
-         <select class="form-control baraantalthema barstartthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control baraantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-      </div>
-
-      <div class="col-sm-6 col-md-6 barchartopties barpolopties">
-         <label>y-as</label>
-         <select id="barPolY" class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
-         </select>
-      </div>
-
-      <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
-         <label>y-as</label>
-         <select class="form-control">
-            <option value="Aantal tweets">Aantal tweets</option>
-            <option value="Aantal mentions">Aantal mentions</option>
-            <option value="Aantal hashtags">Aantal hashtags</option>
-         </select>
-      </div>
-   </div>
-
-   <div id="linechart">
-      <div class="col-sm-12 col-md-12 linechartopties">
-         <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties', 'polperline', 'themaperline'); grafiekGewijzigd();">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
-            <option value="Evolutie">Evolutie van aantal tweets</option>
-         </select>
-      </div>
-
-      <div class="col-sm-6 col-md-6 linechartopties linepolopties">
-         <!--<label>Aantal politiekers</label>
-         <select class="form-control" onchange="linewijzigaantalpol(this, 'lineaantalpol')">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-         </select>-->
-         <label>Politiekers</label>
-         <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line');" class="btn btn-default graphbutton" />
-         <div id="polLine" class="row">
-
-                
-         </div>
-      </div>
+        <div class="col-sm-6 col-md-6 vergelijkopties">
+            <select class="form-control">
+                <option value="Aantal tweets">Aantal tweets</option>
+                <option value="Aantal mentions">Aantal mentions</option>
+                <option value="Aantal hashtags">Aantal hashtags</option>
+            </select>
+        </div>
+    </div>
 
 
-      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
-         <label>Aantal Themas</label>
-         <select class="form-control" onchange="linewijzigaantalthema(this, 'lineaantalthema')">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-         </select>
-      </div>
+    <div id="barchart">
+        <div class="col-sm-12 col-md-12 barchartopties">
+            <select class="form-control" onchange="wijzigbar(this, 'barpolopties', 'barthemaopties');">
+                <option value="Politieker">Politieker</option>
+                <option value="Thema">Thema</option>
+            </select>
+        </div>
 
-      <!--<div class="col-sm-6 col-md-6 linechartopties linepolopties">
-         <label>lines</label>
-         <select class="form-control lineaantalpol linestartpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control lineaantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control lineaantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control lineaantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-         <select class="form-control lineaantalpol">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-      </div>
+        <div class="col-sm-6 col-md-6 barchartopties barpolopties">
 
-      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
-         <label>lines</label>
-         <select class="form-control lineaantalthema linestartthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control lineaantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control lineaantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control lineaantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-         <select class="form-control lineaantalthema">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-      </div>-->
+            <label>Politiekers</label>
+            <input type="button" value="Toevoegen" onclick="politiekerToevoegen('bar')" class="btn btn-default  graphbutton" />
+            <div id="polBar" class="row">
 
-      <div class="col-sm-6 col-md-6 linechartopties linepolopties">
-         <label>Y-As</label>
-         <p>Aantal Tweets</p>
-      </div>
+            </div>
+        </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
-         <label>Y-As</label>
-         <p>Aantal Tweets</p>
-      </div>
+        <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
+            <label>Aantal Themas</label>
+            <select class="form-control" onchange="barwijzigaantalthema(this, 'baraantalthema')">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linepolopties">
-         <label>X-As</label>
-         <select id="selectXAsLinePol">
-            <option value="dag">Per Dag</option>
-            <option value="week">Per Week</option>
-         </select>
-      </div>
+        <div class="col-sm-6 col-md-6 barchartopties barpolopties">
+            <label>x-as</label>
+            <select class="form-control baraantalpol barstartpol">
+                <option value="Politieker1">Politieker1</option>
+                <option value="Politieker2">Politieker2</option>
+                <option value="Politieker3">Politieker3</option>
+            </select>
+            <select class="form-control baraantalpol">
+                <option value="Politieker1">Politieker1</option>
+                <option value="Politieker2">Politieker2</option>
+                <option value="Politieker3">Politieker3</option>
+            </select>
+            <select class="form-control baraantalpol">
+                <option value="Politieker1">Politieker1</option>
+                <option value="Politieker2">Politieker2</option>
+                <option value="Politieker3">Politieker3</option>
+            </select>
+            <select class="form-control baraantalpol">
+                <option value="Politieker1">Politieker1</option>
+                <option value="Politieker2">Politieker2</option>
+                <option value="Politieker3">Politieker3</option>
+            </select>
+            <select class="form-control baraantalpol">
+                <option value="Politieker1">Politieker1</option>
+                <option value="Politieker2">Politieker2</option>
+                <option value="Politieker3">Politieker3</option>
+            </select>
+        </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
-         <label>X-As</label>
-         <p>Per Week</p>
-      </div>
+        <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
+            <label>x-as</label>
+            <select class="form-control baraantalthema barstartthema">
+                <option value="Thema1">Thema1</option>
+                <option value="Thema2">Thema2</option>
+                <option value="Thema3">Thema3</option>
+            </select>
+            <select class="form-control baraantalthema">
+                <option value="Thema1">Thema1</option>
+                <option value="Thema2">Thema2</option>
+                <option value="Thema3">Thema3</option>
+            </select>
+            <select class="form-control baraantalthema">
+                <option value="Thema1">Thema1</option>
+                <option value="Thema2">Thema2</option>
+                <option value="Thema3">Thema3</option>
+            </select>
+            <select class="form-control baraantalthema">
+                <option value="Thema1">Thema1</option>
+                <option value="Thema2">Thema2</option>
+                <option value="Thema3">Thema3</option>
+            </select>
+            <select class="form-control baraantalthema">
+                <option value="Thema1">Thema1</option>
+                <option value="Thema2">Thema2</option>
+                <option value="Thema3">Thema3</option>
+            </select>
+        </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepoldagen">
-         <label>Aantal weken</label>
-         <input type="number" id="aantalWekenPolLine" class="form-control" value="5" onchange="grafiekGewijzigd();" />
-      </div>
+        <div class="col-sm-6 col-md-6 barchartopties barpolopties">
+            <label>y-as</label>
+            <select id="barPolY" class="form-control">
+                <option value="Aantal tweets">Aantal tweets</option>
+                <option value="Aantal mentions">Aantal mentions</option>
+                <option value="Aantal hashtags">Aantal hashtags</option>
+            </select>
+        </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemadagen">
-         <label>Aantal dagen</label>
-         <input class="form-control" />
-      </div>
+        <div class="col-sm-6 col-md-6 barchartopties barthemaopties">
+            <label>y-as</label>
+            <select class="form-control">
+                <option value="Aantal tweets">Aantal tweets</option>
+                <option value="Aantal mentions">Aantal mentions</option>
+                <option value="Aantal hashtags">Aantal hashtags</option>
+            </select>
+        </div>
+    </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepolweken">
-         <label>Aantal weken</label>
-         <input class="form-control" />
-      </div>
+    <div id="linechart">
+        <div class="col-sm-12 col-md-12 linechartopties">
+            <select class="form-control" onchange="wijzigline(this, 'linepolopties', 'linethemaopties', 'lineevolutieopties', 'polperline', 'themaperline'); grafiekGewijzigd();">
+                <option value="Politieker">Politieker</option>
+                <option value="Thema">Thema</option>
+                <option value="Evolutie">Evolutie van aantal tweets</option>
+            </select>
+        </div>
 
-      <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemaweken">
-         <label>Aantal weken</label>
-         <input class="form-control" />
-      </div>
+        <div class="col-sm-6 col-md-6 linechartopties linepolopties">
+            <!--<label>Aantal politiekers</label>
+            <select class="form-control" onchange="linewijzigaantalpol(this, 'lineaantalpol')">
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+            </select>-->
+            <label>Politiekers</label>
+            <input type="button" value="Toevoegen" onclick="politiekerToevoegen('line');" class="btn btn-default graphbutton" />
+            <div id="polLine" class="row">
 
-      <div class="col-sm-6 col-md-6 linechartopties lineevolutieopties">
-         <label>X-As</label>
-         <select class="form-control">
-            <option value="per dag">per dag</option>
-            <option value="per week">per week</option>
-         </select>
-      </div>
-   </div>
-   <div id="piechart">
-      <div class="col-sm-12 col-md-12 piechartopties">
-         <select class="form-control" onchange="wijzigpie(this, 'soortpie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="typepie">
-            <option value="Kruising">Kruising</option>
-            <option value="Overzicht">Overzicht</option>
-         </select>
-      </div>
-      <div class="col-sm-12 col-md-12 piechartopties">
-         <select class="form-control" onchange="wijzigtypepie(this, 'typepie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="soortpie">
-            <option value="Politieker">Politieker</option>
-            <option value="Thema">Thema</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties ">
-         <label>Politieker</label>
-         <!--<select class="form-control">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>-->
-         <input type="button" value="Kies" class="btnPiePersoon btn btn-default graphbutton" onclick="politiekerKiezen(this)" />
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
-         <label>Thema</label>
-         <select class="form-control">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
-         <label>Wat?</label>
-         <select class="form-control">
-            <option value="Tweets over">Tweets over</option>
-            <option value="Mentions over">Mentions over</option>
-            <option value="Hashtags over">Hashtags over</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
-         <label>Wat?</label>
-         <select class="form-control">
-            <option value="Tweets over">Tweets over</option>
-            <option value="Mentions over">Mentions over</option>
-            <option value="Hashtags over">Hashtags over</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
-         <label>Kruisen met?</label>
-         <select id="pieCrossPolOpties" class="form-control">
-            <option value="Gemeente">Gemeente</option>
-            <option value="Geslacht">Geslacht</option>
-            <option value="Leeftijd">Leeftijd</option>
-            <option value="Opleiding">Opleiding</option>
-            <option value="Taal">Taal</option>
-            <option value="Persoonlijkheid">Persoonlijkheid</option>
-            <option value="Trend">Trend</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
-         <label>Kruisen met?</label>
-         <select class="form-control">
-            <option value="Gemeente">Gemeente</option>
-            <option value="Geslacht">Geslacht</option>
-            <option value="Leeftijd">Leeftijd</option>
-            <option value="Opleiding">Opleiding</option>
-            <option value="Taal">Taal</option>
-            <option value="Persoonlijkheid">Persoonlijkheid</option>
-            <option value="Trend">Trend</option>
-         </select>
-      </div>
 
-      <!--<div class="col-sm-6 col-md-6 piechartopties piepolopties">
-         <label>Politieker</label>
-         <select class="form-control">
-            <option value="Politieker1">Politieker1</option>
-            <option value="Politieker2">Politieker2</option>
-            <option value="Politieker3">Politieker3</option>
-         </select>
-      </div>-->
-      <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
-         <label>Thema</label>
-         <select class="form-control">
-            <option value="Thema1">Thema1</option>
-            <option value="Thema2">Thema2</option>
-            <option value="Thema3">Thema3</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties piepolopties">
-         <label>Type</label>
-         <select id="piePolOptiesTop" class="form-control">
-            <option value="Top5">Top5</option>
-            <option value="Top10">Top10</option>
-         </select>
-      </div>
+            </div>
+        </div>
 
-      <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
-         <label>Type</label>
-         <select class="form-control">
-            <option value="Top5">Top5</option>
-            <option value="Top10">Top10</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties piepolopties">
-         <label>Overzicht van</label>
-         <select id="piePolOptiesData" class="form-control">
-            <option value="Verhalen">Verhalen</option>
-            <option value="Thema's">Thema's</option>
-            <option value="Woorden">Woorden</option>
-         </select>
-      </div>
-      <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
-         <label>Overzicht van</label>
-         <select class="form-control">
-            <option value="Verhalen">Verhalen</option>
-            <option value="Woorden">Woorden</option>
-         </select>
-      </div>
-   </div>
-   <div class="form-group maakgrafiek">
-      <div class="col-md-6">
-         <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" />
-         <input id="grafiekOpslaan" type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" disabled />
-      </div>
-   </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+            <label>Aantal Themas</label>
+            <select class="form-control" onchange="linewijzigaantalthema(this, 'lineaantalthema')">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <!--<div class="col-sm-6 col-md-6 linechartopties linepolopties">
+           <label>lines</label>
+           <select class="form-control lineaantalpol linestartpol">
+              <option value="Politieker1">Politieker1</option>
+              <option value="Politieker2">Politieker2</option>
+              <option value="Politieker3">Politieker3</option>
+           </select>
+           <select class="form-control lineaantalpol">
+              <option value="Politieker1">Politieker1</option>
+              <option value="Politieker2">Politieker2</option>
+              <option value="Politieker3">Politieker3</option>
+           </select>
+           <select class="form-control lineaantalpol">
+              <option value="Politieker1">Politieker1</option>
+              <option value="Politieker2">Politieker2</option>
+              <option value="Politieker3">Politieker3</option>
+           </select>
+           <select class="form-control lineaantalpol">
+              <option value="Politieker1">Politieker1</option>
+              <option value="Politieker2">Politieker2</option>
+              <option value="Politieker3">Politieker3</option>
+           </select>
+           <select class="form-control lineaantalpol">
+              <option value="Politieker1">Politieker1</option>
+              <option value="Politieker2">Politieker2</option>
+              <option value="Politieker3">Politieker3</option>
+           </select>
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+           <label>lines</label>
+           <select class="form-control lineaantalthema linestartthema">
+              <option value="Thema1">Thema1</option>
+              <option value="Thema2">Thema2</option>
+              <option value="Thema3">Thema3</option>
+           </select>
+           <select class="form-control lineaantalthema">
+              <option value="Thema1">Thema1</option>
+              <option value="Thema2">Thema2</option>
+              <option value="Thema3">Thema3</option>
+           </select>
+           <select class="form-control lineaantalthema">
+              <option value="Thema1">Thema1</option>
+              <option value="Thema2">Thema2</option>
+              <option value="Thema3">Thema3</option>
+           </select>
+           <select class="form-control lineaantalthema">
+              <option value="Thema1">Thema1</option>
+              <option value="Thema2">Thema2</option>
+              <option value="Thema3">Thema3</option>
+           </select>
+           <select class="form-control lineaantalthema">
+              <option value="Thema1">Thema1</option>
+              <option value="Thema2">Thema2</option>
+              <option value="Thema3">Thema3</option>
+           </select>
+        </div>-->
+
+        <div class="col-sm-6 col-md-6 linechartopties linepolopties">
+            <label>Y-As</label>
+            <p>Aantal Tweets</p>
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+            <label>Y-As</label>
+            <p>Aantal Tweets</p>
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linepolopties">
+            <label>X-As</label>
+            <select id="selectXAsLinePol">
+                <option value="dag">Per Dag</option>
+                <option value="week">Per Week</option>
+            </select>
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linethemaopties">
+            <label>X-As</label>
+            <p>Per Week</p>
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepoldagen">
+            <label>Aantal weken</label>
+            <input type="number" id="aantalWekenPolLine" class="form-control" value="5" onchange="grafiekGewijzigd();" />
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemadagen">
+            <label>Aantal dagen</label>
+            <input class="form-control" />
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linepolopties" id="linepolweken">
+            <label>Aantal weken</label>
+            <input class="form-control" />
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties linethemaopties" id="linethemaweken">
+            <label>Aantal weken</label>
+            <input class="form-control" />
+        </div>
+
+        <div class="col-sm-6 col-md-6 linechartopties lineevolutieopties">
+            <label>X-As</label>
+            <select class="form-control">
+                <option value="per dag">per dag</option>
+                <option value="per week">per week</option>
+            </select>
+        </div>
+    </div>
+    <div id="piechart">
+        <div class="col-sm-12 col-md-12 piechartopties">
+            <select class="form-control" onchange="wijzigpie(this, 'soortpie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="typepie">
+                <option value="Kruising">Kruising</option>
+                <option value="Overzicht">Overzicht</option>
+            </select>
+        </div>
+        <div class="col-sm-12 col-md-12 piechartopties">
+            <select class="form-control" onchange="wijzigtypepie(this, 'typepie', 'kruisingpolopties', 'kruisingthemaopties', 'piepolopties', 'piethemaopties')" id="soortpie">
+                <option value="Politieker">Politieker</option>
+                <option value="Thema">Thema</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties ">
+            <label>Politieker</label>
+            <!--<select class="form-control">
+               <option value="Politieker1">Politieker1</option>
+               <option value="Politieker2">Politieker2</option>
+               <option value="Politieker3">Politieker3</option>
+            </select>-->
+            <input type="button" value="Kies" class="btnPiePersoon btn btn-default graphbutton" onclick="politiekerKiezen(this)" />
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
+            <label>Thema</label>
+            <select class="form-control">
+                <option value="Thema1">Thema1</option>
+                <option value="Thema2">Thema2</option>
+                <option value="Thema3">Thema3</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
+            <label>Wat?</label>
+            <select class="form-control">
+                <option value="Tweets over">Tweets over</option>
+                <option value="Mentions over">Mentions over</option>
+                <option value="Hashtags over">Hashtags over</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
+            <label>Wat?</label>
+            <select class="form-control">
+                <option value="Tweets over">Tweets over</option>
+                <option value="Mentions over">Mentions over</option>
+                <option value="Hashtags over">Hashtags over</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties kruisingpolopties">
+            <label>Kruisen met?</label>
+            <select id="pieCrossPolOpties" class="form-control">
+                <option value="Gemeente">Gemeente</option>
+                <option value="Geslacht">Geslacht</option>
+                <option value="Leeftijd">Leeftijd</option>
+                <option value="Opleiding">Opleiding</option>
+                <option value="Taal">Taal</option>
+                <option value="Persoonlijkheid">Persoonlijkheid</option>
+                <option value="Trend">Trend</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties kruisingthemaopties">
+            <label>Kruisen met?</label>
+            <select class="form-control">
+                <option value="Gemeente">Gemeente</option>
+                <option value="Geslacht">Geslacht</option>
+                <option value="Leeftijd">Leeftijd</option>
+                <option value="Opleiding">Opleiding</option>
+                <option value="Taal">Taal</option>
+                <option value="Persoonlijkheid">Persoonlijkheid</option>
+                <option value="Trend">Trend</option>
+            </select>
+        </div>
+
+        <!--<div class="col-sm-6 col-md-6 piechartopties piepolopties">
+           <label>Politieker</label>
+           <select class="form-control">
+              <option value="Politieker1">Politieker1</option>
+              <option value="Politieker2">Politieker2</option>
+              <option value="Politieker3">Politieker3</option>
+           </select>
+        </div>-->
+        <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
+            <label>Thema</label>
+            <select class="form-control">
+                <option value="Thema1">Thema1</option>
+                <option value="Thema2">Thema2</option>
+                <option value="Thema3">Thema3</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties piepolopties">
+            <label>Type</label>
+            <select id="piePolOptiesTop" class="form-control">
+                <option value="Top5">Top5</option>
+                <option value="Top10">Top10</option>
+            </select>
+        </div>
+
+        <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
+            <label>Type</label>
+            <select class="form-control">
+                <option value="Top5">Top5</option>
+                <option value="Top10">Top10</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties piepolopties">
+            <label>Overzicht van</label>
+            <select id="piePolOptiesData" class="form-control">
+                <option value="Verhalen">Verhalen</option>
+                <option value="Thema's">Thema's</option>
+                <option value="Woorden">Woorden</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-6 piechartopties piethemaopties">
+            <label>Overzicht van</label>
+            <select class="form-control">
+                <option value="Verhalen">Verhalen</option>
+                <option value="Woorden">Woorden</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group maakgrafiek">
+        <div class="col-md-6">
+            <input type="submit" value="Toon Preview" onclick="toonPreview()" class="btn btn-success" />
+            <input id="grafiekOpslaan" type="submit" value="Grafiek Opslaan" onclick="grafiekOpslaan()" class="btn btn-success" disabled />
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -771,7 +771,7 @@
       }*/
 
       class PieClass {
-         constructor(title, serieNaam, content, persoon, id) {
+         constructor(title, serieNaam, content, persoon, id, aantal) {
             this.title = title;
             this.serieNaam = serieNaam;
             this.content = content;
@@ -779,7 +779,8 @@
             this.gewijzigd = '@Model.IsGewijzigd.ToString().ToLower()';
             this.graf = id;
             this.persoon = persoon;
-            this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
+             this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
+             this.aantal = aantal;
          }
       }
 
@@ -806,16 +807,14 @@
                currentPersonen, grafiD)
             break;
          case 'pie':
-            /*var series = [];
-            var waarden = [];
+           var series = [];
+            /* var waarden = [];*/
 
             for (var i = 0; i < pieChart.series[0].userOptions.data.length; i++) {
-               var data = pieChart.series[0].userOptions.data[i];
-               series.push(data.name);
-               waarden.push(data.y);
-            }*/
+               series.push(i);
+            }
 
-            var type;
+              var type;
 
             switch (document.getElementById("typepie").value) {
                case "Overzicht":
@@ -832,7 +831,7 @@
                /*series,
                waarden*/
                type,
-               id, grafiD
+               id, grafiD, series.length
             )
             break;
       }
@@ -1644,133 +1643,132 @@
 </script>
 
 <div class="popup" onclick="/*ClosePopup()*/" style="display: none;">
-   <div class="popup-content">
-      <div class="popup-header">
-         <span class="close" onclick="ClosePopup()">×</span>
-         <h2>Politiekers</h2>
-         <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value="" class="form-control"/>
-      </div>
-      <div class="popup-body">
-         <p id="personenLoading" style="display:block">Personen worden geladen</p>
-         <p id="personenButtons" style="display:none">
-         </p>
-      </div>
-   </div>
+    <div class="popup-content">
+        <div class="popup-header">
+            <span class="close" onclick="ClosePopup()">×</span>
+            <h2>Politiekers</h2>
+            <input type="text" id="filter" onkeyup="filterPersonen(this.value);" value="" class="form-control" />
+        </div>
+        <div class="popup-body">
+            <p id="personenLoading" style="display:block">Personen worden geladen</p>
+            <p id="personenButtons" style="display:none">
+            </p>
+        </div>
+    </div>
 </div>
 
 <div id="loading" class="loading" style="display:none;">
-   <div class="loading-content">
-      <div class="loading-body">
-         <h2>Loading...</h2>
-         <img src="~/Images/dashboard.png" style="width:750px; height:750px;" />
-      </div>
-   </div>
+    <div class="loading-content">
+        <div class="loading-body">
+            <h2>Loading...</h2>
+            <img src="~/Images/dashboard.png" style="width:750px; height:750px;" />
+        </div>
+    </div>
 </div>
 
 
 <style>
-   /*popup
-   ------------------------------------------------------------------*/
+     /*popup
+    ------------------------------------------------------------------*/
 
-   .popup, .loading {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      padding-top: 80px; /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-   }
+     .popup, .loading {
+         display: none; /* Hidden by default */
+         position: fixed; /* Stay in place */
+         z-index: 1; /* Sit on top */
+         padding-top: 80px; /* Location of the box */
+         left: 0;
+         top: 0;
+         width: 100%; /* Full width */
+         height: 100%; /* Full height */
+         overflow: auto; /* Enable scroll if needed */
+         background-color: rgb(0,0,0); /* Fallback color */
+         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+     }
 
-      .loading img 
-      {
-         max-width: 50%;
-         max-height: 50vh;
-      }
+         .loading img {
+             max-width: 50%;
+             max-height: 50vh;
+         }
 
-   .loading {
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-      color: white;
-   }
+     .loading {
+         background-color: rgb(0,0,0); /* Fallback color */
+         background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+         color: white;
+     }
 
-   .popup-content {
-      background-color: #fefefe;
-      margin: auto;
-      border: 1px solid #888;
-      width: 60%;
-      max-width: 500px;
-      border-radius: 6px;
-   }
+     .popup-content {
+         background-color: #fefefe;
+         margin: auto;
+         border: 1px solid #888;
+         width: 60%;
+         max-width: 500px;
+         border-radius: 6px;
+     }
 
-   .popup-header {
-      border-bottom: solid black 1px;
-   }
+     .popup-header {
+         border-bottom: solid black 1px;
+     }
 
-   .popup-body, .loading-body {
-      margin: 10px;
-      text-align: center;
-   }
+     .popup-body, .loading-body {
+         margin: 10px;
+         text-align: center;
+     }
 
-   .popup h2 {
-      font-weight: bold;
-      text-align: center;
-      margin: 20px;
-      margin-bottom: 10px;
-   }
+     .popup h2 {
+         font-weight: bold;
+         text-align: center;
+         margin: 20px;
+         margin-bottom: 10px;
+     }
 
-   /* The Close Button */
-   .close {
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-   }
+     /* The Close Button */
+     .close {
+         color: #aaaaaa;
+         float: right;
+         font-size: 28px;
+         font-weight: bold;
+     }
 
-      .close:hover,
-      .close:focus {
-         color: #000;
-         text-decoration: none;
-         cursor: pointer;
-      }
+         .close:hover,
+         .close:focus {
+             color: #000;
+             text-decoration: none;
+             cursor: pointer;
+         }
 </style>
 
 <script>
-   $('a.popup-button').click(function (event) {
-      event.preventDefault();
-   });
+    $('a.popup-button').click(function (event) {
+        event.preventDefault();
+    });
 
-   function filterPersonen(filter) {
-      var btns = document.getElementsByClassName("btnPersoon");
+    function filterPersonen(filter) {
+        var btns = document.getElementsByClassName("btnPersoon");
 
-      for (var i = 0; i < btns.length; i++) {
-         var btn = btns[i];
-         var val = btn.value.toLowerCase();
-         if (val.includes(filter.toLowerCase())) {
-            btn.style.display = 'inline';
-         } else {
-            btn.style.display = 'none';
-         }
-      }
-   }
+        for (var i = 0; i < btns.length; i++) {
+            var btn = btns[i];
+            var val = btn.value.toLowerCase();
+            if (val.includes(filter.toLowerCase())) {
+                btn.style.display = 'inline';
+            } else {
+                btn.style.display = 'none';
+            }
+        }
+    }
 
-   function ShowPopup() {
-      var popups = document.getElementsByClassName('popup');
+    function ShowPopup() {
+        var popups = document.getElementsByClassName('popup');
 
-      popups[0].style.display = 'block';
-   }
+        popups[0].style.display = 'block';
+    }
 
-   function ClosePopup(event) {
-      filterPersonen("");
-      document.getElementById('filter').value = '';
-      var popups = document.getElementsByClassName('popup');
+    function ClosePopup(event) {
+        filterPersonen("");
+        document.getElementById('filter').value = '';
+        var popups = document.getElementsByClassName('popup');
 
-      for (var i = 0; i < popups.length; i++) {
-         popups[i].style.display = 'none';
-      }
-   }
+        for (var i = 0; i < popups.length; i++) {
+            popups[i].style.display = 'none';
+        }
+    }
 </script>

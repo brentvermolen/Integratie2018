@@ -142,6 +142,12 @@ namespace CA
                 foreach (AlertResultaat res in alertResultaats)
                 {
                     Console.WriteLine("\t" + res.Alert.ID + " van " + res.Gebruiker.Email + ": " + res.Alert.Persoon.Naam + " " + res.Info);
+
+                    if (res.Alert.VerzendMail)
+                    {
+                        AlertMailService service = new AlertMailService(res.Alert);
+                        service.SendMail();
+                    }
                 }
             }
             catch (Exception e)
