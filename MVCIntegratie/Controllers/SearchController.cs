@@ -33,6 +33,9 @@ namespace MVCIntegratie.Controllers
             string startDate = formCollection["startDate"];
             string endDate = formCollection["endDate"];
             string postcode = formCollection["postcode"];
+            if ((formCollection["trending"]) != null){
+                bool trending = Convert.ToBoolean(formCollection["trending"].Split(',')[0]);
+            }
 
             List<Bericht> berichten = new List<Bericht>();
             ZoekResultaat zoekResultaat = new ZoekResultaat();
@@ -178,7 +181,8 @@ namespace MVCIntegratie.Controllers
                     case "Organisatie":
                         {
                             zoekResultaat.Organisaties = zoekOrganisaties(search, startDate, endDate);
-                        }break;
+                        }
+                        break;
                     default:
                         {
                             zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate);
@@ -566,18 +570,18 @@ namespace MVCIntegratie.Controllers
                 else
                 {
                     organisaties.AddRange(berichtMng.getOrganisaties()
-                        .Where(o => o.Naam.ToLower().Contains(wrd.ToLower()) 
-                    && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
-                    && b.Datum < DateTime.Parse(endDate)) != null) !=null 
-                    && o.Personen.Where(p=> p.Postcode.Equals(postcode)) != null)
+                        .Where(o => o.Naam.ToLower().Contains(wrd.ToLower())
+                    && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
+                    && b.Datum < DateTime.Parse(endDate)) != null) != null
+                    && o.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
                           .ToList());
                     List<Persoon> personen = zoekPersonen(search, startDate, endDate, postcode);
                     foreach (Persoon persoon in personen)
                     {
                         List<Organisatie> organTussen = berichtMng.getOrganisaties()
-                            .Where(o => o.Personen.Contains(persoon) 
-                            && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
-                            && b.Datum < DateTime.Parse(endDate)) != null) != null 
+                            .Where(o => o.Personen.Contains(persoon)
+                            && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
+                            && b.Datum < DateTime.Parse(endDate)) != null) != null
                             && o.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
                           .ToList();
                         foreach (Organisatie org in organTussen)
