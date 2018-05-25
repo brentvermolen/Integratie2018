@@ -46,7 +46,7 @@ namespace MVCIntegratie.Controllers
          }
          else
          {
-            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.isDefault == true && g.Deelplatform == platform).ToList();
+            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.isDefault == true && g.Deelplatform.ID == platform.ID).ToList();
 
             Random rand = new Random();
             int max = berichtMng.GetPersonen().ToList().Count;

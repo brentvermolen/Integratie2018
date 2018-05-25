@@ -33,67 +33,78 @@
 </ul>
 
 <div>
-    <div id="wijzigGebruiker" style="display:none">
-        <div>
-            <label id="gebruikerId" style="display:none">ID</label>
-        </div>
-        <div class="row">
-            <div class="col-md-1">
-                <label for="Voornaam">Naam:</label>
-            </div>
-            <div class="col-md-2 admintekstveldjes">
-                <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="" class="form-control" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1">
-                <label for="Achternaam">Achternaam:</label>
-            </div>
-            <div class="col-md-2 admintekstveldjes">
-                <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="" class="form-control" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1">
-                <label for="Email">Email:</label>
-            </div>
-            <div class="col-md-2 admintekstveldjes">
-                <input type="text" id="Email" name="Email" value="" class="form-control" />
-                </div>
-            </div>
-        <div class="row">
-            <div class="col-md-1">
-                <label for="Geboortedatum">Geboortedatum:</label>
-            </div>
-            <div class="col-md-2 admintekstveldjes">
-                <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="" class="form-control" />
-                </div>
-            </div>
-        <div class="row">
-            <div class="col-md-1">
-                <label for="Postcode">Postcode:</label>
-            </div>
-            <div class="col-md-2 admintekstveldjes">
-                <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <label for="isAdmin">Admin:</label>
-                </div>
-                <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
-                <div class="col-md-2 admintekstveldjes">
-                    <select id="isAdmin" name="isAdmin" class="form-control">
-                        <option value="0">Nee</option>
-                        <option value="1">Ja</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row" style="margin:0">
-                <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
-                <input id="antwoordAnnuleren" onclick="gebruikerAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
-            </div>
-        </div>
+   <div id="wijzigGebruiker" style="display:none">
+      <div>
+         <label id="gebruikerId" style="display:none">ID</label>
+      </div>
+      <div class="row">
+         <div class="col-md-1">
+            <label for="Voornaam">Naam:</label>
+         </div>
+         <div class="col-md-2 admintekstveldjes">
+            <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="" class="form-control" />
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-1">
+            <label for="Achternaam">Achternaam:</label>
+         </div>
+         <div class="col-md-2 admintekstveldjes">
+            <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="" class="form-control" />
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-1">
+            <label for="Email">Email:</label>
+         </div>
+         <div class="col-md-2 admintekstveldjes">
+            <input type="text" id="Email" name="Email" value="" class="form-control" />
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-1">
+            <label for="Geboortedatum">Geboortedatum:</label>
+         </div>
+         <div class="col-md-2 admintekstveldjes">
+            <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="" class="form-control" />
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-1">
+            <label for="Postcode">Postcode:</label>
+         </div>
+         <div class="col-md-2 admintekstveldjes">
+            <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="" class="form-control" />
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-md-1">
+            <label for="isAdmin">Deelplatformen:</label>
+         </div>
+         <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
+         <div class="col-md-2 admintekstveldjes">
+            <select id="deelplatformen" name="deelplatformen" class="form-control" onchange="isAdminVan(this.value)">
+            </select>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-1">
+            <label for="isAdmin">Admin:</label>
+         </div>
+         <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
+         <div class="col-md-2 admintekstveldjes">
+            <select id="isAdmin" name="isAdmin" class="form-control">
+               <option value="0">Nee</option>
+               <option value="1">Ja</option>
+            </select>
+         </div>
+      </div>
+      <div class="row" style="margin:0">
+         <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
+         <input id="antwoordAnnuleren" onclick="gebruikerAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
+      </div>
+   </div>
 
 </div>
 
@@ -176,7 +187,16 @@
             document.getElementById("Achternaam").value = data["Achternaam"];
             document.getElementById("Email").value = data["Email"];
             document.getElementById("Geboortedatum").value = data["Geboortedatum"];
-            document.getElementById("Postcode").value = data["Postcode"];
+           document.getElementById("Postcode").value = data["Postcode"];
+           var deelplatformen = data["isAdmin"];
+           var elemDeelplatformen = document.getElementById("deelplatformen");
+           for (var i = 0; i < deelplatformen.length; i++) {
+              elemDeelplatformen.innerHTML = elemDeelplatformen.innerHTML + "<option value='" + i + "'>" + deelplatformen[i]["Naam"] + "</option>"
+           }
+
+           if (deelplatformen.length > 0) {
+              elemDeelplatformen.value = 0;
+           }
             /*if (data["isAdmin"]) {
                document.getElementById("isAdmin").checked = true;
             } else {
