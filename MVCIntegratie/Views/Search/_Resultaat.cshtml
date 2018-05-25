@@ -31,6 +31,7 @@ else
                             </div>
                         </div>
                     </div>
+
                     <div class="panel panel-default panel-help">
                         <a href="#web2" data-toggle="collapse" onclick="woordenklik('aantalwoorden')">
                             <div class="panel-heading row">
@@ -91,6 +92,32 @@ else
                                 {
                                     <div class="col-md-10 url"><a href="@Url.Action("Wijzig", "Graph", new { id = Grafiek.ID }, null)"> @Grafiek.Titel</a></div>
 
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-help">
+                        <a href="#web6" data-toggle="collapse" onclick="organisatieklik('orgpolitiekers')">
+                            <div class="panel-heading row">
+                                <div class="col-md-6"><h2>Organisaties</h2></div><div class="col-md-6"><h2 id="orgpolitiekers" style="display:none">Politiekers</h2></div>
+                            </div>
+                        </a>
+                        <div id="web6" class="row collapse">
+                            <div class="panel-body">
+                                @foreach (var organisatie in Model.Organisaties)
+                                {
+
+                                    <div class="col-md-6">@Html.DisplayFor(modelItem => organisatie.Naam)</div>
+                                    <div class="col-md-6">
+                                        @foreach (var persoon in organisatie.Personen)
+                                        {
+                                            if (Model.Personen.Contains(persoon) || Model.Personen.Count ==0)
+                                            {
+                                                @Html.ActionLink(persoon.Naam, MVC.Persoon.Index(persoon.ID))<br />
+                                            }
+                                        }
+
+                                    </div>
                                 }
                             </div>
                         </div>

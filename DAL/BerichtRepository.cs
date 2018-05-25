@@ -182,6 +182,11 @@ namespace DAL
             return ctx.Organisaties.SingleOrDefault(o => o.ID == organId);
         }
 
+        public IEnumerable<Organisatie> ReadOrganisaties()
+        {
+            return ctx.Organisaties.Include("Personen");
+        }
+
 
 
         public IEnumerable<Bericht> ReadBerichten(System.Linq.Expressions.Expression<Func<Bericht, bool>> predicate)

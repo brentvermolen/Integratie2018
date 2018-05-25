@@ -9,8 +9,7 @@ using BL.Domain;
 using BL.Domain.BerichtKlassen;
 using MVCIntegratie.Models;
 using Microsoft.AspNet.Identity;
-
-
+using BL.Domain.PersoonKlassen;
 
 namespace MVCIntegratie.Controllers
 {
@@ -37,7 +36,7 @@ namespace MVCIntegratie.Controllers
 
             List<Bericht> berichten = new List<Bericht>();
             ZoekResultaat zoekResultaat = new ZoekResultaat();
-            
+
             if (startDate.IsEmpty() || startDate == null)
             {
                 startDate = "2015-01-01";
@@ -84,7 +83,7 @@ namespace MVCIntegratie.Controllers
                     case "Mention":
                         {
 
-                            zoekResultaat.Mentions = zoekMentions(search, startDate, endDate , postcode);
+                            zoekResultaat.Mentions = zoekMentions(search, startDate, endDate, postcode);
 
 
 
@@ -105,6 +104,11 @@ namespace MVCIntegratie.Controllers
 
                         };
                         break;
+                    case "Organisatie":
+                        {
+                            zoekResultaat.Organisaties = zoekOrganisaties(search, startDate, endDate, postcode);
+                        }
+                        break;
                     default:
                         {
                             zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate, postcode);
@@ -113,11 +117,12 @@ namespace MVCIntegratie.Controllers
                             zoekResultaat.Personen = zoekPersonen(search, startDate, endDate, postcode);
                             zoekResultaat.Urls = zoekUrls(search, startDate, endDate, postcode);
                             zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate, postcode);
+                            zoekResultaat.Organisaties = zoekOrganisaties(search, startDate, endDate, postcode);
                         }
                         break;
                 }
             }
-            else 
+            else
             {
 
 
@@ -170,6 +175,10 @@ namespace MVCIntegratie.Controllers
 
                         };
                         break;
+                    case "Organisatie":
+                        {
+                            zoekResultaat.Organisaties = zoekOrganisaties(search, startDate, endDate);
+                        }break;
                     default:
                         {
                             zoekResultaat.Woorden = zoekWoorden(search, startDate, endDate);
@@ -178,6 +187,7 @@ namespace MVCIntegratie.Controllers
                             zoekResultaat.Personen = zoekPersonen(search, startDate, endDate);
                             zoekResultaat.Urls = zoekUrls(search, startDate, endDate);
                             zoekResultaat.Grafieken = zoekGrafieken(search, startDate, endDate);
+                            zoekResultaat.Organisaties = zoekOrganisaties(search, startDate, endDate);
                         }
                         break;
                 }
@@ -244,6 +254,44 @@ namespace MVCIntegratie.Controllers
 
             return woorden;
         }
+        [NonAction]
+        public List<Organisatie> zoekOrganisaties(String search, String startDate, String endDate)
+        {
+            string[] splitSearch = search.Split(' ');
+            List<Organisatie> organisaties = new List<Organisatie>();
+            foreach (string wrd in splitSearch)
+            {
+                if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
+                {
+                    continue;
+                }
+                else
+                {
+                    organisaties.AddRange(berichtMng.getOrganisaties().Where(o => o.Naam.ToLower().Contains(wrd.ToLower()) && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
+                          .ToList());
+                    List<Persoon> personen = zoekPersonen(search, startDate, endDate);
+                    foreach (Persoon persoon in personen)
+                    {
+                        List<Organisatie> organTussen = berichtMng.getOrganisaties().Where(o => o.Personen.Contains(persoon) && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
+                          .ToList();
+                        foreach (Organisatie org in organTussen)
+                        {
+                            if (organisaties.Contains(org))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                organisaties.Add(org);
+                            }
+                        }
+                    }
+                }
+            }
+            return organisaties;
+
+        }
+
         [NonAction]
         public List<Hashtag> zoekHashtags(String search, String startDate, String endDate)
         {
@@ -370,7 +418,7 @@ namespace MVCIntegratie.Controllers
                 {
 
                     woorden.AddRange(berichtMng.GetWoorden().Where(w => w.Tekst.ToLower().Contains(wrd.ToLower()) && w.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null
-                    && w.Berichten.Where(b => b.Personen.Where(p => p.Postcode.Equals(postcode)) !=null)!=null)
+                    && w.Berichten.Where(b => b.Personen.Where(p => p.Postcode.Equals(postcode)) != null) != null)
                          .ToList());
 
 
@@ -461,17 +509,17 @@ namespace MVCIntegratie.Controllers
                 }
                 else
                 {
-                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) 
-                    && g.Titel.ToLower().Contains(wrd.ToLower()) 
-                    && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
+                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId()))
+                    && g.Titel.ToLower().Contains(wrd.ToLower())
+                    && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
                     && b.Datum < DateTime.Parse(endDate)) != null) != null
                     && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
                           .ToList());
                     List<Persoon> personen = zoekPersonen(search, startDate, endDate, postcode);
                     foreach (Persoon persoon in personen)
                     {
-                        List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) 
-                        && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
+                        List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId()))
+                        && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
                         && b.Datum < DateTime.Parse(endDate)) != null) != null
                         && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
                           .ToList();
@@ -497,11 +545,57 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public List<Persoon> zoekPersonen(String search, String startDate, String endDate, string postcode)
         {
-            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()) && p.Postcode.Equals(postcode))
-            /*&& p.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null*/
+            List<Persoon> personen = berichtMng.GetPersonen().Where(p => p.Naam.ToLower().Contains(search.ToLower()) && p.Postcode.Equals(postcode)
+            && p.Berichten.FirstOrDefault(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null)
                           .ToList();
 
             return personen;
+        }
+
+        [NonAction]
+        public List<Organisatie> zoekOrganisaties(String search, String startDate, String endDate, String postcode)
+        {
+            string[] splitSearch = search.Split(' ');
+            List<Organisatie> organisaties = new List<Organisatie>();
+            foreach (string wrd in splitSearch)
+            {
+                if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
+                {
+                    continue;
+                }
+                else
+                {
+                    organisaties.AddRange(berichtMng.getOrganisaties()
+                        .Where(o => o.Naam.ToLower().Contains(wrd.ToLower()) 
+                    && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
+                    && b.Datum < DateTime.Parse(endDate)) != null) !=null 
+                    && o.Personen.Where(p=> p.Postcode.Equals(postcode)) != null)
+                          .ToList());
+                    List<Persoon> personen = zoekPersonen(search, startDate, endDate, postcode);
+                    foreach (Persoon persoon in personen)
+                    {
+                        List<Organisatie> organTussen = berichtMng.getOrganisaties()
+                            .Where(o => o.Personen.Contains(persoon) 
+                            && o.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) 
+                            && b.Datum < DateTime.Parse(endDate)) != null) != null 
+                            && o.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
+                          .ToList();
+                        foreach (Organisatie org in organTussen)
+                        {
+                            if (organisaties.Contains(org))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                organisaties.Add(org);
+                            }
+                        }
+                    }
+                }
+            }
+            return organisaties;
+
         }
 
 
