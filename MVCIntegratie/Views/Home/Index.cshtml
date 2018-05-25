@@ -1,6 +1,5 @@
-@model List<BL.Domain.Grafiek>
-@using BL;
-@using BL.Domain;
+@model MVCIntegratie.Models.HomeModel
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -24,23 +23,10 @@
         </form>
     </div>
 </div>
-@{
-    BerichtManager berichtmng = new BerichtManager();
-    Persoon bart = berichtmng.GetPersoon("Bart De Wever");
-    Persoon guy = berichtmng.GetPersoon("Guy Verhofstadt");
-    Persoon theo = berichtmng.GetPersoon("Theo Francken");
-    Persoon sven = berichtmng.GetPersoon("Sven Gatz");
 
-    List<Persoon> personen = new List<Persoon>();
-    personen.Add(guy);
-    personen.Add(bart);
-    personen.Add(sven);
-    personen.Add(theo);
-
-}
 <div class="container">
     <div class="row" style="text-align:center">
-        @foreach (Persoon p in personen)
+        @foreach (var p in Model.Personen)
         {
             <div class="col-md-2 trend">
                 <h4>@p.Naam</h4>
@@ -65,7 +51,7 @@
                 </div>
             </div>
         </div>
-        @foreach (var grafiek in Model)
+        @foreach (var grafiek in Model.Grafieken)
         {
             <div class="col-sm-6 col-md-6">
                 <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -77,7 +63,7 @@
 
 <script type="text/javascript">
    $(document).ready(function () {
-      @foreach(var grafiek in Model)
+      @foreach(var grafiek in Model.Grafieken)
       {
          <text>
          var elem = document.getElementById('@grafiek.ID');
