@@ -13,12 +13,12 @@ namespace DAL
 
       public List<Deelplatform> ReadDeelplatforms()
       {
-         return ctx.Deelplatformen.ToList();
+         return ctx.Deelplatformen.Include("Gebruikers").Include("Admins").ToList();
       }
 
       public Deelplatform ReadDeelplatform(string deelplatform)
       {
-         return ctx.Deelplatformen.FirstOrDefault(d => d.Naam.Equals(deelplatform));
+         return ctx.Deelplatformen.Include("Gebruikers").Include("Admins").FirstOrDefault(d => d.Naam.Equals(deelplatform));
       }
 
       public Gebruiker ReadGebruiker(int id)
@@ -34,7 +34,7 @@ namespace DAL
 
       public Deelplatform ReadDeelplatform(int id)
       {
-         return ctx.Deelplatformen.Find(id);
+         return ctx.Deelplatformen.Include("Gebruikers").Include("Admins").FirstOrDefault(d => d.ID == id);
       }
 
       public Persoon GetPersoon(string naam)

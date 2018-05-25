@@ -2,7 +2,7 @@
 @using Microsoft.AspNet.Identity;
 
 @{
-    Layout = "";
+   Layout = "";
 }
 <script src="~/Scripts/GebruikerSelect.js"></script>
 <link rel="stylesheet" href="~/Content/Config.css">
@@ -13,23 +13,23 @@
 
 <h2> Kies een gebruiker</h2>
 <ul class="list-group">
-    @foreach (var gebruiker in Model)
-    {
-        <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
-            @gebruiker.UserName
-            @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
+   @foreach (var gebruiker in Model)
+   {
+      <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
+         @gebruiker.UserName
+         @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
+         {
+            if (gebruiker.LockoutEnabled)
             {
-                if (gebruiker.LockoutEnabled)
-                {
-                    <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
-                }
-                else if (!gebruiker.LockoutEnabled)
-                {
-                    <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
-                }
+               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
             }
-        </li>
-    }
+            else if (!gebruiker.LockoutEnabled)
+            {
+               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
+            }
+         }
+      </li>
+   }
 </ul>
 
 <div>
@@ -84,8 +84,7 @@
          </div>
          <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
          <div class="col-md-2 admintekstveldjes">
-            <select id="deelplatformen" name="deelplatformen" class="form-control" onchange="isAdminVan(this.value)">
-            </select>
+            <select id="deelplatformen" name="deelplatformen" class="form-control" onchange="isAdminVan(this.value)"></select>
          </div>
       </div>
       <div class="row">
@@ -99,6 +98,9 @@
                <option value="1">Ja</option>
             </select>
          </div>
+         <div class="col-md-2">
+            <input type="button" onclick="updateAdmin();" class="btn btn-success" value="Update" />
+         </div>
       </div>
       <div class="row" style="margin:0">
          <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
@@ -109,186 +111,207 @@
 </div>
 
 <script>
-    function gebruikerAnnuleren() {
-        document.getElementById("wijzigGebruiker").style.display = "none";
-        var items = document.getElementsByClassName("list-group-item");
+   function updateAdmin() {
+      var platform = document.getElementById("deelplatformen").value;
+      var isAdmin = document.getElementById("isAdmin").value;
+      var bool = "false";
+      if (isAdmin == 1) {
+         bool = "true";
+      }
 
-        for (var i = 0; i < items.length; i++) {
-            items[i].className = items[i].className.replace("active", "");
-        }
-    }
+      $("#deelplatformen option").each(function (name, val) {
+         if (val.value == platform) {
+            changeAdmin(val.text, bool);
+         }
+      });
+   }
 
-    function gebruikerActiveren(id) {
-        var gewijzigde = new GebruikerWijzigen(id, "", false);
-        var jsonG = JSON.stringify(gewijzigde);
+   function changeAdmin(platform, enabled) {
+      var gebruiker = document.getElementById("gebruikerId").innerText;
+      $.ajax("/api/FYI/UpdateAdmin/" + platform + "/" + gebruiker + "/" + enabled, {
+         type: "PUT"
+      }).done(function () {
 
-        var json = '"';
+      }).fail(function () {
 
-        for (var i = 0; i < jsonG.length; i++) {
-            var ch = jsonG.charAt(i);
-            if (ch == '"') {
-                json += "'";
-            } else {
-                json += ch;
-            }
-        }
+      });
+   }
 
-        json += '"';
+   function gebruikerAnnuleren() {
+      document.getElementById("wijzigGebruiker").style.display = "none";
+      var items = document.getElementsByClassName("list-group-item");
 
-        $.ajax('/api/FYI/GebruikerBlokeren', {
-            type: 'POST',
-            contentType: "application/json",
-            accepts: 'application/json',
-            data: json
-        }).done(function () {
-            relocate("gebruikers");
-        }).fail(function () {
-            alert('fail 00000');
-        });
-    }
+      for (var i = 0; i < items.length; i++) {
+         items[i].className = items[i].className.replace("active", "");
+      }
+   }
 
-    function gebruikerBlokeren(id) {
-        var gewijzigde = new GebruikerWijzigen(id, "", false);
-        var jsonG = JSON.stringify(gewijzigde);
+   function gebruikerActiveren(id) {
+      var gewijzigde = new GebruikerWijzigen(id, "", false);
+      var jsonG = JSON.stringify(gewijzigde);
 
-        var json = '"';
+      var json = '"';
 
-        for (var i = 0; i < jsonG.length; i++) {
-            var ch = jsonG.charAt(i);
-            if (ch == '"') {
-                json += "'";
-            } else {
-                json += ch;
-            }
-        }
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
 
-        json += '"';
+      json += '"';
 
-        $.ajax('/api/FYI/GebruikerActiveren', {
-            type: 'POST',
-            contentType: "application/json",
-            accepts: 'application/json',
-            data: json
-        }).done(function () {
-            relocate("gebruikers");
-        }).fail(function () {
-            alert('fail 11111111');
-        });
-    }
+      $.ajax('/api/FYI/GebruikerBlokeren', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function () {
+         relocate("gebruikers");
+      }).fail(function () {
+         alert('fail 00000');
+      });
+   }
 
-    function gebruikerLaden(id) {
-        //var id = document.getElementsByClassName("list-group-item active")[0].id;
-        $.ajax("/api/FYI/GetGebruiker/" + id, {
-            type: 'GET',
-            dataType: 'json'
-        }).done(function (data) {
-            document.getElementById("gebruikerId").innerHTML = data["ID"];
-            document.getElementById("Voornaam").value = data["Voornaam"];
-            document.getElementById("Achternaam").value = data["Achternaam"];
-            document.getElementById("Email").value = data["Email"];
-            document.getElementById("Geboortedatum").value = data["Geboortedatum"];
-           document.getElementById("Postcode").value = data["Postcode"];
-           var deelplatformen = data["isAdmin"];
-           var elemDeelplatformen = document.getElementById("deelplatformen");
-           for (var i = 0; i < deelplatformen.length; i++) {
-              elemDeelplatformen.innerHTML = elemDeelplatformen.innerHTML + "<option value='" + i + "'>" + deelplatformen[i]["Naam"] + "</option>"
-           }
+   function gebruikerBlokeren(id) {
+      var gewijzigde = new GebruikerWijzigen(id, "", false);
+      var jsonG = JSON.stringify(gewijzigde);
 
-           if (deelplatformen.length > 0) {
-              elemDeelplatformen.value = 0;
-           }
-            /*if (data["isAdmin"]) {
-               document.getElementById("isAdmin").checked = true;
-            } else {
-               document.getElementById("isAdmin").checked = false;
-            }*/
-            if (data["isAdmin"]) {
-                document.getElementById("isAdmin").value = 1;
-            } else {
-                document.getElementById("isAdmin").value = 0;
-            }
-            document.getElementById("wijzigGebruiker").style.display = "block";
-        });
-    }
-    class GebruikerWijzigen {
-        constructor(id, email, isAdmin) {
-            this.id = id;
-            this.email = email;
-            this.isAdmin = isAdmin;
-        }
-    }
-    function gebruikerWijzigen() {
-        var id = parseInt(document.getElementById("gebruikerId").innerHTML);
-        var email = document.getElementById("Email").value;
-        var isAdmin;
-        /*if ($('#isAdmin').is(":checked")) {
-           isAdmin = true;
-        } else {
-           isAdmin = false;
-        }*/
-        if (document.getElementById("isAdmin").value == 1) {
-            isAdmin = true;
-        } else {
-            isAdmin = false;
-        }
-        var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
-        var jsonG = JSON.stringify(gewijzigde);
+      var json = '"';
 
-        var json = '"';
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
 
-        for (var i = 0; i < jsonG.length; i++) {
-            var ch = jsonG.charAt(i);
-            if (ch == '"') {
-                json += "'";
-            } else {
-                json += ch;
-            }
-        }
+      json += '"';
 
-        json += '"';
+      $.ajax('/api/FYI/GebruikerActiveren', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function () {
+         relocate("gebruikers");
+      }).fail(function () {
+         alert('fail 11111111');
+      });
+   }
 
-        $.ajax('/api/FYI/GebruikerWijzigen', {
-            type: 'POST',
-            contentType: "application/json",
-            accepts: 'application/json',
-            data: json
-        }).done(function (data) {
-            relocate("gebruikers");
-        }).fail(function () {
-            alert('fail 3333333');
-        });
+   function gebruikerLaden(id) {
+      //var id = document.getElementsByClassName("list-group-item active")[0].id;
+      $.ajax("/api/FYI/GetGebruiker/" + id, {
+         type: 'GET',
+         dataType: 'json'
+      }).done(function (data) {
+         document.getElementById("gebruikerId").innerHTML = data["ID"];
+         document.getElementById("Voornaam").value = data["Voornaam"];
+         document.getElementById("Achternaam").value = data["Achternaam"];
+         document.getElementById("Email").value = data["Email"];
+         document.getElementById("Geboortedatum").value = data["Geboortedatum"];
+         document.getElementById("Postcode").value = data["Postcode"];
+         var deelplatformen = data["Deelplatformen"];
+         var elemDeelplatformen = document.getElementById("deelplatformen");
+         for (var i = 0; i < deelplatformen.length; i++) {
+            elemDeelplatformen.innerHTML = elemDeelplatformen.innerHTML + "<option value='" + i + "'>" + deelplatformen[i]["Naam"] + "</option>"
+         }
 
-    }
+         if (deelplatformen.length > 0) {
+            elemDeelplatformen.value = 0;
+         }
+         /*if (data["isAdmin"]) {
+            document.getElementById("isAdmin").checked = true;
+         } else {
+            document.getElementById("isAdmin").checked = false;
+         }*/
+         document.getElementById("wijzigGebruiker").style.display = "block";
+      });
+   }
+   class GebruikerWijzigen {
+      constructor(id, email, isAdmin) {
+         this.id = id;
+         this.email = email;
+         this.isAdmin = isAdmin;
+      }
+   }
+   function gebruikerWijzigen() {
+      var id = parseInt(document.getElementById("gebruikerId").innerHTML);
+      var email = document.getElementById("Email").value;
+      var isAdmin;
+      /*if ($('#isAdmin').is(":checked")) {
+         isAdmin = true;
+      } else {
+         isAdmin = false;
+      }*/
+      if (document.getElementById("isAdmin").value == 1) {
+         isAdmin = true;
+      } else {
+         isAdmin = false;
+      }
+      var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
+      var jsonG = JSON.stringify(gewijzigde);
 
-    function relocate(extra) {
-        var loc = window.location.href.split('#')[0];
-        window.location.replace(loc + "#" + extra);
-        window.location.reload();
-    }
+      var json = '"';
 
-    function filterGebruiker(filter) {
-        var lis = document.getElementsByClassName("list-group-item");
+      for (var i = 0; i < jsonG.length; i++) {
+         var ch = jsonG.charAt(i);
+         if (ch == '"') {
+            json += "'";
+         } else {
+            json += ch;
+         }
+      }
 
-        for (var i = 0; i < lis.length; i++) {
-            var elem = lis[i];
-            if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
-                elem.style.display = "block";
-            } else {
-                elem.style.display = "none";
-            }
-        }
-    }
+      json += '"';
 
-    $(function () {
-        console.log('ready');
+      $.ajax('/api/FYI/GebruikerWijzigen', {
+         type: 'POST',
+         contentType: "application/json",
+         accepts: 'application/json',
+         data: json
+      }).done(function (data) {
+         relocate("gebruikers");
+      }).fail(function () {
+         alert('fail 3333333');
+      });
 
-        $('.list-group-item').click(function (e) {
-            e.preventDefault()
+   }
 
-            $that = $(this);
+   function relocate(extra) {
+      var loc = window.location.href.split('#')[0];
+      window.location.replace(loc + "#" + extra);
+      window.location.reload();
+   }
 
-            $that.parent().find('li').removeClass('active');
-            $that.addClass('active');
-        });
-    })
+   function filterGebruiker(filter) {
+      var lis = document.getElementsByClassName("list-group-item");
+
+      for (var i = 0; i < lis.length; i++) {
+         var elem = lis[i];
+         if (elem.innerHTML.toLowerCase().includes(filter.toLowerCase())) {
+            elem.style.display = "block";
+         } else {
+            elem.style.display = "none";
+         }
+      }
+   }
+
+   $(function () {
+      console.log('ready');
+
+      $('.list-group-item').click(function (e) {
+         e.preventDefault()
+
+         $that = $(this);
+
+         $that.parent().find('li').removeClass('active');
+         $that.addClass('active');
+      });
+   })
 </script>

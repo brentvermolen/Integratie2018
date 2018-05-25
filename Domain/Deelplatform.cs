@@ -23,8 +23,8 @@ namespace BL.Domain
       public int ID { get; set; }
       public string Naam { get; set; }
 
-      public virtual List<Gebruiker> Gebruikers { get; set; }
-      public virtual List<Gebruiker> Admins { get; set; }
+      public List<Gebruiker> Gebruikers { get; set; }
+      public List<Gebruiker> Admins { get; set; }
 
       public List<FAQ> FAQs { get; set; }
       public List<Contact> Contacts { get; set; }
