@@ -23,11 +23,6 @@
 
 </div>
 
-@using BL
-@{ 
-   var mng = new GrafiekenManager();
-}
-
 <div class="container">
    <div class="row">
       @if (Model.Gebruiker.NoNodebox == false)
@@ -51,7 +46,6 @@
       
       @foreach (var grafiek in Model.Grafieken)
       {
-         mng.CreateGrafiek(grafiek);
          <div class="col-sm-6 col-md-6 content grafiek" data-id="@grafiek.ID" ondrop="drop(event);" ondragover="allowDrop(event);">
             <div style="display:none" class="dragger" title="@grafiek.ID" draggable="true" ondragstart="drag(event);"></div>
             <div id="@grafiek.ID" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

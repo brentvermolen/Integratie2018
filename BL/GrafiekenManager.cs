@@ -28,19 +28,6 @@ namespace BL
          return gs;
       }
 
-      public IEnumerable<Grafiek> GetGrafieken(bool create)
-      {
-         List<Grafiek> gs = repo.ReadGrafieken().ToList();
-         if (create)
-         {
-            for (int i = 0; i < gs.Count; i++)
-            {
-               gs[i] = CreateGrafiek(gs[i]);
-            }
-         }
-         return gs;
-      }
-
       public Grafiek NewGrafiek()
       {
          return repo.CreateGrafiek();

@@ -33,7 +33,7 @@ namespace MVCIntegratie.Controllers
          if (User.Identity.IsAuthenticated)
          {
             int id = int.Parse(User.Identity.GetUserId());
-            List<Grafiek> graf = grafiekenMng.GetGrafieken(false).Where(g => g.Gebruiker.ID == id && g.Deelplatform.ID == platform.ID).ToList();
+            List<Grafiek> graf = grafiekenMng.GetGrafieken().Where(g => g.Gebruiker.ID == id && g.Deelplatform.ID == platform.ID).ToList();
             graf.Sort((g1, g2) => g1.Order.CompareTo(g2.Order));
 
             HomeIngelogdModel model = new HomeIngelogdModel()

@@ -106,6 +106,57 @@ namespace MVCIntegratie.Controllers.Api
 
          return Ok(true);
       }
+
+      [Route("~/api/IngelogdeGebruiker/EnableAlert/{enabled}/{id}")]
+      public IHttpActionResult PutEnableAlert(string enabled, string id)
+      {
+         Alert alert = Alertmng.GetAlert(int.Parse(id));
+
+         if (enabled.Equals("true"))
+         {
+            alert.Ingeschakeld = true;
+         }
+         else if(enabled.Equals("false"))
+         {
+            alert.Ingeschakeld = false;
+         }
+
+         Alertmng.ChangeAlert(alert);
+
+         return Ok(true);
+      }
+
+      [Route("~/api/IngelogdeGebruiker/ChangeVerzendWijze/{wijze}/{enabled}/{id}")]
+      public IHttpActionResult PutEnableAlert(string wijze, string enabled, string id)
+      {
+         Alert alert = Alertmng.GetAlert(int.Parse(id));
+
+         if (enabled.Equals("true"))
+         {
+            if (wijze.Equals("mail"))
+            {
+               alert.VerzendMail = true;
+            }else if (wijze.Equals("browser"))
+            {
+               alert.VerzendBrowser = true;
+            }
+         }
+         else if(enabled.Equals("false"))
+         {
+            if (wijze.Equals("mail"))
+            {
+               alert.VerzendMail = false;
+            }
+            else if (wijze.Equals("browser"))
+            {
+               alert.VerzendBrowser = false;
+            }
+         }
+
+         Alertmng.ChangeAlert(alert);
+
+         return Ok(true);
+      }
    }
 }
 
