@@ -74,164 +74,152 @@ namespace DAL
       }
 
       private void AddFaq(Integratie2018Context context)
+    {
+      FAQ faq1 = new FAQ()
       {
-         FAQ faq1 = new FAQ()
-         {
-            Vraag = "Hoe gebruik ik de website?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Website,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(1)
-         };
+        Vraag = "Hoe gebruik ik de website?",
+        Antwoord = "De website is zo ontworpen dat alles voor zich spreekt. Moest je een specifieke functie niet vinden kan je altijd de admin contacteren. ",
+        Categorie = FAQCategorie.Website,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq2 = new FAQ()
-         {
-            Vraag = "Wat is het doel van deze website?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Website,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(2)
-         };
+      FAQ faq2 = new FAQ()
+      {
+        Vraag = "Wat is het doel van deze website?",
+        Antwoord = "Het doel van de website is om aan de hand van onze dashboards inzicht te geven voor burgers wat er op social media beweegt rond een bepaald maatschappelijk facet.",
+        Categorie = FAQCategorie.Website,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq3 = new FAQ()
-         {
-            Vraag = "Hoe maak ik een nieuwe grafiek aan?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Website,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(1)
-         };
+      FAQ faq3 = new FAQ()
+      {
+        Vraag = "Hoe maak ik een nieuwe grafiek aan?",
+        Antwoord = "Je kan een nieuwe grafiek aanmaken door op de knop 'Nieuwe Grafiek' te klikken",
+        Categorie = FAQCategorie.Website,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq4 = new FAQ()
-         {
-            Vraag = "Hoe pas ik de instellingen van mijn account aan?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Account,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(2)
-         };
+      FAQ faq4 = new FAQ()
+      {
+        Vraag = "Hoe pas ik de instellingen van mijn account aan?",
+        Antwoord = "Dit kan je doen door op de hoofdpagina op de naam van je account te klikken. Zorg eerst dat je bent ingelogd. ",
+        Categorie = FAQCategorie.Account,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq5 = new FAQ()
-         {
-            Vraag = "Hoe log ik in met een multimedia account?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Account,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(1)
-         };
+      FAQ faq5 = new FAQ()
+      {
+        Vraag = "Hoe log ik in met een multimedia account?",
+        Antwoord = "Als je op de knop 'aanmelden' klikt kan je kiezen om in te loggen via Google, Facebook, Twitter en Microsoft.",
+        Categorie = FAQCategorie.Account,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq6 = new FAQ()
-         {
-            Vraag = "Hoe verander ik mijn email adres?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Account,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(2)
-         };
+      FAQ faq6 = new FAQ()
+      {
+        Vraag = "Hoe verander ik mijn email adres?",
+        Antwoord = "Zorg eerst dat je bent ingelogd. Daarna ga je naar accountinstellingen. Hoe je deze benadert vind je in 1 van de andere vragen.",
+        Categorie = FAQCategorie.Account,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq7 = new FAQ()
-         {
-            Vraag = "Hoe verander ik mijn wachtwoord?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Account,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(1)
-         };
+      FAQ faq7 = new FAQ()
+      {
+        Vraag = "Hoe verander ik mijn wachtwoord?",
+        Antwoord = "Net zoals het wijzigen van andere instellingen vind je deze onder account instellingen.",
+        Categorie = FAQCategorie.Account,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq8 = new FAQ()
-         {
-            Vraag = "Hoe pas ik de meldingen aan?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(2)
-         };
+      FAQ faq8 = new FAQ()
+      {
+        Vraag = "Hoe pas ik de meldingen aan?",
+        Antwoord = "De instellingen voor de meldingen vind je onder account instellingen. Hier kies je dan het platform waarvoor je de meldingen wilt wijzigen.",
+        Categorie = FAQCategorie.Notificaties,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq9 = new FAQ()
-         {
-            Vraag = "Hoe kan ik kiezen wat ik via mail wil ontvangen?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(1)
-         };
+      FAQ faq9 = new FAQ()
+      {
+        Vraag = "Hoe kan ik kiezen wat ik via mail wil ontvangen?",
+        Antwoord = "De instellingen voor het ontvangen van mail vind je onder meldingen",
+        Categorie = FAQCategorie.Notificaties,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq10 = new FAQ()
-         {
-            Vraag = "Ik krijg geen meldingen, wat nu?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(2)
-         };
+      FAQ faq10 = new FAQ()
+      {
+        Vraag = "Ik krijg geen meldingen, wat nu?",
+        Antwoord = "Controleer of je meldingen aanstaan. Als dit het geval is kijk na of je email adres juist geschreven is. Voor web notificaties  " +
+         "kijk na of deze aanstaan in je browser. Als je nog steeds geen meldingen krijgt contacteer dan de admin",
+        Categorie = FAQCategorie.Notificaties,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq11 = new FAQ()
-         {
-            Vraag = "Ik wil een melding krijgen via sms?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Notificaties,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(1)
-         };
+      FAQ faq11 = new FAQ()
+      {
+        Vraag = "Ik wil een melding krijgen via sms?",
+        Antwoord = "Helaas is dit type van melding nog niet geimplementeerd. Je kan momenteel via mail, de browser en de app meldingen ontvangen",
+        Categorie = FAQCategorie.Notificaties,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
 
-         FAQ faq12 = new FAQ()
-         {
-            Vraag = "Kan ik ook via mijn gsm aan de website?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Overig,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(2)
-         };
+      FAQ faq12 = new FAQ()
+      {
+        Vraag = "Kan ik ook via mijn gsm de website bereiken?",
+        Antwoord = "Onze website is ook voorzien van een mobiele versie, moest dit niet duidelijk genoeg zijn kan je ook altijd onze app downloaden",
+        Categorie = FAQCategorie.Overig,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq13 = new FAQ()
-         {
-            Vraag = "Waar kan ik de app downloaden?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Overig,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(1)
-         };
+      FAQ faq13 = new FAQ()
+      {
+        Vraag = "Waar kan ik de app downloaden?",
+        Antwoord = "Op onze website vind je de download link voor onze app. Je kan ook via de playstore zoeken naar PolBarometer.",
+        Categorie = FAQCategorie.Overig,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
-         FAQ faq14 = new FAQ()
-         {
-            Vraag = "Ik kan niet registreren?",
-            Antwoord = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nesciunt ut officiis accusantium quisquam minima praesentium, beatae fugit illo nobis fugiat adipisci quia distinctio repellat culpa saepe, optio aperiam est!",
-            Voorbeeld = "Facere, id excepturi iusto aliquid beatae delectus nemo enim, ad saepe nam et.",
-            Categorie = FAQCategorie.Overig,
-            Beantwoord = true,
-            BeantwoordOp = DateTime.Now,
-            Deelplatform = context.Deelplatformen.Find(2)
-         };
+      FAQ faq14 = new FAQ()
+      {
+        Vraag = "Ik kan niet registreren?",
+        Antwoord = "Zorg dat je gegevens correct zijn geschreven. Als je email adres niet klopt zal je geen account kunnen aanmaken.",
+        Categorie = FAQCategorie.Overig,
+        Beantwoord = true,
+        BeantwoordOp = DateTime.Now,
+        DeelplatformID = 1
+      };
 
 
-         context.FAQ.Add(faq1);
+
+      context.FAQ.Add(faq1);
          context.FAQ.Add(faq2);
          context.FAQ.Add(faq3);
          context.FAQ.Add(faq4);
