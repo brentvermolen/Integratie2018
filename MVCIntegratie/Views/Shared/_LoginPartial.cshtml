@@ -7,7 +7,7 @@
     {
         @Html.AntiForgeryToken()
 
-        var naam = User.Identity.GetUserName().Substring(0, User.Identity.GetUserName().IndexOf("@"));
+        var naam = User.Identity.GetUserName();
         <ul class="nav navbar-nav navbar-right">
 
             <li>

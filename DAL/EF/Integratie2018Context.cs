@@ -4,6 +4,7 @@ using BL.Domain.GrafiekKlassen;
 using BL.Domain.IdentityKlassen;
 using BL.Domain.PersoonKlassen;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace DAL
@@ -111,7 +112,13 @@ namespace DAL
 
       public DbSet<Bericht> Berichten { get; set; }
       public DbSet<Woord> Woorden { get; set; }
-      public DbSet<Url> Urls { get; set; }
+
+    internal void AddBerichten(List<Bericht> toeTeVoegen)
+    {
+      throw new NotImplementedException();
+    }
+
+    public DbSet<Url> Urls { get; set; }
       public DbSet<Mention> Mentions { get; set; }
       public DbSet<Hashtag> Hashtags { get; set; }
       public DbSet<Thema> Themas { get; set; }

@@ -10,7 +10,7 @@
    {
       gebruiker = Model.Gebruiker;
 
-      naam = gebruiker.UserName.Substring(0, gebruiker.UserName.IndexOf("@"));
+      naam = gebruiker.UserName;
 
       ViewBag.Title = naam;
    }

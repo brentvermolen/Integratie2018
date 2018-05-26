@@ -48,8 +48,7 @@ namespace MVCIntegratie.Models
 
   public class LoginViewModel
   {
-    [Display(Name = "Email")]
-    [EmailAddress]
+    [Display(Name = "Username")]
     public string Email { get; set; }
 
     [DataType(DataType.Password)]

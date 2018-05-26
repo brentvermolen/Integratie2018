@@ -188,6 +188,7 @@ namespace Links
         }
     
         public static readonly string WijzigGrafiekType_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/WijzigGrafiekType.min.js") ? Url("WijzigGrafiekType.min.js") : Url("WijzigGrafiekType.js");
+        public static readonly string Zoek_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Zoek.min.js") ? Url("Zoek.min.js") : Url("Zoek.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -201,6 +202,7 @@ namespace Links
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
         public static readonly string Config_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Config.min.css") ? Url("Config.min.css") : Url("Config.css");
+        public static readonly string deelplatform_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/deelplatform.min.css") ? Url("deelplatform.min.css") : Url("deelplatform.css");
         public static readonly string faq_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/faq.min.css") ? Url("faq.min.css") : Url("faq.css");
         public static readonly string Layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Layout.min.css") ? Url("Layout.min.css") : Url("Layout.css");
         public static readonly string politici_json = Url("politici.json");
@@ -299,6 +301,7 @@ namespace Links
                 public static readonly string series_label_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/series-label.js"); 
                 public static readonly string TypeGeladen_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/TypeGeladen.js"); 
                 public static readonly string WijzigGrafiekType_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/WijzigGrafiekType.js"); 
+                public static readonly string Zoek_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Zoek.js"); 
             }
         }
         public static partial class Content 
@@ -310,6 +313,7 @@ namespace Links
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
                 public static readonly string Config_css = T4MVCHelpers.ProcessAssetPath("~/Content/Config.css");
+                public static readonly string deelplatform_css = T4MVCHelpers.ProcessAssetPath("~/Content/deelplatform.css");
                 public static readonly string faq_css = T4MVCHelpers.ProcessAssetPath("~/Content/faq.css");
                 public static readonly string Layout_css = T4MVCHelpers.ProcessAssetPath("~/Content/Layout.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");

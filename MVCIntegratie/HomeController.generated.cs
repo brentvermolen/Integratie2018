@@ -63,19 +63,19 @@ namespace MVCIntegratie.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Index()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Search()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search, "https");
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Toevoegen()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Toevoegen, "https");
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Toevoegen);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -168,7 +168,7 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Index(string language, string deelplatform)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
             IndexOverride(callInfo, language, deelplatform);
@@ -181,7 +181,7 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Search(string search, string language, string deelplatform)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "deelplatform", deelplatform);
@@ -195,7 +195,7 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public override System.Web.Mvc.ActionResult Toevoegen(string type, string language)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Toevoegen, "https");
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Toevoegen);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "type", type);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "language", language);
             ToevoegenOverride(callInfo, type, language);
