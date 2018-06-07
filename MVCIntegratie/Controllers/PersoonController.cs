@@ -66,6 +66,9 @@ namespace MVCIntegratie.Controllers
 
             }
 
+            keywoorden.Sort((s1, s2) => s2.Berichten.Count.CompareTo(s1.Berichten.Count));
+            urls.Sort((u1, u2) => u2.Berichten.Count.CompareTo(u2.Berichten.Count));
+
             PersoonModel model = new PersoonModel()
             {
                 Persoon = persoon,
