@@ -364,6 +364,13 @@ namespace MVCIntegratie.Controllers
         {
             string[] splitSearch = search.Split(' ');
             List<Grafiek> grafieken = new List<Grafiek>();
+
+            int userId = -1;
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = int.Parse(User.Identity.GetUserId());
+            }
+
             foreach (string wrd in splitSearch)
             {
                 if (wrd.ToLower().Equals("de") || wrd.ToLower().Equals("van") || wrd.ToLower().Equals("een") || wrd.ToLower().Equals("het"))
@@ -372,7 +379,7 @@ namespace MVCIntegratie.Controllers
                 }
                 else
                 {
-                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) && g.Titel.ToLower().Contains(wrd.ToLower()) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
+                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(userId) && g.Titel.ToLower().Contains(wrd.ToLower()) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
                           .ToList());
                     List<Persoon> personen = zoekPersonen(search, startDate, endDate);
                     foreach (Persoon persoon in personen)
