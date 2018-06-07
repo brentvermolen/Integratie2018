@@ -55,25 +55,20 @@
          }
                 );*/
 </script>
-<h2>Details</h2>
-
 <div>
 
-    <h4>@Model.Persoon.Naam</h4>
+    <h2>@Model.Persoon.Naam</h2>
     <div id="foto"></div>
-    <h1>@Model.Persoon.Berichten.Count</h1>
-    <h5>Politieke Partij</h5>
-    <h6>@Model.Persoon.Organisatie.Naam</h6>
-    <h5>District</h5>
-    <h6>@Model.Persoon.District</h6>
-    <h5>Sociale Media</h5>
+    <h4>Totaal berichten: @Model.Persoon.Berichten.Count</h4>
+    <h4>@Model.Persoon.Organisatie.Naam</h4>
+    <h4>@Model.Persoon.District</h4>
     <p>
-        @Model.Persoon.Twitter<br />
-        @Model.Persoon.Facebook<br />
+        Twitter: @Model.Persoon.Twitter<br />
+        Facebook: @Model.Persoon.Facebook<br />
     </p>
     <hr />
-    <div>
-        <div class="col-md-12"><h5>Vermeldingen per keywoord</h5></div>
+    <div class="row">
+        <div class="col-md-12"><h5><strong>Vermeldingen per keywoord</strong></h5></div>
 
         @foreach (Woord woord in Model.Keywoorden)
         {
@@ -87,15 +82,17 @@
 
 
 
-    <div class="col-md-12">
-        <hr />
-        <h5>Links</h5>
-        <p>
-            @foreach (Url url in Model.Urls)
-            {
-                <a href="@url.Tekst"> @url.Tekst</a><br />
-            }
-        </p>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <h5><strong>Links</strong></h5>
+            <p>
+                @foreach (Url url in Model.Urls)
+                {
+                    <a href="@url.Tekst"> @url.Tekst</a><br />
+                }
+            </p>
+        </div>
     </div>
     <hr />
 </div>

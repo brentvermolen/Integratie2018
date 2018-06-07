@@ -15,17 +15,17 @@
 <ul class="list-group">
    @foreach (var gebruiker in Model)
    {
-      <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
+      <li class="list-group-item gebruiker" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
          @gebruiker.UserName
          @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
          {
             if (gebruiker.LockoutEnabled)
             {
-               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
+               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokkeren(@gebruiker.ID)">User activeren</button>
             }
             else if (!gebruiker.LockoutEnabled)
             {
-               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
+               <button type="button" class="btn btn-danger"  style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
             }
          }
       </li>
@@ -163,7 +163,7 @@
 
       json += '"';
 
-      $.ajax('/api/FYI/GebruikerBlokeren', {
+      $.ajax('/api/FYI/GebruikerActiveren', {
          type: 'POST',
          contentType: "application/json",
          accepts: 'application/json',
@@ -192,7 +192,7 @@
 
       json += '"';
 
-      $.ajax('/api/FYI/GebruikerActiveren', {
+      $.ajax('/api/FYI/GebruikerBlokkeren', {
          type: 'POST',
          contentType: "application/json",
          accepts: 'application/json',
@@ -238,6 +238,7 @@
          this.id = id;
          this.email = email;
          this.isAdmin = isAdmin;
+          this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
       }
    }
    function gebruikerWijzigen() {
@@ -254,6 +255,7 @@
       } else {
          isAdmin = false;
       }
+
       var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
       var jsonG = JSON.stringify(gewijzigde);
 
