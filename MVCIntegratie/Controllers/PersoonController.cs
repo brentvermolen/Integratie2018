@@ -31,13 +31,38 @@ namespace MVCIntegratie.Controllers
 
             grafiek = GrafiekenMng.CreateGrafiek(grafiek);
 
-            
+
             berichten.AddRange(persoon.Berichten);
 
             foreach (Bericht b in berichten)
             {
-                keywoorden.AddRange(b.Woorden);
-                urls.AddRange(b.Urls);
+                foreach (Woord woord in b.Woorden)
+                {
+                    if (keywoorden.Contains(woord))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        keywoorden.Add(woord);
+                    }
+
+                }
+
+                foreach (Url url in b.Urls)
+                {
+                    if (urls.Contains(url))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        urls.Add(url);
+                    }
+
+                }
+
+
 
             }
 
