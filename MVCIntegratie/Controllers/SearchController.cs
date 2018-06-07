@@ -33,7 +33,8 @@ namespace MVCIntegratie.Controllers
             string startDate = formCollection["startDate"];
             string endDate = formCollection["endDate"];
             string postcode = formCollection["postcode"];
-            if ((formCollection["trending"]) != null){
+            if ((formCollection["trending"]) != null)
+            {
                 bool trending = Convert.ToBoolean(formCollection["trending"].Split(',')[0]);
             }
 
@@ -362,6 +363,11 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public List<Grafiek> zoekGrafieken(String search, String startDate, String endDate)
         {
+            int userId = -1;
+            if (this.User.Identity.IsAuthenticated)
+            {
+                userId = int.Parse(this.User.Identity.GetUserId());
+            }
             string[] splitSearch = search.Split(' ');
             List<Grafiek> grafieken = new List<Grafiek>();
             foreach (string wrd in splitSearch)
@@ -372,27 +378,56 @@ namespace MVCIntegratie.Controllers
                 }
                 else
                 {
-                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) && g.Titel.ToLower().Contains(wrd.ToLower()) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
-                          .ToList());
-                    List<Persoon> personen = zoekPersonen(search, startDate, endDate);
-                    foreach (Persoon persoon in personen)
+                    if (userId == -1)
                     {
-                        List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId())) && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
-                          .ToList();
-                        foreach (Grafiek gr in grafiekTussen)
+                        grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.isDefault && g.Titel.ToLower().Contains(wrd.ToLower()) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
+                              .ToList());
+                        List<Persoon> personen = zoekPersonen(search, startDate, endDate);
+                        foreach (Persoon persoon in personen)
                         {
-                            if (grafieken.Contains(gr))
+                            List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => g.isDefault && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
+                              .ToList();
+                            foreach (Grafiek gr in grafiekTussen)
                             {
-                                continue;
+                                if (grafieken.Contains(gr))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    grafieken.Add(gr);
+                                }
                             }
-                            else
-                            {
-                                grafieken.Add(gr);
-                            }
+
+
+
                         }
 
+                    }
+                    else
+                    {
+                        grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => (g.GebruikerId.Equals(userId) || g.isDefault) && g.Titel.ToLower().Contains(wrd.ToLower()) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
+                              .ToList());
+                        List<Persoon> personen = zoekPersonen(search, startDate, endDate);
+                        foreach (Persoon persoon in personen)
+                        {
+                            List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => (g.GebruikerId.Equals(userId) || g.isDefault) && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate) && b.Datum < DateTime.Parse(endDate)) != null) != null)
+                              .ToList();
+                            foreach (Grafiek gr in grafiekTussen)
+                            {
+                                if (grafieken.Contains(gr))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    grafieken.Add(gr);
+                                }
+                            }
 
 
+
+                        }
                     }
                 }
             }
@@ -503,6 +538,11 @@ namespace MVCIntegratie.Controllers
         [NonAction]
         public List<Grafiek> zoekGrafieken(String search, String startDate, String endDate, string postcode)
         {
+            int userId = -1;
+            if (this.User.Identity.IsAuthenticated)
+            {
+                userId = int.Parse(this.User.Identity.GetUserId());
+            }
             string[] splitSearch = search.Split(' ');
             List<Grafiek> grafieken = new List<Grafiek>();
             foreach (string wrd in splitSearch)
@@ -513,34 +553,70 @@ namespace MVCIntegratie.Controllers
                 }
                 else
                 {
-                    grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId()))
-                    && g.Titel.ToLower().Contains(wrd.ToLower())
-                    && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
-                    && b.Datum < DateTime.Parse(endDate)) != null) != null
-                    && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
-                          .ToList());
-                    List<Persoon> personen = zoekPersonen(search, startDate, endDate, postcode);
-                    foreach (Persoon persoon in personen)
+                    if (userId == -1)
                     {
-                        List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => g.GebruikerId.Equals(int.Parse(this.User.Identity.GetUserId()))
-                        && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
-                        && b.Datum < DateTime.Parse(endDate)) != null) != null
-                        && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
-                          .ToList();
-                        foreach (Grafiek gr in grafiekTussen)
+                        grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => g.isDefault
+                       && g.Titel.ToLower().Contains(wrd.ToLower())
+                       && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
+                       && b.Datum < DateTime.Parse(endDate)) != null) != null
+                       && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
+                             .ToList());
+                        List<Persoon> personen = zoekPersonen(search, startDate, endDate, postcode);
+                        foreach (Persoon persoon in personen)
                         {
-                            if (grafieken.Contains(gr))
+                            List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => g.isDefault
+                            && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
+                            && b.Datum < DateTime.Parse(endDate)) != null) != null
+                            && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
+                              .ToList();
+                            foreach (Grafiek gr in grafiekTussen)
                             {
-                                continue;
+                                if (grafieken.Contains(gr))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    grafieken.Add(gr);
+                                }
                             }
-                            else
-                            {
-                                grafieken.Add(gr);
-                            }
+
+
+
                         }
 
+                    }
+                    else
+                    {
+                        grafieken.AddRange(grafiekMng.GetGrafieken().Where(g => (g.GebruikerId.Equals(userId) || g.isDefault)
+                        && g.Titel.ToLower().Contains(wrd.ToLower())
+                        && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
+                        && b.Datum < DateTime.Parse(endDate)) != null) != null
+                        && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
+                              .ToList());
+                        List<Persoon> personen = zoekPersonen(search, startDate, endDate, postcode);
+                        foreach (Persoon persoon in personen)
+                        {
+                            List<Grafiek> grafiekTussen = grafiekMng.GetGrafieken().Where(g => (g.GebruikerId.Equals(userId) || g.isDefault)
+                            && g.Personen.Contains(persoon) && g.Personen.Where(p => p.Berichten.Where(b => b.Datum > DateTime.Parse(startDate)
+                            && b.Datum < DateTime.Parse(endDate)) != null) != null
+                            && g.Personen.Where(p => p.Postcode.Equals(postcode)) != null)
+                              .ToList();
+                            foreach (Grafiek gr in grafiekTussen)
+                            {
+                                if (grafieken.Contains(gr))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    grafieken.Add(gr);
+                                }
+                            }
 
 
+
+                        }
                     }
                 }
             }
