@@ -21,11 +21,11 @@
          {
             if (gebruiker.LockoutEnabled)
             {
-               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokkeren(@gebruiker.ID)">User activeren</button>
+               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
             }
             else if (!gebruiker.LockoutEnabled)
             {
-               <button type="button" class="btn btn-danger"  style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
+               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
             }
          }
       </li>
