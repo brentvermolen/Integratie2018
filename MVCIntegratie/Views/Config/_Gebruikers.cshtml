@@ -2,7 +2,7 @@
 @using Microsoft.AspNet.Identity;
 
 @{
-   Layout = "";
+    Layout = "";
 }
 <script src="~/Scripts/GebruikerSelect.js"></script>
 <link rel="stylesheet" href="~/Content/Config.css">
@@ -13,100 +13,100 @@
 
 <h2> Kies een gebruiker</h2>
 <ul class="list-group">
-   @foreach (var gebruiker in Model)
-   {
-      <li class="list-group-item" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
-         @gebruiker.UserName
-         @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
-         {
-            if (gebruiker.LockoutEnabled)
+    @foreach (var gebruiker in Model)
+    {
+        <li class="list-group-item gebruiker" style="height:55px" id="@gebruiker.ID" onclick="gebruikerLaden(@gebruiker.ID)">
+            @gebruiker.UserName
+            @if (int.Parse(User.Identity.GetUserId()) != gebruiker.ID)
             {
-               <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
+                if (gebruiker.LockoutEnabled)
+                {
+                    <button type="button" class="btn btn-success" style="float:right; height:35px" onclick="gebruikerBlokeren(@gebruiker.ID)">User activeren</button>
+                }
+                else if (!gebruiker.LockoutEnabled)
+                {
+                    <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
+                }
             }
-            else if (!gebruiker.LockoutEnabled)
-            {
-               <button type="button" class="btn btn-danger" style="float:right; height:35px" onclick="gebruikerActiveren(@gebruiker.ID)">User blokeren</button>
-            }
-         }
-      </li>
-   }
+        </li>
+    }
 </ul>
 
 <div>
-   <div id="wijzigGebruiker" style="display:none">
-      <div>
-         <label id="gebruikerId" style="display:none">ID</label>
-      </div>
-      <div class="row">
-         <div class="col-md-1">
-            <label for="Voornaam">Naam:</label>
-         </div>
-         <div class="col-md-2 admintekstveldjes">
-            <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="" class="form-control" />
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-md-1">
-            <label for="Achternaam">Achternaam:</label>
-         </div>
-         <div class="col-md-2 admintekstveldjes">
-            <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="" class="form-control" />
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-md-1">
-            <label for="Email">Email:</label>
-         </div>
-         <div class="col-md-2 admintekstveldjes">
-            <input type="text" id="Email" name="Email" value="" class="form-control" />
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-md-1">
-            <label for="Geboortedatum">Geboortedatum:</label>
-         </div>
-         <div class="col-md-2 admintekstveldjes">
-            <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="" class="form-control" />
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-md-1">
-            <label for="Postcode">Postcode:</label>
-         </div>
-         <div class="col-md-2 admintekstveldjes">
-            <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="" class="form-control" />
-         </div>
-      </div>
+    <div id="wijzigGebruiker" style="display:none">
+        <div>
+            <label id="gebruikerId" style="display:none">ID</label>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Voornaam">Naam:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Voornaam" name="Voornaam" readonly="readonly" value="" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Achternaam">Achternaam:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Achternaam" name="Achternaam" readonly="readonly" value="" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Email">Email:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Email" name="Email" value="" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Geboortedatum">Geboortedatum:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Geboortedatum" name="Geboortedatum" readonly="readonly" value="" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="Postcode">Postcode:</label>
+            </div>
+            <div class="col-md-2 admintekstveldjes">
+                <input type="text" id="Postcode" name="Postcode" readonly="readonly" value="" class="form-control" />
+            </div>
+        </div>
 
-      <div class="row">
-         <div class="col-md-1">
-            <label for="isAdmin">Deelplatformen:</label>
-         </div>
-         <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
-         <div class="col-md-2 admintekstveldjes">
-            <select id="deelplatformen" name="deelplatformen" class="form-control" onchange="isAdminVan(this.value)"></select>
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-md-1">
-            <label for="isAdmin">Admin:</label>
-         </div>
-         <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
-         <div class="col-md-2 admintekstveldjes">
-            <select id="isAdmin" name="isAdmin" class="form-control">
-               <option value="0">Nee</option>
-               <option value="1">Ja</option>
-            </select>
-         </div>
-         <div class="col-md-2">
-            <input type="button" onclick="updateAdmin();" class="btn btn-success" value="Update" />
-         </div>
-      </div>
-      <div class="row" style="margin:0">
-         <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
-         <input id="antwoordAnnuleren" onclick="gebruikerAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
-      </div>
-   </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="isAdmin">Deelplatformen:</label>
+            </div>
+            <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
+            <div class="col-md-2 admintekstveldjes">
+                <select id="deelplatformen" name="deelplatformen" class="form-control" onchange="isAdminVan(this.value)"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="isAdmin">Admin:</label>
+            </div>
+            <!--<input type="checkbox" class="checkbox-inline" value="" checked="checked" id="isAdmin" name="isAdmin">-->
+            <div class="col-md-2 admintekstveldjes">
+                <select id="isAdmin" name="isAdmin" class="form-control">
+                    <option value="0">Nee</option>
+                    <option value="1">Ja</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="button" onclick="updateAdmin();" class="btn btn-success" value="Update" />
+            </div>
+        </div>
+        <div class="row" style="margin:0">
+            <input id="antwoordOpslaan" onclick="gebruikerWijzigen();" class="btn btn-success" type="button" value="Opslaan" />
+            <input id="antwoordAnnuleren" onclick="gebruikerAnnuleren();" class="btn btn-danger" type="button" value="Annuleren" />
+        </div>
+    </div>
 
 </div>
 
@@ -163,7 +163,7 @@
 
       json += '"';
 
-      $.ajax('/api/FYI/GebruikerBlokeren', {
+      $.ajax('/api/FYI/GebruikerBlokkeren', {
          type: 'POST',
          contentType: "application/json",
          accepts: 'application/json',
@@ -238,6 +238,7 @@
          this.id = id;
          this.email = email;
          this.isAdmin = isAdmin;
+          this.deelplatform = '@ViewContext.RouteData.Values["deelplatform"]';
       }
    }
    function gebruikerWijzigen() {
@@ -254,6 +255,7 @@
       } else {
          isAdmin = false;
       }
+
       var gewijzigde = new GebruikerWijzigen(id, email, isAdmin);
       var jsonG = JSON.stringify(gewijzigde);
 
