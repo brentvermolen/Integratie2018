@@ -36,11 +36,26 @@ namespace MVCIntegratie.Controllers
 
             foreach (Bericht b in berichten)
             {
-                keywoorden.AddRange(b.Woorden);
-                urls.AddRange(b.Urls);
+                foreach(Woord w in b.Woorden)
+                {
+                    if (!keywoorden.Contains(w))
+                    {
+                        keywoorden.Add(w);
+                    }
+                }
+                foreach (Url u in b.Urls)
+                {
+                    if (!urls.Contains(u))
+                    {
+                        urls.Add(u);
+                    }
+                }
 
             }
 
+            keywoorden.Sort((w1, w2) => w2.Berichten.Count.CompareTo(w1.Berichten.Count));
+            urls.Sort((u1, u2) => u2.Berichten.Count.CompareTo(u1.Berichten.Count));
+            
             PersoonModel model = new PersoonModel()
             {
                 Persoon = persoon,
